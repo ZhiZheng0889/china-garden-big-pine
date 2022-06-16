@@ -1,0 +1,11 @@
+{
+  "name": "china-garden-big-pine",
+  "version": "1.0.0",
+  "description": "Restaurant ordering application for China Garden Big Pine Restaurant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anthony Mclamb zhizheng",
+  "license": "ISC"
+}
