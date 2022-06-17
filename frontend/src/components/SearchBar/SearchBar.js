@@ -11,7 +11,7 @@ const SearchBar = () => {
           aria-label="Enter Food"
           aria-describedby="basic-addon1"
         />
-        <button class="input-group-text" id="basic-addon1">
+        <button class={`input-group-text ${styles.button}`} id="basic-addon1">
           <i class="fa-regular fa-magnifying-glass"></i>
         </button>
       </div>

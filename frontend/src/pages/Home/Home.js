@@ -21,7 +21,6 @@ const Home = () => {
                 </div>
               </Card>
             </div>
-
             <MainContent />
           </section>
           <aside className="col-4">
