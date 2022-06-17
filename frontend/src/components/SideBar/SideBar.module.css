@@ -1,0 +1,15 @@
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav li {
+  padding-block: 0.4rem;
+}
+
+.nav li:hover,
+.nav li .active {
+  color: var(--color-main);
+  cursor: pointer;
+}
