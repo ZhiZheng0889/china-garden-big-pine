@@ -1,0 +1,7 @@
+.container {
+  display: flex;
+}
+
+.food-item :not(:last-child) {
+  border: solid 2px var(--color-gray);
+}
