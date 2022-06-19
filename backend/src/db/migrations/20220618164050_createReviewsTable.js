@@ -15,13 +15,13 @@ exports.up = function (knex) {
     table
       .foreign('first_name')
       .references('first_name')
-      .inTable('users_profiles')
+      .inTable('users')
       .onDelete('CASCADE');
     table.string('last_name').unsigned().notNullable();
     table
       .foreign('last_name')
       .references('last_name')
-      .inTable('users_profiles')
+      .inTable('users')
       .onDelete('CASCADE');
     table.text('body').nullable();
     table.integer('rating');

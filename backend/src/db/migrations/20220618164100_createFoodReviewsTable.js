@@ -9,7 +9,7 @@ exports.up = function (knex) {
     table
       .foreign('food_id')
       .references('food_id')
-      .inTable('users')
+      .inTable('foods')
       .onDelete('CASCADE');
     table.integer('user_id').unsigned().notNullable();
     table
@@ -19,6 +19,7 @@ exports.up = function (knex) {
       .onDelete('CASCADE');
     table.boolean('like').defaultTo(false);
     table.boolean('dislike').defaultTo(false);
+    table.timestamps(true, true);
   });
 };
 

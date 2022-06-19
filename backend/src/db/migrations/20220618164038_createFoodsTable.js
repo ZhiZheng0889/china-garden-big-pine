@@ -9,7 +9,7 @@ exports.up = function (knex) {
     table.integer('price').notNullable();
     table.string('category').notNullable();
     table.boolean('spicy').defaultTo(0);
-    table.table.timestamps(true, true);
+    table.timestamps(true, true);
   });
 };
 
