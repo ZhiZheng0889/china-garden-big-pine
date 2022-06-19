@@ -2,6 +2,10 @@
   display: flex;
 }
 
-.food-item :not(:last-child) {
-  border: solid 2px var(--color-gray);
+.container:not(:last-child) {
+  border-bottom: solid 1px var(--color-gray);
+}
+
+.description {
+  color: var(--color-gray--dark);
 }

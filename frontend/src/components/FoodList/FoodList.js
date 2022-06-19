@@ -13,7 +13,8 @@ const FoodList = ({ query }) => {
         price: 11.25,
         category: 'chicken',
         spicy: true,
-        review: 4,
+        likes: 4,
+        dislikes: 1,
       },
       {
         food_id: 2,
@@ -22,7 +23,8 @@ const FoodList = ({ query }) => {
         price: 11.25,
         category: 'chicken',
         spicy: true,
-        review: 4.5,
+        likes: 100,
+        dislikes: 4,
       },
     ]);
     return () => {};
@@ -34,11 +36,7 @@ const FoodList = ({ query }) => {
         return <FoodCard key={food.id} food={food} />;
       })) ||
     [];
-  return (
-    <Card>
-      <div className="p-3">{foodsList}</div>
-    </Card>
-  );
+  return <div className="p-3">{foodsList}</div>;
 };
 
 export default FoodList;
