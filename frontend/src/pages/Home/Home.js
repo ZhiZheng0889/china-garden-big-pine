@@ -10,10 +10,10 @@ const Home = () => {
     <div className={styles.main}>
       <div className="container">
         <div className="row">
-          <aside className="col-2">
+          <aside className="d-none d-lg-block col-lg-3 col-xl-2">
             <SideBar />
           </aside>
-          <section className="col-6">
+          <section className="col-12 col-lg-9 col-xl-6">
             <div className="mb-3">
               <Card>
                 <div className="p-3">
@@ -23,7 +23,7 @@ const Home = () => {
             </div>
             <MainContent />
           </section>
-          <aside className="col-4">
+          <aside className="d-none d-xl-block col-xl-4">
             <Checkout />
           </aside>
         </div>

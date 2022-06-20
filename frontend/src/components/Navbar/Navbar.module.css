@@ -54,3 +54,9 @@
 .brand:hover {
   color: var(--color-main);
 }
+
+.cartButton {
+  background-color: var(--color-main);
+  color: var(--color-light);
+  padding: 0.2rem 1rem;
+}
