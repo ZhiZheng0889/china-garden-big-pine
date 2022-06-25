@@ -6,10 +6,15 @@
 
 .nav li {
   padding-block: 0.4rem;
+  text-transform: capitalize;
 }
 
 .nav li:hover,
 .nav li .active {
   color: var(--color-main);
   cursor: pointer;
+}
+
+.active {
+  color: var(--color-main);
 }

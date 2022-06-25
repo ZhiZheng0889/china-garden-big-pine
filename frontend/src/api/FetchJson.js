@@ -1,6 +1,3 @@
-const headers = new Headers();
-headers.append('Content-Type', 'application/json');
-
 export async function fetchJson(url, options, onCancel) {
   try {
     const response = await fetch(url, options);
@@ -9,6 +6,7 @@ export async function fetchJson(url, options, onCancel) {
     }
 
     const payload = await response.json();
+    console.log(payload);
     if (payload.error) {
       return Promise.reject({ message: payload.error });
     }

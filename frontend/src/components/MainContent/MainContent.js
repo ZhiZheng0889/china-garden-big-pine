@@ -2,11 +2,11 @@ import React from 'react';
 import Card from '../Card/Card';
 import MainContentHeader from './MainContentHeader';
 import FoodList from '../FoodList/FoodList';
-const MainContent = () => {
+const MainContent = ({ query }) => {
   return (
     <Card>
       <MainContentHeader />
-      <FoodList />
+      <FoodList query={query} />
     </Card>
   );
 };

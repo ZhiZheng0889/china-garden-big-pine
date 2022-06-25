@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { listFood } from '../../api/FetchFood';
 import Card from '../Card/Card';
 import FoodCard from '../FoodCard/FoodCard';
 const FoodList = ({ query }) => {
@@ -6,28 +7,20 @@ const FoodList = ({ query }) => {
   const [error, setError] = useState(null);
   useEffect(() => {
     setFoods([]);
-    setFoods([
-      {
-        food_id: 1,
-        name: 'Curry Chicken',
-        price: 11.25,
-        category: 'chicken',
-        spicy: true,
-        likes: 4,
-        dislikes: 1,
-      },
-      {
-        food_id: 2,
-        name: 'Chicken with Broccoli',
-        description: 'Chicken and Broccoli served with rice.',
-        price: 11.25,
-        category: 'chicken',
-        spicy: true,
-        likes: 100,
-        dislikes: 4,
-      },
-    ]);
-    return () => {};
+    setError(null);
+    const abortController = new AbortController();
+    (async () => {
+      try {
+        const response = await listFood(
+          query ? { category: query } : {},
+          abortController.signal
+        );
+        setFoods(response);
+      } catch (error) {
+        setError(error);
+      }
+    })();
+    return () => abortController.abort();
   }, [query]);
   console.log(foods);
   const foodsList =

@@ -11,18 +11,8 @@ exports.up = function (knex) {
       .references('user_id')
       .inTable('users')
       .onDelete('CASCADE');
-    table.string('first_name').unsigned().notNullable();
-    table
-      .foreign('first_name')
-      .references('first_name')
-      .inTable('users')
-      .onDelete('CASCADE');
-    table.string('last_name').unsigned().notNullable();
-    table
-      .foreign('last_name')
-      .references('last_name')
-      .inTable('users')
-      .onDelete('CASCADE');
+    table.string('first_name').notNullable();
+    table.string('last_name').notNullable();
     table.text('body').nullable();
     table.integer('rating');
     table.timestamps(true, true);
