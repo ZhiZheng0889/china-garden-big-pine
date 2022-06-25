@@ -9,6 +9,7 @@
   "author": "Anthony Mclamb zhizheng",
   "license": "ISC",
   "dependencies": {
+    "node-pre-gyp": "^0.17.0",
     "react-router-dom": "^6.3.0"
   }
 }
