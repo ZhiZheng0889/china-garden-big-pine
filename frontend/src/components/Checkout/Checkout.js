@@ -6,7 +6,7 @@ const Checkout = ({ cart, setCart }) => {
   return (
     <Card>
       <div className="p-3 border-bottom">
-        <CheckoutList />
+        <CheckoutList cart={cart} setCart={setCart} />
       </div>
       <div className="p-3">
         <CheckoutFooter cart={cart} />

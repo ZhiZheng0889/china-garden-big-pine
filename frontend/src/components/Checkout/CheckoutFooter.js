@@ -14,7 +14,7 @@ const CheckoutFooter = ({ cart }) => {
 
   useEffect(() => {
     console.log(tax, subTotal);
-    const taxAmount = tax * subTotal;
+    const taxAmount = FLORIDA_TAX * subTotal;
     console.log(taxAmount);
     setTax(taxAmount);
     const total = taxAmount + subTotal;
