@@ -5,7 +5,7 @@ import MainContent from '../../components/MainContent/MainContent';
 import styles from './Home.module.css';
 import Card from '../../components/Card/Card';
 import SearchBar from '../../components/SearchBar/SearchBar';
-const Home = () => {
+const Home = ({ cart, setCart }) => {
   const [query, setQuery] = useState('appetizers');
   return (
     <div className={styles.main}>
@@ -22,10 +22,10 @@ const Home = () => {
                 </div>
               </Card>
             </div>
-            <MainContent query={query} />
+            <MainContent query={query} cart={cart} setCart={setCart} />
           </section>
           <aside className="d-none d-xl-block col-xl-4">
-            <Checkout />
+            <Checkout cart={cart} setCart={setCart} />
           </aside>
         </div>
       </div>

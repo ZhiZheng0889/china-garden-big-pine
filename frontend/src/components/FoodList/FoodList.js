@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { listFood } from '../../api/FetchFood';
 import Card from '../Card/Card';
 import FoodCard from '../FoodCard/FoodCard';
-const FoodList = ({ query }) => {
+const FoodList = ({ query, setCart }) => {
   const [foods, setFoods] = useState([]);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -26,7 +26,7 @@ const FoodList = ({ query }) => {
   const foodsList =
     (Array.isArray &&
       foods.map((food) => {
-        return <FoodCard key={food.id} food={food} />;
+        return <FoodCard key={food.id} food={food} setCart={setCart} />;
       })) ||
     [];
   return <div className="p-3">{foodsList}</div>;

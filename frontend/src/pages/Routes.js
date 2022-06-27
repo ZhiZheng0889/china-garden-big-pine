@@ -5,10 +5,10 @@ import Admin from './Admin/Admin';
 import NotFound from './NotFound/NotFound';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
-const PageRoutes = () => {
+const PageRoutes = ({ cart, setCart }) => {
   return (
     <Routes>
-      <Route index element={<Home />} />
+      <Route index element={<Home cart={cart} setCart={setCart} />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />

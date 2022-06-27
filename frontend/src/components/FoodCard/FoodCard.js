@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './FoodCard.module.css';
-const FoodCard = ({ food }) => {
+const FoodCard = ({ food, setCart }) => {
   const {
     food_id,
     name,
@@ -10,7 +10,9 @@ const FoodCard = ({ food }) => {
     spicy,
     description = null,
   } = food;
-
+  const addFood = () => {
+    setCart((prevCart) => [...prevCart, { food_id, name, price, description }]);
+  };
   return (
     <article className={`food-item ${styles.container} pt-2 pb-2`}>
       <div className="details">
@@ -23,7 +25,7 @@ const FoodCard = ({ food }) => {
       </div>
       <div className="ms-auto add">
         <div className="d-flex align-items-center">
-          <button className="btn">
+          <button className="btn" onClick={addFood}>
             <i class="fa-solid fa-plus me-1"></i> Add
           </button>
         </div>
