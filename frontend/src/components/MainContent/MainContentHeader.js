@@ -3,7 +3,7 @@ import MainContentNav from './MainContentNav';
 
 const MainContentHeader = () => {
   return (
-    <header className="border-bottom">
+    <header className="border-bottom p-">
       <div className="d-flex flex-column flex-md-row p-3 border-bottom">
         <div className="w-50">
           <h4>China Garden</h4>

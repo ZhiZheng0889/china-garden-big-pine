@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { listFood } from '../../api/FetchFood';
 import Card from '../Card/Card';
 import FoodCard from '../FoodCard/FoodCard';
-const FoodList = ({ query, setCart }) => {
+const FoodList = ({ query, setCart, error, setError }) => {
   const [foods, setFoods] = useState([]);
-  const [error, setError] = useState(null);
   useEffect(() => {
     setFoods([]);
     setError(null);

@@ -38,7 +38,7 @@ const Navbar = () => {
         </ul>
         <a
           href="#"
-          className={`d-block d-xl-none rounded-pill ${styles.navLink} ${styles.cartButton}`}
+          className={`d-block d-xl-none rounded-pill btn-3d ${styles.navLink} ${styles.cartButton}`}
         >
           <i class="fa-solid fa-cart-shopping me-2"></i> 0
         </a>

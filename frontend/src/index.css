@@ -125,3 +125,16 @@ a {
   transform: translateY(0.4rem);
   transition: 0.1s;
 }
+
+.btn-hovering {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  padding: 0.2rem 1rem;
+  -webkit-box-shadow: 1px 1px 13px 1px rgba(0, 0, 0, 0.18);
+  box-shadow: 1px 1px 13px 1px rgba(0, 0, 0, 0.18);
+  border: none;
+}
+
+.btn-hovering:hover {
+  background-color: var(--color-gray);
+}
