@@ -63,25 +63,13 @@
     "name": "Homemade Iced Tea",
     "price": 1.45,
     "category": "drinks",
-    "size": "small"
-  },
-  {
-    "name": "Homemead Iced Tea",
-    "price": 2.45,
-    "category": "drinks",
-    "size": "large"
+    "options": ["small", "large"]
   },
   {
     "name": "Hot Tea",
     "price": 1.45,
     "category": "drinks",
-    "size": "small"
-  },
-  {
-    "name": "Hot Tea",
-    "price": 2.45,
-    "category": "drinks",
-    "size": "large"
+    "options": ["small", "large"]
   },
   {
     "name": "Fried Noodles",
@@ -141,37 +129,37 @@
     "name": "BBQ Spare Ribs",
     "price": 9.25,
     "category": "appetizers",
-    "size": "small"
+    "options": ["small", "large"]
   },
   {
     "name": "BBQ Spare Ribs",
     "price": 16.25,
     "category": "appetizers",
-    "size": "large"
+    "options": "large"
   },
   {
     "name": "Boneless BBQ Ribs",
     "price": 8.75,
     "category": "appetizers",
-    "size": "small"
+    "options": ["small", "large"]
   },
   {
     "name": "Boneless BBQ Ribs",
     "price": 15.25,
     "category": "appetizers",
-    "size": "large"
+    "options": "large"
   },
   {
     "name": "Chinese Roast Pork",
     "price": 7.55,
     "category": "appetizers",
-    "size": "small"
+    "options": ["small", "large"]
   },
   {
     "name": "Chinese Roast Pork",
     "price": 13.55,
     "category": "appetizers",
-    "size": "large"
+    "options": "large"
   },
   {
     "name": "Fried Wonton",
@@ -218,108 +206,108 @@
     "name": "Steamed Rice",
     "price": 2.55,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Steamed Rice",
     "price": 3.55,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   },
   {
     "name": "Roast Pork Fried Rice",
     "price": 5.75,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Roast Pork Fried Rice",
     "price": 9.25,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   },
   {
     "name": "Vegetables Fried Rice",
     "price": 5.75,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Vegetables Fried Rice",
     "price": 9.25,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   },
   {
     "name": "Chicken Fried Rice",
     "price": 5.75,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Chicken Fried Rice",
     "price": 9.25,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   },
   {
     "name": "Shrimp Fried Rice",
     "price": 6.75,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Shrimp Fried Rice",
     "price": 10.45,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   },
   {
     "name": "Subgum Fried Rice",
     "price": 6.95,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Subgum Fried Rice",
     "price": 10.95,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   },
   {
     "name": "Beef Fried Rice",
     "price": 6.75,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Beef Fried Rice",
     "price": 10.45,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   },
   {
     "name": "Seafood Fried Rice",
     "price": 7.75,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Seafood Fried Rice",
     "price": 13.55,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   },
   {
     "name": "Special Fried Rice",
     "price": 7.47,
     "category": "fried_rice",
-    "size": "pint"
+    "options": "pint"
   },
   {
     "name": "Special Fried Rice",
     "price": 12.95,
     "category": "fried_rice",
-    "size": "quart"
+    "options": "quart"
   }
 ]
