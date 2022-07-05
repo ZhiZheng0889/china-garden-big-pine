@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './FoodCard.module.css';
 const FoodCard = ({ food, setCart }) => {
+  console.log(food);
   const {
     food_id,
     name,
@@ -26,7 +27,7 @@ const FoodCard = ({ food, setCart }) => {
       <div className="ms-auto add">
         <div className="d-flex align-items-center">
           <button className={`rounded-pill btn-hovering`} onClick={addFood}>
-            <i class="fa-solid fa-plus me-1"></i> Add
+            <i className="fa-solid fa-plus me-1"></i> Add
           </button>
         </div>
       </div>

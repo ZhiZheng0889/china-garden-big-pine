@@ -8,6 +8,7 @@ const CheckoutList = ({ cart, setcart }) => {
       <CheckoutListCard
         item={item}
         key={item.name + index}
+        index={index}
         setcart={setcart}
         cart={cart}
       />

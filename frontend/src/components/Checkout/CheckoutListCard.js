@@ -1,8 +1,10 @@
 import React from 'react';
 
-const CheckoutListCard = ({ item, setCart }) => {
-  const { name, price, description, cart } = item;
-  const removeItem = () => {};
+const CheckoutListCard = ({ item, setCart, cart, index }) => {
+  const { name, price, description } = item;
+  const removeItem = () => {
+    setCart((curr) => curr.filter((item, i) => i !== index));
+  };
   return (
     <article className="mb-4">
       <header className="d-flex">

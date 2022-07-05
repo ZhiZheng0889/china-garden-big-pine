@@ -12,7 +12,7 @@ const MainContentHeader = () => {
         <div className="w-50">
           <p className="text-success">We are open</p>
           <p>
-            <i class="fa-solid fa-clock-five"></i> Open Seven Days a Week
+            <i className="fa-solid fa-clock-five"></i> Open Seven Days a Week
           </p>
         </div>
       </div>
