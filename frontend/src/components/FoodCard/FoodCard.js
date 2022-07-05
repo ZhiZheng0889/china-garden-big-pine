@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './FoodCard.module.css';
-const FoodCard = ({ food, setCart }) => {
+const FoodCard = ({ food, setCart, cart }) => {
   console.log(food);
   const {
     food_id,
@@ -14,10 +14,19 @@ const FoodCard = ({ food, setCart }) => {
     options,
   } = food;
   const addFood = () => {
-    if (!options) {
+    const indexOfFood = cart.map((food) => food.food_id).indexOf(food_id);
+    if (indexOfFood !== -1) {
+      const udpatedCart = cart[indexOfFood];
+      udpatedCart.quantity += 1;
+      setCart((prevCart) => [
+        ...prevCart.slice(0, indexOfFood),
+        udpatedCart,
+        ...prevCart.slice(indexOfFood + 1),
+      ]);
+    } else {
       setCart((prevCart) => [
         ...prevCart,
-        { food_id, name, price: price[0], description },
+        { food_id, name, price: price[0], description, quantity: 1 },
       ]);
     }
   };
@@ -37,7 +46,9 @@ const FoodCard = ({ food, setCart }) => {
 
         {description && <p className={styles.description}>{description}</p>}
         <div>
-          <p className="me-2 mb-0">${price}</p>
+          <p className="me-2 mb-0">
+            ${price[0] && Number(price[0]).toFixed(2)}
+          </p>
           <p></p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { listFood } from '../../api/FetchFood';
 import FoodCard from '../FoodCard/FoodCard';
-const FoodList = ({ query, setCart, error, setError }) => {
+const FoodList = ({ query, setCart, error, setError, cart }) => {
   const [foods, setFoods] = useState([]);
   useEffect(() => {
     setFoods([]);
@@ -26,7 +26,14 @@ const FoodList = ({ query, setCart, error, setError }) => {
     <div className="p-3">
       {Array.isArray(foods) && foods.length > 0 ? (
         foods.map((food, index) => {
-          return <FoodCard key={food.food_id} food={food} setCart={setCart} />;
+          return (
+            <FoodCard
+              key={food.food_id}
+              food={food}
+              setCart={setCart}
+              cart={cart}
+            />
+          );
         })
       ) : error ? (
         <p>Unable to retrieve food. Please refresh.</p>

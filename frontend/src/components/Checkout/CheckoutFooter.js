@@ -6,7 +6,7 @@ const CheckoutFooter = ({ cart }) => {
   const [total, setTotal] = useState(0);
   useEffect(() => {
     const cartTotal = cart.reduce(
-      (accumulator, item) => accumulator + item.price,
+      (accumulator, item) => accumulator + item.price * item.quantity,
       0
     );
     setSubTotal(cartTotal);

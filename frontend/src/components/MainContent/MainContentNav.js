@@ -4,7 +4,7 @@ const MainContentNav = () => {
   return (
     <nav className={styles.nav}>
       <ul>
-        <li className="active">Menu</li>
+        <li className={styles.active}>Menu</li>
         <li>Reviews</li>
         <li>Info</li>
       </ul>

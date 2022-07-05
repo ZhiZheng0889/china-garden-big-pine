@@ -14,6 +14,7 @@ const MainContent = ({ query, cart, setCart }) => {
       <FoodList
         query={query}
         setCart={setCart}
+        cart={cart}
         setError={setError}
         error={error}
       />

@@ -6,12 +6,16 @@
 }
 .nav ul li {
   padding: 0.5rem 1rem;
-  border-bottom: 2px transparent;
+  border-bottom: 2px solid rgba(255, 255, 255, 0)255, 255, 255);
 }
 
 .nav ul li:hover,
-.nav ul li.active {
+.active {
   color: var(--color-main);
   cursor: pointer;
   border-bottom: 2px solid var(--color-main);
+}
+
+.active {
+  border-color: var(--color-main);
 }
