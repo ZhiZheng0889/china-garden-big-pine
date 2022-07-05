@@ -24,6 +24,7 @@ a {
 
 body {
   font-family: 'Open Sans', sans-serif;
+  background-color: var(--color-gray);
 }
 
 h1 {
@@ -53,6 +54,10 @@ a {
 
 a {
   color: inherit;
+}
+
+.text-thin {
+  font-weight: 400;
 }
 
 /* Container */

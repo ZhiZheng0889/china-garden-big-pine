@@ -1,313 +1,463 @@
 [
   {
     "name": "Steamed Mixed Vegetables",
-    "price": 9.75,
+    "price": [9.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Chicken With Broccoli",
-    "price": 9.75,
+    "price": [9.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Shrimp with Mixed Vegs",
-    "price": 13.75,
+    "price": [13.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Chicken with Mixed Vegs",
-    "price": 10.75,
+    "price": [10.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Shrimp with Broccoli",
-    "price": 13.75,
+    "price": [13.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Mixed Vegetable & To Fu",
-    "price": 10.75,
+    "price": [10.75],
     "category": "diet_dishes"
   },
   {
     "name": "Bottle Water",
-    "price": 1.6,
+    "price": [1.6],
     "category": "drinks"
   },
   {
     "name": "Coke",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Sprite",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Diet Coke",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Pepsi",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Mountain Dew",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Homemade Iced Tea",
-    "price": 1.45,
+    "price": [1.45, 245],
     "category": "drinks",
-    "options": ["small", "large"]
+    "size": ["small", "large"]
   },
   {
     "name": "Hot Tea",
-    "price": 1.45,
+    "price": [1.45, 245],
     "category": "drinks",
-    "options": ["small", "large"]
+    "size": ["small", "large"]
   },
   {
     "name": "Fried Noodles",
-    "price": 1.25,
+    "price": [1.25],
     "category": "side_orders"
   },
   {
     "name": "Hal Pint of Mustard",
-    "price": 1.75,
+    "price": [1.75],
     "category": "side_orders"
   },
   {
     "name": "Half Pint of Duck Sauce",
-    "price": 1.75,
+    "price": [1.75],
     "category": "side_orders"
   },
   {
     "name": "Half Pint of Garlic Sauce",
-    "price": 1.95,
+    "price": [1.95],
     "category": "side_orders"
   },
   {
     "name": "Half Pint of Hot Chili Sauce",
-    "price": 2.95,
+    "price": [2.95],
     "category": "side_orders"
   },
   {
     "name": "Fortune Cookies",
-    "price": 1.25,
+    "price": [1.25],
     "category": "side_orders"
   },
   {
     "name": "Spring Rolls",
-    "price": 3.75,
+    "price": [3.75],
     "category": "appetizers",
     "amount": 2
   },
   {
     "name": "Vegetable Spring Rolls",
-    "price": 3.75,
+    "price": [3.75],
     "category": "appetizers",
     "amount": 2
   },
   {
     "name": "Egg Rolls",
-    "price": 3.75,
+    "price": [3.75],
     "category": "appetizers",
     "amount": 2
   },
   {
     "name": "Shrimp Toast",
-    "price": 5.75,
+    "price": [5.75],
     "category": "appetizers",
     "amount": 4
   },
   {
     "name": "BBQ Spare Ribs",
-    "price": 9.25,
+    "price": [9.25, 16.25],
     "category": "appetizers",
-    "options": ["small", "large"]
-  },
-  {
-    "name": "BBQ Spare Ribs",
-    "price": 16.25,
-    "category": "appetizers",
-    "options": "large"
+    "size": ["small", "large"]
   },
   {
     "name": "Boneless BBQ Ribs",
-    "price": 8.75,
+    "price": [8.75, 15.25],
     "category": "appetizers",
-    "options": ["small", "large"]
-  },
-  {
-    "name": "Boneless BBQ Ribs",
-    "price": 15.25,
-    "category": "appetizers",
-    "options": "large"
+    "size": ["small", "large"]
   },
   {
     "name": "Chinese Roast Pork",
-    "price": 7.55,
+    "price": [7.55, 13.55],
     "category": "appetizers",
-    "options": ["small", "large"]
-  },
-  {
-    "name": "Chinese Roast Pork",
-    "price": 13.55,
-    "category": "appetizers",
-    "options": "large"
+    "size": ["small", "large"]
   },
   {
     "name": "Fried Wonton",
-    "price": 4.95,
+    "price": [4.95],
     "category": "appetizers",
     "amount": 10
   },
   {
     "name": "Fantail Shrimp",
-    "price": 7.75,
+    "price": [7.75],
     "category": "appetizers",
     "amount": 5
   },
   {
     "name": "Chicken Wing",
-    "price": 7.75,
+    "price": [7.75],
     "category": "appetizers"
   },
   {
     "name": "Fried or Steamed Dumplings",
-    "price": 7.45,
+    "price": [7.45],
     "category": "appetizers",
     "amount": 8,
     "options": ["fried", "steamed"]
   },
   {
     "name": "BBQ Steak",
-    "price": 6.95,
+    "price": [6.95],
     "category": "appetizers",
     "amount": 2
   },
   {
     "name": "Krab Rangoon",
-    "price": 6.55,
+    "price": [6.55],
     "category": "appetizers",
     "amount": 8
   },
   {
     "name": "Pu-Pu Platter",
-    "price": 14.95,
+    "price": [14.95],
     "category": "appetizers"
   },
   {
     "name": "Steamed Rice",
-    "price": 2.55,
+    "price": [2.55, 3.55],
     "category": "fried_rice",
-    "options": "pint"
-  },
-  {
-    "name": "Steamed Rice",
-    "price": 3.55,
-    "category": "fried_rice",
-    "options": "quart"
+    "size": ["pint", "quart"]
   },
   {
     "name": "Roast Pork Fried Rice",
-    "price": 5.75,
+    "price": [5.75, 9.25],
     "category": "fried_rice",
-    "options": "pint"
-  },
-  {
-    "name": "Roast Pork Fried Rice",
-    "price": 9.25,
-    "category": "fried_rice",
-    "options": "quart"
+    "size": ["pint", "quart"]
   },
   {
     "name": "Vegetables Fried Rice",
-    "price": 5.75,
+    "price": [5.75, 9.25],
     "category": "fried_rice",
-    "options": "pint"
-  },
-  {
-    "name": "Vegetables Fried Rice",
-    "price": 9.25,
-    "category": "fried_rice",
-    "options": "quart"
+    "size": ["pint", "quart"]
   },
   {
     "name": "Chicken Fried Rice",
-    "price": 5.75,
+    "price": [5.75, 9.25],
     "category": "fried_rice",
-    "options": "pint"
-  },
-  {
-    "name": "Chicken Fried Rice",
-    "price": 9.25,
-    "category": "fried_rice",
-    "options": "quart"
+    "size": ["pint", "quart"]
   },
   {
     "name": "Shrimp Fried Rice",
-    "price": 6.75,
+    "price": [6.75, 10.45],
     "category": "fried_rice",
-    "options": "pint"
-  },
-  {
-    "name": "Shrimp Fried Rice",
-    "price": 10.45,
-    "category": "fried_rice",
-    "options": "quart"
+    "size": ["pint", "quart"]
   },
   {
     "name": "Subgum Fried Rice",
-    "price": 6.95,
+    "price": [6.95, 10.95],
     "category": "fried_rice",
-    "options": "pint"
-  },
-  {
-    "name": "Subgum Fried Rice",
-    "price": 10.95,
-    "category": "fried_rice",
-    "options": "quart"
+    "size": ["pint", "quart"]
   },
   {
     "name": "Beef Fried Rice",
-    "price": 6.75,
+    "price": [6.75, 10.45],
     "category": "fried_rice",
-    "options": "pint"
-  },
-  {
-    "name": "Beef Fried Rice",
-    "price": 10.45,
-    "category": "fried_rice",
-    "options": "quart"
+    "size": ["pint", "quart"]
   },
   {
     "name": "Seafood Fried Rice",
-    "price": 7.75,
+    "price": [7.75, 13.55],
     "category": "fried_rice",
-    "options": "pint"
-  },
-  {
-    "name": "Seafood Fried Rice",
-    "price": 13.55,
-    "category": "fried_rice",
-    "options": "quart"
+    "size": ["pint", "quart"]
   },
   {
     "name": "Special Fried Rice",
-    "price": 7.47,
+    "price": [7.45, 12.95],
     "category": "fried_rice",
-    "options": "pint"
+    "size": ["pint", "quart"]
   },
   {
-    "name": "Special Fried Rice",
-    "price": 12.95,
-    "category": "fried_rice",
-    "options": "quart"
+    "name": "Wonton Soup",
+    "price": [2.65, 3.95],
+    "category": "soup",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Egg Drop Soup",
+    "price": [2.65, 3.95],
+    "category": "soup",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Chicken Rice or Noodles",
+    "price": [2.65, 3.95],
+    "category": "soup",
+    "size": ["pint", "quart"],
+    "options": ["rice", "noodles"]
+  },
+  {
+    "name": "Hot and Sourt Soup",
+    "price": [3.65, 6.25],
+    "category": "soup",
+    "size": ["pint", "quart"],
+    "spicy": true
+  },
+  {
+    "name": "Subgum Wonton Soup",
+    "price": [9.25],
+    "category": "soup"
+  },
+  {
+    "name": "Vegetable Soup",
+    "price": [6.25],
+    "category": "soup"
+  },
+  {
+    "name": "Vegetables Lo Mein or Chow Mei Fun",
+    "price": [9.85],
+    "category": "lo_mein_or_chow_mei_fun",
+    "options": ["lo mein", "chow mei fun"]
+  },
+  {
+    "name": "Roast Prok Lo Mein or Chow Mei Fun",
+    "price": [9.85],
+    "category": "lo_mein_or_chow_mei_fun",
+    "options": ["lo mein", "chow mei fun"]
+  },
+  {
+    "name": "Chicken Lo Mein or Chow Mei Fun",
+    "price": [9.85],
+    "category": "lo_mein_or_chow_mei_fun",
+    "options": ["lo mein", "chow mei fun"]
+  },
+  {
+    "name": "Shrimp Lo Mein or Chow Mei Fun",
+    "price": [11.25],
+    "category": "lo_mein_or_chow_mei_fun",
+    "options": ["lo mein", "chow mei fun"]
+  },
+  {
+    "name": "Beef Lo Mein or Chow Mei Fun",
+    "price": [11.25],
+    "category": "lo_mein_or_chow_mei_fun",
+    "options": ["lo mein", "chow mei fun"]
+  },
+  {
+    "name": "Seafood Lo Mein or Chow Mei Fun",
+    "price": [13.45],
+    "category": "lo_mein_or_chow_mei_fun",
+    "options": ["lo mein", "chow mei fun"]
+  },
+  {
+    "name": "China Garden Lo Mein or Chow Mei Fun",
+    "price": [12.55],
+    "category": "lo_mein_or_chow_mei_fun",
+    "options": ["lo mein", "chow mei fun"]
+  },
+  {
+    "name": "Chicken Chow Mein",
+    "price": [6.25, 10.25],
+    "category": "chow_mein",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Roast Prok Chow Mein",
+    "price": [6.25, 10.25],
+    "category": "chow_mein",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Vegetable Chow Mein",
+    "price": [6.25, 10.25],
+    "category": "chow_mein",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Fresh Shrimp Chow Mein",
+    "price": [7.25, 11.75],
+    "category": "chow_mein",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Beef Chow Mein",
+    "price": [7.25, 11.75],
+    "category": "chow_mein",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "China Garden Chow Mein",
+    "price": [7.75, 13.45],
+    "category": "chow_mein",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Roast Pork Egg Foo Young",
+    "description": "With White Rice",
+    "price": [9.75],
+    "category": "egg_foo_young"
+  },
+  {
+    "name": "Vegetables Egg Foo Young",
+    "description": "With White Rice",
+    "price": [9.75],
+    "category": "egg_foo_young"
+  },
+  {
+    "name": "Shrimp Egg Foo Young",
+    "description": "With White Rice",
+    "price": [10.45],
+    "category": "egg_foo_young"
+  },
+  {
+    "name": "Chicken Egg Foo Young",
+    "description": "With White Rice",
+    "price": [9.75],
+    "category": "egg_foo_young"
+  },
+  {
+    "name": "Ham Egg Foo Young",
+    "description": "With White Rice",
+    "price": [10.45],
+    "category": "egg_foo_young"
+  },
+  {
+    "name": "China Garden Egg Foo Young",
+    "description": "With White Rice",
+    "price": [11.45],
+    "category": "egg_foo_young"
+  },
+  {
+    "name": "Chicken Chop Suey",
+    "description": "With White Rice",
+    "price": [6.25, 10.25],
+    "category": "chop_suey",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Roast Prok Chop Suey",
+    "description": "With White Rice",
+    "price": [6.25, 10.25],
+    "category": "chop_suey",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Shrimp Chop Suey",
+    "description": "With White Rice",
+    "price": [7.25, 11.75],
+    "category": "chop_suey",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Beef Chop Suey",
+    "description": "With White Rice",
+    "price": [7.25, 11.75],
+    "category": "chop_suey",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Vegetables Chop Suey",
+    "description": "With White Rice",
+    "price": [6.25, 10.25],
+    "category": "chop_suey",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Seafood Chop Suey",
+    "description": "With White Rice",
+    "price": [8.45, 14.45],
+    "category": "chop_suey",
+    "size": ["pint", "quart"]
+  },
+  {
+    "name": "Honey Chicken",
+    "description": "With White Rice",
+    "price": [11.45],
+    "category": "sweet_and_sour"
+  },
+  {
+    "name": "Sweet & Sour Pork",
+    "description": "With White Rice",
+    "price": [11.25],
+    "category": "sweet_and_sour"
+  },
+  {
+    "name": "Sweet & Sour Shrimp",
+    "description": "With White Rice",
+    "price": [11.95],
+    "category": "sweet_and_sour"
+  },
+  {
+    "name": "Sweet & Sour Chicken",
+    "description": "With White Rice",
+    "price": [11.25],
+    "category": "sweet_and_sour"
+  },
+  {
+    "name": "Sweet & Sour Supreme (Shrimp & Pork & Chicken)",
+    "description": "With White Rice",
+    "price": [11.95],
+    "category": "sweet_and_sour"
   }
 ]

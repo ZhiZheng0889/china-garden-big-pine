@@ -10,14 +10,31 @@ const FoodCard = ({ food, setCart }) => {
     dislikes = null,
     spicy,
     description = null,
+    amount = null,
+    options,
   } = food;
   const addFood = () => {
-    setCart((prevCart) => [...prevCart, { food_id, name, price, description }]);
+    if (!options) {
+      setCart((prevCart) => [
+        ...prevCart,
+        { food_id, name, price: price[0], description },
+      ]);
+    }
   };
+  console.log(food);
   return (
     <article className={`food-item ${styles.container} pt-2 pb-2`}>
       <div className="details">
-        <h5>{name}</h5>
+        <div className="d-flex">
+          {spicy && <p>🌶</p>}
+          <h5>
+            {name}
+            {amount && (
+              <span className=" ms-2 text-muted text-thin">({amount})</span>
+            )}
+          </h5>
+        </div>
+
         {description && <p className={styles.description}>{description}</p>}
         <div>
           <p className="me-2 mb-0">${price}</p>

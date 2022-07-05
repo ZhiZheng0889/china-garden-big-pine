@@ -13,7 +13,7 @@ const FoodList = ({ query, setCart, error, setError }) => {
           query ? { category: query } : {},
           abortController.signal
         );
-        console.log(response);
+
         setFoods(response);
       } catch (error) {
         setError(error);
@@ -31,8 +31,10 @@ const FoodList = ({ query, setCart, error, setError }) => {
       ) : error ? (
         <p>Unable to retrieve food. Please refresh.</p>
       ) : (
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
         </div>
       )}
     </div>
