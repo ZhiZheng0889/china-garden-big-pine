@@ -13,8 +13,10 @@
 .nav li .active {
   color: var(--color-main);
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .active {
   color: var(--color-main);
+  text-decoration: underline;
 }
