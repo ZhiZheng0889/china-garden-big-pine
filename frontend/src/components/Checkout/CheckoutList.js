@@ -1,15 +1,14 @@
 import React from 'react';
 import CheckoutListCard from './CheckoutListCard';
 import styles from './CheckoutList.module.css';
-const CheckoutList = ({ cart, setcart }) => {
+const CheckoutList = ({ cart, setCart }) => {
   const cartList = cart.map((item, index) => {
-    console.log(item);
     return (
       <CheckoutListCard
         item={item}
         key={item.name + index}
         index={index}
-        setcart={setcart}
+        setCart={setCart}
         cart={cart}
       />
     );

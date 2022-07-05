@@ -14,7 +14,7 @@ const CheckoutListCard = ({ item, setCart, cart, index }) => {
       <main>{description}</main>
       <div className="d-flex">
         <button
-          className="rounded-pill btn-hovering ms-auto"
+          className="rounded-pill btn-hovering border ms-auto"
           onClick={removeItem}
         >
           Remove

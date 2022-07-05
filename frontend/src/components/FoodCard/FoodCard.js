@@ -26,7 +26,10 @@ const FoodCard = ({ food, setCart }) => {
       </div>
       <div className="ms-auto add">
         <div className="d-flex align-items-center">
-          <button className={`rounded-pill btn-hovering`} onClick={addFood}>
+          <button
+            className={`rounded-pill btn-hovering border`}
+            onClick={addFood}
+          >
             <i className="fa-solid fa-plus me-1"></i> Add
           </button>
         </div>

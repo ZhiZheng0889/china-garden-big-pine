@@ -21,14 +21,13 @@ const FoodList = ({ query, setCart, error, setError }) => {
     })();
     return () => abortController.abort();
   }, [query]);
-  const foodsList = foods.map((food, index) => {
-    console.log(food);
-    return <FoodCard key={food.food_id} food={food} setCart={setCart} />;
-  });
+
   return (
     <div className="p-3">
-      {foods.length > 0 ? (
-        { foodsList }
+      {Array.isArray(foods) && foods.length > 0 ? (
+        foods.map((food, index) => {
+          return <FoodCard key={food.food_id} food={food} setCart={setCart} />;
+        })
       ) : error ? (
         <p>Unable to retrieve food. Please refresh.</p>
       ) : (

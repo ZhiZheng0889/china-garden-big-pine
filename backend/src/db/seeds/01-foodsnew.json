@@ -1,62 +1,62 @@
 [
   {
     "name": "Steamed Mixed Vegetables",
-    "price": 9.75,
+    "price": [9.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Chicken With Broccoli",
-    "price": 9.75,
+    "price": [9.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Shrimp with Mixed Vegs",
-    "price": 13.75,
+    "price": [13.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Chicken with Mixed Vegs",
-    "price": 10.75,
+    "price": [10.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Shrimp with Broccoli",
-    "price": 13.75,
+    "price": [13.75],
     "category": "diet_dishes"
   },
   {
     "name": "Steamed Mixed Vegetable & To Fu",
-    "price": 10.75,
+    "price": [10.75],
     "category": "diet_dishes"
   },
   {
     "name": "Bottle Water",
-    "price": 1.6,
+    "price": [1.6],
     "category": "drinks"
   },
   {
     "name": "Coke",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Sprite",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Diet Coke",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Pepsi",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
     "name": "Mountain Dew",
-    "price": 1.45,
+    "price": [1.45],
     "category": "drinks"
   },
   {
@@ -73,55 +73,55 @@
   },
   {
     "name": "Fried Noodles",
-    "price": 1.25,
+    "price": [1.25],
     "category": "side_orders"
   },
   {
     "name": "Hal Pint of Mustard",
-    "price": 1.75,
+    "price": [1.75],
     "category": "side_orders"
   },
   {
     "name": "Half Pint of Duck Sauce",
-    "price": 1.75,
+    "price": [1.75],
     "category": "side_orders"
   },
   {
     "name": "Half Pint of Garlic Sauce",
-    "price": 1.95,
+    "price": [1.95],
     "category": "side_orders"
   },
   {
     "name": "Half Pint of Hot Chili Sauce",
-    "price": 2.95,
+    "price": [2.95],
     "category": "side_orders"
   },
   {
     "name": "Fortune Cookies",
-    "price": 1.25,
+    "price": [1.25],
     "category": "side_orders"
   },
   {
     "name": "Spring Rolls",
-    "price": 3.75,
+    "price": [3.75],
     "category": "appetizers",
     "amount": 2
   },
   {
     "name": "Vegetable Spring Rolls",
-    "price": 3.75,
+    "price": [3.75],
     "category": "appetizers",
     "amount": 2
   },
   {
     "name": "Egg Rolls",
-    "price": 3.75,
+    "price": [3.75],
     "category": "appetizers",
     "amount": 2
   },
   {
     "name": "Shrimp Toast",
-    "price": 5.75,
+    "price": [5.75],
     "category": "appetizers",
     "amount": 4
   },
@@ -145,43 +145,43 @@
   },
   {
     "name": "Fried Wonton",
-    "price": 4.95,
+    "price": [4.95],
     "category": "appetizers",
     "amount": 10
   },
   {
     "name": "Fantail Shrimp",
-    "price": 7.75,
+    "price": [7.75],
     "category": "appetizers",
     "amount": 5
   },
   {
     "name": "Chicken Wing",
-    "price": 7.75,
+    "price": [7.75],
     "category": "appetizers"
   },
   {
     "name": "Fried or Steamed Dumplings",
-    "price": 7.45,
+    "price": [7.45],
     "category": "appetizers",
     "amount": 8,
     "options": ["fried", "steamed"]
   },
   {
     "name": "BBQ Steak",
-    "price": 6.95,
+    "price": [6.95],
     "category": "appetizers",
     "amount": 2
   },
   {
     "name": "Krab Rangoon",
-    "price": 6.55,
+    "price": [6.55],
     "category": "appetizers",
     "amount": 8
   },
   {
     "name": "Pu-Pu Platter",
-    "price": 14.95,
+    "price": [14.95],
     "category": "appetizers"
   },
   {
@@ -266,53 +266,53 @@
   },
   {
     "name": "Subgum Wonton Soup",
-    "price": 9.25,
+    "price": [9.25],
     "category": "soup"
   },
   {
     "name": "Vegetable Soup",
-    "price": 6.25,
+    "price": [6.25],
     "category": "soup"
   },
   {
     "name": "Vegetables Lo Mein or Chow Mei Fun",
-    "price": 9.85,
+    "price": [9.85],
     "category": "lo_mein_or_chow_mei_fun",
     "options": ["lo mein", "chow mei fun"]
   },
   {
     "name": "Roast Prok Lo Mein or Chow Mei Fun",
-    "price": 9.85,
+    "price": [9.85],
     "category": "lo_mein_or_chow_mei_fun",
     "options": ["lo mein", "chow mei fun"]
   },
   {
     "name": "Chicken Lo Mein or Chow Mei Fun",
-    "price": 9.85,
+    "price": [9.85],
     "category": "lo_mein_or_chow_mei_fun",
     "options": ["lo mein", "chow mei fun"]
   },
   {
     "name": "Shrimp Lo Mein or Chow Mei Fun",
-    "price": 11.25,
+    "price": [11.25],
     "category": "lo_mein_or_chow_mei_fun",
     "options": ["lo mein", "chow mei fun"]
   },
   {
     "name": "Beef Lo Mein or Chow Mei Fun",
-    "price": 11.25,
+    "price": [11.25],
     "category": "lo_mein_or_chow_mei_fun",
     "options": ["lo mein", "chow mei fun"]
   },
   {
     "name": "Seafood Lo Mein or Chow Mei Fun",
-    "price": 13.45,
+    "price": [13.45],
     "category": "lo_mein_or_chow_mei_fun",
     "options": ["lo mein", "chow mei fun"]
   },
   {
     "name": "China Garden Lo Mein or Chow Mei Fun",
-    "price": 12.55,
+    "price": [12.55],
     "category": "lo_mein_or_chow_mei_fun",
     "options": ["lo mein", "chow mei fun"]
   },
@@ -355,37 +355,37 @@
   {
     "name": "Roast Pork Egg Foo Young",
     "description": "With White Rice",
-    "price": 9.75,
+    "price": [9.75],
     "category": "egg_foo_young"
   },
   {
     "name": "Vegetables Egg Foo Young",
     "description": "With White Rice",
-    "price": 9.75,
+    "price": [9.75],
     "category": "egg_foo_young"
   },
   {
     "name": "Shrimp Egg Foo Young",
     "description": "With White Rice",
-    "price": 10.45,
+    "price": [10.45],
     "category": "egg_foo_young"
   },
   {
     "name": "Chicken Egg Foo Young",
     "description": "With White Rice",
-    "price": 9.75,
+    "price": [9.75],
     "category": "egg_foo_young"
   },
   {
     "name": "Ham Egg Foo Young",
     "description": "With White Rice",
-    "price": 10.45,
+    "price": [10.45],
     "category": "egg_foo_young"
   },
   {
     "name": "China Garden Egg Foo Young",
     "description": "With White Rice",
-    "price": 11.45,
+    "price": [11.45],
     "category": "egg_foo_young"
   },
   {
@@ -433,31 +433,31 @@
   {
     "name": "Honey Chicken",
     "description": "With White Rice",
-    "price": 11.45,
+    "price": [11.45],
     "category": "sweet_and_sour"
   },
   {
     "name": "Sweet & Sour Pork",
     "description": "With White Rice",
-    "price": 11.25,
+    "price": [11.25],
     "category": "sweet_and_sour"
   },
   {
     "name": "Sweet & Sour Shrimp",
     "description": "With White Rice",
-    "price": 11.95,
+    "price": [11.95],
     "category": "sweet_and_sour"
   },
   {
     "name": "Sweet & Sour Chicken",
     "description": "With White Rice",
-    "price": 11.25,
+    "price": [11.25],
     "category": "sweet_and_sour"
   },
   {
     "name": "Sweet & Sour Supreme (Shrimp & Pork & Chicken)",
     "description": "With White Rice",
-    "price": 11.95,
+    "price": [11.95],
     "category": "sweet_and_sour"
   }
 ]
