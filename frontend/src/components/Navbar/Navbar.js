@@ -4,7 +4,7 @@ import OffCanvasButton from '../OffCanvasNav/OffCanvasButton';
 import OffCanvasNav from '../OffCanvasNav/OffCanvasNav';
 import styles from './Navbar.module.css';
 
-const Navbar = () => {
+const Navbar = ({ cart }) => {
   return (
     <nav
       className={`fixed-top navbar-light bg-light border-bottom ${styles.navbar}`}
@@ -40,7 +40,8 @@ const Navbar = () => {
           href="#"
           className={`d-block d-xl-none rounded-pill btn-3d ${styles.navLink} ${styles.cartButton}`}
         >
-          <i className="fa-solid fa-cart-shopping me-2"></i> 0
+          <i className="fa-solid fa-cart-shopping me-2"></i>{' '}
+          {cart.reduce((acc, food) => acc + food.quantity, 0)}
         </a>
       </div>
     </nav>
