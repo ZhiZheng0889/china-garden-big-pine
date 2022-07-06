@@ -60,3 +60,20 @@
   color: var(--color-light);
   padding: 0.2rem 1rem;
 }
+
+.modal {
+  position: absolute;
+  top: 180%;
+  right: 0%;
+  width: 20rem;
+  height: 40rem;
+}
+
+.modal article {
+  width: 100%;
+  height: 100%;
+}
+
+.modalContainer {
+  position: relative;
+}

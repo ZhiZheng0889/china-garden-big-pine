@@ -2,17 +2,19 @@ import React from 'react';
 import CheckoutListCard from './CheckoutListCard';
 import styles from './CheckoutList.module.css';
 const CheckoutList = ({ cart, setCart }) => {
-  const cartList = cart.map((item, index) => {
-    return (
-      <CheckoutListCard
-        item={item}
-        key={item.name + index}
-        index={index}
-        setCart={setCart}
-        cart={cart}
-      />
-    );
-  });
+  const cartList =
+    Array.isArray(cart) &&
+    cart.map((item, index) => {
+      return (
+        <CheckoutListCard
+          item={item}
+          key={item.name + index}
+          index={index}
+          setCart={setCart}
+          cart={cart}
+        />
+      );
+    });
   if (cartList.length > 0) {
     return <ul className={styles.list}>{cartList}</ul>;
   }

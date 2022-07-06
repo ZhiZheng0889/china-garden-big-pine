@@ -4,11 +4,15 @@ const CheckoutFooter = ({ cart }) => {
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(FLORIDA_TAX);
   const [total, setTotal] = useState(0);
+  console.log(cart);
   useEffect(() => {
-    const cartTotal = cart.reduce(
-      (accumulator, item) => accumulator + item.price * item.quantity,
-      0
-    );
+    const cartTotal =
+      (Array.isArray(cart) &&
+        cart.reduce(
+          (accumulator, item) => accumulator + item.price * item.quantity,
+          0
+        )) ||
+      0;
     setSubTotal(cartTotal);
   }, [cart]);
 
