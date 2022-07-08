@@ -1,0 +1,21 @@
+.btn {
+  min-width: 8rem;
+  padding: 0.4rem !important;
+  border: none;
+}
+
+.input {
+  max-width: 3rem;
+  margin-inline: 1rem;
+  text-align: center;
+}
+
+.btnRound {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 100%;
+}
+
+.btnRound:hover {
+  filter: brightness(90%);
+}

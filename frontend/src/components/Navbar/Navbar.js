@@ -50,7 +50,7 @@ const Navbar = ({ cart }) => {
         <div className={styles.modalContainer}>
           <button
             id="modal-toggle-btn"
-            className={`d-block d-xl-none rounded-pill btn-3d ${styles.navLink} ${styles.cartButton}`}
+            className={`d-block d-xl-none btn rounded-pill btn-3d ${styles.navLink} ${styles.cartButton}`}
             onClick={() => setIsModalOpen((curr) => !curr)}
           >
             <i className="fa-solid fa-cart-shopping me-2"></i>{' '}
