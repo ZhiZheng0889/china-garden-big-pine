@@ -8,6 +8,7 @@ exports.up = function (knex) {
     table.string('name').notNullable();
     table.specificType('price', 'float ARRAY');
     table.string('category').notNullable();
+    table.string('description').nullable();
     table.boolean('spicy').defaultTo(0);
     table.boolean('available').defaultTo(1);
     table.specificType('amount', 'text ARRAY').nullable();
