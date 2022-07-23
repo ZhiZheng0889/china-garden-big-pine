@@ -4,7 +4,7 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable('foods', (table) => {
-    table.increments('food_id').primary();
+    table.increments('food_id').primary().notNullable();
     table.string('name').notNullable();
     table.specificType('price', 'float ARRAY');
     table.string('category').notNullable();
