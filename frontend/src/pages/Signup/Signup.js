@@ -1,5 +1,5 @@
 const Signup = () => {
-  return null;
+  return <></>;
 };
 
 export default Signup;
