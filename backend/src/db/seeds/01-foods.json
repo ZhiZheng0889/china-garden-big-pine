@@ -59,22 +59,6 @@
       "price": [1.75],
       "category": "drinks"
     },
-
-    /*
-    {
-      "name": "Homemade Iced Tea",
-      "price": [1.45, 245],
-      "category": "drinks",
-      "size": ["small", "large"]
-    },
-    {
-      "name": "Hot Tea",
-      "price": [1.45, 245],
-      "category": "drinks",
-      "size": ["small", "large"]
-    },
-    */
-
     {
       "name": "Fried Noodles",
       "price": [1.25],
