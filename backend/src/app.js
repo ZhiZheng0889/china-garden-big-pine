@@ -10,11 +10,14 @@ const app = express();
 
 // Routes
 const foodsRouter = require('./foods/foods.router');
-
+const registerRouter = require('./register/register.router');
+const loginRouter = require('./login/login.router');
 app.use(cors());
 
 app.use(express.json());
 app.use('/foods', foodsRouter);
+app.use('/register', registerRouter);
+app.use('/login', loginRouter);
 app.use(notFound);
 app.use(errorHandler);
 

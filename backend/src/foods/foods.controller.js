@@ -17,6 +17,12 @@ async function list(req, res, next) {
   console.log(data);
   res.status(200).json({ data });
 }
+/*
+get list
+post create
+put update
+delete destroy
+*/
 
 module.exports = {
   list: [checkQueryParams, asyncErrorBoundary(list)],

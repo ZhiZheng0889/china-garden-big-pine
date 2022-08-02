@@ -11,6 +11,7 @@ function App() {
         <Navbar cart={cart} setCart={setCart} />
       </header>
       <main>
+        <h1>Hello</h1>
         <PageRoutes cart={cart} setCart={setCart} />
       </main>
       <Footer />
