@@ -1,19 +1,13 @@
 const router = require('express').Router();
 const controller = require('./orderitem.controller');
 const methodNotAllowed = require('../errors/methodNotAllowed');
+router.route('/').post(controller.create).all(methodNotAllowed);
 
-router.route('/').get(controller.list).all(methodNotAllowed);
+// const validate = require('express-validation');
+// const config = require('../config/index');
+// const paramValidation = require('../config/param-validation');
 
-app.post('/cart/update', (req, res) => {
-    let ids = req.body["product_id[]"];
-    let qtys = req.body["qty[]"];
-    if(Security.isValidNonce(req.body.nonce, req)) {
-        Cart.updateCart(ids, qtys);
-        Cart.saveCart(req);
-        res.redirect('/cart');
-    } else {
-        res.redirect('/');
-    }
-    });
-
+router.get('/', controller.get);
+router.post('/add', controller.add);
+router.post('/subtract', controller.subtract);
 module.exports = router;

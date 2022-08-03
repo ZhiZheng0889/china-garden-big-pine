@@ -1,13 +1,31 @@
 const knex = require('../db/connection');
 
-class Cart {
-  constructor() {
-     this.data = {};
-     this.data.items = [];
-     this.data.totals = 0;
-     this.data.formattedTotals = '';
-  }
-};
+const Foods = 'foods';
 
-module.exports = new Cart();
+const OrderItems = 'OrderItems';
+
+async function get(id) {
+  const results = await knex('cart').where({ id });
+  return results[0]
+}
+
+async function remove(id) {
+  const results = await knex('cart').where({ id }).del()
+    .returning('*')
+  return results[0]
+}
+
+async function create(data) {
+  const results = await knex('cart')
+    .insert(data)
+    .returning('*')
+  return results[0]
+}
+
+module.exports = {
+  all,
+  get,
+  create,
+  remove
+};
 
