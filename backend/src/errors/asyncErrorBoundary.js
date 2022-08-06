@@ -1,3 +1,8 @@
+/*
+ * handles async errors when using middle functions.
+ * @returns a resolved promise
+ */
+
 function asyncErrorBoundary(delegate, defaultStatus) {
   return (request, response, next) => {
     Promise.resolve()

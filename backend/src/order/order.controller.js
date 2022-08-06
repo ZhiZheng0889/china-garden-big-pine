@@ -1,22 +1,26 @@
 const service = require('./order.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 
-
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const Cart = require('../models/Cart');
+
+const hasRequiredProperties = require('../utils/hasRequiredProperties');
+const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
+const REQUIRED_PROPERTIES = ['cart', 'user_id'];
+const PROPERTIES = ['cart', 'user_id', 'order_id', 'created_at', 'updated_at'];
 /**
  * Load product and append to req.
  */
 exports.load = function (req, res, next, id) {
   Order.get(id)
-    .then(order => {
+    .then((order) => {
       req.order = order; // eslint-disable-line no-param-reassign
       return next();
     })
-    .catch(err => {
+    .catch((err) => {
       const error = new APIError(err.message, httpStatus.NOT_FOUND, true);
       return next(error);
     });
@@ -35,21 +39,25 @@ exports.placeOrder = function (req, res, next) {
   // console.log(req.body);
   // res.json(req.body);
   if (!(Array.isArray(req.body.items) && req.body.items.length)) {
-    const err = new APIError('No order items included', httpStatus.UNPROCESSABLE_ENTITY, true);
+    const err = new APIError(
+      'No order items included',
+      httpStatus.UNPROCESSABLE_ENTITY,
+      true
+    );
     return next(err);
   }
   const orderData = {
     user: req.body.user,
     billingAddress: req.body.billingAddress,
     shippingMethod: req.body.shippingMethod,
-    paymentMethod: req.body.paymentMethod
+    paymentMethod: req.body.paymentMethod,
   };
-  orderData.items = req.body.items.map(item => {
+  orderData.items = req.body.items.map((item) => {
     return {
       productId: item.productId,
       name: item.name,
       price: item.price,
-      qty: item.qty
+      qty: item.qty,
     };
   });
   orderData.grandTotal = req.body.items.reduce((total, item) => {
@@ -60,33 +68,41 @@ exports.placeOrder = function (req, res, next) {
 
   order
     .save()
-    .then(savedOrder => {
-      const allProductPromises = savedOrder.items.map(item => {
-        return Product.get(item.productId).then(product => {
+    .then((savedOrder) => {
+      const allProductPromises = savedOrder.items.map((item) => {
+        return Product.get(item.productId).then((product) => {
           product.quantity = product.quantity - item.qty;
           return product.save();
         });
       });
       Promise.all(allProductPromises)
-        .then(data => {
+        .then((data) => {
           return Cart.get(savedOrder.user);
         })
-        .then(cart => {
+        .then((cart) => {
           cart.items = [];
           return cart.save();
         })
-        .then(data => {
+        .then((data) => {
           res.json(savedOrder);
         })
-        .catch(err => {
+        .catch((err) => {
           // console.log(err);
-          const error = new APIError(err.message, httpStatus.INTERNAL_SERVER_ERROR, true);
+          const error = new APIError(
+            err.message,
+            httpStatus.INTERNAL_SERVER_ERROR,
+            true
+          );
           return next(error);
         });
     })
-    .catch(err => {
+    .catch((err) => {
       // console.log(err);
-      const error = new APIError(err.message, httpStatus.INTERNAL_SERVER_ERROR, true);
+      const error = new APIError(
+        err.message,
+        httpStatus.INTERNAL_SERVER_ERROR,
+        true
+      );
       return next(error);
     });
 };
@@ -102,9 +118,27 @@ exports.list = function (req, res, next) {
   const { email, sort = 'createdAt', limit = 50, skip = 0 } = req.query;
   // console.log(email);
   if (!email) {
-    throw new APIError('order email has not been provided!', httpStatus.BAD_REQUEST, true);
+    throw new APIError(
+      'order email has not been provided!',
+      httpStatus.BAD_REQUEST,
+      true
+    );
   }
   Order.list({ email, sort, limit, skip })
-    .then(orders => res.json(orders))
-    .catch(e => next(e));
+    .then((orders) => res.json(orders))
+    .catch((e) => next(e));
+};
+
+/*
+ * Order controller
+ * @returns array of middleware functions that the router can handle.
+ */
+module.exports = {
+  list: [],
+  read: [],
+  create: [
+    hasRequiredProperties(REQUIRED_PROPERTIES),
+    hasOnlyValidProperties(PROPERTIES),
+  ],
+  destroy: [],
 };

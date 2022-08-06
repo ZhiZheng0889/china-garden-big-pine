@@ -1,6 +1,12 @@
 const service = require('./foods.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 
+
+/*
+* Check queries for specific type of order or list of food.
+* 
+*/
+
 function checkQueryParams(req, res, next) {
   const { category = '' } = req.query;
   if (category) {
@@ -9,6 +15,10 @@ function checkQueryParams(req, res, next) {
   next();
 }
 
+
+/*
+* List foods based on if there is a query parameter or not.
+*/
 async function list(req, res, next) {
   const { category = '' } = res.locals;
   const data = category
@@ -17,12 +27,6 @@ async function list(req, res, next) {
   console.log(data);
   res.status(200).json({ data });
 }
-/*
-get list
-post create
-put update
-delete destroy
-*/
 
 module.exports = {
   list: [checkQueryParams, asyncErrorBoundary(list)],
