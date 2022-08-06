@@ -6,8 +6,11 @@ router
   .route('/')
   .get(controller.list)
   .post(controller.create)
-  .delete(controller.destory)
   .all(methodNotAllowed);
 
-router.route('/:userId').get(controller.read).all(methodNotAllowed);
+router
+  .route('/:userId')
+  .get(controller.read)
+  .delete(controller.destroy)
+  .all(methodNotAllowed);
 module.exports = router;

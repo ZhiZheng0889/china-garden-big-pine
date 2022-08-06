@@ -1,4 +1,4 @@
-const service = reqiure('./register.service');
+const service = require('./register.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
