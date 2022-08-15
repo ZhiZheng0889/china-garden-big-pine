@@ -7,7 +7,7 @@ exports.up = function (knex) {
     table.increments('order_id').primary().notNullable();
     table.text('phone_number').notNullable();
     table.integer('user_id').references('user_id').inTable('users').nullable();
-    table.table.timestamps(true, true);
+    table.timestamps(true, true);
   });
 };
 

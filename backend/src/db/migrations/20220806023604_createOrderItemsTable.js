@@ -15,6 +15,7 @@ exports.up = function (knex) {
       .references('food_id')
       .inTable('foods');
     table.string('requests', 500).nullable();
+    table.timestamps(true, true);
   });
 };
 
