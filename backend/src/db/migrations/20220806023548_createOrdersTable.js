@@ -5,6 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('orders', (table) => {
     table.increments('order_id').primary().notNullable();
+    table.timestamps(true, true);
   });
 };
 
