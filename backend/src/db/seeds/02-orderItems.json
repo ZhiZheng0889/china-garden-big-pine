@@ -1,0 +1,28 @@
+[
+  {
+    "order_id": 1,
+    "food_id": 1,
+    "requests": "No carrots I'm allergic"
+  },
+  {
+    "order_id": 1,
+    "food_id": 3
+  },
+  {
+    "order_id": 1,
+    "food_id": 7
+  },
+  {
+    "order_id": 2,
+    "food_id": 5,
+    "requests": "No carrots I'm allergic"
+  },
+  {
+    "order_id": 2,
+    "food_id": 7
+  },
+  {
+    "order_id": 2,
+    "food_id": 8
+  }
+]

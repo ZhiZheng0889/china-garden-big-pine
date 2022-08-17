@@ -27,9 +27,18 @@ describe('01 - List, Read, Create, and Delete orders', () => {
     return await knex.migrate.rollback(null, true).then(() => knex.destroy());
   });
 
-  describe('List order', () => {
+  describe('List orders', () => {
     describe('GET /order', () => {
-      test('Should return ');
+      test('Should return orders and a status code of 200', async () => {
+        const response = await request(app)
+          .get('/orders')
+          .set('Accept', 'application/json');
+
+        expect(resposne.status).to.equal(200);
+        expect(response.body.error).to.be.undefined;
+        expect(response.body.data[0].items[0].food_id).to.equal(1);
+        expect();
+      });
     });
   });
 
