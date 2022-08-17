@@ -3,6 +3,13 @@ const request = require('supertest');
 
 const app = require('../src/app');
 const knex = require('../src/db/connection');
+/*
+Create rest api for orders to be able to list, 
+read one order, 
+update order, 
+create order, 
+delete order
+*/
 
 describe('01 - List, Read, Create, and Delete orders', () => {
   beforeAll(() => {

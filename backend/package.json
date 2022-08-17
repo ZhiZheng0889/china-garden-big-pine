@@ -10,7 +10,9 @@
     "start": "node src/server.js",
     "start:dev": "nodemon src/server.js",
     "test": "npx cross-env LOG_LEVEL=warn jest --runInBand --detectOpenHandles --forceExit",
-    "test:1": "npm run test -- 00",
+    "test:0": "npm run test -- 00",
+    "test:1": "npm run test -- 01",
+    "test:2": "npm run test -- 02",
     "test:drop-database": "node test/drop-database",
     "test:start": "npx cross-env LOG_LEVEL=warn NODE_ENV=test npm run test:start:run",
     "test:start:run": "run-s test:drop-database start "
