@@ -23,6 +23,20 @@
   },
   {
     "order_id": 2,
+    "food_id": 7
+  },
+  {
+    "order_id": 2,
+    "food_id": 4,
+    "requests": "Allergy!"
+  },
+  {
+    "order_id": 2,
+    "food_id": 4,
+    "requests": "Allergy!"
+  },
+  {
+    "order_id": 2,
     "food_id": 8
   }
 ]

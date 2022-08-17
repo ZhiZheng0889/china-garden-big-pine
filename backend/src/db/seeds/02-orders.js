@@ -1,4 +1,4 @@
-const ORDERS_DATA = require('./01-orders.json');
+const ORDERS_DATA = require('./02-orders.json');
 exports.seed = function (knex) {
   console.log(ORDERS_DATA);
   return knex

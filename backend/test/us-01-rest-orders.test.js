@@ -29,28 +29,79 @@ describe('01 - List, Read, Create, and Delete orders', () => {
 
   describe('List orders', () => {
     describe('GET /order', () => {
-      test('Should return orders and a status code of 200', async () => {
+      test('Should have items property in an order object', async () => {
         const response = await request(app)
-          .get('/orders')
+          .get('/order')
           .set('Accept', 'application/json');
-
-        expect(resposne.status).to.equal(200);
+        expect(response.status).to.equal(200);
         expect(response.body.error).to.be.undefined;
         expect(response.body.data[0].items[0].food_id).to.equal(1);
-        expect();
+      });
+      test('Should return orders and a status code of 200', async () => {
+        const response = await request(app)
+          .get('/order')
+          .set('Accept', 'application/json');
+        expect(response.status).to.equal(200);
+        expect(response.body.error).to.be.undefined;
+        expect(response.body.data[0].items[0].food_id).to.equal(1);
+        expect(response.body.data[1].user_id).to.equal(1);
+      });
+
+      test('Should combine order items that are the same (including the requests) and have quantity in the response', async () => {
+        const response = await request(app)
+          .get('/order')
+          .set('Accept', 'application/json');
+        expect(response.status).to.equal(200);
+        expect(response.body.error).to.be.undefined;
+        expect(response.body.data[0].items[0].food_id).to.equal(1);
+        expect(response.body.data[1].user_id).to.equal(1);
+        expect(response.body.data[1].items[1].quantity).to.equal(2);
+        expect(response.body.data[1].items[2].quantity).to.equal(2);
+        expect(response.body.data[1].items[2].requests).to.equal('Allergy!');
       });
     });
   });
 
   describe('Read order', () => {
-    describe('GET /order/:orderId', () => {});
+    describe('GET /order/:orderId', () => {
+      test('Should return 404 for orderId not found', async () => {
+        const response = await request(app)
+          .get('/order/9999')
+          .expect('Accept', 'application/json');
+        expect(response.status).to.equal(404);
+        expect(response.body.error).to.contain('9999');
+      });
+
+      test('Should return single order with 200 status code', async () => {
+        const response = await request(app)
+          .get('order/1')
+          .expect('Accept', 'application/json');
+
+        expect(response.status).to.equal(200);
+        expect(response.body.error).to.be.undefined;
+        expect(response.body.data['phone_number']).to.equal('9198675309');
+        expect(response.body.data.items[0].food_id).to.equal(1);
+        expect(response.body.data.items[1].food_id).to.equal(3);
+      });
+
+      test('Should combine order items that are the same (including the requests) and have quantity in the response', async () => {
+        const response = await request(app)
+          .get('/order/2')
+          .set('Accept', 'application/json');
+        expect(response.status).to.equal(200);
+        expect(response.body.error).to.be.undefined;
+        expect(response.body.data.items[1].quantity).to.equal(2);
+        expect(response.body.data.items[2].quantity).to.equal(2);
+        expect(response.body.data.items[2].requests).to.equal('Allergy!');
+      });
+    });
   });
 
-  describe('Create order', () => {
-    describe('POST /order', () => {});
-  });
+  // describe('Create order', () => {
+  //   describe('POST /order', () => {});
+  // });
 
-  describe('Delete order', () => {
-    describe('DELETE /order/oder_id', () => {});
-  });
+  // describe('Delete order', () => {
+  //   describe('DELETE /order/oder_id', () => {});
+  // });
 });
