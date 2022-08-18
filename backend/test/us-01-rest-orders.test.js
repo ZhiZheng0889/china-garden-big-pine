@@ -11,7 +11,7 @@ create order,
 delete order
 */
 
-describe('01 - List, Read, Create, and Delete orders', () => {
+describe('01 - List, Read, Create, update, and Delete orders', () => {
   beforeAll(() => {
     return knex.migrate
       .forceFreeMigrationsLock()
