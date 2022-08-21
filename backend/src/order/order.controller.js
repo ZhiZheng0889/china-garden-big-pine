@@ -135,8 +135,36 @@ async function list(req, res, next) {
 }
 
 function orderExist(req, res, next) {
+  
+  const text = "SELECT EXISTS (SELECT '*' FROM orders WHERE order_id = '*') AS it_does_exist"
+  // callback
+  client.query(text, (err, res) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      console.log(res.rows[0])
+    }
+  })
+  
+  // promise
+  client
+    .query(text)
+    .then(res => {
+      console.log(res.rows[0])
+    })
+    .catch(e => console.error(e.stack))
 
-}
+  // async/await
+  try {
+    const res = await client.query(text, values)
+    console.log(res.rows[0])
+  } 
+  
+  catch (err) {
+    console.log(err.stack)
+  }
+    
+  }
 
 async function read(req, res, next) {
   // Do this
