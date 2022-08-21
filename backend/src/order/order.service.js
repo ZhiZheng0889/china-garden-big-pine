@@ -131,7 +131,9 @@ function list() {
   return knex('orders').select('*');
 }
 
-function read(order_id) {}
+function read(order_id) {
+  return knex('orders').select('*').where({ order_id }).first();
+}
 
 module.exports = {
   list: list,
