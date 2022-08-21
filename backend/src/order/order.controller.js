@@ -107,7 +107,7 @@ const PROPERTIES = ['cart', 'user_id', 'order_id', 'created_at', 'updated_at'];
 //     });
 // };
 
-/**
+/*
  * Get order list.
  * @property {number} req.query.skip - Number of orders to be skipped.
  * @property {number} req.query.limit - Limit number of orders to be returned.
@@ -135,11 +135,13 @@ async function list(req, res, next) {
 }
 
 function orderExist(req, res, next) {
-  // do this
+
 }
 
 async function read(req, res, next) {
   // Do this
+  const orders = await service.read();
+  res.status(200).json({ data: orders });
 }
 
 /*
