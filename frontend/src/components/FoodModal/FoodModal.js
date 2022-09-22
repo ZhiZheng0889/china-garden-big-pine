@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
 import styles from './FoodModal.module.css';
-const FoodModal = ({ food }) => {
+const FoodModal = ({ food, setCart, cart }) => {
   const { name, price, description, options, amount } = food;
   const [quantity, setQuantity] = useState(1);
+  const [specialRequest, setSpecialRequest] = useState('');
+  const handleAddToCart = (event) => {
+    setCart((curr) => [
+      ...curr,
+      {
+        name,
+        price,
+        description,
+        quantity,
+      },
+    ]);
+  };
   return (
     <div
       class="modal fade"
@@ -45,6 +57,7 @@ const FoodModal = ({ food }) => {
               type="button"
               class={`btn-main ${styles.btn} ms-auto`}
               data-bs-dismiss="modal"
+              onClick={handleAddToCart}
             >
               Add to cart
             </button>

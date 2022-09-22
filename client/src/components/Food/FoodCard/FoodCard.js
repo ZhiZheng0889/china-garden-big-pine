@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './FoodCard.module.css';
-import QuantityButton from '../QuantityButton/QuantityButton';
-import FoodModal from '../FoodModal/FoodModal';
+import QuantityButton from '../../Button/QuantityButton/QuantityButton';
 const FoodCard = ({ food, setCart, cart }) => {
   console.log(food);
   const {
@@ -44,7 +43,6 @@ const FoodCard = ({ food, setCart, cart }) => {
           </div>
         </div>
       </article>
-      <FoodModal food={food} setCart={setCart} cart={cart} />
     </>
   );
 };
