@@ -12,6 +12,8 @@ body {
 }
 
 :root {
+  --color-primary:  rgb(192, 14, 14);
+  --background-light: #f8f9fa;
   --burger-width: 18px;
   --burger-height: 2px;
 }

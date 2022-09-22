@@ -15,7 +15,7 @@ const Home = ({ cart, setCart }) => {
       <div className="container">
         <div className="row">
           <aside className="d-none d-lg-block col-lg-3 col-xl-2">
-            <Sidebar />
+            <Sidebar query={query} setQuery={setQuery}/>
           </aside>
           <section className="col-12 col-lg-9 col-xl-6">
             <Searchbar />
