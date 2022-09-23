@@ -35,7 +35,7 @@ const FoodList = ({ query }) => {
 
   // Render loading or food
   return (
-    <div className="p-3">
+    <div className="p-0">
       {error ? null : foods.length > 0 ? foodsList : <Loading />}
     </div>
   );

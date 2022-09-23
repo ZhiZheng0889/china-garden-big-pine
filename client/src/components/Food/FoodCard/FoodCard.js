@@ -17,7 +17,7 @@ const FoodCard = ({ food, setCart, cart }) => {
   console.log(food);
   return (
     <>
-      <article className={`food-item ${styles.container} pt-2 pb-2`}>
+      <article className={`food-item ${styles.container} p-3 border-bottom`}>
         <div className="details">
           <div className="d-flex">
             {spicy && <p>🌶</p>}
