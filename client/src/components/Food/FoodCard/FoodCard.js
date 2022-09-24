@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './FoodCard.module.css';
 import QuantityButton from '../../Button/QuantityButton/QuantityButton';
-const FoodCard = ({ food, setCart, cart }) => {
-  console.log(food);
+import ModalTriggerButton from '../../Modal/ModalTriggerButton/ModalTriggerButton';
+const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const {
     food_id,
     name,
@@ -14,7 +14,9 @@ const FoodCard = ({ food, setCart, cart }) => {
     amount = null,
     options,
   } = food;
-  console.log(food);
+  const handleClick = () => {
+    setCurrentFood(food);
+  };
   return (
     <>
       <article className={`food-item ${styles.container} p-3 border-bottom`}>
@@ -39,7 +41,12 @@ const FoodCard = ({ food, setCart, cart }) => {
         </div>
         <div className="ms-auto add">
           <div className="d-flex align-items-center">
-            <QuantityButton setCart={setCart} cart={cart} food={food} />
+            <ModalTriggerButton
+              classes={'rounded-pill btn-hovering border'}
+              handleClick={handleClick}
+            >
+              <i className="fa-solid fa-plus me-1"></i> Add
+            </ModalTriggerButton>
           </div>
         </div>
       </article>

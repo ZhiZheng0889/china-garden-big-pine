@@ -15,9 +15,10 @@ const Home = ({ cart, setCart }) => {
       <div className="container">
         <div className="row">
           <aside className="d-none d-lg-block col-lg-3 col-xl-2">
-            <Sidebar query={query} setQuery={setQuery}/>
+            <Sidebar query={query} setQuery={setQuery} />
           </aside>
           <section className="col-12 col-lg-9 col-xl-6">
+            {/* Main content */}
             <Searchbar />
             <Card padding={'p-0'} margin={'mt-3'}>
               <div className="p-3 pb-0">
@@ -26,6 +27,7 @@ const Home = ({ cart, setCart }) => {
               <StoreInfo />
               <FoodList query={query} setError={setError} error={error} />
             </Card>
+            {/* End Main Content*/}
           </section>
           <aside className="d-none d-xl-block col-xl-4">
             <Checkout />

@@ -22,7 +22,6 @@ async function list(req, res, next) {
   const data = category
     ? await service.listByCategory(category)
     : await service.list();
-  console.log(data);
   res.status(200).json({ data });
 }
 

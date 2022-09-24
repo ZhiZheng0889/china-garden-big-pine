@@ -4,7 +4,6 @@ const CheckoutFooter = ({ cart }) => {
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(FLORIDA_TAX);
   const [total, setTotal] = useState(0);
-  console.log(cart);
   useEffect(() => {
     const cartTotal =
       (Array.isArray(cart) &&
@@ -17,13 +16,12 @@ const CheckoutFooter = ({ cart }) => {
   }, [cart]);
 
   useEffect(() => {
-    console.log(tax, subTotal);
     const taxAmount = FLORIDA_TAX * subTotal;
-    console.log(taxAmount);
     setTax(taxAmount);
     const total = taxAmount + subTotal;
     setTotal(total);
   }, [subTotal]);
+
   return (
     <section>
       <div className="sub-total d-flex">
@@ -40,7 +38,7 @@ const CheckoutFooter = ({ cart }) => {
       </div>
 
       <div className="checkoutBtn">
-        <button className="btn btn-main btn-normal w-100">Checkout</button>
+        <button className="btn btn-primary w-100">Checkout</button>
       </div>
     </section>
   );

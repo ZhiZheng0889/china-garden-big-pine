@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card = ({ padding, margin, children }) => {
   return (
-    <article className={`${padding} ${margin} border broder-rounded`}>
+    <article className={`${padding} ${margin} border broder-rounded bg-white`}>
       {children}
     </article>
   );

@@ -11,7 +11,7 @@ const PageRoutes = ({ cart, setCart }) => {
       <Route index element={<Home cart={cart} setCart={setCart} />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/signup" elemnt={<Signup />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

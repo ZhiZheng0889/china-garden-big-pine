@@ -1,6 +1,5 @@
 const ORDERS_DATA = require('./02-orders.json');
 exports.seed = function (knex) {
-  console.log(ORDERS_DATA);
   return knex
     .raw('TRUNCATE TABLE orders RESTART IDENTITY CASCADE')
     .then(function () {

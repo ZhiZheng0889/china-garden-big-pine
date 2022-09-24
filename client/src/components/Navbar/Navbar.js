@@ -5,10 +5,10 @@ import SignedIn from './SignedIn/SignedIn';
 const Navbar = ({ user }) => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
       <div className="container">
         <div
-          className={`burger-menu ${isBurgerOpen ? 'opened' : ''}`}
+          className={`d-lg-none burger-menu ${isBurgerOpen ? 'opened' : ''}`}
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarContent"

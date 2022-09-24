@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import styles from './FoodModal.module.css';
-const FoodModal = ({ food, setCart, cart }) => {
-  const { name, price, description, options, amount } = food;
+import styles from './Modal.module.css';
+const Modal = ({ food, setCart, cart }) => {
+  console.log(food);
   const [quantity, setQuantity] = useState(1);
   const [specialRequest, setSpecialRequest] = useState('');
+  if (!food) return null;
+  const {
+    name = '',
+    price = '',
+    description = '',
+    options = '',
+    amount = 0,
+  } = food;
+
   const handleAddToCart = (event) => {
     setCart((curr) => [
       ...curr,
@@ -39,6 +48,7 @@ const FoodModal = ({ food, setCart, cart }) => {
             </h5>
             {description && <p>description</p>}
             {amount && <p>X{amount}</p>}
+            {/* Special Requests */}
           </div>
           <div class="modal-footer d-flex justify-content-center align-items-center">
             <form className="d-flex align-items-center">
@@ -68,4 +78,4 @@ const FoodModal = ({ food, setCart, cart }) => {
   );
 };
 
-export default FoodModal;
+export default Modal;
