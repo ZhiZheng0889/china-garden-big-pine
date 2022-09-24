@@ -1,0 +1,5 @@
+.main {
+  background-color: var(--color-gray);
+  height: 100vh;
+  padding-top: 4rem;
+}

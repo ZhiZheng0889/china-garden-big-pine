@@ -1,0 +1,74 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--color-gray);
+}
+
+:root {
+  --color-primary:  rgb(192, 14, 14);
+  --background-light: #f8f9fa;
+  --burger-width: 18px;
+  --burger-height: 2px;
+}
+
+/* Base hamburger menu */
+
+.burger-menu {
+  height: 30px;
+  width: var(--burger-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.burger-menu,
+.burger-menu * {
+  position: relative;
+  cursor: pointer;
+}
+
+.burger {
+  border-radius: 10px;
+  width: var(--burger-width);
+  height: var(--burger-height);
+  background-color: #000;
+  transition: all 0.25s ease-in-out;
+}
+
+.burger::after,
+.burger::before {
+  content: '';
+  border-radius: 10px;
+  width: var(--burger-width);
+  height: var(--burger-height);
+  background-color: #000;
+  transition: all 0.25s ease-in-out;
+  position: absolute;
+}
+
+.burger::before {
+  transform: translateY(-7px);
+}
+
+.burger::after {
+  transform: translateY(7px);
+}
+
+.burger-menu.opened .burger {
+  transform: translateX(-12px);
+  background: transparent;
+}
+
+.burger-menu.opened .burger::before {
+  transform: rotate(45deg) translate(8px, -8px);
+}
+.burger-menu.opened .burger::after {
+  transform: rotate(-45deg) translate(8px, 8px);
+}

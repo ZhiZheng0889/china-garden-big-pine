@@ -1,0 +1,14 @@
+.nav {
+  list-style-type: none;
+  padding: 0rem;
+}
+
+.nav li {
+  padding: 0.3rem 0.7rem;
+}
+
+.nav li:hover {
+  color: var(--color-primary);
+  background-color: var(--background-light);
+  cursor: pointer;
+}

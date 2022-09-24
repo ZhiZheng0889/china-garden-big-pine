@@ -1,0 +1,16 @@
+.form {
+  position: relative;
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 2%;
+  border: none;
+  background-color: inherit;
+}
+
+.input {
+  padding-inline: 2.3rem;
+}
