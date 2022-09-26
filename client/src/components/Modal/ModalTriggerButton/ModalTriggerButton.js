@@ -6,7 +6,7 @@ const ModalTriggerButton = ({ children, classes, handleClick }) => {
       type="button"
       className={`btn btn-primary ${classes}`}
       data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
+      data-bs-target="#foodModal"
       onClick={handleClick}
     >
       {children}

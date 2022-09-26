@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './FoodCard.module.css';
 import QuantityButton from '../../Button/QuantityButton/QuantityButton';
 import ModalTriggerButton from '../../Modal/ModalTriggerButton/ModalTriggerButton';
-const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
+import Modal from '../../Modal/Modal';
+const FoodCard = ({ food, setCart, cart }) => {
   const {
     food_id,
     name,
@@ -14,8 +15,9 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
     amount = null,
     options,
   } = food;
-  const handleClick = () => {
-    setCurrentFood(food);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleModal = () => {
+    setIsModalOpen((curr) => !curr);
   };
   return (
     <>
@@ -41,15 +43,11 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
         </div>
         <div className="ms-auto add">
           <div className="d-flex align-items-center">
-            <ModalTriggerButton
-              classes={'rounded-pill btn-hovering border'}
-              handleClick={handleClick}
-            >
-              <i className="fa-solid fa-plus me-1"></i> Add
-            </ModalTriggerButton>
+            <QuantityButton onClick={toggleModal} />
           </div>
         </div>
       </article>
+      {isModalOpen && <Modal food={food} />}
     </>
   );
 };

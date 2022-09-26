@@ -35,6 +35,9 @@ const Modal = ({ food, setCart, cart }) => {
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
+            <h5 class="modal-title" id="foodModalLabel">
+              Modal title
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -42,34 +45,17 @@ const Modal = ({ food, setCart, cart }) => {
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
-            <h5 class="modal-title" id="foodModalLabel">
-              {name}
-            </h5>
-            {description && <p>description</p>}
-            {amount && <p>X{amount}</p>}
-            {/* Special Requests */}
-          </div>
-          <div class="modal-footer d-flex justify-content-center align-items-center">
-            <form className="d-flex align-items-center">
-              <button className={`${styles.btnRound} border`}>
-                <i class="fa-solid fa-minus"></i>
-              </button>
-              <input
-                value={quantity}
-                className={`form-control ${styles.input}`}
-              />
-              <button className={`${styles.btnRound} border`}>
-                <i className="fa-solid fa-plus"></i>
-              </button>
-            </form>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
             <button
               type="button"
-              class={`btn-main ${styles.btn} ms-auto`}
+              class="btn btn-secondary"
               data-bs-dismiss="modal"
-              onClick={handleAddToCart}
             >
-              Add to cart
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">
+              Save changes
             </button>
           </div>
         </div>
