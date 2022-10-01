@@ -22,6 +22,7 @@ body {
   --background-light: #f8f9fa;
   --burger-width: 18px;
   --burger-height: 2px;
+  --container-spacing: 10%;
 }
 
 .bg-white {

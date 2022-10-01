@@ -1,0 +1,15 @@
+.nav {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+.navItem:not(:last-child) {
+  margin-right: 0.5rem;
+  padding: 0.9rem 1.2rem;
+}
+
+.navLink {
+  color: inherit;
+  text-decoration: none;
+}

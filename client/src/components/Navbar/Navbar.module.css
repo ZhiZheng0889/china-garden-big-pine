@@ -1,0 +1,15 @@
+.navbar {
+  background-color: var(--color-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--container-spacing);
+  height: 3.5rem;
+  color: var(--color-light);
+}
+
+.brand {
+  margin-right: auto;
+  color: inherit;
+  text-decoration: none;
+}

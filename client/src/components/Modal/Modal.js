@@ -26,7 +26,6 @@ const Modal = ({ food, setCart, cart }) => {
   };
   return (
     <div
-      class="modal fade"
       id="foodModal"
       tabindex="-1"
       aria-labelledby="foodModalLabel"
