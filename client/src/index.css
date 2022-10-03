@@ -19,10 +19,13 @@ body {
   --color-gray--dark: #a0a0a0;
   --color-light: #fff;
   --color-dark: #222;
+  --color-border: #e6e6e6;
   --background-light: #f8f9fa;
+  --background-dark: #222;
   --burger-width: 18px;
   --burger-height: 2px;
   --container-spacing: 10%;
+  --container-gap: 1rem;
 }
 
 .bg-white {
@@ -135,4 +138,54 @@ body {
 
 .btn-hovering:hover {
   background-color: var(--color-gray);
+}
+
+/* general */
+.d-none {
+  display: none;
+}
+
+.p-none {
+  padding: 0;
+}
+
+.p-1 {
+  padding: 0.8rem;
+}
+
+.p-2 {
+  padding: 1rem;
+}
+
+.p-3 {
+  padding: 1.25rem;
+}
+
+.p-4 {
+  padding: 1.75rem;
+}
+
+.mb-gap {
+  margin-bottom: var(--container-spacing);
+}
+
+.mt-gap {
+  margin-top: var(--container-gap);
+}
+
+.btn {
+  border: none;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--color-main);
+  color: var(--color-light);
+}
+
+.w-100 {
+  width: 100%;
 }

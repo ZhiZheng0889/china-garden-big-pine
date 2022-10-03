@@ -11,30 +11,28 @@ const Home = ({ cart, setCart }) => {
   const [query, setQuery] = useState('appetizers');
   const [error, setError] = useState(null);
   return (
-    <div className={styles.main}>
-      <div className="container">
-        <div className="row">
-          <aside className="d-none d-lg-block col-lg-3 col-xl-2">
-            <Sidebar query={query} setQuery={setQuery} />
-          </aside>
-          <section className="col-12 col-lg-9 col-xl-6">
-            {/* Main content */}
-            <Searchbar />
-            <Card padding={'p-0'} margin={'mt-3'}>
-              <div className="p-3 pb-0">
-                <ErrorAlert error={error} />
-              </div>
-              <StoreInfo />
-              <FoodList query={query} setError={setError} error={error} />
-            </Card>
-            {/* End Main Content*/}
-          </section>
-          <aside className="d-none d-xl-block col-xl-4">
-            <Checkout />
-          </aside>
+    <main className={styles.main}>
+      <section className={styles.center}>
+        {/* Main content */}
+        <div className="mb-2">
+          <Searchbar />
         </div>
-      </div>
-    </div>
+
+        <Card padding={'p-0'} margin={'mt-gap'}>
+          {error && (
+            <div className="p-3 pb-0">
+              <ErrorAlert error={error} />
+            </div>
+          )}
+          <StoreInfo />
+          <FoodList query={query} setError={setError} error={error} />
+        </Card>
+        {/* End Main Content*/}
+      </section>
+      <aside className={styles.aside}>
+        <Checkout />
+      </aside>
+    </main>
   );
 };
 

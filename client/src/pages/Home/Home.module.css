@@ -1,5 +1,11 @@
 .main {
   background-color: var(--color-gray);
   height: 100vh;
-  padding-top: 4rem;
+  padding: 4rem var(--container-spacing);
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--container-gap);
+}
+
+.aside {
 }

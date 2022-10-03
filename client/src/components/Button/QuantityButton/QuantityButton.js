@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const QuantityButton = ({ cart, setCart, food }) => {
   const {
-    food_id,
+    food_id = 0,
     name,
     price,
     likes = null,

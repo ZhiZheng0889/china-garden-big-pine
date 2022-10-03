@@ -8,7 +8,7 @@ const Navbar = ({ user }) => {
   return (
     <nav className={styles.navbar}>
       <div
-        className={`d-lg-none burger-menu ${isBurgerOpen ? 'opened' : ''}`}
+        className={`d-none burger-menu ${isBurgerOpen ? 'opened' : ''}`}
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarContent"

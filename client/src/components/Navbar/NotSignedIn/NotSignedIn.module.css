@@ -4,9 +4,12 @@
   list-style-type: none;
 }
 
+.navItem {
+  padding: 0.9rem 1.2rem;
+}
+
 .navItem:not(:last-child) {
   margin-right: 0.5rem;
-  padding: 0.9rem 1.2rem;
 }
 
 .navLink {

@@ -1,8 +1,10 @@
 import React from 'react';
-
+import styles from './Card.module.css';
 const Card = ({ padding, margin, children }) => {
   return (
-    <article className={`${padding} ${margin} border broder-rounded bg-white`}>
+    <article
+      className={`${styles.card} ${padding} ${margin} border broder-rounded bg-white`}
+    >
       {children}
     </article>
   );
