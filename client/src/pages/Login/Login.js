@@ -32,6 +32,7 @@ const Login = () => {
   }, [query]);
 
   const [currentFood, setCurrentFood] = useState(null);
+  const [cart, setCart] = useState([]);
   // function that onClick sets current food and opens modal
   const toggleModal = () => {
     setCurrentFood(foods[0]);
@@ -40,10 +41,20 @@ const Login = () => {
   console.log(currentFood);
   return (
     <section className={styles.container}>
+      {Array.isArray(foods) && foods.length > 1 && (
+        <p>index 0 food: {JSON.stringify(foods[0])}</p>
+      )}
       <button className="btn btn-primary" onClick={toggleModal}>
         Show Modal
       </button>
-      {currentFood && <Modal food={currentFood} />}
+      {currentFood && (
+        <Modal
+          food={currentFood}
+          setFood={setCurrentFood}
+          cart={cart}
+          setCart={setCart}
+        />
+      )}
     </section>
   );
 };

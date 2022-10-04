@@ -15,10 +15,7 @@ const FoodList = ({ query }) => {
     const abortControler = new AbortController();
     const getFoods = async () => {
       try {
-        const response = await listFoods(
-          { category: query },
-          abortControler.signal
-        );
+        const response = await listFoods(query, abortControler.signal);
         setFoods(response);
       } catch (error) {
         setError(error);

@@ -7,6 +7,9 @@ const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
  */
 
 function checkQueryParams(req, res, next) {
+  /*
+   * update so that if there is a search query in the url to save the search to res.locals.search
+   */
   const { category = '' } = req.query;
   if (category) {
     res.locals.category = category;
@@ -18,6 +21,9 @@ function checkQueryParams(req, res, next) {
  * List foods based on if there is a query parameter or not.
  */
 async function list(req, res, next) {
+  /*
+   * If res.locals.search is defined use service.search() function
+   */
   const { category = '' } = res.locals;
   const data = category
     ? await service.listByCategory(category)

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Modal.module.css';
-const Modal = ({ food, setCart, cart }) => {
+const Modal = ({ food, setCart, cart, setFood }) => {
   console.log(food);
   const [quantity, setQuantity] = useState(1);
   const [specialRequest, setSpecialRequest] = useState('');

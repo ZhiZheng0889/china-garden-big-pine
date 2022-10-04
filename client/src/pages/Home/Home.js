@@ -8,14 +8,18 @@ import StoreInfo from '../../components/StoreInfo/StoreInfo';
 import FoodList from '../../components/Food/FoodList/FoodList';
 import ErrorAlert from '../../errors/ErrorAlert';
 const Home = ({ cart, setCart }) => {
-  const [query, setQuery] = useState('appetizers');
+  /*
+   * query handles changing category and searching if someone searches
+   */
+  const [query, setQuery] = useState({ category: 'appetizers', search: '' });
   const [error, setError] = useState(null);
+
   return (
     <main className={styles.main}>
       <section className={styles.center}>
         {/* Main content */}
         <div className="mb-2">
-          <Searchbar />
+          <Searchbar query={query} setQuery={setQuery} />
         </div>
 
         <Card padding={'p-0'} margin={'mt-gap'}>

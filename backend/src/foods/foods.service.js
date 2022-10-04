@@ -23,6 +23,8 @@ function read(food_id) {
   return knex('products').select('*').where({ food_id }).first();
 }
 
+function search(text) {}
+
 module.exports = {
   list,
   listByCategory,

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './FoodCard.module.css';
 import QuantityButton from '../../Button/QuantityButton/QuantityButton';
-import ModalTriggerButton from '../../Modal/ModalTriggerButton/ModalTriggerButton';
 import Modal from '../../Modal/Modal';
 const FoodCard = ({ food, setCart, cart }) => {
   const {
@@ -43,7 +42,7 @@ const FoodCard = ({ food, setCart, cart }) => {
         </div>
         <div className="ms-auto add">
           <div className="d-flex align-items-center">
-            <QuantityButton onClick={toggleModal} />
+            {/* <QuantityButton onClick={toggleModal} /> */}
           </div>
         </div>
       </article>
