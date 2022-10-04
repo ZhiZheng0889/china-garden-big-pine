@@ -9,11 +9,8 @@ const Searchbar = ({ query, setQuery }) => {
 
   return (
     <form className={styles.form}>
-      <button className={styles.button}>
-        <i
-          className="fa-light fa-magnifying-glass fa-lg"
-          onClick={handleSubmit}
-        ></i>
+      <button className={styles.button} type="submit">
+        <i className="fa-light fa-magnifying-glass fa-lg"></i>
       </button>
       <input type="text" placeholder="Search" className={styles.input} />
     </form>
