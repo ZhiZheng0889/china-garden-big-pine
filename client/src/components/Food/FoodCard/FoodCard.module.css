@@ -10,6 +10,10 @@
   color: var(--color-gray--dark);
 }
 
+.header {
+  display: flex;
+}
+
 .btn-hovering {
   background-color: var(--color-light);
   color: var(--color-dark);
@@ -17,4 +21,7 @@
   -webkit-box-shadow: 1px 5px 13px 1px rgba(0, 0, 0, 0.18);
   box-shadow: 1px 5px 13px 1px rgba(0, 0, 0, 0.18);
   border: none;
+}
+.quantityContainer {
+  margin-left: auto;
 }

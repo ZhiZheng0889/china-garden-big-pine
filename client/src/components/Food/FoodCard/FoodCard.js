@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './FoodCard.module.css';
 import QuantityButton from '../../Button/QuantityButton/QuantityButton';
 import Modal from '../../Modal/Modal';
-const FoodCard = ({ food, setCart, cart }) => {
+const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const {
     food_id,
     name,
@@ -20,9 +20,9 @@ const FoodCard = ({ food, setCart, cart }) => {
   };
   return (
     <>
-      <article className={`food-item ${styles.container} p-3 border-bottom`}>
+      <article className={`food-item ${styles.container} p-3`}>
         <div className="details">
-          <div className="d-flex">
+          <div className={styles.header}>
             {spicy && <p>🌶</p>}
             <h5>
               {name}
@@ -40,10 +40,13 @@ const FoodCard = ({ food, setCart, cart }) => {
             <p></p>
           </div>
         </div>
-        <div className="ms-auto add">
-          <div className="d-flex align-items-center">
-            {/* <QuantityButton onClick={toggleModal} /> */}
-          </div>
+        <div className={styles.quantityContainer}>
+          <QuantityButton
+            onClick={toggleModal}
+            cart={cart}
+            setCurrentFood={setCurrentFood}
+            food={food}
+          />
         </div>
       </article>
       {isModalOpen && <Modal food={food} />}

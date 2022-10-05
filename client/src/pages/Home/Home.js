@@ -29,7 +29,13 @@ const Home = ({ cart, setCart }) => {
             </div>
           )}
           <StoreInfo />
-          <FoodList query={query} setError={setError} error={error} />
+          <FoodList
+            query={query}
+            setError={setError}
+            error={error}
+            cart={cart}
+            setCart={setCart}
+          />
         </Card>
         {/* End Main Content*/}
       </section>

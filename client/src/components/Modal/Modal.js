@@ -36,12 +36,12 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         <h4>{name}</h4>
         <button
           type="button"
-          className={`btn`}
+          className={styles.button}
           data-bs-dismiss="modal"
           aria-label="Close"
           onClick={() => setFood(null)}
         >
-          <i class="fa-regular fa-xmark"></i>
+          <i class="fa-regular fa-xmark fa-2x"></i>
         </button>
       </header>
       <section className={styles.main}>
