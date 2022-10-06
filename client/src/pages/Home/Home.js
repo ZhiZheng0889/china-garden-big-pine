@@ -7,6 +7,7 @@ import Card from '../../components/Card/Card';
 import StoreInfo from '../../components/StoreInfo/StoreInfo';
 import FoodList from '../../components/Food/FoodList/FoodList';
 import ErrorAlert from '../../errors/ErrorAlert';
+import MenuNav from '../../components/MenuNav/MenuNav';
 const Home = ({ cart, setCart }) => {
   /*
    * query handles changing category and searching if someone searches
@@ -29,6 +30,7 @@ const Home = ({ cart, setCart }) => {
             </div>
           )}
           <StoreInfo />
+          <MenuNav query={query} setQuery={setQuery} />
           <FoodList
             query={query}
             setError={setError}

@@ -12,6 +12,7 @@ body {
 }
 
 :root {
+  --color-main-lightest: rgb(255, 151, 151);
   --color-main--light: rgb(231, 48, 48);
   --color-main: rgb(192, 14, 14);
   --color-main--hover: rgb(124, 9, 9);
@@ -20,7 +21,9 @@ body {
   --color-light: #fff;
   --color-dark: #222;
   --color-border: #e6e6e6;
+  --color-main-border: rgb(168, 119, 119);
   --background-light: #f8f9fa;
+  --background-light-hover: #f0f0f0;
   --background-light-darker: #e6e6e6;
   --background-dark: #222;
   --burger-width: 18px;

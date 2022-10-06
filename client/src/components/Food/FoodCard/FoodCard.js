@@ -24,7 +24,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
         <div className="details">
           <div className={styles.header}>
             {spicy && <p>🌶</p>}
-            <h5>
+            <h5 className={styles.title}>
               {name}
               {amount && (
                 <span className=" ms-2 text-muted text-thin">({amount})</span>

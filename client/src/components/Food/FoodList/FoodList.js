@@ -41,7 +41,9 @@ const FoodList = ({ query, cart, setCart, error, setError }) => {
   return (
     <>
       <div>
-        {error ? null : foods.length > 0 ? (
+        {error ? (
+          <p className="p-3">No Food Available</p>
+        ) : foods.length > 0 ? (
           foodsList
         ) : (
           <Loading padding="p-3" />
