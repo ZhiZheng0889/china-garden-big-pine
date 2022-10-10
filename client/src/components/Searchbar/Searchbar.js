@@ -1,24 +1,24 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../Card/Card';
-import {Form, Button} from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap';
 import styles from './Searchbar.module.css';
-const Searchbar = ({ query, setQuery }) => {
+const Searchbar = ({ search, setSearch }) => {
   /**
    * when search is submitted update the value search in the query object to the current value of the input text
    *
    */
-  const [keyword, setKeyword] = useState('')
-
+  const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
   const submitHandler = (e) => {
-    e.preventDefault()
-    if(keyword.trim()){
-      history.push(`/search/${keyword}`)
-    }
-    else{
-      history.push('/')
-    }
-
-  }
+    e.preventDefault();
+    setSearch(keyword);
+    // if (keyword.trim()) {
+    //   navigate(`/search/${keyword}`);
+    // } else {
+    //   navigate('/');
+    // }
+  };
 
   return (
     <form className={styles.form}>

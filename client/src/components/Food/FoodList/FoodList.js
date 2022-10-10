@@ -4,7 +4,7 @@ import Loading from '../../Loading/Loading';
 import Modal from '../../Modal/Modal';
 import FoodCard from '../FoodCard/FoodCard';
 
-const FoodList = ({ query, cart, setCart, error, setError }) => {
+const FoodList = ({ category, cart, setCart, error, setError, search }) => {
   const [foods, setFoods] = useState([]);
   const [currentFood, setCurrentFood] = useState(null);
   // Get food items based on query of food type
@@ -16,7 +16,10 @@ const FoodList = ({ query, cart, setCart, error, setError }) => {
     const abortControler = new AbortController();
     const getFoods = async () => {
       try {
-        const response = await listFoods(query, abortControler.signal);
+        const response = await listFoods(
+          { search, category },
+          abortControler.signal
+        );
         setFoods(response);
       } catch (error) {
         setError(error);
@@ -24,7 +27,7 @@ const FoodList = ({ query, cart, setCart, error, setError }) => {
     };
     getFoods();
     return () => abortControler.abort();
-  }, [query]);
+  }, [category, search]);
 
   // create list of foods
   const foodsList = foods.map((food) => {

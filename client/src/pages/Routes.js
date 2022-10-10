@@ -14,7 +14,6 @@ const PageRoutes = ({ cart, setCart }) => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" elemnt={<Signup />} />
       <Route path="*" element={<NotFound />} />
-      <Route path='search/:keyword' element={<Home />} />
     </Routes>
   );
 };
