@@ -6,6 +6,21 @@ const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
  *
  */
 
+const getFoods = asynclist (async (req, res) =>{
+  const keyword = req.query.keyword ? {
+    name: {
+      $regex: req.query.keyword,
+      options: 'i'
+    }
+  }: {}
+  
+  const food = await foods.find({...keyword})
+
+  res.json(food)
+}
+
+)
+
 function checkQueryParams(req, res, next) {
   /*
    * update so that if there is a search query in the url to save the search to res.locals.search
