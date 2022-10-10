@@ -5,6 +5,7 @@ import Admin from './Admin/Admin';
 import NotFound from './NotFound/NotFound';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
+
 const PageRoutes = ({ cart, setCart }) => {
   return (
     <Routes>
@@ -13,6 +14,7 @@ const PageRoutes = ({ cart, setCart }) => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" elemnt={<Signup />} />
       <Route path="*" element={<NotFound />} />
+      <Route path='search/:keyword' element={<Home />} />
     </Routes>
   );
 };
