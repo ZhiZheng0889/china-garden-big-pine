@@ -6,20 +6,20 @@ const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
  *
  */
 
-const getFoods = asynclist (async (req, res) =>{
-  const keyword = req.query.keyword ? {
-    name: {
-      $regex: req.query.keyword,
-      options: 'i'
-    }
-  }: {}
-  
-  const food = await foods.find({...keyword})
+const asynclist = async (req, res) => {
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          options: 'i',
+        },
+      }
+    : {};
 
-  res.json(food)
-}
+  const food = await foods.find({ ...keyword });
 
-)
+  res.json(food);
+};
 
 function checkQueryParams(req, res, next) {
   /*

@@ -9,10 +9,10 @@ import FoodList from '../../components/Food/FoodList/FoodList';
 import ErrorAlert from '../../errors/ErrorAlert';
 import MenuNav from '../../components/MenuNav/MenuNav';
 const Home = ({ cart, setCart }) => {
-  /*
-   * query handles changing category and searching if someone searches
-   */
-  const [query, setQuery] = useState({ category: 'appetizers', search: '' });
+  // state of category nav
+  const [category, setCategory] = useState('appetizers');
+  // state of searchbar
+  const [search, setSearch] = useState('');
   const [error, setError] = useState(null);
 
   return (
@@ -20,7 +20,7 @@ const Home = ({ cart, setCart }) => {
       <section className={styles.center}>
         {/* Main content */}
         <div className="mb-2">
-          <Searchbar query={query} setQuery={setQuery} />
+          <Searchbar search={search} setSearch={setSearch} />
         </div>
 
         <Card padding={'p-0'} margin={'mt-gap'}>
@@ -30,9 +30,10 @@ const Home = ({ cart, setCart }) => {
             </div>
           )}
           <StoreInfo />
-          <MenuNav query={query} setQuery={setQuery} />
+          <MenuNav query={category} setQuery={setCategory} />
           <FoodList
-            query={query}
+            category={category}
+            search={search}
             setError={setError}
             error={error}
             cart={cart}
