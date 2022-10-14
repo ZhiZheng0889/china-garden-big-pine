@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Modal.module.css';
+import ModalFooter from './ModalFooter/ModalFooter';
 const Modal = ({ food, setCart, cart, setFood }) => {
   console.log(food);
   const [quantity, setQuantity] = useState(1);
   const [specialRequest, setSpecialRequest] = useState('');
+  const [total, setTotal] = useState(0);
   if (!food) return null;
   const {
     name = '',
@@ -12,6 +14,10 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     options = '',
     amount = 0,
   } = food;
+
+  useEffect(() => {
+    setTotal(quantity * price);
+  }, [quantity, price]);
 
   const handleAddToCart = (event) => {
     setCart((curr) => [
@@ -24,6 +30,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
       },
     ]);
   };
+  console.log(food);
   return (
     <article
       className={styles.modal}
@@ -33,7 +40,6 @@ const Modal = ({ food, setCart, cart, setFood }) => {
       aria-hidden={food ? true : false}
     >
       <header className={styles.header}>
-        <h4>{name}</h4>
         <button
           type="button"
           className={styles.button}
@@ -45,11 +51,14 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         </button>
       </header>
       <section className={styles.main}>
-        <p>Woohoo, you're reading this text in a modal!</p>
+        <h4>{name}</h4>
+        <p>{description}</p>
       </section>
-      <footer className={styles.footer}>
-        <button className="btn btn-primary">Add to Cart</button>
-      </footer>
+      <ModalFooter
+        total={total}
+        setQuantity={setQuantity}
+        quantity={quantity}
+      />
     </article>
     // <div
     //   id="foodModal"

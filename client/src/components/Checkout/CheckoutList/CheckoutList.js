@@ -1,7 +1,9 @@
 import React from 'react';
 
 const CheckoutList = ({ cart, setCart }) => {
-  return <div>CheckoutList</div>;
+  if (!cart.length) {
+    return <p>Cart is empty...</p>;
+  }
 };
 
 export default CheckoutList;
