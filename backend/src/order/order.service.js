@@ -127,9 +127,19 @@ const knex = require('../db/connection');
 //       .exec();
 //   }
 // };
+
+/*
+ * List orders in descending order
+ * @returns Promise<Orders[]>
+ */
 function list() {
   return knex('orders').select('*');
 }
+
+/*
+ * reads one signle order
+ * @returns Promise<Order[]>
+ */
 
 function read(order_id) {
   return knex('orders').select('*').where({ order_id }).first();
