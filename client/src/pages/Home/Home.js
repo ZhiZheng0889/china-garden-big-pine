@@ -30,7 +30,7 @@ const Home = ({ cart, setCart }) => {
             </div>
           )}
           <StoreInfo />
-          <MenuNav query={category} setQuery={setCategory} />
+          <MenuNav category={category} setCategory={setCategory} />
           <FoodList
             category={category}
             search={search}

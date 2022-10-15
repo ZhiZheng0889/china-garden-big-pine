@@ -1,0 +1,12 @@
+.footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  padding: 0.9rem;
+}
+
+.footer button {
+  margin-left: auto;
+}

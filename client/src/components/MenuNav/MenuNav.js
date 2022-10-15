@@ -1,23 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './MenuNav.module.css';
-const MenuNav = ({ query, setQuery }) => {
-  // update query.category to the current id value of onClick
-  const changeQuery = ({ target }) => {
+const MenuNav = ({ category, setCategory }) => {
+  // update category to the current id value of onClick
+  const changeCategory = ({ target }) => {
     const { id } = target;
-    setQuery((prevState) => {
-      return { ...prevState, category: id };
-    });
+    setCategory(id);
   };
+  console.log('category: ', category);
   return (
     <ul className={styles.list}>
       <li className={styles.listItem}>
         <button
           id="appetizers"
-          className={`${query.category === 'appetizers' ? styles.active : ''} ${
+          className={`${category === 'appetizers' ? styles.active : ''} ${
             styles.listLink
           }`}
-          onClick={changeQuery}
+          onClick={changeCategory}
         >
           Appetizers
         </button>
@@ -25,10 +24,10 @@ const MenuNav = ({ query, setQuery }) => {
       <li className={styles.listItem}>
         <button
           id="drinks"
-          className={`${query.category === 'drinks' ? styles.active : ''} ${
+          className={`${category === 'drinks' ? styles.active : ''} ${
             styles.listLink
           }`}
-          onClick={changeQuery}
+          onClick={changeCategory}
         >
           Drinks
         </button>
@@ -36,10 +35,10 @@ const MenuNav = ({ query, setQuery }) => {
       <li className={styles.listItem}>
         <button
           id="side_orders"
-          className={`${
-            query.category === 'side_orders' ? styles.active : ''
-          } ${styles.listLink}`}
-          onClick={changeQuery}
+          className={`${category === 'side_orders' ? styles.active : ''} ${
+            styles.listLink
+          }`}
+          onClick={changeCategory}
         >
           Side Orders
         </button>
@@ -47,10 +46,10 @@ const MenuNav = ({ query, setQuery }) => {
       <li className={styles.listItem}>
         <button
           id="fried_rice"
-          className={`${query.category === 'fried_rice' ? styles.active : ''} ${
+          className={`${category === 'fried_rice' ? styles.active : ''} ${
             styles.listLink
           }`}
-          onClick={changeQuery}
+          onClick={changeCategory}
         >
           Fried Rice
         </button>
@@ -58,10 +57,10 @@ const MenuNav = ({ query, setQuery }) => {
       <li className={styles.listItem}>
         <button
           id="chicken"
-          className={`${query.category === 'chicken' ? styles.active : ''} ${
+          className={`${category === 'chicken' ? styles.active : ''} ${
             styles.listLink
           }`}
-          onClick={changeQuery}
+          onClick={changeCategory}
         >
           Chicken
         </button>

@@ -17,7 +17,7 @@ app.use(cors());
 
 app.use(express.json());
 app.use('/foods', foodsRouter);
-// app.use('/orders', orderRouter);
+app.use('/orders', orderRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 

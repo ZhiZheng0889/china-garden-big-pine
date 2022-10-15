@@ -4,7 +4,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40rem;
-  background-color: var(--background-light);
+  background-color: #fff;
   border-radius: 10px;
   border: solid 1px var(--color-border);
   transition: 0.5s;
@@ -12,7 +12,6 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--color-border);
   padding: 0.9rem;
@@ -20,19 +19,6 @@
 
 .main {
   padding: 0.9rem;
-}
-
-.footer {
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--color-border);
-  padding: 0.9rem;
-}
-
-.footer button {
-  margin-left: auto;
 }
 
 .button {
