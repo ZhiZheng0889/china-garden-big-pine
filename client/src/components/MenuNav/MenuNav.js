@@ -7,6 +7,15 @@ const MenuNav = ({ category, setCategory }) => {
     const { id } = target;
     setCategory(id);
   };
+  const categories = [
+    'appetizers',
+    'drinks',
+    'side orders',
+    'fried rice',
+    'diet dishes',
+    'soup',
+    'lo mein',
+  ];
   console.log('category: ', category);
   return (
     <ul className={styles.list}>

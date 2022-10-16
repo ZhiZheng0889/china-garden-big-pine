@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ModalFooter.module.css';
-const ModalFooter = ({ total, setQuantity, quantity }) => {
+const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
   const [input, setInput] = useState('');
   const updateQuantity = (event) => {
     event.preventDefault();
@@ -52,7 +52,7 @@ const ModalFooter = ({ total, setQuantity, quantity }) => {
           <i id="+" className="fa-solid fa-plus"></i>
         </button>
       </form>
-      <button className="btn btn-primary">
+      <button className="btn btn-primary" onClick={handleAddToCart}>
         Add to Cart - ${total.toFixed(2)}
       </button>
     </footer>

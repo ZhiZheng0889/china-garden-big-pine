@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Modal.module.css';
 import ModalFooter from './ModalFooter/ModalFooter';
+import ErrorAlert from '../../errors/ErrorAlert';
+import styles from './Modal.module.css';
 const Modal = ({ food, setCart, cart, setFood }) => {
   console.log(food);
   const [quantity, setQuantity] = useState(1);
   const [specialRequest, setSpecialRequest] = useState('');
   const [total, setTotal] = useState(0);
+  const [error, setError] = useState(null);
   if (!food) return null;
   const {
     name = '',
@@ -20,46 +22,56 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   }, [quantity, price]);
 
   const handleAddToCart = (event) => {
-    setCart((curr) => [
-      ...curr,
-      {
-        name,
-        price,
-        description,
-        quantity,
-      },
-    ]);
+    if (quantity <= 0) {
+      setError({ message: 'Quantity has to be greater than zero' });
+    } else {
+      setCart((curr) => [
+        ...curr,
+        {
+          name,
+          price,
+          description,
+          quantity,
+        },
+      ]);
+    }
   };
   console.log(food);
   return (
-    <article
-      className={styles.modal}
-      id="foodModal"
-      tabIndex="-1"
-      aria-labelledby="foodModalLabel"
-      aria-hidden={food ? true : false}
-    >
-      <header className={styles.header}>
-        <button
-          type="button"
-          className={styles.button}
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          onClick={() => setFood(null)}
-        >
-          <i class="fa-regular fa-xmark fa-2x"></i>
-        </button>
-      </header>
-      <section className={styles.main}>
-        <h2>{name}</h2>
-        <p>{description}</p>
-      </section>
-      <ModalFooter
-        total={total}
-        setQuantity={setQuantity}
-        quantity={quantity}
-      />
-    </article>
+    <>
+      <div className={`${styles.modalBackdrop}`}></div>
+      <article
+        className={styles.modal}
+        id="foodModal"
+        tabIndex="-1"
+        aria-labelledby="foodModalLabel"
+        aria-hidden={food ? true : false}
+      >
+        <header className={styles.header}>
+          <button
+            type="button"
+            className={styles.button}
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={() => setFood(null)}
+          >
+            <i class="fa-regular fa-xmark fa-2x"></i>
+          </button>
+        </header>
+        <section className={styles.main}>
+          {<ErrorAlert error={error} />}
+          <h2 className={styles.title}>{name}</h2>
+          <p>{description}</p>
+        </section>
+        <ModalFooter
+          total={total}
+          setQuantity={setQuantity}
+          quantity={quantity}
+          handleAddToCart={handleAddToCart}
+        />
+      </article>
+    </>
+
     // <div
     //   id="foodModal"
     //   tabindex="-1"
