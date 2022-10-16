@@ -51,7 +51,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         </button>
       </header>
       <section className={styles.main}>
-        <h4>{name}</h4>
+        <h2>{name}</h2>
         <p>{description}</p>
       </section>
       <ModalFooter
