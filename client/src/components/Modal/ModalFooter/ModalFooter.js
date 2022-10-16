@@ -6,7 +6,7 @@ const ModalFooter = ({ total, setQuantity, quantity }) => {
     event.preventDefault();
     const { id } = event.target;
     console.log(id);
-    setQuantity((prev) => (id === '+' ? (prev += 1) : (prev -= 1)));
+    setQuantity((prev) => (id === '+' ? prev + 1 : prev - 1));
   };
   const handleInputChange = (event) => {
     const { value } = event.target;
@@ -16,14 +16,28 @@ const ModalFooter = ({ total, setQuantity, quantity }) => {
   useEffect(() => {
     setInput(quantity);
   }, [quantity]);
+  console.log('Quantity: ', quantity);
   return (
     <footer className={styles.footer}>
       <form>
-        <button onClick={updateQuantity} id="-">
+        <button
+          onClick={updateQuantity}
+          id="-"
+          className={`${styles.button} ${styles.decrement}`}
+        >
           -
         </button>
-        <input value={input} type="text" onChange={handleInputChange} />
-        <button onClick={updateQuantity} id="+">
+        <input
+          value={input}
+          type="text"
+          onChange={handleInputChange}
+          className={styles.input}
+        />
+        <button
+          onClick={updateQuantity}
+          id="+"
+          className={`${styles.button} ${styles.increment}`}
+        >
           +
         </button>
       </form>

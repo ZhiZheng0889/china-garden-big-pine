@@ -10,7 +10,6 @@ function App() {
         <Navbar user={user} />
       </header>
       <PageRoutes />
-      <Footer />
     </>
   );
 }
