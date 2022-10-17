@@ -7,8 +7,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Anthony Mclamb zhizheng",
-  "license": "ISC",
-  "dependencies": {
-    "@mui/material": "^5.10.9"
-  }
+  "license": "ISC"
 }
