@@ -28,8 +28,6 @@ const Searchbar = ({ search, setSearch }) => {
       <input type="text" placeholder="Search" className={styles.input} />
     </form>
   );
-  
 };
-   
 
 export default Searchbar;
