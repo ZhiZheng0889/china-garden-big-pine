@@ -20,13 +20,16 @@ function listByCategory(category) {
  * query database and get on item based on food_id
  */
 function read(food_id) {
-  return knex('products').select('*').where({ food_id }).first();
+  return knex(TABLE).select('*').where({ food_id }).first();
 }
 
-function search(text) {}
+function search(text) {
+  return knex(TABLE).select('*').whereILike('name', `%${text}%`);
+}
 
 module.exports = {
   list,
   listByCategory,
   read,
+  search,
 };

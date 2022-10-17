@@ -29,6 +29,10 @@ function checkQueryParams(req, res, next) {
   if (category) {
     res.locals.category = category;
   }
+  const { search = '' } = req.query;
+  if (search) {
+    res.locals.search = search;
+  }
   next();
 }
 
@@ -39,10 +43,16 @@ async function list(req, res, next) {
   /*
    * If res.locals.search is defined use service.search() function
    */
-  const { category = '' } = res.locals;
-  const data = category
-    ? await service.listByCategory(category)
-    : await service.list();
+  const { category = '', search = '' } = res.locals;
+  let data;
+  if (search) {
+    data = await service.search(search);
+    console.log(data);
+  } else if (category) {
+    data = await service.listByCategory(category);
+  } else {
+    data = await service.list();
+  }
   res.status(200).json({ data });
 }
 
