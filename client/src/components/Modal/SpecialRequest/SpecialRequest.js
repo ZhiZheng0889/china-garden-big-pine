@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './SpecialsRequest.module.css';
-const SpecialsRequest = () => {
+import styles from './SpecialRequest.module.css';
+const SpecialRequest = () => {
   // create ability to fill out special requests
   return (
     <div class="mt20">
@@ -20,4 +20,4 @@ const SpecialsRequest = () => {
   );
 };
 
-export default SpecialsRequest;
+export default SpecialRequest;

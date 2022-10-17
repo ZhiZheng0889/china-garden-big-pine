@@ -11,6 +11,7 @@ const Searchbar = ({ search, setSearch }) => {
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
   const submitHandler = (e) => {
+    console.log('submit: ', e.target.value);
     e.preventDefault();
     setSearch(keyword);
     // if (keyword.trim()) {
@@ -19,13 +20,22 @@ const Searchbar = ({ search, setSearch }) => {
     //   navigate('/');
     // }
   };
+  const onChange = ({ target }) => {
+    setKeyword(target.value);
+  };
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={submitHandler}>
       <button className={styles.button} type="submit">
         <i className="fa-light fa-magnifying-glass fa-lg"></i>
       </button>
-      <input type="text" placeholder="Search" className={styles.input} />
+      <input
+        type="text"
+        placeholder="Search"
+        className={styles.input}
+        value={keyword}
+        onChange={onChange}
+      />
     </form>
   );
 };
