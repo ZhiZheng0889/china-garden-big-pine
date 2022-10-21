@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './SpecialRequest.module.css';
-const SpecialRequest = ({specialRequest, setSpecialResquest}) => {
+const SpecialRequest = ({specialRequest, setSpecialRequest}) => {
   // create ability to fill out special requests
   function handler(event){
     const {value}= event.target;
-    setSpecialResquest(value);
+    setSpecialRequest(value);
   }
   ;
   return (
-    <div class="mt20">
+    <div className="mt20">
       <label for="item_special_instructions" id="special_instructions_label">
         Special instructions :
       </label>
