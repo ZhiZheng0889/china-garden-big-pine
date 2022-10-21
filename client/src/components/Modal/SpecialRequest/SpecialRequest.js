@@ -13,6 +13,8 @@ const SpecialRequest = () => {
       </p>
       <textarea
         class="mb10"
+        rows={10}
+        cols={40}
         name="param_special~instructions_s_n_500"
         id="item_special_instructions"
         maxlength="500"
