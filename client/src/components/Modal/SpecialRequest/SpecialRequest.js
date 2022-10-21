@@ -11,6 +11,7 @@ const SpecialRequest = () => {
         NOTE EXTRA CHARGES MAY BE INCURRED FOR ADDITIONS IN THIS SECTION. 
         PLEASE INCLUDE THE AMOUNT BY $ FOR ADDING MORE INGREDIENT TO A DISH.
       </p>
+      <form id='form' method ="POST" action =''>
       <textarea
         class="mb10"
         rows={10}
@@ -19,6 +20,7 @@ const SpecialRequest = () => {
         id="item_special_instructions"
         maxlength="500"
       ></textarea>
+      </form>
     </div>
   );
 };
