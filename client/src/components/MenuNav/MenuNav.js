@@ -112,9 +112,6 @@ const MenuNav = ({ category, setCategory }) => {
       </li>
 
 
-      <br></br>
-      
-
       <li className={styles.listItem}>
         <button
           id="chicken"

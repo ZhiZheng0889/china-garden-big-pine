@@ -1,5 +1,6 @@
 .list {
   display: flex;
+  flex-wrap: wrap;
   list-style: none;
   border-bottom: solid 1px var(--color-border);
 }
