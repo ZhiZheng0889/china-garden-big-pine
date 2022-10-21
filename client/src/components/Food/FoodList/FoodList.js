@@ -36,6 +36,8 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
         key={food.food_id}
         food={food}
         setCurrentFood={setCurrentFood}
+        setCart={setCart}
+        cart={cart}
       />
     );
   });

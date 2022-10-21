@@ -49,7 +49,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
           />
         </div>
       </article>
-      {isModalOpen && <Modal food={food} />}
+      {isModalOpen && <Modal food={food} setCart={setCart} cart={cart} />}
     </>
   );
 };
