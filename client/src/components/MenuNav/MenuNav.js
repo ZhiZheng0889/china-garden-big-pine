@@ -9,11 +9,11 @@ const MenuNav = ({ category, setCategory }) => {
   };
   const categories = [
     'appetizers',
+    'soups',
     'drinks',
     'side orders',
     'fried rice',
     'diet dishes',
-    'soup',
     'lo mein',
   ];
   console.log('category: ', category);
@@ -30,6 +30,7 @@ const MenuNav = ({ category, setCategory }) => {
           Appetizers
         </button>
       </li>
+
       <li className={styles.listItem}>
         <button
           id="soup"
@@ -41,6 +42,7 @@ const MenuNav = ({ category, setCategory }) => {
           Soup
         </button>
       </li>
+
       <li className={styles.listItem}>
         <button
           id="chow_mein"
@@ -181,7 +183,7 @@ const MenuNav = ({ category, setCategory }) => {
 
       <li className={styles.listItem}>
         <button
-          id="lunchspecial"
+          id="lunch"
           className={`${category === 'lunch' ? styles.active : ''} ${
             styles.listLink
           }`}
