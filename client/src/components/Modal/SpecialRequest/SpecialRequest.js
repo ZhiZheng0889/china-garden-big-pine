@@ -8,7 +8,8 @@ const SpecialRequest = () => {
         Special instructions :
       </label>
       <p class="description">
-        NOTE EXTRA CHARGES MAY BE INCURRED FOR ADDITIONS IN THIS SECTION
+        NOTE EXTRA CHARGES MAY BE INCURRED FOR ADDITIONS IN THIS SECTION. 
+        PLEASE INCLUDE THE AMOUNT BY $ FOR ADDING MORE INGREDIENT TO A DISH.
       </p>
       <textarea
         class="mb10"
