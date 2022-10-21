@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from './SpecialRequest.module.css';
-const SpecialRequest = () => {
+const SpecialRequest = ({specialRequest, setSpecialResquest}) => {
   // create ability to fill out special requests
+  function handler(event){
+    const {value}= event.target;
+    setSpecialResquest(value);
+  }
+  ;
   return (
     <div class="mt20">
       <label for="item_special_instructions" id="special_instructions_label">
@@ -11,11 +16,12 @@ const SpecialRequest = () => {
         NOTE EXTRA CHARGES MAY BE INCURRED FOR ADDITIONS IN THIS SECTION. 
         PLEASE INCLUDE THE AMOUNT BY $ FOR ADDING MORE INGREDIENT TO A DISH.
       </p>
-      <form id='form' method ="POST" action =''>
+      <form id='form'>
       <textarea
+        value={specialRequest}
         class="mb10"
         rows={10}
-        cols={40}
+        cols={60}
         name="param_special~instructions_s_n_500"
         id="item_special_instructions"
         maxlength="500"
