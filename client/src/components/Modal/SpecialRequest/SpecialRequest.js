@@ -16,9 +16,10 @@ const SpecialRequest = ({specialRequest, setSpecialResquest}) => {
         NOTE EXTRA CHARGES MAY BE INCURRED FOR ADDITIONS IN THIS SECTION. 
         PLEASE INCLUDE THE AMOUNT BY $ FOR ADDING MORE INGREDIENT TO A DISH.
       </p>
-      <form id='form'>
+      <form id='form' method='post'>
       <textarea
         value={specialRequest}
+        onChange={handler}
         class="mb10"
         rows={10}
         cols={60}

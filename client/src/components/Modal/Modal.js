@@ -9,7 +9,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   const [specialRequest, setSpecialRequest] = useState('');
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
-  if (!food) return null;
+ 
   const {
     name = '',
     price = '',
@@ -21,6 +21,8 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   useEffect(() => {
     setTotal(quantity * price);
   }, [quantity, price]);
+  
+  if (!food) return null;
 
   const handleAddToCart = (event) => {
     if (quantity <= 0) {
@@ -37,7 +39,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
       ]);
     }
   };
-  console.log(food);
+  console.log(specialRequest);
   return (
     <>
       <div className={`${styles.modalBackdrop}`}></div>
