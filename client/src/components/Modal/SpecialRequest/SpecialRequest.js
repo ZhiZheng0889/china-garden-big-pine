@@ -1,18 +1,18 @@
 import React from 'react';
 import styles from './SpecialRequest.module.css';
-const SpecialRequest = ({specialRequest, setSpecialResquest}) => {
+const SpecialRequest = ({specialRequest, setSpecialRequest}) => {
   // create ability to fill out special requests
   function handler(event){
     const {value}= event.target;
-    setSpecialResquest(value);
+    setSpecialRequest(value);
   }
   ;
   return (
-    <div class="mt20">
-      <label for="item_special_instructions" id="special_instructions_label">
+    <div className="mt20">
+      <label htmlFor="item_special_instructions" id="special_instructions_label">
         Special instructions :
       </label>
-      <p class="description">
+      <p className="description">
         NOTE EXTRA CHARGES MAY BE INCURRED FOR ADDITIONS IN THIS SECTION. 
         PLEASE INCLUDE THE AMOUNT BY $ FOR ADDING MORE INGREDIENT TO A DISH.
       </p>
@@ -20,12 +20,12 @@ const SpecialRequest = ({specialRequest, setSpecialResquest}) => {
       <textarea
         value={specialRequest}
         onChange={handler}
-        class="mb10"
+        className="mb10"
         rows={10}
         cols={60}
         name="param_special~instructions_s_n_500"
         id="item_special_instructions"
-        maxlength="500"
+        maxLength="500"
       ></textarea>
       </form>
     </div>
