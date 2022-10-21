@@ -3,6 +3,7 @@ import ModalFooter from './ModalFooter/ModalFooter';
 import ErrorAlert from '../../errors/ErrorAlert';
 import SpecialRequest from './SpecialRequest/SpecialRequest';
 import styles from './Modal.module.css';
+import ModalOptions from './ModalOptions/ModalOptions';
 const Modal = ({ food, setCart, cart, setFood }) => {
   console.log(food);
   const [quantity, setQuantity] = useState(1);
@@ -16,6 +17,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     description = '',
     options = '',
     amount = 0,
+    size,
   } = food;
 
   useEffect(() => {
@@ -65,6 +67,14 @@ const Modal = ({ food, setCart, cart, setFood }) => {
           {<ErrorAlert error={error} />}
           <h2 className={styles.title}>{name}</h2>
           <p>{description}</p>
+          {size && (
+            <ModalOptions
+              title={'Size Options'}
+              description={'Choose 1'}
+              options={size}
+            />
+          )}
+          {options && <ModalOptions title={'Options'} options={options} />}
           <SpecialRequest
             specialRequest={specialRequest}
             setSpecialRequest={setSpecialRequest}

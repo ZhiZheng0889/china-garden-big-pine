@@ -30,7 +30,7 @@ const Searchbar = ({ search, setSearch }) => {
         <i className="fa-light fa-magnifying-glass fa-lg"></i>
       </button>
       <input
-        type="text"
+        type="search"
         placeholder="Search"
         className={styles.input}
         value={keyword}

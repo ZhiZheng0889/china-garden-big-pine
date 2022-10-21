@@ -193,3 +193,9 @@ body {
 .w-100 {
   width: 100%;
 }
+
+/* modal */
+
+.modal-header {
+  margin-bottom: 0.75rem;
+}
