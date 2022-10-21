@@ -9,7 +9,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   const [specialRequest, setSpecialRequest] = useState('');
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
- 
+
   const {
     name = '',
     price = '',
@@ -21,7 +21,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   useEffect(() => {
     setTotal(quantity * price);
   }, [quantity, price]);
-  
+
   if (!food) return null;
 
   const handleAddToCart = (event) => {
@@ -58,7 +58,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
             aria-label="Close"
             onClick={() => setFood(null)}
           >
-            <i class="fa-regular fa-xmark fa-2x"></i>
+            <i className="fa-regular fa-xmark fa-2x"></i>
           </button>
         </header>
         <section className={styles.main}>
