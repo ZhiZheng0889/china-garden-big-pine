@@ -199,3 +199,8 @@ body {
 .modal-header {
   margin-bottom: 0.75rem;
 }
+
+/* base */
+.w-100 {
+  width: 100%;
+}

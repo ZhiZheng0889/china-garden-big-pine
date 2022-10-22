@@ -23,7 +23,7 @@ const Home = ({ cart, setCart }) => {
           <Searchbar search={search} setSearch={setSearch} />
         </div>
 
-        <Card padding={'p-0'} margin={'mt-gap'}>
+        <Card padding={'p-0'} margin={'mt-gap'} width={'w-100'}>
           {error && (
             <div className="p-3 pb-0">
               <ErrorAlert error={error} />
