@@ -3,23 +3,23 @@ import styles from './OpenedMenu.module.css';
 const OpenedMenu = ({ category, changeCategory }) => {
   const categories = [
     'appetizers',
-    'soups',
+    'soup',
     'drinks',
     'side_orders',
     'fried_rice',
     'diet_dishes',
-    'lo_mein_and_chow_mei_fun',
+    'lo_mein_or_chow_mei_fun',
     'chicken',
     'pork',
     'beef',
-    'combo',
-    'lunch',
     'chow_mein',
     'chop_suey',
     'egg_foo_young',
     'sweet_and_sour',
     'seafood',
     'chefspecials',
+    'combo',
+    'lunch',
   ];
   return (
     <>
