@@ -19,7 +19,6 @@ export async function fetchJson(url, options, onCancel) {
     if (response.status === 204) {
       return null;
     }
-
     const payload = await response.json();
     if (payload.error) {
       return Promise.reject({ message: payload.error });

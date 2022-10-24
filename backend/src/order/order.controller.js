@@ -1,6 +1,5 @@
 const service = require('./order.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
-
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const REQUIRED_PROPERTIES = ['cart', 'user_id'];
@@ -76,32 +75,25 @@ function read(req, res, next) {
  */
 async function create(req, res, next) {
   const { data } = req.body;
-  res.status(201).json(createOrder)
+  res.status(201).json(createOrder);
 }
 
 /*
  * Get Order
  */
-const getOrderbyId = asyncHangler(async(req, res) => {
-  const order = await Order.findById(req.params.id).populate
-  (
-    'user',
-    'email'
-  )
+const getOrderbyId = asyncErrorBoundary(async (req, res) => {
+  const order = await Order.findById(req.params.id).populate('user', 'email');
 
   if (order) {
-    res.json(order)
+    res.json(order);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
   }
-  else{
-    res.status(404)
-    throw new Error ('Order not found')
-  }
-
-}
-)
+});
 
 /**
- * 
+ *
  */
 
 /*
