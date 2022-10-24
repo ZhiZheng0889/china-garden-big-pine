@@ -1,10 +1,15 @@
+.nav {
+  position: relative;
+  scroll-behavior: smooth;
+}
+
 .list {
-  display: flex;
+  display: inline-flex;
   list-style: none;
   flex-wrap: nowrap;
   border-bottom: solid 1px var(--color-border);
   overflow-x: auto;
-  width: 100%;
+  white-space: nowrap;
 }
 
 .listLink {

@@ -17,12 +17,16 @@ const ClosedMenu = ({ category, changeCategory }) => {
     'egg_foo_young',
     'sweet_and_sour',
     'seafood',
+<<<<<<< HEAD
+    'chef_specials',
+=======
     'chefspecials',
     'combo',
     'lunch',
+>>>>>>> 0d4efb129ebca4d6697aa76f477a2d4cda9d8d3f
   ];
   return (
-    <>
+    <nav className={styles.nav}>
       <ul className={styles.list}>
         {categories.map((cat) => {
           const text = cat
@@ -44,7 +48,7 @@ const ClosedMenu = ({ category, changeCategory }) => {
           );
         })}
       </ul>
-    </>
+    </nav>
   );
 };
 
