@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './ModalOptions.module.css';
 const ModalOptions = ({ title, description, options }) => {
-  console.log('options: ', options);
   if (Array.isArray(options) && options.length > 0) {
     return (
       <>

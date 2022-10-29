@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styles from './CheckoutFooter.module.css';
 const CheckoutFooter = ({ cart }) => {
   const FLORIDA_TAX = 0.06;
   const [subTotal, setSubTotal] = useState(0);
@@ -23,21 +24,23 @@ const CheckoutFooter = ({ cart }) => {
   }, [subTotal]);
 
   return (
-    <section>
-      <div className="sub-total d-flex">
+    <section className={styles.section}>
+      <div className={`${styles.subTotal} sub-total`}>
         <p>Sub Total: </p>
-        <p className="ms-auto">${subTotal && Number(subTotal).toFixed(2)}</p>
+        <p className={styles.number}>
+          ${subTotal && Number(subTotal).toFixed(2)}
+        </p>
       </div>
-      <div className="tax d-flex">
+      <div className={`tax ${styles.flex}`}>
         <p>Tax: </p>
-        <p className="ms-auto">${tax && Number(tax).toFixed(2)}</p>
+        <p className={styles.number}>${tax && Number(tax).toFixed(2)}</p>
       </div>
-      <div className="total d-flex">
+      <div className={`total ${styles.flex}`}>
         <p>Total: </p>
-        <p className="ms-auto">${total && Number(total).toFixed(2)}</p>
+        <p className={styles.number}>${total && Number(total).toFixed(2)}</p>
       </div>
 
-      <div className="checkoutBtn">
+      <div className={`checkoutBtn ${styles.checkoutBtn}`}>
         <button className="btn btn-primary w-100">Checkout</button>
       </div>
     </section>

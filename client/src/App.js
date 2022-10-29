@@ -4,7 +4,6 @@ import Navbar from './components/Navbar/Navbar';
 function App() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
-  console.log(cart);
   return (
     <>
       <header>

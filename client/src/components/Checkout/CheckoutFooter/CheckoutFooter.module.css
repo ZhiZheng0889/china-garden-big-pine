@@ -1,0 +1,15 @@
+.subTotal {
+  display: flex;
+}
+
+.number {
+  margin-left: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.checkoutBtn {
+  margin-top: 1rem;
+}

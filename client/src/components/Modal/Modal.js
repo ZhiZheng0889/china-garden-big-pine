@@ -6,7 +6,6 @@ import ModalOptions from './ModalOptions/ModalOptions';
 import styles from './Modal.module.css';
 import { Cart } from '../../utils/Cart';
 const Modal = ({ food, setCart, cart, setFood }) => {
-  console.log(food);
   const [quantity, setQuantity] = useState(1);
   const [specialRequest, setSpecialRequest] = useState('');
   const [total, setTotal] = useState(0);
@@ -35,12 +34,12 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         description,
         quantity,
         specialRequest,
+        price,
       };
       Cart.add(item, cart, setCart);
       setFood(null);
     }
   };
-  console.log(cart);
   return (
     <>
       <div className={`${styles.modalBackdrop}`}></div>
