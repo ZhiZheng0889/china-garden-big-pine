@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './CheckoutFooter.module.css';
 const CheckoutFooter = ({ cart }) => {
   const FLORIDA_TAX = 0.06;
@@ -40,8 +41,14 @@ const CheckoutFooter = ({ cart }) => {
         <p className={styles.number}>${total && Number(total).toFixed(2)}</p>
       </div>
 
-      <div className={`checkoutBtn ${styles.checkoutBtn}`}>
-        <button className="btn btn-primary w-100">Checkout</button>
+      <div className={`checkoutBtn }`}>
+        <Link
+          to="/checkout"
+          className={`btn btn-primary w-100 ${styles.checkoutBtn}`}
+          disabled={!cart.length}
+        >
+          Checkout
+        </Link>
       </div>
     </section>
   );
