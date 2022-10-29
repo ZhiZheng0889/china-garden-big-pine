@@ -30,3 +30,6 @@
 .buttonDelete:hover {
   filter: brightness(70%);
 }
+.specialRequest {
+  font-size: 0.8rem;
+}

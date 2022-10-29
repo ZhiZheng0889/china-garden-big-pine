@@ -45,7 +45,7 @@ const CheckoutFooter = ({ cart }) => {
         <Link
           to="/checkout"
           className={`btn btn-primary w-100 ${styles.checkoutBtn}`}
-          disabled={!cart.length}
+          disabled={cart.length ? true : false}
         >
           Checkout
         </Link>

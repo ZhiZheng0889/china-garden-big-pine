@@ -7,6 +7,7 @@ import styles from './Modal.module.css';
 import { Cart } from '../../utils/Cart';
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
+  const [selectedOption, setSelectedOption] = useState({});
   const [specialRequest, setSpecialRequest] = useState('');
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
@@ -70,6 +71,8 @@ const Modal = ({ food, setCart, cart, setFood }) => {
               title={'Size Options'}
               description={'Choose 1'}
               options={size}
+              option={selectedOption}
+              setOption={setSelectedOption}
             />
           )}
           {options && <ModalOptions title={'Options'} options={options} />}
