@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import Card from '../Card/Card';
 import CheckoutList from './CheckoutList/CheckoutList';
 import CheckoutFooter from './CheckoutFooter/CheckoutFooter';
-const Checkout = () => {
-  const [cart, setCart] = useState([]);
+const Checkout = ({ cart, setCart }) => {
   return (
     <Card padding="p-0">
       <div className="p-3 border-bottom d-flex flex-column w-100">

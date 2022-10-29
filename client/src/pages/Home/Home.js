@@ -43,7 +43,7 @@ const Home = ({ cart, setCart }) => {
         {/* End Main Content*/}
       </section>
       <aside className={styles.aside}>
-        <Checkout />
+        <Checkout cart={cart} setCart={setCart} />
       </aside>
     </main>
   );

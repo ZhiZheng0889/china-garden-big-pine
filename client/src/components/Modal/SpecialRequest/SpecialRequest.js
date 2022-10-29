@@ -22,6 +22,7 @@ const SpecialRequest = ({ specialRequest, setSpecialRequest }) => {
           className={styles.textArea}
           id="specialRequest"
           name="specialRequest"
+          placeholder="Special Request..."
         ></textarea>
       </form>
     </>
