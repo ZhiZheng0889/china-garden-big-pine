@@ -16,7 +16,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     price = '',
     description = '',
     options = '',
-    amount = 0,
+    amount = null,
     size,
   } = food;
 
@@ -36,6 +36,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         quantity,
         specialRequest,
         price,
+        amount,
       };
       Cart.add(item, cart, setCart);
       setFood(null);

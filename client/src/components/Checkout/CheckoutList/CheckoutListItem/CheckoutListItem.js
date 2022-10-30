@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CheckoutListItem.module.css';
-const CheckoutListItem = ({ item }) => {
+const CheckoutListItem = ({ item, index, handleDelete }) => {
   const {
     name,
     description,
@@ -26,8 +26,12 @@ const CheckoutListItem = ({ item }) => {
         )}
         <p className={styles.cost}>${cost}</p>
       </div>
-      <button className={styles.buttonDelete}>
-        {<i className="fa-solid fa-trash fa-lg"></i>}
+      <button
+        className={styles.buttonDelete}
+        data-index={index}
+        onClick={handleDelete}
+      >
+        {<i className="fa-solid fa-trash fa-lg" data-index={index}></i>}
       </button>
     </li>
   );
