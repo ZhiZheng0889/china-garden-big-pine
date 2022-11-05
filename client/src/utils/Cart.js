@@ -1,0 +1,28 @@
+export class Cart {
+  /*
+    get index of object inside of cart object.
+    If not found in cart, return -1
+  */
+  static getIndex(item, cart) {
+    return cart.findIndex((cartItem) => {
+      return (
+        cartItem.name === item.name &&
+        cartItem.specialRequest === item.specialRequest
+      );
+    });
+  }
+
+  static add(item, cart, setCart) {
+    console.log(item, cart);
+    const index = this.getIndex(item, cart);
+    if (index >= 0) {
+      setCart((curr) => {
+        const newArr = [...curr];
+        newArr[index].quantity += item.quantity;
+        return [...newArr];
+      });
+    } else {
+      setCart((curr) => [...curr, item]);
+    }
+  }
+}

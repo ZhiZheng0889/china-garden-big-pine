@@ -5,11 +5,15 @@ import Admin from './Admin/Admin';
 import NotFound from './NotFound/NotFound';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
+import Checkout from './Checkout/Checkout';
+import Receipt from './Receipt/Receipt';
 
 const PageRoutes = ({ cart, setCart }) => {
   return (
     <Routes>
       <Route index element={<Home cart={cart} setCart={setCart} />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/receipt" element={<Receipt />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" elemnt={<Signup />} />

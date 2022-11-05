@@ -11,7 +11,6 @@ const Searchbar = ({ search, setSearch }) => {
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
   const submitHandler = (e) => {
-    console.log('submit: ', e.target.value);
     e.preventDefault();
     setSearch(keyword);
     // if (keyword.trim()) {

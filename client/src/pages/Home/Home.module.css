@@ -5,6 +5,7 @@
   display: grid;
   grid-template-columns: 3fr 2fr;
   gap: var(--container-gap);
+  margin-bottom: 1rem;
 }
 
 .center {

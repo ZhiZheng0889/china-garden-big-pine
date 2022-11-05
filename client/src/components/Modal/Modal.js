@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ModalFooter from './ModalFooter/ModalFooter';
 import ErrorAlert from '../../errors/ErrorAlert';
 import SpecialRequest from './SpecialRequest/SpecialRequest';
-import styles from './Modal.module.css';
 import ModalOptions from './ModalOptions/ModalOptions';
+import styles from './Modal.module.css';
+import { Cart } from '../../utils/Cart';
 const Modal = ({ food, setCart, cart, setFood }) => {
-  console.log(food);
   const [quantity, setQuantity] = useState(1);
+  const [selectedOption, setSelectedOption] = useState({});
   const [specialRequest, setSpecialRequest] = useState('');
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
-
   const {
     name = '',
     price = '',
     description = '',
     options = '',
-    amount = 0,
+    amount = null,
     size,
   } = food;
 
@@ -30,18 +30,18 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (quantity <= 0) {
       setError({ message: 'Quantity has to be greater than zero' });
     } else {
-      setCart((curr) => [
-        ...curr,
-        {
-          name,
-          price,
-          description,
-          quantity,
-        },
-      ]);
+      const item = {
+        name,
+        description,
+        quantity,
+        specialRequest,
+        price,
+        amount,
+      };
+      Cart.add(item, cart, setCart);
+      setFood(null);
     }
   };
-  console.log(specialRequest);
   return (
     <>
       <div className={`${styles.modalBackdrop}`}></div>
@@ -72,6 +72,8 @@ const Modal = ({ food, setCart, cart, setFood }) => {
               title={'Size Options'}
               description={'Choose 1'}
               options={size}
+              option={selectedOption}
+              setOption={setSelectedOption}
             />
           )}
           {options && <ModalOptions title={'Options'} options={options} />}
@@ -88,42 +90,6 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         />
       </article>
     </>
-
-    // <div
-    //   id="foodModal"
-    //   tabindex="-1"
-    //   aria-labelledby="foodModalLabel"
-    //   aria-hidden="true"
-    // >
-    //   <div class="modal-dialog">
-    //     <div class="modal-content">
-    //       <div class="modal-header">
-    //         <h5 class="modal-title" id="foodModalLabel">
-    //           Modal title
-    //         </h5>
-    //         <button
-    //           type="button"
-    //           class="btn-close"
-    //           data-bs-dismiss="modal"
-    //           aria-label="Close"
-    //         ></button>
-    //       </div>
-    //       <div class="modal-body">...</div>
-    //       <div class="modal-footer">
-    //         <button
-    //           type="button"
-    //           class="btn btn-secondary"
-    //           data-bs-dismiss="modal"
-    //         >
-    //           Close
-    //         </button>
-    //         <button type="button" class="btn btn-primary">
-    //           Save changes
-    //         </button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
