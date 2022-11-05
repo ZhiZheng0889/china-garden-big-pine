@@ -6,10 +6,7 @@ const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const REQUIRED_PROPERTIES = ['cart', 'user_id'];
 const PROPERTIES = ['cart', 'user_id', 'order_id', 'created_at', 'updated_at'];
 
-// async function list(req, res, next) {
-//   const orders = await service.list();
-//   res.status(200).json({ data: orders });
-// }
+
 
 // function orderExist(req, res, next) {
 //   const text = "SELECT EXISTS (SELECT '*' FROM orders WHERE order_id = '*') AS it_does_exist"
@@ -45,8 +42,15 @@ const PROPERTIES = ['cart', 'user_id', 'order_id', 'created_at', 'updated_at'];
 // async function read(req, res, next) {
 //   // Do this
 //   const orders = await service.read();
-//   res.status(200).json({ data: orders });
-// }
+//   res.status(200).json({ data: orders });}
+
+
+async function list(req, res, next) {
+  const orders = await service.list();
+  res.status(200).json({ data: orders });
+}
+
+
 async function orderExist(req, res, next) {
   const { order_id } = req.body.data;
   if (!order_id) {
@@ -82,11 +86,10 @@ async function create(req, res, next) {
 /*
  * Get Order
  */
-const getOrderbyId = asyncHangler(async(req, res) => {
+const getOrderbyId = asyncHandler(async(req, res) => {
   const order = await Order.findById(req.params.id).populate
   (
-    'user',
-    'email'
+    'order_id'
   )
 
   if (order) {
@@ -96,7 +99,6 @@ const getOrderbyId = asyncHangler(async(req, res) => {
     res.status(404)
     throw new Error ('Order not found')
   }
-
 }
 )
 
