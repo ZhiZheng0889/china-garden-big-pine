@@ -208,4 +208,5 @@ body {
 /* special request on checkoutlistItem */
 .specialRequest {
   font-size: 0.8rem;
+  white-space: pre-line;
 }
