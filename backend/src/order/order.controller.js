@@ -82,7 +82,7 @@ async function create(req, res, next) {
 /*
  * Get Order
  */
-const getOrderbyId = asyncHandler(async (req, res) => {
+const getOrderbyId = asyncErrorBoundary(async (req, res) => {
   const order = await Order.findById(req.params.id).populate('order_id');
 
   if (order) {

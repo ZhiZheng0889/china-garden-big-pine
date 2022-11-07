@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { formatSpecialRequest } from '../../../../utils/FormatSpecialRequest';
 import styles from './CheckoutListItem.module.css';
 const CheckoutListItem = ({ item, index, handleDelete }) => {
   const {
@@ -21,9 +22,7 @@ const CheckoutListItem = ({ item, index, handleDelete }) => {
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
-        {specialRequest && (
-          <p className={styles.specialRequest}>"{specialRequest}"</p>
-        )}
+        {specialRequest && formatSpecialRequest(specialRequest)}
         <p className={styles.cost}>${cost}</p>
       </div>
       <button

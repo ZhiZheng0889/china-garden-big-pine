@@ -7,7 +7,8 @@ export class Cart {
     return cart.findIndex((cartItem) => {
       return (
         cartItem.name === item.name &&
-        cartItem.specialRequest === item.specialRequest
+        cartItem.specialRequest.toLowerCase() ===
+          item.specialRequest.toLowerCase()
       );
     });
   }

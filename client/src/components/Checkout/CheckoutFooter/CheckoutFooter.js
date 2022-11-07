@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './CheckoutFooter.module.css';
 const CheckoutFooter = ({ cart }) => {
-  const FLORIDA_TAX = 0.06;
+  const FLORIDA_TAX = 0.075;
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(FLORIDA_TAX);
   const [total, setTotal] = useState(0);

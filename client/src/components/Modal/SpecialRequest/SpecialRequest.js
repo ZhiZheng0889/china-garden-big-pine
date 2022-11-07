@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './SpecialRequest.module.css';
 const SpecialRequest = ({ specialRequest, setSpecialRequest }) => {
+  console.log(specialRequest);
   // create ability to fill out special requests
   function handler(event) {
     const { value } = event.target;
@@ -10,6 +11,7 @@ const SpecialRequest = ({ specialRequest, setSpecialRequest }) => {
   }
   return (
     <>
+      {JSON.stringify(specialRequest)}
       <h3 className="modal-header">Special Request</h3>
       <form className={styles.form}>
         <p className={styles.description}>
