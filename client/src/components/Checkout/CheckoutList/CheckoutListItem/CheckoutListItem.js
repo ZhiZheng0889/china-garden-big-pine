@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Cart } from '../../../../utils/Cart';
 import { formatSpecialRequest } from '../../../../utils/FormatSpecialRequest';
 import styles from './CheckoutListItem.module.css';
-const CheckoutListItem = ({ item, index, handleDelete }) => {
+const CheckoutListItem = ({ item, cart, setCart }) => {
   const {
     name,
     description,
@@ -14,6 +15,13 @@ const CheckoutListItem = ({ item, index, handleDelete }) => {
   useEffect(() => {
     setCost(price * quantity);
   }, [quantity, price]);
+
+  const handleDelete = () => {
+    console.log(cart);
+    Cart.remove(item, cart, setCart);
+    console.log(cart);
+  };
+
   return (
     <li className={styles.li}>
       <button className={styles.button}>{quantity}x</button>
@@ -25,12 +33,8 @@ const CheckoutListItem = ({ item, index, handleDelete }) => {
         {specialRequest && <p className="specialRequest">{specialRequest}</p>}
         <p className={styles.cost}>${cost}</p>
       </div>
-      <button
-        className={styles.buttonDelete}
-        data-index={index}
-        onClick={handleDelete}
-      >
-        {<i className="fa-solid fa-trash fa-lg" data-index={index}></i>}
+      <button className={styles.buttonDelete} onClick={handleDelete}>
+        {<i className="fa-solid fa-trash fa-lg"></i>}
       </button>
     </li>
   );

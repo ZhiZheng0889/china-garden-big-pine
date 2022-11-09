@@ -6,21 +6,17 @@ const CheckoutList = ({ cart, setCart }) => {
   if (!cart.length) {
     return <p>Cart is empty...</p>;
   }
-  const handleDelete = ({ target }) => {
-    const targetIndex = target.getAttribute('data-index');
-    setCart((curr) => [...curr.filter((_, index) => index !== targetIndex)]);
-  };
   console.log('cart: ', cart);
   return (
     <ul className={styles.list}>
       {Array.isArray(cart) &&
-        cart.map((item, index) => {
+        cart.map((item) => {
           return (
             <CheckoutListItem
               key={item.name}
               item={item}
-              index={index}
-              handleDelete={handleDelete}
+              cart={cart}
+              setCart={setCart}
             />
           );
         })}

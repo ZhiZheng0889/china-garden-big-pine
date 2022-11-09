@@ -11,7 +11,6 @@ const SpecialRequest = ({ specialRequest, setSpecialRequest }) => {
   }
   return (
     <>
-      {JSON.stringify(specialRequest)}
       <h3 className="modal-header">Special Request</h3>
       <form className={styles.form}>
         <p className={styles.description}>
