@@ -13,7 +13,7 @@ const CheckoutListItem = ({ item, cart, setCart }) => {
   } = item;
   const [cost, setCost] = useState(0);
   useEffect(() => {
-    setCost(price * quantity);
+    setCost(price[0] * quantity);
   }, [quantity, price]);
 
   const handleDelete = () => {
