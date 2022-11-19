@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import styles from './ModalOptions.module.css';
-const ModalOptions = ({ title, description, options }) => {
-  const [option, setOption] = useState(null);
+const ModalOptions = ({
+  title,
+  description,
+  options,
+  setSelectedOption,
+  optionType,
+}) => {
   const changeOption = ({ target }) => {
     const { id } = target;
-    setOption(id);
+    setSelectedOption((currentSelection) => {
+      return { ...currentSelection };
+    });
   };
   if (Array.isArray(options) && options.length > 0) {
     return (

@@ -7,7 +7,7 @@ import styles from './Modal.module.css';
 import { Cart } from '../../utils/Cart';
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedOption, setSelectedOption] = useState({});
+  const [selectedOptions, setSelectedOptions] = useState({});
   const [specialRequest, setSpecialRequest] = useState('');
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
@@ -38,10 +38,17 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         price,
         amount,
       };
+      console.log(item);
+      // check if there is options
+      Object.keys(selectedOptions).forEach((option) => {
+        item[option] = selectedOptions[option];
+      });
+      console.log(item);
       Cart.add(item, cart, setCart);
       setFood(null);
     }
   };
+  console.log(selectedOptions);
   return (
     <>
       <div className={`${styles.modalBackdrop}`}></div>
@@ -72,11 +79,18 @@ const Modal = ({ food, setCart, cart, setFood }) => {
               title={'Size Options'}
               description={'Choose 1'}
               options={size}
-              option={selectedOption}
-              setOption={setSelectedOption}
+              setSelectedOption={setSelectedOptions}
+              optionType={'size'}
             />
           )}
-          {options && <ModalOptions title={'Options'} options={options} />}
+          {options && (
+            <ModalOptions
+              title={'Options'}
+              options={options}
+              setSelectedOption={setSelectedOptions}
+              optionType={'options'}
+            />
+          )}
           <SpecialRequest
             specialRequest={specialRequest}
             setSpecialRequest={setSpecialRequest}
