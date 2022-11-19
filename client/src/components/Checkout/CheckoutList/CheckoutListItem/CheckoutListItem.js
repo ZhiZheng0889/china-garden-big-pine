@@ -30,7 +30,7 @@ const CheckoutListItem = ({ item, cart, setCart }) => {
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
-        {specialRequest && <p className="specialRequest">{specialRequest}</p>}
+        {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
         <p className={styles.cost}>${cost}</p>
       </div>
       <button className={styles.buttonDelete} onClick={handleDelete}>
