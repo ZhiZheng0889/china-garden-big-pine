@@ -21,7 +21,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   } = food;
 
   useEffect(() => {
-    setTotal(quantity * price);
+    setTotal(quantity * price[0]);
   }, [quantity, price]);
 
   if (!food) return null;

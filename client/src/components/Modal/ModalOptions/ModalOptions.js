@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ModalOptions.module.css';
 const ModalOptions = ({ title, description, options }) => {
+  const [option, setOption] = useState(null);
+  const changeOption = (event) => {};
   if (Array.isArray(options) && options.length > 0) {
     return (
       <>
@@ -19,6 +21,7 @@ const ModalOptions = ({ title, description, options }) => {
                     id={option}
                     name="option"
                     className={styles.input}
+                    onChange={changeOption}
                   />
                   <label htmlFor={option} className={styles.label}>
                     {label}
