@@ -7,13 +7,13 @@ export class Cart {
     return cart.findIndex((cartItem) => {
       return (
         cartItem.name === item.name &&
-        cartItem.specialRequest === item.specialRequest
+        cartItem.specialRequest.toLowerCase() ===
+          item.specialRequest.toLowerCase()
       );
     });
   }
 
   static add(item, cart, setCart) {
-    console.log(item, cart);
     const index = this.getIndex(item, cart);
     if (index >= 0) {
       setCart((curr) => {
@@ -23,6 +23,15 @@ export class Cart {
       });
     } else {
       setCart((curr) => [...curr, item]);
+    }
+  }
+
+  static remove(item, cart, setCart) {
+    const index = this.getIndex(item, cart);
+    if (index >= 0) {
+      setCart((curr) => {
+        return curr.splice(index, 1);
+      });
     }
   }
 }

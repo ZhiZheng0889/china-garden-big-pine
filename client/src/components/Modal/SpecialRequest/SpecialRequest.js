@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './SpecialRequest.module.css';
 const SpecialRequest = ({ specialRequest, setSpecialRequest }) => {
+  console.log(specialRequest);
   // create ability to fill out special requests
   function handler(event) {
     const { value } = event.target;

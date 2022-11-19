@@ -6,8 +6,6 @@ const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const REQUIRED_PROPERTIES = ['cart', 'user_id'];
 const PROPERTIES = ['cart', 'user_id', 'order_id', 'created_at', 'updated_at'];
 
-
-
 // function orderExist(req, res, next) {
 //   const text = "SELECT EXISTS (SELECT '*' FROM orders WHERE order_id = '*') AS it_does_exist"
 //   // callback
@@ -44,12 +42,10 @@ const PROPERTIES = ['cart', 'user_id', 'order_id', 'created_at', 'updated_at'];
 //   const orders = await service.read();
 //   res.status(200).json({ data: orders });}
 
-
 async function list(req, res, next) {
   const orders = await service.list();
   res.status(200).json({ data: orders });
 }
-
 
 async function orderExist(req, res, next) {
   const { order_id } = req.body.data;
@@ -80,30 +76,25 @@ function read(req, res, next) {
  */
 async function create(req, res, next) {
   const { data } = req.body;
-  res.status(201).json(createOrder)
+  res.status(201).json(createOrder);
 }
 
 /*
  * Get Order
  */
-const getOrderbyId = asyncErrorBoundary(async(req, res) => {
-  const order = await Order.findById(req.params.id).populate
-  (
-    'order_id'
-  )
+const getOrderbyId = asyncErrorBoundary(async (req, res) => {
+  const order = await Order.findById(req.params.id).populate('order_id');
 
   if (order) {
-    res.json(order)
+    res.json(order);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
   }
-  else{
-    res.status(404)
-    throw new Error ('Order not found')
-  }
-}
-)
+});
 
 /**
- * 
+ *
  */
 
 /*
@@ -116,7 +107,6 @@ module.exports = {
   create: [
     hasRequiredProperties(REQUIRED_PROPERTIES),
     hasOnlyValidProperties(PROPERTIES),
-
     asyncErrorBoundary(create),
   ],
   destroy: [],
