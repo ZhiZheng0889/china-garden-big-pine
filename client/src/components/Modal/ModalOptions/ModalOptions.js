@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ModalOptions.module.css';
 const ModalOptions = ({
   title,
   description,
   options,
-  setSelectedOption,
   optionType,
+  price,
+  setTotal,
+  setSelectedOptions,
+  quantity,
 }) => {
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const changeOption = ({ target }) => {
     const { id } = target;
-    setSelectedOption((currentSelection) => {
-      return { ...currentSelection };
-    });
+    setSelectedOption(id);
   };
+
+  useEffect(() => {
+    const index = options.indexOf(selectedOption);
+    const tempObj = {};
+    tempObj[optionType] = selectedOption;
+    setSelectedOptions((curr) => {
+      return {
+        ...curr,
+        ...tempObj,
+      };
+    });
+    setTotal((price[index] || price[0]) * quantity);
+  }, [selectedOption]);
   if (Array.isArray(options) && options.length > 0) {
     return (
       <>
@@ -22,20 +37,29 @@ const ModalOptions = ({
               <h3 className="modal-header">{title}</h3>
             </legend>
             {/* <p className={styles.description}>{description}</p> */}
-            {options.map((option) => {
+            {options.map((option, index) => {
               const label = option[0].toUpperCase() + option.slice(1);
               return (
-                <div key={option} className={styles.div}>
+                <div
+                  key={option}
+                  className={styles.div}
+                  onClick={changeOption}
+                  id={option}
+                >
                   <input
                     type="radio"
                     id={option}
                     name="option"
                     className={styles.input}
                     onChange={changeOption}
+                    checked={selectedOption === option}
                   />
                   <label htmlFor={option} className={styles.label}>
                     {label}
                   </label>
+                  <p className={styles.price}>
+                    {Array.isArray(price) && '$' + price[index]}
+                  </p>
                 </div>
               );
             })}

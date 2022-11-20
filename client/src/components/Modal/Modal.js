@@ -79,16 +79,22 @@ const Modal = ({ food, setCart, cart, setFood }) => {
               title={'Size Options'}
               description={'Choose 1'}
               options={size}
-              setSelectedOption={setSelectedOptions}
+              setSelectedOptions={setSelectedOptions}
               optionType={'size'}
+              price={price}
+              setTotal={setTotal}
+              quantity={quantity}
             />
           )}
           {options && (
             <ModalOptions
               title={'Options'}
               options={options}
-              setSelectedOption={setSelectedOptions}
+              setSelectedOptions={setSelectedOptions}
               optionType={'options'}
+              price={price}
+              setTotal={setTotal}
+              quantity={quantity}
             />
           )}
           <SpecialRequest
