@@ -1,3 +1,5 @@
+import { isEqualWith } from 'lodash';
+
 export class Cart {
   /*
     get index of object inside of cart object.
@@ -5,11 +7,7 @@ export class Cart {
   */
   static getIndex(item, cart) {
     return cart.findIndex((cartItem) => {
-      return (
-        cartItem.name === item.name &&
-        cartItem.specialRequest.toLowerCase() ===
-          item.specialRequest.toLowerCase()
-      );
+      return isEqualWith(cartItem, item);
     });
   }
 
