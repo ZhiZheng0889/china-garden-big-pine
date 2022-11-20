@@ -6,23 +6,23 @@
 
 */
 export const objectIsEqual = (obj1, obj2, ignore = [], config = {}) => {
-  Object.keys(obj1).forEach((property) => {
-    console.log(property);
+  if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+    return false;
+  }
+  const notEqualProperties = Object.keys(obj1).filter((property) => {
     if (Object.keys(config).includes(property)) {
       if (config[property](obj1, obj2) === false) {
-        return false;
+        return true;
       }
     } else if (!ignore.includes(property)) {
       console.log(obj1[property], obj2[property]);
       if (obj1[property] !== obj2[property]) {
         console.log('not equal');
-        return false;
+        return true;
       }
     }
-  });
-
-  if (Object.keys(obj1).length !== Object.keys(obj2).length) {
     return false;
-  }
-  return true;
+  });
+  console.log('=>', notEqualProperties);
+  return notEqualProperties.length ? false : true;
 };
