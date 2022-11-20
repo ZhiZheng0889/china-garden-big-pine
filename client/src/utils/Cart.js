@@ -1,4 +1,4 @@
-import { isEqualWith } from 'lodash';
+import { objectIsEqual } from './objectEquality';
 
 export class Cart {
   /*
@@ -7,7 +7,16 @@ export class Cart {
   */
   static getIndex(item, cart) {
     return cart.findIndex((cartItem) => {
-      return isEqualWith(cartItem, item);
+      return objectIsEqual(item, cartItem, ['quantity'], {
+        special_request: (obj1, obj2) => {
+          if (
+            !obj1.special_request.toLowerCase() ===
+            obj2.special_request.toLowerCase()
+          ) {
+            return false;
+          }
+        },
+      });
     });
   }
 
