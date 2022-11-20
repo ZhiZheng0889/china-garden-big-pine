@@ -38,17 +38,14 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         price,
         amount,
       };
-      console.log(item);
       // check if there is options
       Object.keys(selectedOptions).forEach((option) => {
         item[option] = selectedOptions[option];
       });
-      console.log(item);
       Cart.add(item, cart, setCart);
       setFood(null);
     }
   };
-  console.log(selectedOptions);
   return (
     <>
       <div className={`${styles.modalBackdrop}`}></div>

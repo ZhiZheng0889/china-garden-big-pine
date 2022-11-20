@@ -17,9 +17,7 @@ const CheckoutListItem = ({ item, cart, setCart }) => {
   }, [quantity, price]);
 
   const handleDelete = () => {
-    console.log(cart);
     Cart.remove(item, cart, setCart);
-    console.log(cart);
   };
 
   return (

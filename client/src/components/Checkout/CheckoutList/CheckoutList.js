@@ -6,14 +6,13 @@ const CheckoutList = ({ cart, setCart }) => {
   if (!cart.length) {
     return <p>Cart is empty...</p>;
   }
-  console.log('cart: ', cart);
   return (
     <ul className={styles.list}>
       {Array.isArray(cart) &&
-        cart.map((item) => {
+        cart.map((item, index) => {
           return (
             <CheckoutListItem
-              key={item.name}
+              key={item.name + index}
               item={item}
               cart={cart}
               setCart={setCart}

@@ -8,10 +8,10 @@ export class Cart {
   static getIndex(item, cart) {
     return cart.findIndex((cartItem) => {
       return objectIsEqual(item, cartItem, ['quantity'], {
-        special_request: (obj1, obj2) => {
+        specialRequest: (obj1, obj2) => {
           if (
-            !obj1.special_request.toLowerCase() ===
-            obj2.special_request.toLowerCase()
+            !obj1.specialRequest.toLowerCase() ===
+            obj2.specialRequest.toLowerCase()
           ) {
             return false;
           }
