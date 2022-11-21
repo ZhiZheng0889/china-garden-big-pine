@@ -8,14 +8,9 @@ const CheckoutListItem = ({ item, cart, setCart }) => {
     description,
     quantity,
     amount = null,
-    price,
+    total,
     specialRequest = '',
   } = item;
-  const [cost, setCost] = useState(0);
-  useEffect(() => {
-    setCost(price[0] * quantity);
-  }, [quantity, price]);
-
   const handleDelete = () => {
     Cart.remove(item, cart, setCart);
   };
@@ -29,7 +24,7 @@ const CheckoutListItem = ({ item, cart, setCart }) => {
         </h4>
         <p className={styles.description}>{description}</p>
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
-        <p className={styles.cost}>${cost}</p>
+        <p className={styles.cost}>${total}</p>
       </div>
       <button className={styles.buttonDelete} onClick={handleDelete}>
         {<i className="fa-solid fa-trash fa-lg"></i>}

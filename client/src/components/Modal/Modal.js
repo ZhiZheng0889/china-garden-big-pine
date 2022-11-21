@@ -9,6 +9,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [specialRequest, setSpecialRequest] = useState('');
+  const [currentPrice, setCurrentPrice] = useState(null);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
   const {
@@ -35,7 +36,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         description,
         quantity,
         specialRequest,
-        price,
+        total,
         amount,
       };
       // check if there is options

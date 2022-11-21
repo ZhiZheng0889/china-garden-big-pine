@@ -58,7 +58,7 @@ const ModalOptions = ({
                     {label}
                   </label>
                   <p className={styles.price}>
-                    {Array.isArray(price) && '$' + price[index]}
+                    {Array.isArray(price) && '+ $' + price[index]}
                   </p>
                 </div>
               );

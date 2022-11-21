@@ -7,7 +7,7 @@ export class Cart {
   */
   static getIndex(item, cart) {
     return cart.findIndex((cartItem) => {
-      return objectIsEqual(item, cartItem, ['quantity'], {
+      return objectIsEqual(item, cartItem, ['quantity', 'total'], {
         specialRequest: (obj1, obj2) => {
           if (
             !obj1.specialRequest.toLowerCase() ===
@@ -26,6 +26,7 @@ export class Cart {
       setCart((curr) => {
         const newArr = [...curr];
         newArr[index].quantity += item.quantity;
+        newArr[index].total += item.total;
         return [...newArr];
       });
     } else {
