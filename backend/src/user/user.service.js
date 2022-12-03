@@ -1,6 +1,57 @@
+const Sequelize = require(('sequelize'));
+
 const knex = require('../db/connection');
 
 const TABLE = 'users';
+
+import bcrypt from 'bcryptjs'
+
+
+/**
+ * Validating the data
+ */
+
+const userseq = TABLE.define('users',
+  {
+    name: {
+      type: Sequelize.String,
+      validate: {notEmpty: true},
+    },
+    email: {
+      type: Sequelize.STRING,
+      unique: true,
+      validate: {notEmpty: true},
+    },
+    password: {
+      type: Sequelize.STRING,
+      validate: {notEmpty: true},
+    },
+    isAdmin: {
+      type: Sequelize.Boolean,
+      unique: true,
+      validate: {notEmpty: true},
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
+userseq.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password)
+}
+
+userseq.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next()
+  }
+
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password, salt)
+})
+
+
 
 /*
  * query database and list all items
@@ -46,52 +97,4 @@ module.exports = {
   create,
 };
 
- */
-
-/**
- import mongoose from 'mongoose'
-import bcrypt from 'bcryptjs'
-
-const userSchema = mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
-
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password)
-}
-
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    next()
-  }
-
-  const salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
-})
-
-const User = mongoose.model('User', userSchema)
-
-export default User
  */
