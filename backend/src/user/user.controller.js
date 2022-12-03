@@ -1,7 +1,7 @@
-import generateToken from '../utils/generatetoken.js';
+import generateToken from '../auth/generatetoken.js';
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 import User from '../user.service.js';
-import { protect, admin } from '../middleware/authMiddleware.js';
+import { protect, admin } from '../auth/authMiddleware.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
