@@ -93,9 +93,6 @@ const getOrderbyId = asyncErrorBoundary(async (req, res) => {
   }
 });
 
-/**
- *
- */
 
 /*
  * Order controller
