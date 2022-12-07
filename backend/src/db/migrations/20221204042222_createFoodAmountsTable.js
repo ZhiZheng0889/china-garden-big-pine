@@ -3,7 +3,14 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable('food_amounts', (table) => {});
+  return knex.schema.createTable('food_amounts', (table) => {
+    table
+      .integer('food_id')
+      .references('food_id')
+      .inTable('foods')
+      .notNullable();
+    table.string('amount').notNullable();
+  });
 };
 
 /**
