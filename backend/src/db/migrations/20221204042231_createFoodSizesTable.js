@@ -8,6 +8,7 @@ exports.up = function (knex) {
       .integer('food_id')
       .references('food_id')
       .inTable('foods')
+      .onDelete('CASCADE')
       .notNullable();
     table.string('size').notNullable();
     table.float('upcharge').defaultTo(0);
