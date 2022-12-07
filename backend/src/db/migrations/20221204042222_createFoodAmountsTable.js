@@ -8,9 +8,9 @@ exports.up = function (knex) {
       .integer('food_id')
       .references('food_id')
       .inTable('foods')
-      .onDelete('CASCADE')
-      .notNullable();
+      .onDelete('CASCADE');
     table.string('amount').notNullable();
+    table.string('size').nullable();
   });
 };
 

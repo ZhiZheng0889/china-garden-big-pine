@@ -1,4 +1,4 @@
-const ORDERS_DATA = require('./02-orders.json');
+const ORDERS_DATA = require('./05-orders.json');
 exports.seed = function (knex) {
   return knex
     .raw('TRUNCATE TABLE orders RESTART IDENTITY CASCADE')
