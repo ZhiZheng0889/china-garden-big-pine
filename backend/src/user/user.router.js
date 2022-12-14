@@ -1,17 +1,20 @@
 const router = require('express').Router();
 const controller = require('./user.controller');
 const methodNotAllowed = require('../errors/methodNotAllowed');
+const { Model } = require('sequelize');
 
+router.route('/').post(controller.create).all(methodNotAllowed);
 router.route('/').post(controller.register).get(controller.getUsers);
 router.post('/login', authUser);
 router
-  .route('/profile')
+  .route('/')
   .get(controller.getUserProfile)
-  .put(controller.updateUserProfile);
-router
-  .route('/:id')
+  .put(controller.updateUserProfile)
   .delete(controller.deleteUser)
   .get(controller.getUserById)
-  .put(controller.updateUser);
+  .put(controller.updateUser)
+  .post(controller.create)
+  .delete(controller.destroy)
+  .all(methodNotAllowed);
 
-export default router;
+module.export = router;
