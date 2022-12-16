@@ -1,83 +1,44 @@
-const Sequelize = require(('sequelize'));
-
 const knex = require('../db/connection');
-
 const TABLE = 'users';
+const USERS_PROFILES_TABLE = 'users_profiles';
 
-import bcrypt from 'bcryptjs'
-
-
-/**
- * Validating the data
- */
-
-const userseq = TABLE.define('users',
-  {
-    name: {
-      type: Sequelize.String,
-      validate: {notEmpty: true},
-    },
-    email: {
-      type: Sequelize.STRING,
-      unique: true,
-      validate: {notEmpty: true},
-    },
-    password: {
-      type: Sequelize.STRING,
-      validate: {notEmpty: true},
-    },
-    isAdmin: {
-      type: Sequelize.Boolean,
-      unique: true,
-      validate: {notEmpty: true},
-      default: false,
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
-
-userseq.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password)
+function read(email) {
+  return knex(TABLE).select('*').where({ email }).first();
 }
 
-userseq.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    next()
-  }
-
-  const salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
-})
-
-
-
-/*
- * query database and list all items
- */
-function list() {
-  return knex(TABLE).select('*');
+function create(user) {
+  return knex(TABLE)
+    .insert(user)
+    .returning('*')
+    .then((createdUser) => createdUser[0]);
 }
 
-/*
- * query database and list all items based on category
- */
-function listByCategory(category) {
-  return knex(TABLE).select('*').where({ category });
+function createUsersProfile(user) {
+  return knex(USERS_PROFILES_TABLE)
+    .insert(user)
+    .returning('*')
+    .then((createdUser) => createdUser[0]);
 }
 
-/*
- * query database and get on item based on food_id
- */
-function read(food_id) {
-  return knex('products').select('*').where({ user_id }).first();
+function readFromUsername(username) {
+  return knex(TABLE).select('*').where({ username }).first();
+}
+
+function readFromUserProfile(user_id) {
+  return knex(USERS_PROFILES_TABLE).select('*').where({ user_id }).first();
+}
+
+function destroy(session_id) {
+  return knex(TABLE).where({ session_id }).del();
 }
 
 module.exports = {
-  list,
-  listByCategory,
   read,
+  create,
+  createUsersProfile,
+  readFromUsername,
+  readFromUserProfile,
+  destroy,
 };
 
 
