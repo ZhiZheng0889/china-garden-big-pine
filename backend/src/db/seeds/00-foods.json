@@ -144,7 +144,7 @@
     "available": true
   },
   {
-    "name": "Spring Rolls",
+    "name": "Spring Rolls(2)",
     "base_price": 4.75,
     "category": "appetizers",
     "description": null,
@@ -152,7 +152,7 @@
     "available": true
   },
   {
-    "name": "Vegetable Spring Rolls",
+    "name": "Vegetable Spring Rolls(2)",
     "base_price": 4.75,
     "category": "appetizers",
     "description": null,
@@ -160,7 +160,7 @@
     "available": true
   },
   {
-    "name": "Egg Rolls",
+    "name": "Egg Rolls(2)",
     "base_price": 4.75,
     "category": "appetizers",
     "description": null,
@@ -224,7 +224,15 @@
     "available": true
   },
   {
-    "name": "Fried or Steamed Dumplings",
+    "name": "Fried Dumplings",
+    "base_price": 8.75,
+    "category": "appetizers",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Steamed Dumplings",
     "base_price": 8.75,
     "category": "appetizers",
     "description": null,
@@ -344,7 +352,15 @@
     "available": true
   },
   {
-    "name": "Chicken Rice or Noodles",
+    "name": "Chicken Rice",
+    "base_price": 3.25,
+    "category": "soup",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Chicken Noodles",
     "base_price": 3.25,
     "category": "soup",
     "description": null,
@@ -376,7 +392,7 @@
     "available": true
   },
   {
-    "name": "Vegetables Lo Mein or Chow Mei Fun",
+    "name": "Vegetables Lo Mein",
     "base_price": 12.45,
     "category": "lo_mein_or_chow_mei_fun",
     "description": null,
@@ -384,7 +400,7 @@
     "available": true
   },
   {
-    "name": "Roast Prok Lo Mein or Chow Mei Fun",
+    "name": "Roast Pork Lo Mein",
     "base_price": 12.45,
     "category": "lo_mein_or_chow_mei_fun",
     "description": null,
@@ -392,7 +408,7 @@
     "available": true
   },
   {
-    "name": "Chicken Lo Mein or Chow Mei Fun",
+    "name": "Chicken Lo Mein",
     "base_price": 12.45,
     "category": "lo_mein_or_chow_mei_fun",
     "description": null,
@@ -400,7 +416,7 @@
     "available": true
   },
   {
-    "name": "Shrimp Lo Mein or Chow Mei Fun",
+    "name": "Shrimp Lo Mein",
     "base_price": 13.75,
     "category": "lo_mein_or_chow_mei_fun",
     "description": null,
@@ -408,7 +424,7 @@
     "available": true
   },
   {
-    "name": "Beef Lo Mein or Chow Mei Fun",
+    "name": "Beef Lo Mein",
     "base_price": 13.75,
     "category": "lo_mein_or_chow_mei_fun",
     "description": null,
@@ -416,7 +432,7 @@
     "available": true
   },
   {
-    "name": "Seafood Lo Mein or Chow Mei Fun",
+    "name": "Seafood Lo Mein",
     "base_price": 16.25,
     "category": "lo_mein_or_chow_mei_fun",
     "description": null,
@@ -424,7 +440,63 @@
     "available": true
   },
   {
-    "name": "China Garden Lo Mein or Chow Mei Fun",
+    "name": "China Garden Lo Mein",
+    "base_price": 14.95,
+    "category": "lo_mein_or_chow_mei_fun",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Vegetables Chow Mei Fun",
+    "base_price": 12.45,
+    "category": "lo_mein_or_chow_mei_fun",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Roast Pork Chow Mei Fun",
+    "base_price": 12.45,
+    "category": "lo_mein_or_chow_mei_fun",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Chicken Chow Mei Fun",
+    "base_price": 12.45,
+    "category": "lo_mein_or_chow_mei_fun",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Shrimp Chow Mei Fun",
+    "base_price": 13.75,
+    "category": "lo_mein_or_chow_mei_fun",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Beef Chow Mei Fun",
+    "base_price": 13.75,
+    "category": "lo_mein_or_chow_mei_fun",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Seafood Chow Mei Fun",
+    "base_price": 16.25,
+    "category": "lo_mein_or_chow_mei_fun",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "China Garden Chow Mei Fun",
     "base_price": 14.95,
     "category": "lo_mein_or_chow_mei_fun",
     "description": null,
@@ -536,7 +608,7 @@
     "available": true
   },
   {
-    "name": "Roast Prok Chop Suey",
+    "name": "Roast Pork Chop Suey",
     "base_price": 7.25,
     "category": "chop_suey",
     "description": "With White Rice",
