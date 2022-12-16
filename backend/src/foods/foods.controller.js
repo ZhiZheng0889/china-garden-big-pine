@@ -1,6 +1,5 @@
 const service = require('./foods.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
-const reduceProperties = require('../utils/reduceProperties');
 /*
  * Check queries for specific type of order or list of food.
  *
@@ -61,9 +60,7 @@ async function list(req, res, next) {
   }
   const sizes = await service.listSizes();
   const options = await service.listOptions();
-  const amounts = await service.listAmounts();
-  data = reduceProperties('food_id', {});
-  res.status(200).json({ data: { data, sizes, options, amounts } });
+  res.status(200).json({ data: { food_data: data, sizes, options } });
 }
 
 module.exports = {

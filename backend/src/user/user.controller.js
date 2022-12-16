@@ -1,7 +1,7 @@
-import generateToken from '../auth/generatetoken.js';
+const generateToken = require('../auth/generatetoken.js');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
-import User from '../user.service.js';
-import { protect, admin } from '../auth/authMiddleware.js';
+const service = require('./user.service');
+const { protect, admin } = require('../auth/authMiddleware.js');
 const bcrypt = require('bcryptjs');
 const { SALT } = process.env;
 const jwt = require('jsonwebtoken');
@@ -16,10 +16,7 @@ const VALID_PROPERTIES = [
   'first_name',
   'last_name',
 ];
-const REQUIRED_PROPERTIES = [
-  'email', 
-  'password'
-];
+const REQUIRED_PROPERTIES = ['email', 'password'];
 
 //__REGISTER
 
@@ -55,6 +52,19 @@ async function usernameExist(req, res, next) {
   next();
 }
 
+async function phoneNumberExist(req, res, next) {
+  const { phone_number } = req.body.data;
+
+  const user = await service.readFromPhoneNumber(phone_number);
+  if (user) {
+    return next({
+      status: 409,
+      message: 'Phone number is already in use. Please try a different one.',
+    });
+  }
+  next();
+}
+
 // @ desc  Get and validating the password
 // @ route Get /api/users
 // @ access Public
@@ -73,7 +83,7 @@ function validatePassword(req, res, next) {
 
 async function encryptPassword(req, res, next) {
   const { data } = req.body;
-  const { password } = data;
+  const { password = '' } = data;
   let saltError;
   const hashedPassword = await bcrypt
     .hash(password, parseInt(SALT))
@@ -98,22 +108,10 @@ async function encryptPassword(req, res, next) {
 
 async function create(req, res, next) {
   const { user } = res.locals;
-  const { email } = user;
-  const { username } = user;
-  const { password } = user;
-  const { phone_number } = user;
-  const formattedUser = {
-    email,
-    username,
-    password,
-    phone_number,
-  };
-
-  const createdUser = await service.create(formattedUser);
+  const createdUser = await service.create(user);
   res.locals.createdUser = createdUser;
   next();
 }
-
 
 // @ desc Creating token for user
 
@@ -146,14 +144,6 @@ async function userExist(req, res, next) {
   next({ status: 401, message: 'Email and or password is incorrect.' });
 }
 
-async function readUsersProfile(req, res, next) {
-  const { user_id } = res.locals.user;
-  const profile = (await service.readFromUserProfile(user_id)) || {};
-  res.locals.profile = profile;
-
-  next();
-}
-
 async function validatePassword(req, res, next) {
   const { password } = req.body.data;
   const { user } = res.locals;
@@ -184,16 +174,16 @@ async function destroy(req, res, next) {
 // @desc    Get all users
 // @route   GET /api/users
 // @access  Private/Admin
-const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
+const getUsers = asyncErrorBoundary(async (req, res) => {
+  const users = await service.find();
   res.json(users);
 });
 
 // @desc    Delete user
 // @route   DELETE /api/users/:id
 // @access  Private/Admin
-const deleteUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.user_id);
+const deleteUser = asyncErrorBoundary(async (req, res) => {
+  const user = await service.findById(req.params.user_id);
 
   if (user) {
     await user.remove();
@@ -207,8 +197,8 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @desc    Get user by ID
 // @route   GET /api/users/:id
 // @access  Private/Admin
-const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.user_id).select('-password');
+const getUserById = asyncErrorBoundary(async (req, res) => {
+  const user = await service.findById(req.params.user_id).select('-password');
 
   if (user) {
     res.json(user);
@@ -221,8 +211,8 @@ const getUserById = asyncHandler(async (req, res) => {
 // @desc    Update user
 // @route   PUT /api/users/:id
 // @access  Private/Admin
-const updateUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.user_id);
+const updateUser = asyncErrorBoundary(async (req, res) => {
+  const user = await service.findById(req.params.user_id);
 
   if (user) {
     user.first_name = req.body.first_name || user.first_name;
@@ -317,7 +307,7 @@ module.exports = {
  * // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
-const authUser = asyncHandler(async (req, res) => {
+const authUser = asyncErrorBoundary(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -341,7 +331,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = asyncErrorBoundary(async (req, res) => {
   const { fname, lname, email, phone, password } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -378,7 +368,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
-const getUserProfile = asyncHandler(async (req, res) => {
+const getUserProfile = asyncErrorBoundary(async (req, res) => {
   const user = await User.findById(req.user.user_id);
 
   if (user) {
@@ -399,7 +389,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @desc    Update user profile
 // @route   PUT /api/users/profile
 // @access  Private
-const updateUserProfile = asyncHandler(async (req, res) => {
+const updateUserProfile = asyncErrorBoundary(async (req, res) => {
   const user = await User.findById(req.user.user_id);
 
   if (user) {
@@ -428,26 +418,19 @@ const updateUserProfile = asyncHandler(async (req, res) => {
  */
 
 module.exports = {
-  create: [
+  login: [],
+  register: [
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(VALID_PROPERTIES),
     asyncErrorBoundary(emailExist),
     asyncErrorBoundary(usernameExist),
-    validatePassword,
+    asyncErrorBoundary(phoneNumberExist),
     asyncErrorBoundary(encryptPassword),
     asyncErrorBoundary(create),
-    asyncErrorBoundary(createUsersProfile),
     asyncErrorBoundary(createToken),
   ],
-  login: [authUser],
-  register: [],
   getUsers: [protect, admin, getUsers],
-  getUserProfile: [protect, getUserProfile],
-  updateUserProfile: [protect, updateUserProfile],
   getUserById: [protect, admin, getUserById],
   updateUser: [protect, admin, updateUser],
   deleteUser: [protect, admin, deleteUser],
-  destroy: [asyncErrorBoundary(destroy)],
-
 };
-

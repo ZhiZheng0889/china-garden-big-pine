@@ -11,11 +11,13 @@ const app = express();
 // Routes
 const foodsRouter = require('./foods/foods.router');
 const orderRouter = require('./order/order.router');
+const userRouter = require('./user/user.router');
 app.use(cors());
 
 app.use(express.json());
 app.use('/foods', foodsRouter);
 app.use('/orders', orderRouter);
+app.use('/users', userRouter);
 
 app.use(notFound);
 app.use(errorHandler);
