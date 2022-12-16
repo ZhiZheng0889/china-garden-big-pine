@@ -10,7 +10,7 @@ exports.up = function (knex) {
       .inTable('foods')
       .onDelete('CASCADE');
     table.string('amount').notNullable();
-    table.string('size').nullable();
+    table.string('amount_size').nullable();
   });
 };
 
