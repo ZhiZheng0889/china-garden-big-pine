@@ -9,12 +9,16 @@ const CheckoutListItem = ({ item, cart, setCart }) => {
     quantity,
     amount = null,
     total,
+    option,
+    size,
+    currentOption,
+    currentSize,
     specialRequest = '',
   } = item;
   const handleDelete = () => {
     Cart.remove(item, cart, setCart);
   };
-
+  console.log(item);
   return (
     <li className={styles.li}>
       <button className={styles.button}>{quantity}x</button>
@@ -23,6 +27,8 @@ const CheckoutListItem = ({ item, cart, setCart }) => {
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
+        {currentOption && <p>-{currentOption}</p>}
+        {currentSize && <p>-{currentSize}</p>}
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
         <p className={styles.cost}>${total}</p>
       </div>

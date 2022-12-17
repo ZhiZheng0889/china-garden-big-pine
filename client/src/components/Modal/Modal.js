@@ -7,23 +7,25 @@ import styles from './Modal.module.css';
 import { Cart } from '../../utils/Cart';
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedOptions, setSelectedOptions] = useState({});
-  const [specialRequest, setSpecialRequest] = useState('');
-  const [currentPrice, setCurrentPrice] = useState(null);
   const [total, setTotal] = useState(0);
+  const [specialRequest, setSpecialRequest] = useState('');
+  const [currentOption, setCurrentOption] = useState({});
+  const [currentSize, setCurrentSize] = useState({});
   const [error, setError] = useState(null);
   const {
     name = '',
-    price = '',
+    base_price = null,
     description = '',
-    options = '',
+    option = null,
     amount = null,
-    size,
+    size = null,
   } = food;
 
   useEffect(() => {
-    setTotal(quantity * price[0]);
-  }, [quantity, price]);
+    const { upCharge: optionUpcharge = 0 } = currentOption;
+    const { upCharge: sizeUpcharge = 0 } = currentSize;
+    setTotal(quantity * (optionUpcharge + sizeUpcharge + base_price));
+  }, [quantity, currentOption, currentSize]);
 
   if (!food) return null;
 
@@ -31,19 +33,24 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (quantity <= 0) {
       setError({ message: 'Quantity has to be greater than zero' });
     } else {
-      const item = {
+      const itemToAdd = {
         name,
         description,
-        quantity,
-        specialRequest,
         total,
-        amount,
+        base_price,
+        option,
+        size,
+        quantity,
+        specialRequest: specialRequest,
       };
-      // check if there is options
-      Object.keys(selectedOptions).forEach((option) => {
-        item[option] = selectedOptions[option];
-      });
-      Cart.add(item, cart, setCart);
+      if (currentOption && currentOption.option) {
+        itemToAdd.currentOption = currentOption.option;
+      }
+      console.log(currentSize);
+      if (currentSize && currentSize.option) {
+        itemToAdd.currentSize = currentSize.option;
+      }
+      Cart.add(itemToAdd, cart, setCart);
       setFood(null);
     }
   };
@@ -77,22 +84,18 @@ const Modal = ({ food, setCart, cart, setFood }) => {
               title={'Size Options'}
               description={'Choose 1'}
               options={size}
-              setSelectedOptions={setSelectedOptions}
+              selectedOption={currentSize}
+              setSelectedOption={setCurrentSize}
               optionType={'size'}
-              price={price}
-              setTotal={setTotal}
-              quantity={quantity}
             />
           )}
-          {options && (
+          {option && (
             <ModalOptions
               title={'Options'}
-              options={options}
-              setSelectedOptions={setSelectedOptions}
+              options={option}
+              selectedOption={currentOption}
+              setSelectedOption={setCurrentOption}
               optionType={'options'}
-              price={price}
-              setTotal={setTotal}
-              quantity={quantity}
             />
           )}
           <SpecialRequest
