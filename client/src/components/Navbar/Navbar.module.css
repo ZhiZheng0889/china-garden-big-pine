@@ -8,8 +8,34 @@
   color: var(--color-light);
 }
 
+.burger {
+  display: none;
+  margin-right: 0.6rem;
+}
+
 .brand {
   margin-right: auto;
   color: inherit;
   text-decoration: none;
+}
+@media all and (max-width: 1550px) {
+  .navbar {
+    padding-inline: 5%;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  .navbar {
+    padding-inline: 1%;
+  }
+
+  .navContent {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

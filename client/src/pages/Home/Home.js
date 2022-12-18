@@ -8,7 +8,7 @@ import StoreInfo from '../../components/StoreInfo/StoreInfo';
 import FoodList from '../../components/Food/FoodList/FoodList';
 import ErrorAlert from '../../errors/ErrorAlert';
 import MenuNav from '../../components/MenuNav/MenuNav';
-const Home = ({ cart, setCart }) => {
+const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   // state of category nav
   const [category, setCategory] = useState('appetizers');
   // state of searchbar
@@ -42,7 +42,15 @@ const Home = ({ cart, setCart }) => {
         </Card>
         {/* End Main Content*/}
       </section>
-      <aside className={styles.aside}>
+      <aside
+        className={`${styles.aside} ${isCheckoutOpen ? styles.opened : ''}`}
+      >
+        <button
+          className={styles.closeCheckout}
+          onClick={() => setIsCheckoutOpen(false)}
+        >
+          X
+        </button>
         <Checkout cart={cart} setCart={setCart} />
       </aside>
     </main>
