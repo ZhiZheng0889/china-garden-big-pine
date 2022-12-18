@@ -46,7 +46,6 @@ const Modal = ({ food, setCart, cart, setFood }) => {
       if (currentOption && currentOption.option) {
         itemToAdd.currentOption = currentOption.option;
       }
-      console.log(currentSize);
       if (currentSize && currentSize.option) {
         itemToAdd.currentSize = currentSize.option;
       }

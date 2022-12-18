@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { snakeToTitleCase } from '../../../utils/snakeToTitleCase';
 import styles from './ModalOptions.module.css';
 const ModalOptions = ({
   title,
@@ -10,7 +11,6 @@ const ModalOptions = ({
 }) => {
   const changeOption = ({ target }) => {
     const { id } = target;
-    console.log(options[id]);
     setSelectedOption({ option: id, ...options[id] });
   };
   if (Object.keys(options).length > 0) {
@@ -23,11 +23,7 @@ const ModalOptions = ({
             </legend>
             {/* <p className={styles.description}>{description}</p> */}
             {Object.keys(options).map((option) => {
-              console.log(option);
-              const label = option
-                .split('_')
-                .map((w) => w[0].toUpperCase() + w.slice(1))
-                .join(' ');
+              const label = snakeToTitleCase(option);
               return (
                 <div
                   key={option}

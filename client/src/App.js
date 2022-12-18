@@ -9,7 +9,6 @@ function App() {
   // check if anything is in storage for cart
   useEffect(() => {
     const foundCart = storage.local.get('cart');
-    console.log('getting from local storage: ', foundCart);
     if (foundCart) {
       const parsedCart = JSON.parse(foundCart);
       if (Array.isArray(parsedCart) && parsedCart.length > 0) {
@@ -20,7 +19,6 @@ function App() {
 
   // save to local storage any time the cart is changed
   useEffect(() => {
-    console.log('adding to local storage: ', JSON.stringify(cart));
     storage.local.set('cart', JSON.stringify(cart));
   }, [cart]);
   return (

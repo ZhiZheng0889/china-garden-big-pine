@@ -16,6 +16,7 @@ const CheckoutList = ({ cart, setCart }) => {
               item={item}
               cart={cart}
               setCart={setCart}
+              index={index}
             />
           );
         })}
