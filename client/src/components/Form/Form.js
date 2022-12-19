@@ -53,10 +53,7 @@ const Form = ({ data, onChange, onSubmit, submitText, children, footer }) => {
     <form onSubmit={onSubmit}>
       {inputElements}
       {children}
-      <button
-        type="submit"
-        className={`button button-primary ${styles.button}`}
-      >
+      <button type="submit" className={`btn btn-primary ${styles.button}`}>
         {submitText}
       </button>
       {footer}

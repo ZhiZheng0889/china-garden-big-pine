@@ -11,7 +11,7 @@
 
 .inputContainer input {
   padding: 0.7rem;
-  border: solid 1px var(--border);
+  border: solid 1px var(--color-border);
   border-radius: 5px;
   background-color: inherit;
   color: inherit;

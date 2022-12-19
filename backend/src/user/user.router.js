@@ -3,6 +3,10 @@ const controller = require('./user.controller');
 const methodNotAllowed = require('../errors/methodNotAllowed');
 const { Model } = require('sequelize');
 
+router
+  .route('/login/token')
+  .post(controller.loginWithToken)
+  .all(methodNotAllowed);
 router.route('/login').post(controller.login).all(methodNotAllowed);
 router.route('/:user_id').get(controller.getUserById).all(methodNotAllowed);
 router

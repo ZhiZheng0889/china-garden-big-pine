@@ -8,7 +8,14 @@ import Signup from './Signup/Signup';
 import Checkout from './Checkout/Checkout';
 import Receipt from './Receipt/Receipt';
 
-const PageRoutes = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
+const PageRoutes = ({
+  cart,
+  setCart,
+  isCheckoutOpen,
+  setIsCheckoutOpen,
+  user,
+  setUser,
+}) => {
   return (
     <Routes>
       <Route
@@ -29,7 +36,7 @@ const PageRoutes = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
       <Route path="/receipt" element={<Receipt />} />
       <Route path="/admin" element={<Admin user={{}} />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/signup" elemnt={<Signup />} />
+      <Route path="/signup" element={<Signup setUser={setUser} />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

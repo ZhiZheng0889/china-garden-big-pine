@@ -1,10 +1,11 @@
-const generateToken = require('../auth/generatetoken.js');
+const generateToken = require('../auth/UserAuth.js');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 const service = require('./user.service');
 const { protect, admin } = require('../auth/authMiddleware.js');
 const bcrypt = require('bcryptjs');
 const { SALT } = process.env;
 const jwt = require('jsonwebtoken');
+const UserAuth = require('../auth/UserAuth');
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
 const VALID_PROPERTIES = [
@@ -16,7 +17,13 @@ const VALID_PROPERTIES = [
   'first_name',
   'last_name',
 ];
-const REQUIRED_PROPERTIES = ['email', 'password'];
+const REQUIRED_PROPERTIES = [
+  'email',
+  'first_name',
+  'username',
+  'phone_number',
+  'password',
+];
 
 //__REGISTER
 
@@ -116,20 +123,43 @@ async function create(req, res, next) {
 // @ desc Creating token for user
 
 async function createToken(req, res, next) {
-  const { createdUser } = res.locals;
-  const { email, user_id, username } = createdUser;
-  const { profile } = res.locals;
-  const token = jwt.sign({ user_id, email }, process.env.TOKEN_KEY, {
-    expiresIn: '2h',
-  });
-  const data = {
-    user_id,
-    token,
-    username,
-    email,
-    ...profile,
-  };
-  res.status(201).json({ data });
+  const { createdUser: user } = res.locals;
+  const { user_id } = user;
+  const accessToken = await UserAuth.generateAccessToken(user_id);
+  const refreshToken = await UserAuth.generateRefreshToken(user_id);
+  console.log('At: ', accessToken, 'RT: ', refreshToken);
+  res.locals.accessToken = accessToken;
+  res.locals.refreshToken = refreshToken;
+  next();
+}
+
+function sendPayload(req, res, next) {
+  const { username, email, first_name, phone_number, user_id } =
+    res.locals.user;
+  const { accessToken, refreshToken } = res.locals;
+  console.log(username, email, accessToken, refreshToken);
+  if (!accessToken || !refreshToken) {
+    return next({
+      status: 500,
+      message: 'Error creating tokens',
+    });
+  }
+  return res
+    .cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+    })
+    .status(200)
+    .json({
+      data: {
+        user_id,
+        username,
+        email,
+        first_name,
+        phone_number,
+        refreshToken,
+      },
+    });
 }
 
 //__LOGIN
@@ -154,16 +184,16 @@ async function validatePassword(req, res, next) {
   next({ status: 401, message: 'username and or password is incorrect.' });
 }
 
-async function createToken(req, res, next) {
-  const { user } = res.locals;
-  const { user_id, email, username } = user;
-  const { profile } = res.locals;
-  const token = jwt.sign({ user_id, email }, process.env.TOKEN_KEY, {
-    expiresIn: '2h',
-  });
-  user.token = token;
-  res.status(200).json({ data: { email, username, ...profile } });
-}
+// async function createToken(req, res, next) {
+//   const { user } = res.locals;
+//   const { user_id, email, username } = user;
+//   const { profile } = res.locals;
+//   const token = jwt.sign({ user_id, email }, process.env.TOKEN_KEY, {
+//     expiresIn: '2h',
+//   });
+//   user.token = token;
+//   res.status(200).json({ data: { email, username, ...profile } });
+// }
 
 async function destroy(req, res, next) {
   const { session_id } = res.locals.session;
@@ -416,18 +446,31 @@ const updateUserProfile = asyncErrorBoundary(async (req, res) => {
   }
 });
  */
+async function isAccessTokenValid(req, res, next) {}
+
+async function isRefreshTokenValid(req, res, next) {}
+
+async function loginUser(req, res, next) {}
 
 module.exports = {
   login: [],
+  loginWithToken: [
+    asyncErrorBoundary(isAccessTokenValid),
+    asyncErrorBoundary(isRefreshTokenValid),
+    asyncErrorBoundary(loginUser),
+    asyncErrorBoundary(createToken),
+    sendPayload,
+  ],
   register: [
     hasOnlyValidProperties(VALID_PROPERTIES),
-    hasRequiredProperties(VALID_PROPERTIES),
+    hasRequiredProperties(REQUIRED_PROPERTIES),
     asyncErrorBoundary(emailExist),
     asyncErrorBoundary(usernameExist),
     asyncErrorBoundary(phoneNumberExist),
     asyncErrorBoundary(encryptPassword),
     asyncErrorBoundary(create),
     asyncErrorBoundary(createToken),
+    sendPayload,
   ],
   getUsers: [protect, admin, getUsers],
   getUserById: [protect, admin, getUserById],

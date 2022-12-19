@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PageRoutes from './pages/Routes';
 import Navbar from './components/Navbar/Navbar';
+import { UserApi } from './api/userApi';
 import { storage } from './utils/Storage';
 function App() {
   const [user, setUser] = useState(null);
@@ -8,8 +9,9 @@ function App() {
 
   // mobile checkout responsiveness
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  // check if anything is in storage for cart
+
   useEffect(() => {
+    // check if anything is in storage for cart
     const foundCart = storage.local.get('cart');
     if (foundCart) {
       const parsedCart = JSON.parse(foundCart);
@@ -17,7 +19,31 @@ function App() {
         setCart(JSON.parse(foundCart));
       }
     }
+    // check if user has been logged in
+    const foundRefreshToken = storage.local.get('refreshToken');
+    if (foundRefreshToken) {
+      const getUser = async () => {
+        const response = await UserApi.loginToken(foundRefreshToken);
+        if (response) {
+          setUser(response);
+        }
+      };
+      getUser();
+    }
   }, []);
+
+  // save session tokens
+  useEffect(() => {
+    if (user) {
+      const { refreshToken = '' } = user;
+      if (refreshToken) {
+        const foundToken = storage.local.get('refreshToken');
+        if (refreshToken !== foundToken) {
+          storage.local.set('refreshToken', refreshToken);
+        }
+      }
+    }
+  }, [user]);
 
   // save to local storage any time the cart is changed
   useEffect(() => {
@@ -33,6 +59,8 @@ function App() {
         setCart={setCart}
         isCheckoutOpen={isCheckoutOpen}
         setIsCheckoutOpen={setIsCheckoutOpen}
+        user={user}
+        setUser={setUser}
       />
     </>
   );

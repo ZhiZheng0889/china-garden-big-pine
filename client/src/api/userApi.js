@@ -6,5 +6,53 @@ headers.append('Content-Type', 'application/json');
 // work in here
 
 // create user
-
 // read user
+export class UserApi {
+  static async signup(user, signal) {
+    const url = `${API_BASE_URL}/users`;
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ data: user }),
+      headers,
+      signal,
+    };
+    console.log(user);
+    return await fetchJson(url, options, {});
+  }
+
+  static async login(login, signal) {
+    const url = `${API_BASE_URL}/users/login`;
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ data: login }),
+      headers,
+      signal,
+    };
+    return await fetchJson(url, options, {});
+  }
+  static async logout(logout, signal) {
+    const url = `${API_BASE_URL}/users/logout`;
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ data: logout }),
+      headers,
+      signal,
+    };
+    return await fetchJson(url, options, {});
+  }
+
+  static async deleteUser(user, signal) {
+    const url = `${API_BASE_URL}/users`;
+    const options = {
+      method: 'DELETE',
+      body: JSON.stringify({ data: user }),
+      headers,
+      signal,
+    };
+    return await fetchJson(url, options, {});
+  }
+
+  static async loginToken(refreshToken) {
+    return await fetchJson('/users/login/token');
+  }
+}
