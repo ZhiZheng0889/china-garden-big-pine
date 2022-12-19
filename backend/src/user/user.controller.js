@@ -23,8 +23,8 @@ const REQUIRED_PROPERTIES = [
 
 //__REGISTER
 
-// @ desc  Get and validating the email address
-// @ route Get /api/users
+// @ desc   Get and check if the email exist
+// @ route  Get /api/users
 // @ access Public
 async function emailExist(req, res, next) {
   const { email } = req.body.data;
@@ -38,8 +38,8 @@ async function emailExist(req, res, next) {
   next();
 }
 
-// @ desc  Get and validating the username
-// @ route Get /api/users
+// @ desc   Get and check if the username exist
+// @ route  Get /api/users
 // @ access Public
 
 async function usernameExist(req, res, next) {
@@ -55,8 +55,8 @@ async function usernameExist(req, res, next) {
   next();
 }
 
-// @ desc  Get and validating the password
-// @ route Get /api/users
+// @ desc   Get and check if the password exist
+// @ route  Get /api/users
 // @ access Public
 
 function validatePassword(req, res, next) {
@@ -67,8 +67,8 @@ function validatePassword(req, res, next) {
   next({ status: 400, message: 'Password must be a string.' });
 }
 
-// @ desc  Encrypting the password
-// @ route Get /api/users
+// @ desc   Encrypting the password
+// @ route  Get /api/users
 // @ access Public
 
 async function encryptPassword(req, res, next) {
@@ -92,8 +92,8 @@ async function encryptPassword(req, res, next) {
   next();
 }
 
-// @ desc  creating the user
-// @ route Post /api/users
+// @ desc   Creating the user
+// @ route  Post /api/users
 // @ access Public
 
 async function create(req, res, next) {
@@ -136,6 +136,10 @@ async function createToken(req, res, next) {
 
 //__LOGIN
 
+// @ desc  Validating the user for login
+// @ route Post /api/users
+// @ access Public
+
 async function userExist(req, res, next) {
   const { email } = req.body.data;
   const userExist = (await service.read(email)) || null;
@@ -146,6 +150,10 @@ async function userExist(req, res, next) {
   next({ status: 401, message: 'Email and or password is incorrect.' });
 }
 
+// @ desc  creating the user
+// @ route Post /api/users
+// @ access Public
+
 async function readUsersProfile(req, res, next) {
   const { user_id } = res.locals.user;
   const profile = (await service.readFromUserProfile(user_id)) || {};
@@ -153,6 +161,10 @@ async function readUsersProfile(req, res, next) {
 
   next();
 }
+
+// @ desc  creating the user
+// @ route Post /api/users
+// @ access Public
 
 async function validatePassword(req, res, next) {
   const { password } = req.body.data;
@@ -163,6 +175,10 @@ async function validatePassword(req, res, next) {
   }
   next({ status: 401, message: 'username and or password is incorrect.' });
 }
+
+// @ desc  creating the user
+// @ route Post /api/users
+// @ access Public
 
 async function createToken(req, res, next) {
   const { user } = res.locals;
@@ -175,12 +191,17 @@ async function createToken(req, res, next) {
   res.status(200).json({ data: { email, username, ...profile } });
 }
 
+// @ desc  creating the user
+// @ route Post /api/users
+// @ access Public
+
 async function destroy(req, res, next) {
   const { session_id } = res.locals.session;
   await service.destroy(session_id);
   res.sendStatus(204);
 }
 
+//__ADMIN
 // @desc    Get all users
 // @route   GET /api/users
 // @access  Private/Admin

@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const controller = require('./user.controller');
 const methodNotAllowed = require('../errors/methodNotAllowed');
-const { Model } = require('sequelize');
 
 router.route('/').post(controller.create).all(methodNotAllowed);
 router.route('/').post(controller.register).get(controller.getUsers);
