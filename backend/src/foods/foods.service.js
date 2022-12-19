@@ -1,12 +1,23 @@
 const knex = require('../db/connection');
 
 const TABLE = 'foods';
-
+const FOOD_AMOUNTS_TABLE = 'food_amounts';
+const FOOD_OPTIONS_TABLE = 'food_options';
+const FOOD_SIZES_TABLE = 'food_sizes';
+function listSizes() {
+  return knex(FOOD_SIZES_TABLE).select('*');
+}
+function listOptions() {
+  return knex(FOOD_OPTIONS_TABLE).select('*');
+}
+function listAmounts() {
+  return knex(FOOD_AMOUNTS_TABLE).select('*');
+}
 /*
  * query database and list all items
  */
 function list() {
-  return knex(TABLE).select('*');
+  return knex('foods').select('*');
 }
 
 /*
@@ -29,6 +40,9 @@ function search(text) {
 
 module.exports = {
   list,
+  listAmounts,
+  listSizes,
+  listOptions,
   listByCategory,
   read,
   search,

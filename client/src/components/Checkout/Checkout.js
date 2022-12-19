@@ -9,10 +9,12 @@ const Checkout = ({ cart, setCart }) => {
         <h3>Cart:</h3>
         <CheckoutList cart={cart} setCart={setCart} />
       </div>
-      <div className="p-3 d-flex flex-column w-100">
-        <h3>Checkout:</h3>
-        <CheckoutFooter cart={cart} />
-      </div>
+      {cart.length > 0 && (
+        <div className="p-3 d-flex flex-column w-100">
+          <h3>Checkout:</h3>
+          <CheckoutFooter cart={cart} />
+        </div>
+      )}
     </Card>
   );
 };

@@ -8,11 +8,24 @@ import Signup from './Signup/Signup';
 import Checkout from './Checkout/Checkout';
 import Receipt from './Receipt/Receipt';
 
-const PageRoutes = ({ cart, setCart }) => {
+const PageRoutes = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   return (
     <Routes>
-      <Route index element={<Home cart={cart} setCart={setCart} />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route
+        index
+        element={
+          <Home
+            cart={cart}
+            setCart={setCart}
+            isCheckoutOpen={isCheckoutOpen}
+            setIsCheckoutOpen={setIsCheckoutOpen}
+          />
+        }
+      />
+      <Route
+        path="/checkout"
+        element={<Checkout cart={cart} setCart={setCart} />}
+      />
       <Route path="/receipt" element={<Receipt />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login" element={<Login />} />

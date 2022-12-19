@@ -1,9 +1,11 @@
 [
   {
     "email": "anthonymclamb@mail.com",
+    "username": "anthonymclamb",
     "first_name": "anthony",
     "last_name": "mclamb",
     "phone_number": "8454994090",
+    "password": "123Abc",
     "isAdmin": true
   }
 ]

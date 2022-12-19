@@ -34,11 +34,10 @@ export class Cart {
     }
   }
 
-  static remove(item, cart, setCart) {
-    const index = this.getIndex(item, cart);
+  static remove(index, setCart) {
     if (index >= 0) {
       setCart((curr) => {
-        return curr.splice(index, 1);
+        return curr.filter((_, i) => i !== index);
       });
     }
   }

@@ -6,6 +6,14 @@ function read(email) {
   return knex(TABLE).select('*').where({ email }).first();
 }
 
+function getAllUsers() {
+  return knex(TABLE).select('*');
+}
+
+function getUserById(user_id) {
+  return knex(TABLE).select('*').where({ user_id }).first();
+}
+
 function create(user) {
   return knex(TABLE)
     .insert(user)
@@ -24,6 +32,10 @@ function readFromUsername(username) {
   return knex(TABLE).select('*').where({ username }).first();
 }
 
+function readFromPhoneNumber(phone_number) {
+  return knex(TABLE).select('*').where({ phone_number }).first();
+}
+
 function readFromUserProfile(user_id) {
   return knex(USERS_PROFILES_TABLE).select('*').where({ user_id }).first();
 }
@@ -36,11 +48,13 @@ module.exports = {
   read,
   create,
   createUsersProfile,
+  getAllUsers,
+  getUserById,
   readFromUsername,
+  readFromPhoneNumber,
   readFromUserProfile,
   destroy,
 };
-
 
 /**
  * const knex = require('../db/connection');

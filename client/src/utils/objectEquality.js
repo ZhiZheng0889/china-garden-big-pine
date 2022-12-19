@@ -15,14 +15,11 @@ export const objectIsEqual = (obj1, obj2, ignore = [], config = {}) => {
         return true;
       }
     } else if (!ignore.includes(property)) {
-      console.log(obj1[property], obj2[property]);
       if (obj1[property] !== obj2[property]) {
-        console.log('not equal');
         return true;
       }
     }
     return false;
   });
-  console.log('=>', notEqualProperties);
   return notEqualProperties.length ? false : true;
 };

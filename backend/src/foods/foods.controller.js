@@ -1,6 +1,6 @@
 const service = require('./foods.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
-
+const mapFood = require('../utils/mapFood');
 /*
  * Check queries for specific type of order or list of food.
  *
@@ -35,7 +35,6 @@ function checkQueryParams(req, res, next) {
   }
   next();
 }
-
 /*
  * List foods based on if there is a query parameter or not.
  */
@@ -53,7 +52,10 @@ async function list(req, res, next) {
   } else {
     data = await service.list();
   }
-  res.status(200).json({ data });
+  const sizes = await service.listSizes();
+  const options = await service.listOptions();
+  const formattedData = mapFood(data, sizes, options);
+  res.status(200).json({ data: formattedData });
 }
 
 module.exports = {

@@ -6,7 +6,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const {
     food_id,
     name,
-    price,
+    base_price,
     likes = null,
     dislikes = null,
     spicy,
@@ -35,7 +35,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
           {description && <p className={styles.description}>{description}</p>}
           <div>
             <p className="me-2 mb-0">
-              ${price[0] && Number(price[0]).toFixed(2)}
+              ${base_price && Number(base_price).toFixed(2)}
             </p>
             <p></p>
           </div>

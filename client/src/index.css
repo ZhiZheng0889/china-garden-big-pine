@@ -190,6 +190,15 @@ body {
   color: var(--color-light);
 }
 
+.btn-primary.disabled {
+  background-color: var(--color-main-lightest) !important;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
 .w-100 {
   width: 100%;
 }
