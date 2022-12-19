@@ -1,4 +1,6 @@
-const Admin = () => {
+const Admin = ({ user }) => {
+  if (!user && !user.isAdmin) {
+  }
   return null;
 };
 

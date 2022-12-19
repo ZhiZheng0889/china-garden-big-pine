@@ -27,7 +27,7 @@ const PageRoutes = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
         element={<Checkout cart={cart} setCart={setCart} />}
       />
       <Route path="/receipt" element={<Receipt />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin" element={<Admin user={{}} />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" elemnt={<Signup />} />
       <Route path="*" element={<NotFound />} />

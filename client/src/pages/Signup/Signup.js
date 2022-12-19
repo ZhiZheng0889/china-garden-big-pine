@@ -1,5 +1,4 @@
 import React from 'react';
-import SignupForm from '../../components/Form/SignupForm/SignupForm';
 const Signup = () => {
   // work in here
   /*
