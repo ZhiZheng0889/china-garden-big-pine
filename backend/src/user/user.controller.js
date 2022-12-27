@@ -52,26 +52,8 @@ async function usernameExist(req, res, next) {
   next();
 }
 
-<<<<<<< HEAD
 // @ desc   Get and check if the password exist
 // @ route  Get /api/users
-=======
-async function phoneNumberExist(req, res, next) {
-  const { phone_number } = req.body.data;
-
-  const user = await service.readFromPhoneNumber(phone_number);
-  if (user) {
-    return next({
-      status: 409,
-      message: 'Phone number is already in use. Please try a different one.',
-    });
-  }
-  next();
-}
-
-// @ desc  Get and validating the password
-// @ route Get /api/users
->>>>>>> bc319efe4b0f94fccd7833ae678bd5e83e468404
 // @ access Public
 
 function validatePassword(req, res, next) {
@@ -153,25 +135,6 @@ async function userExist(req, res, next) {
   next({ status: 401, message: 'Email and or password is incorrect.' });
 }
 
-<<<<<<< HEAD
-// @ desc  creating the user
-// @ route Post /api/users
-// @ access Public
-
-async function readUsersProfile(req, res, next) {
-  const { user_id } = res.locals.user;
-  const profile = (await service.readFromUserProfile(user_id)) || {};
-  res.locals.profile = profile;
-
-  next();
-}
-
-// @ desc  creating the user
-// @ route Post /api/users
-// @ access Public
-
-=======
->>>>>>> bc319efe4b0f94fccd7833ae678bd5e83e468404
 async function validatePassword(req, res, next) {
   const { password } = req.body.data;
   const { user } = res.locals;
