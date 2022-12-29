@@ -52,7 +52,7 @@ const Signup = ({ setSession, session }) => {
         setSignupBtnText('Continue');
       }
     };
-  
+  //__Input controls
     return (
       <main className="row">
         <form
