@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import ErrorAlert from '../../errors/ErrorAlert';
 import styles from './Signup.module.css';
 import { UserApi } from '../../api/userApi';
@@ -45,9 +45,11 @@ const Signup = ({ setUser }) => {
           isAdmin: false,
         };
         const response = await UserApi.signup(payload);
-        delete signup.isAdmin;
-        console.log('res: ', response);
-        setUser(response);
+        if (response) {
+          console.log('res: ', response);
+          setUser(response);
+          redirect('/');
+        }
       } else {
         throw { message: 'Passwords are not matching. Please try again.' };
       }

@@ -21,11 +21,16 @@ function App() {
     }
     // check if user has been logged in
     const foundRefreshToken = storage.local.get('refreshToken');
+    console.log(foundRefreshToken);
     if (foundRefreshToken) {
       const getUser = async () => {
-        const response = await UserApi.loginToken(foundRefreshToken);
-        if (response) {
-          setUser(response);
+        try {
+          const response = await UserApi.loginToken(foundRefreshToken);
+          if (response) {
+            setUser(response);
+          }
+        } catch (error) {
+          console.log(error);
         }
       };
       getUser();

@@ -15,10 +15,12 @@ class UserAuth {
   }
 
   authorize(token) {
+    console.log(token);
     if (!this.TOKEN_KEY) {
       throw 'Key is missing';
     }
     try {
+      console.log('in here!');
       const data = verify(token, this.TOKEN_KEY);
       return data;
     } catch (error) {

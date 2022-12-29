@@ -16,7 +16,6 @@ export class UserApi {
       headers,
       signal,
     };
-    console.log(user);
     return await fetchJson(url, options, {});
   }
 
@@ -52,7 +51,15 @@ export class UserApi {
     return await fetchJson(url, options, {});
   }
 
-  static async loginToken(refreshToken) {
-    return await fetchJson('/users/login/token');
+  static async loginToken(refreshToken, signal) {
+    const url = `${API_BASE_URL}/users/login/token`;
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ data: refreshToken }),
+      headers,
+      signal,
+      credentials: 'include',
+    };
+    return await fetchJson(url, options, {});
   }
 }

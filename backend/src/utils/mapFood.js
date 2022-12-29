@@ -14,14 +14,12 @@ const mapFood = (foods, sizes, options) => {
     if (foundOptions.length) {
       foods[i].option = {};
       foundOptions.forEach((option) => {
-        console.log(option.upcharge);
         foods[i].option[option.option] = {
           upCharge: option.upcharge,
         };
       });
     }
   }
-  console.log(foods);
   return foods;
 };
 

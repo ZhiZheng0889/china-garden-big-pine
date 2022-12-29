@@ -46,7 +46,6 @@ async function list(req, res, next) {
   let data;
   if (search) {
     data = await service.search(search);
-    console.log(data);
   } else if (category) {
     data = await service.listByCategory(category);
   } else {

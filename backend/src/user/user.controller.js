@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const UserAuth = require('../auth/UserAuth');
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
+
 const VALID_PROPERTIES = [
   'email',
   'phone_number',
@@ -221,16 +222,16 @@ async function validatePassword(req, res, next) {
 // @ route Post /api/users
 // @ access Public
 
-async function createToken(req, res, next) {
-  const { user } = res.locals;
-  const { user_id, email, username } = user;
-  const { profile } = res.locals;
-  const token = jwt.sign({ user_id, email }, process.env.TOKEN_KEY, {
-    expiresIn: '2h',
-  });
-  user.token = token;
-  res.status(200).json({ data: { email, username, ...profile } });
-}
+// async function createToken(req, res, next) {
+//   const { user } = res.locals;
+//   const { user_id, email, username } = user;
+//   const { profile } = res.locals;
+//   const token = jwt.sign({ user_id, email }, process.env.TOKEN_KEY, {
+//     expiresIn: '2h',
+//   });
+//   user.token = token;
+//   res.status(200).json({ data: { email, username, ...profile } });
+// }
 
 // @ desc  creating the user
 // @ route Post /api/users
@@ -488,9 +489,35 @@ const updateUserProfile = asyncErrorBoundary(async (req, res) => {
   }
 });
  */
-async function isAccessTokenValid(req, res, next) {}
+async function isAccessTokenValid(req, res, next) {
+  console.log('cookies: ', req.cookies.access_token);
+  const { access_token = '' } = req.cookies;
+  console.log('=>', refreshToken);
+  if (accessToken) {
+    console.log('in here!');
+    const data = UserAuth.authorize(accessToken);
+    console.log(data);
+    next();
+  }
+  next({
+    status: 404,
+    message: 'Error authenticating in please try again',
+  });
+}
 
-async function isRefreshTokenValid(req, res, next) {}
+async function isRefreshTokenValid(req, res, next) {
+  const { refreshToken = '' } = req.body.data;
+
+  if (refreshToken) {
+    const data = UserAuth.authorize(refreshToken);
+    console.log(data);
+    next();
+  }
+  next({
+    status: 404,
+    message: 'Error authenticating in please try again',
+  });
+}
 
 async function loginUser(req, res, next) {}
 
