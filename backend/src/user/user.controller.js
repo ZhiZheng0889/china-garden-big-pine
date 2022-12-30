@@ -490,6 +490,7 @@ const updateUserProfile = asyncErrorBoundary(async (req, res) => {
 });
  */
 async function isAccessTokenValid(req, res, next) {
+  console.log('right here!');
   console.log('cookies: ', req.cookies.access_token);
   const { access_token = '' } = req.cookies;
   console.log('=>', refreshToken);

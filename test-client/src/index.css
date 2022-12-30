@@ -12,7 +12,6 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: var(--color-gray);
 }
 
 :root {
@@ -34,10 +33,6 @@ body {
   --burger-height: 2px;
   --container-spacing: 10%;
   --container-gap: 1rem;
-}
-
-.bg-white {
-  background-color: var(--color-light);
 }
 
 /* Base hamburger menu */
@@ -93,129 +88,6 @@ body {
 }
 .burger-menu.opened .burger::after {
   transform: rotate(-45deg) translate(8px, 8px);
-}
-
-/* Btn */
-.btn-main {
-  background-color: var(--color-main);
-  color: var(--color-light);
-  padding: 0.8rem;
-  border-radius: 2rem;
-}
-.btn-normal {
-  padding: 0.6rem;
-  border-radius: 4px;
-}
-
-.btn-main:hover {
-  background-color: var(--color-main--hover);
-  color: var(--color-light);
-  transition: 0.35s;
-}
-
-.btn-outline-light {
-  border: solid;
-  color: var(--color-light);
-  border-radius: 2rem;
-}
-
-.btn-outline-light:hover {
-  background-color: var(--color-light);
-  border: solid var(--color-light);
-  color: var(--color-main);
-  transition: 0.35s;
-}
-
-.btn-3d:hover {
-  transform: translateY(-0.4rem);
-}
-
-.btn-3d:active {
-  transform: translateY(0.4rem);
-  transition: 0.1s;
-}
-
-.btn-hovering {
-  background-color: var(--color-light);
-  color: var(--color-dark);
-  padding: 0.2rem 1rem;
-  /* -webkit-box-shadow: 1px 1px 13px 1px rgba(0, 0, 0, 0.18);
-  box-shadow: 1px 1px 13px 1px rgba(0, 0, 0, 0.18);
-  border: none; */
-}
-
-.btn-hovering:hover {
-  background-color: var(--color-gray);
-}
-
-/* general */
-.d-none {
-  display: none;
-}
-
-.p-none {
-  padding: 0;
-}
-
-.p-1 {
-  padding: 0.8rem;
-}
-
-.p-2 {
-  padding: 1rem;
-}
-
-.p-3 {
-  padding: 1.25rem;
-}
-
-.p-4 {
-  padding: 1.75rem;
-}
-
-.mb-gap {
-  margin-bottom: var(--container-spacing);
-}
-
-.mt-gap {
-  margin-top: var(--container-gap);
-}
-
-.btn {
-  border: none;
-  padding: 0.9rem 1rem;
-  border-radius: 8px;
-  font-size: 1.25rem;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background-color: var(--color-main);
-  color: var(--color-light);
-}
-
-.btn-primary.disabled {
-  background-color: var(--color-main-lightest) !important;
-}
-
-.disabled {
-  pointer-events: none;
-  cursor: default;
-}
-
-.w-100 {
-  width: 100%;
-}
-
-/* modal */
-
-.modal-header {
-  margin-bottom: 0.75rem;
-}
-
-/* base */
-.w-100 {
-  width: 100%;
 }
 
 /* special request on checkoutlistItem */

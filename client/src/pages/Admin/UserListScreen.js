@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import { listUsers, deleteUser } from '../actions/userActions'
+const React = require( { useEffect } = require ('react'))
+const { LinkContainer } = require ('react-router-bootstrap')
+const { Table, Button } = require ('react-bootstrap')
+const { useDispatch, useSelector } = require ('react-redux')
+const Message = require ('../components/Message')
+const Loader = require( '../components/Loader')
+const { listUsers, deleteUser } = require( '../actions/userActions')
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch()

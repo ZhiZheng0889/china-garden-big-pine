@@ -15,7 +15,7 @@ const userRouter = require('./user/user.router');
 console.log(FRONT_END_URL);
 app.use(cookieParser());
 app.use(express.json());
-app.use('/foods', cors(), foodsRouter);
+app.use('/foods', cors({ origin: FRONT_END_URL }), foodsRouter);
 
 app.use(
   '/orders',

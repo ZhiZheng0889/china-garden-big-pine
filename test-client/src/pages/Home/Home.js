@@ -16,8 +16,8 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   const [error, setError] = useState(null);
 
   return (
-    <main className={styles.main}>
-      <section className={styles.center}>
+    <main className="bg-stone-100">
+      <section className="">
         {/* Main content */}
         <div className="mb-2">
           <Searchbar search={search} setSearch={setSearch} />
