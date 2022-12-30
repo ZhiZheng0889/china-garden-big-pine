@@ -1,0 +1,17 @@
+.card {
+  border: solid 1px var(--color-border);
+  border-radius: 12px;
+}
+@media all and (max-width: 1550px) {
+  .main {
+    border-radius: 0px;
+    transition: 0.4s ease-in;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  .main {
+    border-radius: 0px;
+    transition: 0.4s ease-in;
+  }
+}
