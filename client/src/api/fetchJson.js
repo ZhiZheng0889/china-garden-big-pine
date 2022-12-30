@@ -25,6 +25,7 @@ export async function fetchJson(url, options, onCancel) {
     }
     return payload.data;
   } catch (error) {
+    console.log(error.message);
     if (error.name !== 'AbortError') {
       throw error;
     }
