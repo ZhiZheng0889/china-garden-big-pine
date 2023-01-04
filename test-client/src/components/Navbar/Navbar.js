@@ -24,7 +24,7 @@ const Navbar = ({ user, cart, setIsCheckoutOpen }) => {
         >
           <div className="burger"></div>
         </div>
-        <Link to="/" className="text-lg">
+        <Link to="/" className="text-lg font-semibold">
           China Garden
         </Link>
         <div className="flex items-center">

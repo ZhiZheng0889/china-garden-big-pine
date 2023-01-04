@@ -53,7 +53,10 @@ const Form = ({ data, onChange, onSubmit, submitText, children, footer }) => {
     <form onSubmit={onSubmit}>
       {inputElements}
       {children}
-      <button type="submit" className={`btn btn-primary ${styles.button}`}>
+      <button
+        type="submit"
+        className={`w-full p-3 rounded bg-red-600 text-white`}
+      >
         {submitText}
       </button>
       {footer}

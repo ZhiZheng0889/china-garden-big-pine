@@ -16,7 +16,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   const [error, setError] = useState(null);
 
   return (
-    <main className="bg-stone-900 flex items-center justify-center pt-6">
+    <main className={`min-h-screen bg-slate-100 flex justify-center pt-6 `}>
       <div className="container grid grid-cols-[3fr_2fr] gap-6">
         <section className="">
           {/* Main content */}

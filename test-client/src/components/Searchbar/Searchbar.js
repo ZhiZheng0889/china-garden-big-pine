@@ -23,14 +23,17 @@ const Searchbar = ({ search, setSearch }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
-      <button className={styles.button} type="submit">
+    <form className="relative" onSubmit={submitHandler}>
+      <button
+        className="absolute top-2/4 right-[2%] -translate-y-2/4"
+        type="submit"
+      >
         <i className="fa-light fa-magnifying-glass fa-lg"></i>
       </button>
       <input
         type="search"
         placeholder="Search"
-        className="w-full py-3 px-5"
+        className="w-full py-3 pl-4 pr-[2.7rem] border rounded"
         value={keyword}
         onChange={onChange}
       />

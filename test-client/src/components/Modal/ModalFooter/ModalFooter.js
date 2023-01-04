@@ -52,7 +52,10 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
           <i id="+" className="fa-solid fa-plus"></i>
         </button>
       </form>
-      <button className="btn btn-primary" onClick={handleAddToCart}>
+      <button
+        className="p-3 rounded bg-red-600 text-white"
+        onClick={handleAddToCart}
+      >
         Add to Cart - ${total.toFixed(2)}
       </button>
     </footer>

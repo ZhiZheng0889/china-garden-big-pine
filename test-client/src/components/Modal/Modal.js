@@ -57,16 +57,16 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     <>
       <div className={`${styles.modalBackdrop}`}></div>
       <article
-        className={styles.modal}
+        className={`${styles.modal} bg-white border rounded`}
         id="foodModal"
         tabIndex="-1"
         aria-labelledby="foodModalLabel"
         aria-hidden={food ? true : false}
       >
-        <header className={styles.header}>
+        <header className="flex items-center p-3">
           <button
             type="button"
-            className={styles.button}
+            className="w-10 h-10 hover:bg-slate-100 rounded-full"
             data-bs-dismiss="modal"
             aria-label="Close"
             onClick={() => setFood(null)}
@@ -74,9 +74,9 @@ const Modal = ({ food, setCart, cart, setFood }) => {
             <i className="fa-regular fa-xmark fa-2x"></i>
           </button>
         </header>
-        <section className={styles.main}>
+        <section className="px-3">
           {<ErrorAlert error={error} />}
-          <h2 className={styles.title}>{name}</h2>
+          <h2 className="text-5xl mb-4">{name}</h2>
           <p>{description}</p>
           {size && (
             <ModalOptions
