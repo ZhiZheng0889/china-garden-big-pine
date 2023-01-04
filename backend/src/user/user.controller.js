@@ -128,20 +128,18 @@ async function create(req, res, next) {
 
 async function createToken(req, res, next) {
   const { createdUser: user } = res.locals;
-  const { user_id } = user;
-  const accessToken = await UserAuth.generateAccessToken(user_id);
-  const refreshToken = await UserAuth.generateRefreshToken(user_id);
-  console.log('At: ', accessToken, 'RT: ', refreshToken);
+  const { user_id, email } = user;
+  const accessToken = await UserAuth.generateAccessToken({ user_id, email });
+  const refreshToken = await UserAuth.generateRefreshToken({ user_id, email });
   res.locals.accessToken = accessToken;
   res.locals.refreshToken = refreshToken;
-  next();
+  return next();
 }
 
 function sendPayload(req, res, next) {
   const { username, email, first_name, phone_number, user_id } =
     res.locals.user;
   const { accessToken, refreshToken } = res.locals;
-  console.log(username, email, accessToken, refreshToken);
   if (!accessToken || !refreshToken) {
     return next({
       status: 500,
@@ -491,43 +489,51 @@ const updateUserProfile = asyncErrorBoundary(async (req, res) => {
 });
  */
 async function isAccessTokenValid(req, res, next) {
-  console.log('cookies: ', req.cookies.access_token);
   const { access_token = '' } = req.cookies;
   if (access_token) {
-    console.log('in here!!!');
     const data = UserAuth.authorize(access_token);
-    console.log(data);
-    next();
+    res.locals.data = data;
+    return next();
   }
-  next({
+  return next({
     status: 404,
     message: 'Error authenticating in please try again',
   });
 }
 
 async function isRefreshTokenValid(req, res, next) {
-  console.log('in here!');
   const { refreshToken = '' } = req.body.data;
-
   if (refreshToken) {
     const data = UserAuth.authorize(refreshToken);
-    console.log(data);
-    next();
+    res.locals.data = data;
+    return next();
   }
-  next({
+  return next({
     status: 404,
     message: 'Error authenticating in please try again',
   });
 }
 
-async function loginUser(req, res, next) {}
+async function isValidEmailAndUserId(req, res, next) {
+  const { user_id, email } = res.locals.data;
+  const foundUser = await service.read(email);
+  if (foundUser && foundUser.user_id === user_id) {
+    res.locals.createdUser = foundUser;
+    res.locals.user = foundUser;
+    return next();
+  }
+  return next({
+    status: 404,
+    message: 'Error logging in user',
+  });
+}
 
 module.exports = {
   login: [],
   loginWithToken: [
     asyncErrorBoundary(isAccessTokenValid),
     asyncErrorBoundary(isRefreshTokenValid),
-    asyncErrorBoundary(loginUser),
+    asyncErrorBoundary(isValidEmailAndUserId),
     asyncErrorBoundary(createToken),
     sendPayload,
   ],

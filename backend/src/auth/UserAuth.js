@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 class UserAuth {
   TOKEN_KEY = process.env.TOKEN_KEY || null;
-  ACCESS_TOKEN_TIMEOUT = '1h';
+  ACCESS_TOKEN_TIMEOUT = '8h';
   REFRESH_TOKEN_TIMEOUT = '10d';
   static UserAuthInstance = null;
 
@@ -15,7 +15,6 @@ class UserAuth {
   }
 
   authorize(token) {
-    console.log(token);
     if (!this.TOKEN_KEY) {
       throw 'Key is missing';
     }
@@ -28,18 +27,12 @@ class UserAuth {
     }
   }
 
-  async generateToken(user_id, expiresIn) {
+  async generateToken(data, expiresIn) {
     try {
       if (!this.TOKEN_KEY) {
         throw new Error('Key is missing');
       }
-      return jwt.sign(
-        {
-          data: user_id,
-        },
-        this.TOKEN_KEY,
-        { expiresIn }
-      );
+      return jwt.sign(data, this.TOKEN_KEY, { expiresIn });
     } catch (error) {
       return Promise.reject(error);
     }
