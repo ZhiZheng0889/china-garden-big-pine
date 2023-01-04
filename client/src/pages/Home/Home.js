@@ -17,7 +17,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
 
   return (
     <main className={`min-h-screen bg-slate-100 flex justify-center pt-6 `}>
-      <div className="container grid grid-cols-[3fr_2fr] gap-6">
+      <div className="container grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">
         <section className="">
           {/* Main content */}
           <div className="mb-6">

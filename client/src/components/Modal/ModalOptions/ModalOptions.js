@@ -19,7 +19,7 @@ const ModalOptions = ({
         <form className={styles.form}>
           <fieldset className={styles.fieldSet}>
             <legend>
-              <h3 className="modal-header">{title}</h3>
+              <h3 className="text-lg font-semibold">{title}</h3>
             </legend>
             {/* <p className={styles.description}>{description}</p> */}
             {Object.keys(options).map((option) => {

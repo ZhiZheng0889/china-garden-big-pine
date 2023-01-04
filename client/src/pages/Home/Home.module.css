@@ -20,17 +20,6 @@
 }
 
 @media all and (max-width: 1550px) {
-  .main {
-    padding-inline: 5%;
-  }
-
-  .aside {
-    display: none;
-    position: absolute;
-    left: 100%;
-    border-radius: 0px;
-  }
-
   .closeCheckout {
     display: block;
     position: absolute;
@@ -43,6 +32,13 @@
   .main {
     padding-inline: 1%;
     grid-template-columns: 1fr !important;
+  }
+
+  .aside {
+    display: none;
+    position: absolute;
+    left: 100%;
+    border-radius: 0px;
   }
 
   .aside {
