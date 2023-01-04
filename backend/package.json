@@ -6,6 +6,7 @@
   "directories": {
     "test": "test"
   },
+  "proxy": "http://localhost:4000",
   "scripts": {
     "start": "node src/server.js",
     "start:dev": "nodemon src/server.js",

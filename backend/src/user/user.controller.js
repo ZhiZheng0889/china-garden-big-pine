@@ -151,7 +151,8 @@ function sendPayload(req, res, next) {
   return res
     .cookie('access_token', accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: false,
+      expires: new Date(Date.now() + 8 * 3600000), // 8 hours
     })
     .status(200)
     .json({
@@ -490,13 +491,11 @@ const updateUserProfile = asyncErrorBoundary(async (req, res) => {
 });
  */
 async function isAccessTokenValid(req, res, next) {
-  console.log('right here!');
   console.log('cookies: ', req.cookies.access_token);
   const { access_token = '' } = req.cookies;
-  console.log('=>', refreshToken);
-  if (accessToken) {
-    console.log('in here!');
-    const data = UserAuth.authorize(accessToken);
+  if (access_token) {
+    console.log('in here!!!');
+    const data = UserAuth.authorize(access_token);
     console.log(data);
     next();
   }
@@ -507,6 +506,7 @@ async function isAccessTokenValid(req, res, next) {
 }
 
 async function isRefreshTokenValid(req, res, next) {
+  console.log('in here!');
   const { refreshToken = '' } = req.body.data;
 
   if (refreshToken) {

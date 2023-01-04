@@ -15,6 +15,7 @@ export class UserApi {
       body: JSON.stringify({ data: user }),
       headers,
       signal,
+      credentials: 'include',
     };
     return await fetchJson(url, options, {});
   }
@@ -26,6 +27,7 @@ export class UserApi {
       body: JSON.stringify({ data: login }),
       headers,
       signal,
+      credentials: 'include',
     };
     return await fetchJson(url, options, {});
   }

@@ -16,43 +16,45 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   const [error, setError] = useState(null);
 
   return (
-    <main className="bg-stone-100">
-      <section className="">
-        {/* Main content */}
-        <div className="mb-2">
-          <Searchbar search={search} setSearch={setSearch} />
-        </div>
+    <main className="bg-stone-900 flex items-center justify-center pt-6">
+      <div className="container grid grid-cols-[3fr_2fr] gap-6">
+        <section className="">
+          {/* Main content */}
+          <div className="mb-6">
+            <Searchbar search={search} setSearch={setSearch} />
+          </div>
 
-        <Card padding={'p-0'} margin={'mt-gap'} width={'w-100'}>
-          {error && (
-            <div className="p-3 pb-0">
-              <ErrorAlert error={error} />
-            </div>
-          )}
-          <StoreInfo />
-          <MenuNav category={category} setCategory={setCategory} />
-          <FoodList
-            category={category}
-            search={search}
-            setError={setError}
-            error={error}
-            cart={cart}
-            setCart={setCart}
-          />
-        </Card>
-        {/* End Main Content*/}
-      </section>
-      <aside
-        className={`${styles.aside} ${isCheckoutOpen ? styles.opened : ''}`}
-      >
-        <button
-          className={styles.closeCheckout}
-          onClick={() => setIsCheckoutOpen(false)}
+          <Card padding={'p-0'} margin={'mt-gap'} width={'w-100'}>
+            {error && (
+              <div className="p-3 pb-0">
+                <ErrorAlert error={error} />
+              </div>
+            )}
+            <StoreInfo />
+            <MenuNav category={category} setCategory={setCategory} />
+            <FoodList
+              category={category}
+              search={search}
+              setError={setError}
+              error={error}
+              cart={cart}
+              setCart={setCart}
+            />
+          </Card>
+          {/* End Main Content*/}
+        </section>
+        <aside
+          className={`${styles.aside} ${isCheckoutOpen ? styles.opened : ''} `}
         >
-          X
-        </button>
-        <Checkout cart={cart} setCart={setCart} />
-      </aside>
+          <button
+            className={styles.closeCheckout}
+            onClick={() => setIsCheckoutOpen(false)}
+          >
+            X
+          </button>
+          <Checkout cart={cart} setCart={setCart} />
+        </aside>
+      </div>
     </main>
   );
 };

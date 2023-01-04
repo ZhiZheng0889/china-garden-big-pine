@@ -21,7 +21,7 @@ class UserAuth {
     }
     try {
       console.log('in here!');
-      const data = verify(token, this.TOKEN_KEY);
+      const data = jwt.verify(token, this.TOKEN_KEY);
       return data;
     } catch (error) {
       return error;

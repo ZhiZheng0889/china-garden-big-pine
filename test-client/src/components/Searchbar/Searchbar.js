@@ -30,7 +30,7 @@ const Searchbar = ({ search, setSearch }) => {
       <input
         type="search"
         placeholder="Search"
-        className={styles.input}
+        className="w-full py-3 px-5"
         value={keyword}
         onChange={onChange}
       />
