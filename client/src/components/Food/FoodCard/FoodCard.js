@@ -23,13 +23,13 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
       <article className={`food-item ${styles.container} p-3`}>
         <div className="details">
           <div className={styles.header}>
-            {spicy && <p>🌶</p>}
             <h5 className={styles.title}>
               {name}
               {amount && (
                 <span className=" ms-2 text-muted text-thin">({amount})</span>
               )}
             </h5>
+            {spicy && <p>🌶</p>}
           </div>
 
           {description && <p className={styles.description}>{description}</p>}
