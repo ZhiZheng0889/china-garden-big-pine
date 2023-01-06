@@ -76,7 +76,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         </header>
         <section className="px-3">
           {<ErrorAlert error={error} />}
-          <h2 className="text-5xl mb-4">{name}</h2>
+          <h2 className="text-5xl mb-5">{name}</h2>
           <p>{description}</p>
           {size && (
             <ModalOptions

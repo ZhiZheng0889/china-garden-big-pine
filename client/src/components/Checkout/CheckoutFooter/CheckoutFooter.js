@@ -40,11 +40,10 @@ const CheckoutFooter = ({ cart }) => {
         <p>Total: </p>
         <p className={styles.number}>${total && Number(total).toFixed(2)}</p>
       </div>
-
-      <div className={`checkoutBtn }`}>
+      <div className="mt-3">
         <Link
           to="/checkout"
-          className={`btn btn-primary w-100 ${styles.checkoutBtn}`}
+          className={`block text-center p-2 bg-red-600 hover:bg-red-700 text-white rounded mt-3`}
         >
           Checkout
         </Link>

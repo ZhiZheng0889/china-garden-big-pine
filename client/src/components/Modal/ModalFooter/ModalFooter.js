@@ -32,7 +32,7 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
         <button
           onClick={updateQuantity}
           id="-"
-          className={`${styles.button} ${styles.decrement}`}
+          className={`disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.decrement}`}
           disabled={quantity === 0}
         >
           <i id="-" className="fa-solid fa-minus"></i>
@@ -46,14 +46,15 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
         <button
           onClick={updateQuantity}
           id="+"
-          className={`${styles.button} ${styles.increment}`}
+          className={`disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.increment}`}
           disabled={quantity === 999}
         >
           <i id="+" className="fa-solid fa-plus"></i>
         </button>
       </form>
       <button
-        className="p-3 rounded bg-red-600 text-white"
+        className="p-3 rounded bg-red-600 text-white disabled:bg-red-500 disabled:cursor-not-allowed"
+        disabled={quantity === 999 || quantity === 0}
         onClick={handleAddToCart}
       >
         Add to Cart - ${total.toFixed(2)}

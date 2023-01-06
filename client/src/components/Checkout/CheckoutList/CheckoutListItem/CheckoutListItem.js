@@ -22,7 +22,6 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
   };
   return (
     <li className={styles.li}>
-      <ChangeQuantityButton quantity={quantity} />
       <div>
         <h4 className={styles.header}>
           {name} {amount && `(${amount})`}
@@ -33,9 +32,10 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
         <p className={styles.cost}>${total}</p>
       </div>
-      <button className={styles.buttonDelete} onClick={handleDelete}>
-        {<i className="fa-solid fa-trash fa-lg"></i>}
-      </button>
+      <ChangeQuantityButton quantity={quantity} />
+      {/* <button className={styles.buttonDelete} onClick={handleDelete}>
+        {<i className="fa-solid fa-trash"></i>}
+      </button> */}
     </li>
   );
 };
