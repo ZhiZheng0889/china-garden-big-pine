@@ -19,10 +19,10 @@ class UserAuth {
       throw 'Key is missing';
     }
     try {
-      console.log('in here!');
       const data = jwt.verify(token, this.TOKEN_KEY);
       return data;
     } catch (error) {
+      console.log('error: ', error);
       return error;
     }
   }

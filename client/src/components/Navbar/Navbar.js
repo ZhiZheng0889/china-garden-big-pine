@@ -6,7 +6,6 @@ import styles from './Navbar.module.css';
 import CartButton from '../Button/CartButton/CartButton';
 const Navbar = ({ user, cart, setIsCheckoutOpen }) => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-  console.log(user);
   return (
     <nav className="flex bg-red-700 text-white items-center p-1 justify-center">
       <div className="container flex items-center justify-between">

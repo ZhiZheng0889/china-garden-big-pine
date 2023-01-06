@@ -36,20 +36,17 @@ const Signup = ({ setUser }) => {
     </p>
   );
   const onSubmit = async (event) => {
-    console.log('in here!');
     setError(null);
     event.preventDefault();
     setButtonText('Loading...');
     try {
       if (signup.password === confirmPassword) {
-        console.log(signup);
         const payload = {
           ...signup,
           isAdmin: false,
         };
         const response = await UserApi.signup(payload);
         if (response) {
-          console.log('res: ', response);
           setUser(response);
           redirect('/');
         }
@@ -57,7 +54,6 @@ const Signup = ({ setUser }) => {
         throw { message: 'Passwords are not matching. Please try again.' };
       }
     } catch (error) {
-      console.log(error);
       setError(error);
     } finally {
       setButtonText('Continue');

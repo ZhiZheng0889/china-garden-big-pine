@@ -35,7 +35,6 @@ const Login = ({ setUser }) => {
       const response = await UserApi.login(login);
       setUser(response);
     } catch (error) {
-      console.log(error);
       setError({ message: error });
     } finally {
       setButtonText('Continue');

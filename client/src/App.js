@@ -21,7 +21,6 @@ function App() {
     }
     // check if user has been logged in
     const foundRefreshToken = storage.local.get('refreshToken');
-    console.log(foundRefreshToken);
     if (foundRefreshToken) {
       const getUser = async () => {
         try {
@@ -54,6 +53,7 @@ function App() {
   useEffect(() => {
     storage.local.set('cart', JSON.stringify(cart));
   }, [cart]);
+  console.log(user);
   return (
     <>
       <header>

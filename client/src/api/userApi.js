@@ -59,7 +59,7 @@ export class UserApi {
     const url = `${API_BASE_URL}/users/login/token`;
     const options = {
       method: 'POST',
-      body: JSON.stringify({ data: refreshToken }),
+      body: JSON.stringify({ data: { refreshToken } }),
       headers,
       signal,
       credentials: 'include',
