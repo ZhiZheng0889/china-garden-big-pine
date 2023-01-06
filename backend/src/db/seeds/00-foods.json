@@ -962,7 +962,7 @@
   {
     "name": "Happy Family",
     "base_price": 17.95,
-    "category": "chefspecial",
+    "category": "chef_special",
     "description": "With White Rice",
     "spicy": false,
     "available": true
@@ -970,7 +970,7 @@
   {
     "name": "Vegetable with Fried Tofu",
     "base_price": 13.95,
-    "category": "chefspecials",
+    "category": "chef_special",
     "description": "With White Rice",
     "spicy": true,
     "available": true
@@ -978,7 +978,7 @@
   {
     "name": "Eggplant with Garlic Sauce",
     "base_price": 13.95,
-    "category": "chefspecials",
+    "category": "chef_special",
     "description": "With White Rice",
     "spicy": true,
     "available": true
@@ -986,7 +986,7 @@
   {
     "name": "Szechuan Vegetable",
     "base_price": 12.95,
-    "category": "chefspecials",
+    "category": "chef_special",
     "description": "With White Rice",
     "spicy": true,
     "available": true
@@ -994,7 +994,7 @@
   {
     "name": "Four Seasons",
     "base_price": 17.75,
-    "category": "chefspecials",
+    "category": "chef_special",
     "description": "With White Rice",
     "spicy": true,
     "available": true
@@ -1002,7 +1002,7 @@
   {
     "name": "Chicken & Shrimp in Hunan Style",
     "base_price": 16.75,
-    "category": "chefspecials",
+    "category": "chef_special",
     "description": "With White Rice",
     "spicy": true,
     "available": true
@@ -1010,7 +1010,7 @@
   {
     "name": "Vegetable Delight with Tofu",
     "base_price": 13.75,
-    "category": "chefspecials",
+    "category": "chef_special",
     "description": "With White Rice",
     "spicy": false,
     "available": true
@@ -1018,7 +1018,7 @@
   {
     "name": "Broccoli with Garlic Sauce",
     "base_price": 13.45,
-    "category": "chefspecials",
+    "category": "chef_special",
     "description": "With White Rice",
     "spicy": true,
     "available": true
