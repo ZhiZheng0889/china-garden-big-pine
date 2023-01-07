@@ -41,4 +41,20 @@ export class Cart {
       });
     }
   }
+
+  static update(index, updatedItem, setCart) {
+    if (index >= 0) {
+      setCart((curr) => {
+        return curr.map((curr, i) => (i === index ? updatedItem : curr));
+      });
+    }
+  }
+
+  static updateQuantity(index, amount, cart, setCart) {
+    const updatedQuantity = cart[index];
+    console.log(updatedQuantity);
+    updatedQuantity.quantity += amount;
+    console.log(updatedQuantity);
+    this.update(index, updatedQuantity, setCart);
+  }
 }

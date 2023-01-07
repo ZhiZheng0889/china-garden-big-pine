@@ -20,10 +20,14 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
   const handleDelete = () => {
     Cart.remove(index, setCart);
   };
+
+  const updateQuantity = (amount) => {
+    Cart.updateQuantity(index, amount, cart, setCart);
+  };
   return (
-    <li className={styles.li}>
+    <li className="flex border-b py-1">
       <div>
-        <h4 className={styles.header}>
+        <h4 className={`${styles.header} font-semibold`}>
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
@@ -32,7 +36,14 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
         <p className={styles.cost}>${total}</p>
       </div>
-      <ChangeQuantityButton quantity={quantity} />
+      <div className="ml-auto">
+        <ChangeQuantityButton
+          quantity={quantity}
+          updateQuantity={updateQuantity}
+          handleDelete={handleDelete}
+        />
+      </div>
+
       {/* <button className={styles.buttonDelete} onClick={handleDelete}>
         {<i className="fa-solid fa-trash"></i>}
       </button> */}
