@@ -17,8 +17,7 @@ const OpenedMenu = ({ category, changeCategory }) => {
     'egg_foo_young',
     'sweet_and_sour',
     'seafood',
-    'chef_specials',
-    'chefspecials',
+    'chef_special',
     'combo',
     'lunch',
   ];
