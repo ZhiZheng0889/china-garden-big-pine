@@ -2,6 +2,7 @@ const { PORT = 5000 } = process.env;
 
 const app = require('./app');
 const knex = require('./db/connection');
+const passport = require('./auth/auth');
 
 knex.migrate
   .latest()
@@ -18,15 +19,10 @@ function listener() {
   console.log(`Listening on Port ${PORT}!`);
 }
 
-// main server file
-
-const express = require('express');
-const app = express();
-const passport = require('./auth/auth');
-
 app.use(passport.initialize());
 
 app.post('/login', passport.authenticate('2fa'), (req, res) => {
   // User is authenticated
   res.send('Success');
 });
+

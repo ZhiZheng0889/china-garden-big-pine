@@ -2,7 +2,8 @@ const passport = require('passport');
 const twilio = require('twilio');
 const nodemailer = require('nodemailer');
 
-const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+require('dotenv');
+var client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_TOKEN);
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
