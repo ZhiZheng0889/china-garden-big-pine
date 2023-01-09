@@ -9,6 +9,7 @@
   "author": "Anthony Mclamb zhizheng",
   "license": "ISC",
   "dependencies": {
+    "chatgpt": "^3.3.11",
     "sequelize": "^6.26.0"
   }
 }
