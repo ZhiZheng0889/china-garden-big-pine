@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "chatgpt": "^3.3.11",
+    "passport": "^0.6.0",
     "sequelize": "^6.26.0"
   }
 }
