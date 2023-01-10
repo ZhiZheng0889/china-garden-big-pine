@@ -68,4 +68,8 @@ export class Cart {
       0
     );
   }
+
+  static clearCart(setCart) {
+    setCart([]);
+  }
 }

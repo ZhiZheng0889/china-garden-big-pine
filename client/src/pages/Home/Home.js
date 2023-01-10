@@ -8,6 +8,7 @@ import StoreInfo from '../../components/StoreInfo/StoreInfo';
 import FoodList from '../../components/Food/FoodList/FoodList';
 import ErrorAlert from '../../errors/ErrorAlert';
 import MenuNav from '../../components/MenuNav/MenuNav';
+import Footer from '../../components/Footer/Footer';
 const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   // state of category nav
   const [category, setCategory] = useState('appetizers');
@@ -42,6 +43,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
             />
           </Card>
           {/* End Main Content*/}
+          <Footer />
         </section>
         <aside
           className={`${styles.aside} ${isCheckoutOpen ? styles.opened : ''} `}
