@@ -23,7 +23,7 @@ const Navbar = ({ user, cart, setIsCheckoutOpen }) => {
         >
           <div className="burger"></div>
         </div>
-        <Link to="/" className="text-lg font-semibold">
+        <Link to="/" className="text-lg font-semibold py-2">
           China Garden
         </Link>
         <div className="flex items-center">

@@ -490,15 +490,21 @@ const updateUserProfile = asyncErrorBoundary(async (req, res) => {
  */
 async function isAccessTokenValid(req, res, next) {
   const { access_token = '' } = req.cookies;
-  if (access_token) {
-    const data = UserAuth.authorize(access_token);
-    res.locals.data = data;
-    return next();
+  try {
+    if (access_token) {
+      const data = UserAuth.authorize(access_token);
+      res.locals.data = data;
+      return next();
+    }
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return next();
+    }
+    return next({
+      status: 404,
+      message: 'Error authenticating in please try again',
+    });
   }
-  return next({
-    status: 404,
-    message: 'Error authenticating in please try again',
-  });
 }
 
 async function isRefreshTokenValid(req, res, next) {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ErrorAlert from '../../errors/ErrorAlert';
 import { UserApi } from '../../api/userApi';
 import Form from '../../components/Form/Form';
@@ -16,6 +16,7 @@ const Signup = ({ setUser }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState('Continue');
+  const navigate = useNavigate();
   const onChange = ({ target }) => {
     const { name, value } = target;
     if (name === 'passwordConfirm') {
@@ -48,7 +49,7 @@ const Signup = ({ setUser }) => {
         const response = await UserApi.signup(payload);
         if (response) {
           setUser(response);
-          redirect('/');
+          navigate('/');
         }
       } else {
         throw { message: 'Passwords are not matching. Please try again.' };
