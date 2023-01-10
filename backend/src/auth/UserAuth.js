@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 class UserAuth {
   TOKEN_KEY = process.env.TOKEN_KEY || null;
-  ACCESS_TOKEN_TIMEOUT = '2m';
+  ACCESS_TOKEN_TIMEOUT = '8h';
   REFRESH_TOKEN_TIMEOUT = '10d';
   static UserAuthInstance = null;
 
