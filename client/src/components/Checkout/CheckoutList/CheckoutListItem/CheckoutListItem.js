@@ -31,10 +31,10 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
-        {currentOption && <p>{snakeToTitleCase(currentOption)}</p>}
-        {currentSize && <p>{snakeToTitleCase(currentSize)}</p>}
+        {currentOption && <p>- {snakeToTitleCase(currentOption)}</p>}
+        {currentSize && <p>- {snakeToTitleCase(currentSize)}</p>}
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
-        <p className={styles.cost}>${total}</p>
+        <p className={styles.cost}>${total * quantity}</p>
       </div>
       <div className="ml-auto">
         <ChangeQuantityButton

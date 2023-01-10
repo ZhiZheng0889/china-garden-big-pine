@@ -33,7 +33,7 @@ const Navbar = ({ user, cart, setIsCheckoutOpen }) => {
           >
             {user ? <SignedIn /> : <NotSignedIn />}
           </div>
-          <div className={styles.cartButton}>
+          <div className={`lg:hidden ${styles.cartButton}`}>
             <CartButton cart={cart} setIsCheckoutOpen={setIsCheckoutOpen} />
           </div>
         </div>

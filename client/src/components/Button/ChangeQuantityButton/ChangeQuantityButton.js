@@ -32,13 +32,13 @@ const ChangeQuantityButton = ({
           data-type="decrement"
         ></i>
       </button>
-      <p className="px-3">{quantity + 'x'}</p>
+      <p className="w-8 text-center">{quantity + 'x'}</p>
       <button
         className="hover:bg-slate-100 active:bg-slate-100 rounded-full w-8 h-8"
         data-type="increment"
         onClick={handleClick}
       >
-        <i className="fa-solid fa-plus me-1" data-type="decrement"></i>
+        <i className="fa-solid fa-plus me-1" data-type="increment"></i>
       </button>
     </div>
   );
