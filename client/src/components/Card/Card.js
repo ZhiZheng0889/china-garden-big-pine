@@ -3,7 +3,7 @@ import styles from './Card.module.css';
 const Card = ({ padding, margin, children, width, classes }) => {
   return (
     <article
-      className={`${padding} ${margin} ${width} ${classes} border rounded bg-white`}
+      className={`${padding} ${margin} ${width} border rounded bg-white ${classes}`}
     >
       {children}
     </article>
