@@ -3,10 +3,11 @@ import PageRoutes from './pages/Routes';
 import Navbar from './components/Navbar/Navbar';
 import { UserApi } from './api/userApi';
 import { storage } from './utils/Storage';
+import ErrorAlert from './errors/ErrorAlert';
 function App() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
-
+  const [error, setError] = useState(null);
   // mobile checkout responsiveness
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
@@ -26,6 +27,8 @@ function App() {
         try {
           const response = await UserApi.loginToken(foundRefreshToken);
           if (response) {
+            storage.local.set('refreshToken', response.refreshToken);
+            delete response.refreshToken;
             setUser(response);
           }
         } catch (error) {
@@ -57,7 +60,19 @@ function App() {
   return (
     <>
       <header>
-        <Navbar user={user} cart={cart} setIsCheckoutOpen={setIsCheckoutOpen} />
+        <ErrorAlert
+          error={error}
+          showClose={true}
+          setError={setError}
+          classes="rounded-none"
+        />
+        <Navbar
+          user={user}
+          cart={cart}
+          setIsCheckoutOpen={setIsCheckoutOpen}
+          setUser={setUser}
+          setError={setError}
+        />
       </header>
       <PageRoutes
         cart={cart}
