@@ -136,6 +136,17 @@ async function createToken(req, res, next) {
   return next();
 }
 
+function logout(req, res, next) {
+  const refreshToken = '';
+  return res
+    .cookie('access_token', '', {
+      httpOnly: true,
+      secure: false,
+    })
+    .status(203)
+    .json({ data: { refreshToken } });
+}
+
 function sendPayload(req, res, next) {
   const { username, email, first_name, phone_number, user_id } =
     res.locals.user;
@@ -543,6 +554,7 @@ module.exports = {
     asyncErrorBoundary(createToken),
     sendPayload,
   ],
+  logout,
   register: [
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),

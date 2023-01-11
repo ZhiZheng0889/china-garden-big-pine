@@ -12,9 +12,13 @@ const SignedIn = ({ user, setUser, setError }) => {
         user.user_id,
         abortController.signal
       );
-      if (response.satus === 200) {
+      console.log('response: ', response);
+      if (response.status === 203) {
+        console.log('logout response: ', response);
+        console.log(storage.local.get('refreshToken'));
         setUser(null);
         storage.local.remove('refreshToken');
+        console.log(storage.local.get('refreshToken'));
         navigate('/');
       }
     } catch (error) {
