@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ErrorAlert from '../../errors/ErrorAlert';
 import { UserApi } from '../../api/userApi';
 import Form from '../../components/Form/Form';
