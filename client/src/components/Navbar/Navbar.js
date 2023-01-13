@@ -4,7 +4,7 @@ import NotSignedIn from './NotSignedIn/NotSignedIn';
 import SignedIn from './SignedIn/SignedIn';
 import styles from './Navbar.module.css';
 import CartButton from '../Button/CartButton/CartButton';
-const Navbar = ({ user, cart, setIsCheckoutOpen }) => {
+const Navbar = ({ user, cart, setIsCheckoutOpen, setUser, setError }) => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   return (
     <nav className="flex bg-red-700 text-white items-center p-1 justify-center">
@@ -23,7 +23,7 @@ const Navbar = ({ user, cart, setIsCheckoutOpen }) => {
         >
           <div className="burger"></div>
         </div>
-        <Link to="/" className="text-lg font-semibold">
+        <Link to="/" className="text-lg font-semibold py-2">
           China Garden
         </Link>
         <div className="flex items-center">
@@ -31,9 +31,13 @@ const Navbar = ({ user, cart, setIsCheckoutOpen }) => {
             className={`navbar-collapse ${styles.navContent}`}
             id="navbarContent"
           >
-            {user ? <SignedIn /> : <NotSignedIn />}
+            {user ? (
+              <SignedIn user={user} setUser={setUser} setError={setError} />
+            ) : (
+              <NotSignedIn />
+            )}
           </div>
-          <div className={styles.cartButton}>
+          <div className={`lg:hidden ${styles.cartButton}`}>
             <CartButton cart={cart} setIsCheckoutOpen={setIsCheckoutOpen} />
           </div>
         </div>

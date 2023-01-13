@@ -136,6 +136,17 @@ async function createToken(req, res, next) {
   return next();
 }
 
+function logout(req, res, next) {
+  const refreshToken = '';
+  return res
+    .cookie('access_token', '', {
+      httpOnly: true,
+      secure: false,
+    })
+    .status(203)
+    .json({ data: { refreshToken } });
+}
+
 function sendPayload(req, res, next) {
   const { username, email, first_name, phone_number, user_id } =
     res.locals.user;
@@ -490,15 +501,21 @@ const updateUserProfile = asyncErrorBoundary(async (req, res) => {
  */
 async function isAccessTokenValid(req, res, next) {
   const { access_token = '' } = req.cookies;
-  if (access_token) {
-    const data = UserAuth.authorize(access_token);
-    res.locals.data = data;
-    return next();
+  try {
+    if (access_token) {
+      const data = UserAuth.authorize(access_token);
+      res.locals.data = data;
+      return next();
+    }
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return next();
+    }
+    return next({
+      status: 404,
+      message: 'Error authenticating in please try again',
+    });
   }
-  return next({
-    status: 404,
-    message: 'Error authenticating in please try again',
-  });
 }
 
 async function isRefreshTokenValid(req, res, next) {
@@ -537,6 +554,7 @@ module.exports = {
     asyncErrorBoundary(createToken),
     sendPayload,
   ],
+  logout,
   register: [
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),

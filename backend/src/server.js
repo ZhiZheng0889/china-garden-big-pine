@@ -14,6 +14,12 @@ knex.migrate
     knex.destroy();
   });
 
+<<<<<<< HEAD
   function listener() {
     console.log(`Listening on Port ${PORT}!`);
   }
+=======
+function listener() {
+  console.log(`Listening on Port ${PORT}!`);
+}
+>>>>>>> 21e56e145374ed0a4bb3920f213c4673abb4bf42

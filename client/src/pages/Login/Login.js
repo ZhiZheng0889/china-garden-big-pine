@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
+=======
+import { Link, useNavigate } from 'react-router-dom';
+>>>>>>> 21e56e145374ed0a4bb3920f213c4673abb4bf42
 import ErrorAlert from '../../errors/ErrorAlert';
 import { UserApi } from '../../api/userApi';
 import Form from '../../components/Form/Form';
@@ -13,6 +17,7 @@ const Login = ({ setUser }) => {
   });
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState('Login');
+  const navigate = useNavigate();
   const onChange = ({ target }) => {
     const { name, value } = target;
     setLogin({
@@ -35,6 +40,7 @@ const Login = ({ setUser }) => {
     try {
       const response = await UserApi.login(login);
       setUser(response);
+      navigate('/');
     } catch (error) {
       setError({ message: error });
     } finally {

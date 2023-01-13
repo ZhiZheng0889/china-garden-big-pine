@@ -57,4 +57,19 @@ export class Cart {
     console.log(updatedQuantity);
     this.update(index, updatedQuantity, setCart);
   }
+
+  static getTotal(cart) {
+    return (
+      (Array.isArray(cart) &&
+        cart.reduce(
+          (accumulator, item) => accumulator + item.total * item.quantity,
+          0
+        )) ||
+      0
+    );
+  }
+
+  static clearCart(setCart) {
+    setCart([]);
+  }
 }
