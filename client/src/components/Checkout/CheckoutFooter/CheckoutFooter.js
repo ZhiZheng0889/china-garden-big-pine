@@ -4,14 +4,12 @@ import { Cart } from '../../../utils/Cart';
 import { formatCost } from '../../../utils/formatCost';
 import styles from './CheckoutFooter.module.css';
 const CheckoutFooter = ({ cart }) => {
-  console.log(cart);
   const FLORIDA_TAX = 0.075;
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(FLORIDA_TAX);
   const [total, setTotal] = useState(0);
   useEffect(() => {
     const cartTotal = Cart.getTotal(cart);
-    console.log(cartTotal);
     setSubTotal(cartTotal);
   }, [cart]);
 

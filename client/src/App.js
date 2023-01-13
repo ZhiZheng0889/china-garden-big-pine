@@ -56,7 +56,6 @@ function App() {
   useEffect(() => {
     storage.local.set('cart', JSON.stringify(cart));
   }, [cart]);
-  console.log(user);
   return (
     <>
       <header>

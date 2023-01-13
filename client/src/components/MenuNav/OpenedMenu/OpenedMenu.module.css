@@ -1,29 +1,6 @@
-.list {
-  list-style: none;
-  border-bottom: solid 1px var(--color-border);
-}
-
-.listLink {
-  text-decoration: none;
-  color: inherit;
-  border: none;
-  background-color: inherit;
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 0.6rem 0.8rem;
-  border-bottom: 2px solid var(--background-light);
-  word-wrap: nowrap;
-}
-
-.listLink:hover,
 .active {
   color: var(--color-main);
   border-bottom: 2px solid var(--color-main);
-}
-
-.listItem :not(:last-child) {
-  margin-right: 0.8rem;
-  width: fit-content;
 }
 
 .ul {
@@ -45,4 +22,12 @@
 
 .ul::-webkit-scrollbar-thumb {
   border-radius: 10px;
+}
+
+.buttonLeft {
+  background-image: linear-gradient(to left, #fff, rgba(255, 255, 255, 0.137));
+}
+
+.buttonRight {
+  background-image: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.137));
 }

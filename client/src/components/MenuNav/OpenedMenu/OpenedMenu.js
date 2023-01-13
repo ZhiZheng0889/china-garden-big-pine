@@ -22,6 +22,7 @@ const OpenedMenu = ({ category, changeCategory }) => {
     'lunch',
   ];
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [openNav, setOpenNav] = useState(false);
   const navbarRef = useRef(null);
   const scrollAmount = 250;
   const scroll = ({ target: { id } }) => {
@@ -37,15 +38,21 @@ const OpenedMenu = ({ category, changeCategory }) => {
   }, [scrollPosition]);
 
   return (
-    <div className="flex items-center">
-      <button>
-        <i className="fa-solid fa-list p-1 pl-3 pr-2"></i>
+    <div className={`flex ${openNav ? 'items-start' : 'items-center'}`}>
+      <button onClick={() => setOpenNav((curr) => !curr)}>
+        <i className="fa-solid fa-list py-3 pl-3 pr-2"></i>
       </button>
-      <button className="py-1 px-3" id="scroll-left" onClick={scroll}>
-        <i class="fa-regular fa-chevrons-left" id="scroll-left"></i>
+      <button
+        className={`py-1 px-3 ${styles.buttonLeft} ${openNav && 'hidden'}`}
+        id="scroll-left"
+        onClick={scroll}
+      >
+        <i className="fa-regular fa-chevrons-left" id="scroll-left"></i>
       </button>
       <ul
-        className={`flex overflow-x-scroll w-full ${styles.ul} border-bottom`}
+        className={`flex overflow-x-scroll w-full ${openNav && 'flex-wrap'} ${
+          styles.ul
+        } border-bottom`}
         ref={navbarRef}
       >
         {categories.map((cat) => {
@@ -66,7 +73,11 @@ const OpenedMenu = ({ category, changeCategory }) => {
           );
         })}
       </ul>
-      <button className="py-1 px-3" id="scroll-right" onClick={scroll}>
+      <button
+        className={`py-1 px-3 ${styles.buttonRight}  ${openNav && 'hidden'}`}
+        id="scroll-right"
+        onClick={scroll}
+      >
         <i className="fa-regular fa-chevrons-right" id="scroll-right"></i>
       </button>
     </div>
