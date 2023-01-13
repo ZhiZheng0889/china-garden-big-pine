@@ -80,7 +80,7 @@ async function phoneNumberExist(req, res, next) {
 // @ route Get /api/users
 // @ access Public
 
-function validatePassword(req, res, next) {
+function isvalidPassword(req, res, next) {
   const { password } = req.body.data;
   if (typeof password === 'string') {
     return next();
@@ -208,15 +208,15 @@ async function readUsersProfile(req, res, next) {
 // @ route Post /api/users
 // @ access Public
 
-async function validatePassword(req, res, next) {
-  const { password } = req.body.data;
-  const { user } = res.locals;
-  const validPassword = await bcrypt.compare(password, user.password);
-  if (validPassword) {
-    return next();
-  }
-  next({ status: 401, message: 'username and or password is incorrect.' });
-}
+// async function validatePassword(req, res, next) {
+//   const { password } = req.body.data;
+//   const { user } = res.locals;
+//   const validPassword = await bcrypt.compare(password, user.password);
+//   if (validPassword) {
+//     return next();
+//   }
+//   next({ status: 401, message: 'username and or password is incorrect.' });
+// }
 
 // async function createToken(req, res, next) {
 //   const { user } = res.locals;

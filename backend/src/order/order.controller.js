@@ -3,108 +3,155 @@ const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
-const REQUIRED_PROPERTIES = ['cart', 'user_id'];
-const PROPERTIES = ['cart', 'user_id', 'order_id', 'created_at', 'updated_at'];
+const REQUIRED_PROPERTIES = ['cart', 'user_id', 'email'];
+const PROPERTIES = [
+  'cart',
+  'user_id',
+  'phone_number',
+  'email',
+  'order_id',
+  'created_at',
+  'updated_at',
+];
+const CART_VALID_PROPERTIES = [
+  'food_id',
+  'specialRequest',
+  'quantity',
+  'size',
+  'option',
+  'base_price',
+  'total',
+  'description',
+];
 
-// function orderExist(req, res, next) {
-//   const text = "SELECT EXISTS (SELECT '*' FROM orders WHERE order_id = '*') AS it_does_exist"
-//   // callback
-//   client.query(text, (err, res) => {
-//     if (err) {
-//       console.log(err.stack)
-//     } else {
-//       console.log(res.rows[0])
-//     }
-//   })
+const CART_REQUIRED_PROPERTIES = ['food_id', 'quantity', 'total', 'base_price'];
 
-//   // promise
-//   client
-//     .query(text)
-//     .then(res => {
-//       console.log(res.rows[0])
-//     })
-//     .catch(e => console.error(e.stack))
-
-//   // async/await
-//   try {
-//     const res = await client.query(text, values)
-//     console.log(res.rows[0])
-//   }
-
-//   catch (err) {
-//     console.log(err.stack)
-//   }
-
-//   }
-
-// async function read(req, res, next) {
-//   // Do this
-//   const orders = await service.read();
-//   res.status(200).json({ data: orders });}
-
-async function list(req, res, next) {
-  const orders = await service.list();
-  res.status(200).json({ data: orders });
+async function isValidUser_id(req, res, next) {
+  const { user_id } = req.body.data;
+  const foundUser = await service.readUser(user_id);
+  if (foundUser) {
+    res.locals.user = foundUser;
+    return next();
+  }
+  next({
+    status: 404,
+    message: 'User not found.',
+  });
 }
 
-async function orderExist(req, res, next) {
-  const { order_id } = req.body.data;
-  if (!order_id) {
-    return next({ status: 400, message: 'Order Id not found' });
-  }
-  const foundOrder = await service.read(order_id);
-  if (foundOrder) {
-    res.locals.order = foundOrder;
+function isValidEmail(req, res, next) {
+  const { email } = req.body.data;
+  const { email: foundEmail } = res.locals.user;
+  if (email === foundEmail) {
     return next();
   }
   return next({
     status: 404,
-    message: 'Order not found',
+    message: 'Email is not valid.',
   });
 }
 
-async function list(req, res, next) {
-  res.status(200).json({ data: await service.list() });
-}
-
-function read(req, res, next) {
-  res.status(200).json({ data: res.locals.order });
-}
-
-/*
- * Create Order
- */
-async function create(req, res, next) {
-  const { data } = req.body;
-  res.status(201).json(createOrder);
-}
-
-/*
- * Get Order
- */
-const getOrderbyId = asyncErrorBoundary(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate('order_id');
-
-  if (order) {
-    res.json(order);
-  } else {
-    res.status(404);
-    throw new Error('Order not found');
+function isValidPhoneNumber(req, res, next) {
+  const { phone_number = '' } = req.body.data;
+  const { phone_number: foundPhone_number } = res.locals.user;
+  if (phone_number && phone_number !== foundPhone_number) {
+    return next({
+      status: 404,
+      message: 'Not valid phone number.',
+    });
   }
-});
+  return next();
+}
 
+function isValidCart(req, res, next) {
+  const { cart = null } = req.body.data;
+  if (cart) {
+    const invalidFields = cart.reduce((acc, item) => {
+      return !CART_VALID_PROPERTIES.includes(item) ||
+        !CART_REQUIRED_PROPERTIES.includes(item)
+        ? acc.push(item)
+        : acc;
+    }, []);
+    if (invalidFields.length) {
+      return next({
+        status: 400,
+        message: `Invalid cart items: ${invalidFields.join(', ')}`,
+      });
+    }
+    return next();
+  }
+  return next({
+    status: 400,
+    message: 'Cart not found',
+  });
+}
 
 /*
  * Order controller
  * @returns array of middleware functions that the router can handle.
  */
 module.exports = {
-  list: [asyncErrorBoundary(list)],
-  read: [asyncErrorBoundary(orderExist), read],
+  list: [],
+  read: [],
   create: [
     hasRequiredProperties(REQUIRED_PROPERTIES),
     hasOnlyValidProperties(PROPERTIES),
-    asyncErrorBoundary(create),
+    asyncErrorBoundary(isValidUser_id),
+    isValidEmail,
+    isValidPhoneNumber,
+    isValidCart,
   ],
   destroy: [],
 };
+
+/*
+  structure:
+  {
+    data: {
+      "user_id": 1,
+      "phone_number": 911,
+      "email": "mail@mail.com",
+      "cart": [
+          {
+              "name": "BBQ Spare Ribs",
+              "description": null,
+              "total": 37.9,
+              "base_price": 10.95,
+              "option": null,
+              "size": {
+                  "small": {
+                      "upCharge": 0
+                  },
+                  "large": {
+                      "upCharge": 8
+                  }
+              },
+              "quantity": 1,
+              "specialRequest": "NO BBQ",
+              "currentSize": "large"
+          },
+          {
+              "name": "Spring Rolls(2)",
+              "description": null,
+              "total": 4.75,
+              "base_price": 4.75,
+              "option": null,
+              "size": null,
+              "quantity": 1,
+              "specialRequest": ""
+          },
+          {
+              "name": "Vegetable Spring Rolls(2)",
+              "description": null,
+              "total": 4.75,
+              "base_price": 4.75,
+              "option": null,
+              "size": null,
+              "quantity": 1,
+              "specialRequest": ""
+          }
+      ],
+    }
+  }
+
+*/
