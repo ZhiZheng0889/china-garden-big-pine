@@ -36,25 +36,6 @@ app.use('/orders', orderRouter);
 
 app.use('/users', userRouter);
 
-<<<<<<< HEAD
-/*
-
-app.use(passport.initialize());
-
-app.post('/login', passport.authenticate('2fa'), (req, res) => {
-  // User is authenticated
-  res.send('Success');
-});
-*/
-=======
-// app.use(passport.initialize());
-
-// app.post('/login', passport.authenticate('2fa'), (req, res) => {
-//   // User is authenticated
-//   res.send('Success');
-// });
->>>>>>> 21e56e145374ed0a4bb3920f213c4673abb4bf42
-
 app.use(notFound);
 app.use(errorHandler);
 
