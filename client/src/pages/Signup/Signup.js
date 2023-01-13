@@ -62,7 +62,7 @@ const Signup = ({ setUser }) => {
   };
   return (
     <div className="bg-slate-100 flex justify-center h-screen">
-      <Card classes="w-[30rem] mt-4">
+      <Card classes="w-[30rem] mt-4 h-min">
         {error && <ErrorAlert error={error} />}
         <h1 className="text-center text-2xl font-semibold">China Garden</h1>
         <Form

@@ -37,7 +37,7 @@ const PageRoutes = ({
       <Route path="/receipt" element={<Receipt />} />
       <Route path="/profile" element={<Profile user={user} />} />
       <Route path="/admin" element={<Admin user={{}} />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login setUser={setUser} />} />
       <Route path="/signup" element={<Signup setUser={setUser} />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Cart } from '../../../utils/Cart';
+import { formatCost } from '../../../utils/formatCost';
 import styles from './CheckoutFooter.module.css';
 const CheckoutFooter = ({ cart }) => {
   console.log(cart);
@@ -25,17 +26,15 @@ const CheckoutFooter = ({ cart }) => {
     <section className={styles.section}>
       <div className={`${styles.subTotal} sub-total`}>
         <p>Sub Total: </p>
-        <p className={styles.number}>
-          ${subTotal && Number(subTotal).toFixed(2)}
-        </p>
+        <p className={styles.number}>${subTotal && formatCost(subTotal)}</p>
       </div>
       <div className={`tax ${styles.flex}`}>
         <p>Tax: </p>
-        <p className={styles.number}>${tax && Number(tax).toFixed(2)}</p>
+        <p className={styles.number}>${tax && formatCost(tax)}</p>
       </div>
       <div className={`total ${styles.flex}`}>
         <p>Total: </p>
-        <p className={styles.number}>${total && Number(total).toFixed(2)}</p>
+        <p className={styles.number}>${total && formatCost(total)}</p>
       </div>
       <div className="mt-3">
         <Link

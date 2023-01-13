@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './OpenedMenu.module.css';
 const OpenedMenu = ({ category, changeCategory }) => {
   const categories = [
@@ -21,21 +21,43 @@ const OpenedMenu = ({ category, changeCategory }) => {
     'combo',
     'lunch',
   ];
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const navbarRef = useRef(null);
+  const scrollAmount = 250;
+  const scroll = ({ target: { id } }) => {
+    if (id === 'scroll-left') {
+      setScrollPosition((prev) => prev - scrollAmount);
+    } else {
+      setScrollPosition((prev) => prev + scrollAmount);
+    }
+  };
+
+  useEffect(() => {
+    navbarRef.current.scrollLeft = scrollPosition;
+  }, [scrollPosition]);
+
   return (
-    <>
-      <ul className={styles.list}>
+    <div className="flex items-center">
+      <button>
+        <i className="fa-solid fa-list p-1 pl-3 pr-2"></i>
+      </button>
+      <button className="py-1 px-3" id="scroll-left" onClick={scroll}>
+        <i class="fa-regular fa-chevrons-left" id="scroll-left"></i>
+      </button>
+      <ul
+        className={`flex overflow-x-scroll w-full ${styles.ul} border-bottom`}
+        ref={navbarRef}
+      >
         {categories.map((cat) => {
           const text = cat
             .split('_')
             .map((word) => word[0].toUpperCase() + word.slice(1))
             .join(' ');
           return (
-            <li className={styles.listItem} key={cat}>
+            <li className="py-2 whitespace-nowrap" key={cat}>
               <button
                 id={cat}
-                className={`${category === cat ? styles.active : ''} ${
-                  styles.listLink
-                }`}
+                className={`${category === cat ? styles.active : ''}`}
                 onClick={changeCategory}
               >
                 {text}
@@ -44,7 +66,10 @@ const OpenedMenu = ({ category, changeCategory }) => {
           );
         })}
       </ul>
-    </>
+      <button className="py-1 px-3" id="scroll-right" onClick={scroll}>
+        <i className="fa-regular fa-chevrons-right" id="scroll-right"></i>
+      </button>
+    </div>
   );
 };
 

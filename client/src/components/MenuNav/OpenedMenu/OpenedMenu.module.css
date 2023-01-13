@@ -1,6 +1,4 @@
 .list {
-  display: flex;
-  flex-wrap: wrap;
   list-style: none;
   border-bottom: solid 1px var(--color-border);
 }
@@ -14,6 +12,7 @@
   cursor: pointer;
   padding: 0.6rem 0.8rem;
   border-bottom: 2px solid var(--background-light);
+  word-wrap: nowrap;
 }
 
 .listLink:hover,
@@ -24,4 +23,26 @@
 
 .listItem :not(:last-child) {
   margin-right: 0.8rem;
+  width: fit-content;
+}
+
+.ul {
+  transition: ease-in-out 1s;
+  scroll-behavior: smooth;
+}
+
+.ul li:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.ul::-webkit-scrollbar {
+  display: none;
+}
+
+.ul::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.ul::-webkit-scrollbar-thumb {
+  border-radius: 10px;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Cart } from '../../../../utils/Cart';
+import { formatCost } from '../../../../utils/formatCost';
 import { formatSpecialRequest } from '../../../../utils/FormatSpecialRequest';
 import { snakeToTitleCase } from '../../../../utils/snakeToTitleCase';
 import ChangeQuantityButton from '../../../Button/ChangeQuantityButton/ChangeQuantityButton';
@@ -34,7 +35,7 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
         {currentOption && <p>- {snakeToTitleCase(currentOption)}</p>}
         {currentSize && <p>- {snakeToTitleCase(currentSize)}</p>}
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
-        <p className={styles.cost}>${total * quantity}</p>
+        <p className={styles.cost}>${formatCost(total * quantity)}</p>
       </div>
       <div className="ml-auto">
         <ChangeQuantityButton

@@ -11,9 +11,9 @@ const MenuNav = ({ category, setCategory }) => {
   };
   return (
     <>
-      <button className={styles.button}>
+      {/* <button className={styles.button}>
         <i className="fa-solid fa-bars-sort"></i>
-      </button>
+      </button> */}
       <OpenedMenu category={category} changeCategory={changeCategory} />
       {/* <ClosedMenu category={category} changeCategory={changeCategory} /> */}
     </>
