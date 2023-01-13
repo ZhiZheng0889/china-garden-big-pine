@@ -9,6 +9,8 @@ const notFound = require('./errors/notFound');
 const { FRONT_END_URL } = process.env;
 
 const app = express();
+// const passport = require('./auth/auth');
+
 
 const corsOptions = {
   origin: FRONT_END_URL,
@@ -33,13 +35,6 @@ app.use('/foods', foodsRouter);
 app.use('/orders', orderRouter);
 
 app.use('/users', userRouter);
-
-// app.use(passport.initialize());
-
-// app.post('/login', passport.authenticate('2fa'), (req, res) => {
-//   // User is authenticated
-//   res.send('Success');
-// });
 
 app.use(notFound);
 app.use(errorHandler);
