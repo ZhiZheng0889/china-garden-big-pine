@@ -5,6 +5,7 @@ import { UserApi } from '../../api/userApi';
 import Form from '../../components/Form/Form';
 import Input from '../../components/Form/Input/Input';
 import Card from '../../components/Card/Card';
+import { storage } from '../../utils/Storage';
 
 const Login = ({ setUser }) => {
   const [login, setLogin] = useState({
@@ -35,18 +36,22 @@ const Login = ({ setUser }) => {
     setButtonText('Loading...');
     try {
       const response = await UserApi.login(login);
-      setUser(response);
-      navigate('/');
+      if (response) {
+        storage.local.set('refreshToken', response.refreshToken);
+        delete response.refreshToken;
+        setUser(response);
+        navigate('/');
+      }
     } catch (error) {
-      setError({ message: error });
+      setError(error);
     } finally {
       setButtonText('Continue');
     }
   };
   return (
     <div className="bg-slate-100 flex justify-center h-screen">
-      <Card classes="w-[30rem] mt-4">
-        {error && <ErrorAlert error={error} />}
+      <Card classes="w-[30rem] mt-4 h-min">
+        {error && <ErrorAlert error={error} classes="mb-2" />}
         <h1 className="text-center text-2xl font-semibold">China Garden</h1>
         <Form
           data={login}

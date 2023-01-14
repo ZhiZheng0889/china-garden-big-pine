@@ -1,10 +1,7 @@
-const generateToken = require('../auth/UserAuth.js');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 const service = require('./user.service');
-const { protect, admin } = require('../auth/authMiddleware.js');
 const bcrypt = require('bcryptjs');
 const { SALT } = process.env;
-const jwt = require('jsonwebtoken');
 const UserAuth = require('../auth/UserAuth');
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
@@ -25,6 +22,9 @@ const REQUIRED_PROPERTIES = [
   'phone_number',
   'password',
 ];
+
+const VALID_LOGIN_PROPERTIES = ['email', 'password'];
+const REQUIRED_LOGIN_PROPERTIES = ['email', 'password'];
 
 //__REGISTER
 
@@ -80,7 +80,7 @@ async function phoneNumberExist(req, res, next) {
 // @ route Get /api/users
 // @ access Public
 
-function validatePassword(req, res, next) {
+function isvalidPassword(req, res, next) {
   const { password } = req.body.data;
   if (typeof password === 'string') {
     return next();
@@ -208,15 +208,15 @@ async function readUsersProfile(req, res, next) {
 // @ route Post /api/users
 // @ access Public
 
-async function validatePassword(req, res, next) {
-  const { password } = req.body.data;
-  const { user } = res.locals;
-  const validPassword = await bcrypt.compare(password, user.password);
-  if (validPassword) {
-    return next();
-  }
-  next({ status: 401, message: 'username and or password is incorrect.' });
-}
+// async function validatePassword(req, res, next) {
+//   const { password } = req.body.data;
+//   const { user } = res.locals;
+//   const validPassword = await bcrypt.compare(password, user.password);
+//   if (validPassword) {
+//     return next();
+//   }
+//   next({ status: 401, message: 'username and or password is incorrect.' });
+// }
 
 // async function createToken(req, res, next) {
 //   const { user } = res.locals;
@@ -545,8 +545,39 @@ async function isValidEmailAndUserId(req, res, next) {
   });
 }
 
+async function findEmail(req, res, next) {
+  const { email } = req.body.data;
+  const foundUser = await service.read(email);
+  if (foundUser) {
+    res.locals.user = foundUser;
+    res.locals.createdUser = foundUser;
+    return next();
+  }
+  return next({
+    status: 404,
+    message: 'Cannot find email or password is incorrect',
+  });
+}
+
+async function validatePassword(req, res, next) {
+  const { password } = req.body.data;
+  const { password: foundPassword } = res.locals.user;
+  const isValidPassword = await bcrypt.compare(password, foundPassword);
+  if (isValidPassword) {
+    return next();
+  }
+  next({ status: 404, message: 'Cannot find email or password is incorrect' });
+}
+
 module.exports = {
-  login: [],
+  login: [
+    hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
+    hasRequiredProperties(REQUIRED_LOGIN_PROPERTIES),
+    asyncErrorBoundary(findEmail),
+    asyncErrorBoundary(validatePassword),
+    asyncErrorBoundary(createToken),
+    sendPayload,
+  ],
   loginWithToken: [
     asyncErrorBoundary(isAccessTokenValid),
     asyncErrorBoundary(isRefreshTokenValid),
@@ -566,8 +597,8 @@ module.exports = {
     asyncErrorBoundary(createToken),
     sendPayload,
   ],
-  getUsers: [protect, admin, getUsers],
-  getUserById: [protect, admin, getUserById],
-  updateUser: [protect, admin, updateUser],
-  deleteUser: [protect, admin, deleteUser],
+  getUsers: [],
+  getUserById: [],
+  updateUser: [],
+  deleteUser: [],
 };

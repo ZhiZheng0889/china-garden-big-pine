@@ -1,6 +1,5 @@
 const { expect } = require('chai');
 const request = require('supertest');
-
 const app = require('../src/app');
 const knex = require('../src/db/connection');
 /*
@@ -27,81 +26,152 @@ describe('01 - List, Read, Create, update, and Delete orders', () => {
     return await knex.migrate.rollback(null, true).then(() => knex.destroy());
   });
 
-  describe('List orders', () => {
-    describe('GET /order', () => {
-      test('Should have items property in an order object', async () => {
-        const response = await request(app)
-          .get('/order')
-          .set('Accept', 'application/json');
-        expect(response.status).to.equal(200);
-        expect(response.body.error).to.be.undefined;
-        expect(response.body.data[0].items[0].food_id).to.equal(1);
-      });
-      test('Should return orders and a status code of 200', async () => {
-        const response = await request(app)
-          .get('/order')
-          .set('Accept', 'application/json');
-        expect(response.status).to.equal(200);
-        expect(response.body.error).to.be.undefined;
-        expect(response.body.data[0].items[0].food_id).to.equal(1);
-        expect(response.body.data[1].user_id).to.equal(1);
-      });
+  describe('Not found handler', () => {
+    test('Should return 404 for non-existent route', async () => {
+      const response = await request(app)
+        .get('/notaroute')
+        .set('Accept', 'application/json');
 
-      test('Should combine order items that are the same (including the requests) and have quantity in the response', async () => {
-        const response = await request(app)
-          .get('/order')
-          .set('Accept', 'application/json');
-        expect(response.status).to.equal(200);
-        expect(response.body.error).to.be.undefined;
-        expect(response.body.data[0].items[0].food_id).to.equal(1);
-        expect(response.body.data[1].user_id).to.equal(1);
-        expect(response.body.data[1].items[1].quantity).to.equal(2);
-        expect(response.body.data[1].items[2].quantity).to.equal(2);
-        expect(response.body.data[1].items[2].requests).to.equal('Allergy!');
-      });
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('Path not found: /notaroute');
     });
   });
 
-  describe('Read order', () => {
-    describe('GET /order/:orderId', () => {
-      test('Should return 404 for orderId not found', async () => {
-        const response = await request(app)
-          .get('/order/9999')
-          .expect('Accept', 'application/json');
-        expect(response.status).to.equal(404);
-        expect(response.body.error).to.contain('9999');
-      });
+  describe('Create orders', () => {
+    test('Should return 400 if data property is missing', async () => {
+      const response = await request(app)
+        .post('/orders')
+        .set('Accept', 'application/json')
+        .send({});
 
-      test('Should return single order with 200 status code', async () => {
-        const response = await request(app)
-          .get('order/1')
-          .expect('Accept', 'application/json');
+      expect(response.status).to.equal(400);
+    });
 
-        expect(response.status).to.equal(200);
-        expect(response.body.error).to.be.undefined;
-        expect(response.body.data['phone_number']).to.equal('9198675309');
-        expect(response.body.data.items[0].food_id).to.equal(1);
-        expect(response.body.data.items[1].food_id).to.equal(3);
-      });
+    test('Should return 400 if data property is empty', async () => {
+      const response = await request(app)
+        .post('/orders')
+        .set('Accept', 'application/json')
+        .send({ data: {} });
 
-      test('Should combine order items that are the same (including the requests) and have quantity in the response', async () => {
-        const response = await request(app)
-          .get('/order/2')
-          .set('Accept', 'application/json');
-        expect(response.status).to.equal(200);
-        expect(response.body.error).to.be.undefined;
-        expect(response.body.data.items[1].quantity).to.equal(2);
-        expect(response.body.data.items[2].quantity).to.equal(2);
-        expect(response.body.data.items[2].requests).to.equal('Allergy!');
-      });
+      expect(response.status).to.equal(400);
+    });
+
+    test('Should return 400 if user_id is missing', async () => {
+      const data = {
+        cart: [
+          {
+            name: 'BBQ Spare Ribs',
+            description: null,
+            total: 37.9,
+            base_price: 10.95,
+            option: null,
+            size: {
+              small: {
+                upCharge: 0,
+              },
+              large: {
+                upCharge: 8,
+              },
+            },
+            quantity: 1,
+            specialRequest: 'NO BBQ',
+            currentSize: 'large',
+          },
+        ],
+        email: 'mail@mail.com',
+      };
+
+      const response = await request(app)
+        .post('/orders')
+        .set('Accept', 'application/json')
+        .send({ data });
+
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.contain('user_id');
+    });
+
+    test('Should return 400 if email is missing', async () => {
+      const data = {
+        cart: [
+          {
+            name: 'BBQ Spare Ribs',
+            description: null,
+            total: 37.9,
+            base_price: 10.95,
+            option: null,
+            size: {
+              small: {
+                upCharge: 0,
+              },
+              large: {
+                upCharge: 8,
+              },
+            },
+            quantity: 1,
+            specialRequest: 'NO BBQ',
+            currentSize: 'large',
+          },
+        ],
+        user_id: 1,
+      };
+
+      const response = await request(app)
+        .post('/orders')
+        .set('Accept', 'application/json')
+        .send({ data });
+
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.contain('email');
+    });
+
+    test('Should return 400 if cart is missing', async () => {
+      const data = {
+        user_id: 1,
+        email: 'mail@mail.com',
+      };
+
+      const response = await request(app)
+        .post('/orders')
+        .set('Accept', 'application/json')
+        .send({ data });
+
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.contain('cart');
+    });
+
+    test('Should return 400 if user_id is not a number', async () => {
+      const data = {
+        cart: [
+          {
+            name: 'BBQ Spare Ribs',
+            description: null,
+            total: 37.9,
+            base_price: 10.95,
+            option: null,
+            size: {
+              small: {
+                upCharge: 0,
+              },
+              large: {
+                upCharge: 8,
+              },
+            },
+            quantity: 1,
+            specialRequest: 'NO BBQ',
+            currentSize: 'large',
+          },
+        ],
+        user_id: '1',
+        email: 'mail@mail.com',
+      };
+
+      const response = await request(app)
+        .post('/orders')
+        .set('Accept', 'application/json')
+        .send({ data });
+
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.contain('Id must be a number');
     });
   });
-
-  // describe('Create order', () => {
-  //   describe('POST /order', () => {});
-  // });
-
-  // describe('Delete order', () => {
-  //   describe('DELETE /order/oder_id', () => {});
-  // });
 });

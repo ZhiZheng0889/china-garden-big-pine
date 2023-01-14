@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { formatCost } from '../../../utils/formatCost';
 import { snakeToTitleCase } from '../../../utils/snakeToTitleCase';
 import styles from './ModalOptions.module.css';
 const ModalOptions = ({
@@ -44,7 +45,7 @@ const ModalOptions = ({
                   </label>
                   {options[option].upCharge > 0 && (
                     <p className={styles.price}>
-                      {'+ $' + options[option].upCharge}
+                      {'+ $' + formatCost(options[option].upCharge)}
                     </p>
                   )}
                 </div>

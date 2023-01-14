@@ -18,14 +18,14 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
 
   return (
     <main className={`min-h-screen bg-slate-100 flex justify-center pt-6 `}>
-      <div className="container grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">
-        <section className="">
+      <div className={`container gap-6 ${styles.container}`}>
+        <section>
           {/* Main content */}
           <div className="mb-6">
             <Searchbar search={search} setSearch={setSearch} />
           </div>
 
-          <Card padding={'p-0'} margin={'mt-gap'} width={'w-100'}>
+          <Card padding={'p-0'} margin={'mt-gap'}>
             {error && (
               <div className="p-3 pb-0">
                 <ErrorAlert error={error} />
