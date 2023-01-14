@@ -1,44 +1,76 @@
-const passport = require('passport');
-const nodemailer = require('nodemailer');
+import { useState } from 'react';
+import { Prompt } from 'react-prompt';
+const bcrypt = require('bcrypt');
+const validator = require('validator');
 
 require('dotenv');
-
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'your-email@gmail.com',
-    pass: 'your-email-password',
+    user: 'ztmdummy33782@gmail.com',
+    pass: '03003120@Bc',
   },
 });
 
 passport.use('2fa', new passport.Strategy(
   async function (req, done) {
-    // Retrieve the user's 2FA secret from the database or file
-    const user = await User.findById(req.user.id);
-    const secret = user.secret;
+    try {
+      // Retrieve the user's 2FA secret from the database or file
+      const user = await User.findById(req.user.id);
+      if (!user) return done(new Error('User not found'));
+      const secret = user.secret;
+      const hashedSecret = await bcrypt.hash(secret, 10);
 
-    // Send the 2FA code to the user's email
-    const message = {
-      from: 'your-email@gmail.com',
-      to: req.user.email,
-      subject: 'Your 2FA code',
-      text: `Your 2FA code is: ${secret}`,
-    };
-    transporter.sendMail(message, (error, info) => {
-      if (error) {
-        return done(error);
-      }
-    });
+      await User.updateOne({ _id: req.user.id },
+         { secret: hashedSecret });
 
-    // Prompt the user to enter their 2FA code
-    const code = prompt('Enter your 2FA code:');
+      // Send the 2FA code to the user's email
+      const message = {
+        from: 'your-email@gmail.com',
+        to: req.user.email,
+        subject: 'Your 2FA code',
+        text: `Your 2FA code is: ${secret}`,
+      };
+      transporter.sendMail(message, (error, info) => {
+        if (error) {
+          return done(error);
+        }
+      });
 
-    // Verify the code by comparing it to the secret
-    if (code === secret) {
-      return done(null, user);
-    } else {
-      return done(new Error('Invalid 2FA code'));
+    } catch (error) {
+      console.error(error);
+      return done(new Error('An error occurred while sending the 2FA code'));
     }
+    // State to control the visibility of the prompt
+    const [showPrompt, setShowPrompt] = useState(false);
+    setShowPrompt(true);
+
+    // Handle the input from the user
+    const handle2FACode = (code) => {
+      setShowPrompt(false);
+      
+      // Validate the input
+      if (!validator.isNumeric(code) || !validator.isLength(code, { min: 6, max: 6 })) {
+        return done(new Error('Invalid 2FA code format'));
+      }
+    
+      // Verify the code by comparing it to the secret
+      if (code === secret) {
+        return done(null, user);
+      } else {
+        return done(new Error('Invalid 2FA code'));
+      }
+    }
+
+    return (
+      <div>
+        <Prompt
+          when={showPrompt}
+          message="Enter your 2FA code:"
+          onSubmit={code => handle2FACode(code)}
+        />
+      </div>
+    )
   }
 ));
