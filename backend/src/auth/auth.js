@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Prompt } from 'react-prompt';
 const bcrypt = require('bcrypt');
 const validator = require('validator');
-
+const nodemailer = require('nodemailer');
 require('dotenv');
 
 const transporter = nodemailer.createTransport({
