@@ -27,7 +27,9 @@ const OpenedMenu = ({ category, changeCategory }) => {
   const scrollAmount = 250;
   const scroll = ({ target: { id } }) => {
     if (id === 'scroll-left') {
-      setScrollPosition((prev) => prev - scrollAmount);
+      setScrollPosition((prev) => {
+        return prev - scrollAmount;
+      });
     } else {
       setScrollPosition((prev) => prev + scrollAmount);
     }
