@@ -38,21 +38,23 @@ const OpenedMenu = ({ category, changeCategory }) => {
   }, [scrollPosition]);
 
   return (
-    <div className={`flex ${openNav ? 'items-start' : 'items-center'}`}>
-      <button onClick={() => setOpenNav((curr) => !curr)}>
+    <div className={`flex items-start relative`}>
+      {/* <button onClick={() => setOpenNav((curr) => !curr)}>
         <i className="fa-solid fa-list py-3 pl-3 pr-2"></i>
-      </button>
+      </button> */}
       <button
-        className={`py-1 px-3 ${styles.buttonLeft} ${openNav && 'hidden'}`}
+        className={`absolute top-1 py-1 px-3 ${styles.buttonLeft} ${
+          openNav && 'hidden'
+        }`}
         id="scroll-left"
         onClick={scroll}
       >
         <i className="fa-regular fa-chevrons-left" id="scroll-left"></i>
       </button>
       <ul
-        className={`flex overflow-x-scroll w-full ${openNav && 'flex-wrap'} ${
-          styles.ul
-        } border-bottom`}
+        className={`px-10 flex overflow-x-scroll w-full ${
+          openNav && 'flex-wrap'
+        } ${styles.ul} border-bottom`}
         ref={navbarRef}
       >
         {categories.map((cat) => {
@@ -74,7 +76,9 @@ const OpenedMenu = ({ category, changeCategory }) => {
         })}
       </ul>
       <button
-        className={`py-1 px-3 ${styles.buttonRight}  ${openNav && 'hidden'}`}
+        className={`absolute right-0  top-1 py-1 px-3 ${styles.buttonRight}  ${
+          openNav && 'hidden'
+        }`}
         id="scroll-right"
         onClick={scroll}
       >
