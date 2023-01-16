@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Prompt } from 'react-prompt';
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const nodemailer = require('nodemailer');
+const passport = require("passport");
 require('dotenv');
 
 const transporter = nodemailer.createTransport({
@@ -27,7 +26,7 @@ passport.use('2fa', new passport.Strategy(
 
       // Send the 2FA code to the user's email
       const message = {
-        from: 'your-email@gmail.com',
+        from: 'ztmdummy33782@gmail.com',
         to: req.user.email,
         subject: 'Your 2FA code',
         text: `Your 2FA code is: ${secret}`,
@@ -42,35 +41,4 @@ passport.use('2fa', new passport.Strategy(
       console.error(error);
       return done(new Error('An error occurred while sending the 2FA code'));
     }
-    // State to control the visibility of the prompt
-    const [showPrompt, setShowPrompt] = useState(false);
-    setShowPrompt(true);
-
-    // Handle the input from the user
-    const handle2FACode = (code) => {
-      setShowPrompt(false);
-      
-      // Validate the input
-      if (!validator.isNumeric(code) || !validator.isLength(code, { min: 6, max: 6 })) {
-        return done(new Error('Invalid 2FA code format'));
-      }
-    
-      // Verify the code by comparing it to the secret
-      if (code === secret) {
-        return done(null, user);
-      } else {
-        return done(new Error('Invalid 2FA code'));
-      }
-    }
-
-    return (
-      <div>
-        <Prompt
-          when={showPrompt}
-          message="Enter your 2FA code:"
-          onSubmit={code => handle2FACode(code)}
-        />
-      </div>
-    )
-  }
-));
+}));
