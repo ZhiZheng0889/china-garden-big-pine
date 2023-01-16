@@ -4,6 +4,7 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable('food_amounts', (table) => {
+    table.increments('food_amount_id').primary().notNullable();
     table
       .integer('food_id')
       .references('food_id')

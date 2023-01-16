@@ -60,6 +60,7 @@ describe('01 - List, Read, Create, update, and Delete orders', () => {
       const data = {
         cart: [
           {
+            food_id: 12,
             name: 'BBQ Spare Ribs',
             description: null,
             total: 37.9,
@@ -94,6 +95,7 @@ describe('01 - List, Read, Create, update, and Delete orders', () => {
       const data = {
         cart: [
           {
+            food_id: 12,
             name: 'BBQ Spare Ribs',
             description: null,
             total: 37.9,
@@ -143,6 +145,7 @@ describe('01 - List, Read, Create, update, and Delete orders', () => {
       const data = {
         cart: [
           {
+            food_id: 12,
             name: 'BBQ Spare Ribs',
             description: null,
             total: 37.9,
@@ -173,5 +176,78 @@ describe('01 - List, Read, Create, update, and Delete orders', () => {
       expect(response.status).to.equal(400);
       expect(response.body.error).to.contain('Id must be a number');
     });
+
+    test('Should return 400 if food_id is missing in cart', async () => {
+      const data = {
+        cart: [
+          {
+            name: 'BBQ Spare Ribs',
+            description: null,
+            total: 37.9,
+            base_price: 10.95,
+            option: null,
+            size: {
+              small: {
+                upCharge: 0,
+              },
+              large: {
+                upCharge: 8,
+              },
+            },
+            quantity: 1,
+            specialRequest: 'NO BBQ',
+            currentSize: 'large',
+          },
+        ],
+        user_id: 1,
+        email: 'mail@mail.com',
+      };
+
+      const response = await request(app)
+        .post('/orders')
+        .set('Accept', 'application/json')
+        .send({ data });
+
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.contain('food_id');
+    });
+
+    test('Should return 400 if quantity is missing in cart', async () => {
+      const data = {
+        cart: [
+          {
+            food_id: 12,
+            name: 'BBQ Spare Ribs',
+            description: null,
+            total: 37.9,
+            base_price: 10.95,
+            option: null,
+            size: {
+              small: {
+                upCharge: 0,
+              },
+              large: {
+                upCharge: 8,
+              },
+            },
+            quantity: 1,
+            specialRequest: 'NO BBQ',
+            currentSize: 'large',
+          },
+        ],
+        user_id: 1,
+        email: 'mail@mail.com',
+      };
+
+      const response = await request(app)
+        .post('/orders')
+        .set('Accept', 'application/json')
+        .send({ data });
+
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.contain('food_id');
+    });
+
+    test('Should allow including phone number and return 200');
   });
 });

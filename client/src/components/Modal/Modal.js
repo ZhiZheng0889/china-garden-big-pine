@@ -13,6 +13,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   const [currentSize, setCurrentSize] = useState({});
   const [error, setError] = useState(null);
   const {
+    food_id,
     name = '',
     base_price = null,
     description = '',
@@ -25,7 +26,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     const { upCharge: optionUpcharge = 0 } = currentOption;
     const { upCharge: sizeUpcharge = 0 } = currentSize;
     setTotal(quantity * (optionUpcharge + sizeUpcharge + base_price));
-  }, [quantity, currentOption, currentSize]);
+  }, [quantity, currentOption, currentSize, base_price]);
 
   if (!food) return null;
 
@@ -34,6 +35,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
       setError({ message: 'Quantity has to be greater than zero' });
     } else {
       const itemToAdd = {
+        food_id,
         name,
         description,
         total,
