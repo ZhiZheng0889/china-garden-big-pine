@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -38,9 +39,11 @@
     "pg": "^8.7.3",
     "pino-http": "^8.0.1",
     "pino-pretty": "^8.0.0",
+    "react-prompt": "^0.2.1",
     "sequelize": "^6.26.0",
     "sqlite": "^4.1.1",
-    "twilio": "^3.84.0"
+    "twilio": "^3.84.0",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "chai": "^4.3.6",
