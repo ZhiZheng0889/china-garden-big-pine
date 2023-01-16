@@ -4,8 +4,10 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable('food_options', (table) => {
+    table.increments('food_option_id').primary().notNullable();
+    table.integer('food_id').unsigned().notNullable();
     table
-      .integer('food_id')
+      .foreign('food_id')
       .references('food_id')
       .inTable('foods')
       .onDelete('CASCADE');

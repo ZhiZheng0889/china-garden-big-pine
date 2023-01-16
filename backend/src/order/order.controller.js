@@ -17,14 +17,11 @@ const CART_VALID_PROPERTIES = [
   'food_id',
   'specialRequest',
   'quantity',
-  'size',
-  'option',
-  'base_price',
-  'total',
-  'description',
+  'currentSize',
+  'currentOption',
 ];
 
-const CART_REQUIRED_PROPERTIES = ['food_id', 'quantity', 'total', 'base_price'];
+const CART_REQUIRED_PROPERTIES = ['food_id', 'quantity'];
 
 async function isValidUser_id(req, res, next) {
   const { user_id } = req.body.data;
@@ -113,10 +110,7 @@ module.exports = {
       "email": "mail@mail.com",
       "cart": [
           {
-              "name": "BBQ Spare Ribs",
-              "description": null,
-              "total": 37.9,
-              "base_price": 10.95,
+              "food_id": 1,
               "option": null,
               "size": {
                   "small": {
@@ -132,9 +126,7 @@ module.exports = {
           },
           {
               "name": "Spring Rolls(2)",
-              "description": null,
-              "total": 4.75,
-              "base_price": 4.75,
+              "food_id": 1,
               "option": null,
               "size": null,
               "quantity": 1,

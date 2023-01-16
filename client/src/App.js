@@ -17,6 +17,8 @@ function App() {
     if (foundCart) {
       const parsedCart = JSON.parse(foundCart);
       if (Array.isArray(parsedCart) && parsedCart.length > 0) {
+        const parsedCart = JSON.parse(foundCart);
+        parsedCart.food_id = Number(parsedCart.food_id);
         setCart(JSON.parse(foundCart));
       }
     }
@@ -56,6 +58,8 @@ function App() {
   useEffect(() => {
     storage.local.set('cart', JSON.stringify(cart));
   }, [cart]);
+
+  console.log('cart: ', cart);
   return (
     <>
       <header>
