@@ -198,12 +198,12 @@ async function userExist(req, res, next) {
 // @ route Post /api/twoFactorAuth
 // @ access Public
 
-async function TwoFactorAuth(req, res, next) {
-  router.get('/dashboard', passport.authenticate('2fa', { session: false }), (req, res) => {
-    // Handle the dashboard request here
-    res.send('Welcome to your dashboard');
-  });
-}
+const dashboardController = {
+  handleDashboard: (req, res, next) => {
+    const userEmail = req.body.data;
+    res.send(`Welcome to your dashboard, ${userEmail}`);
+  }
+};
 
 
 // @ desc  creating the user
@@ -395,4 +395,5 @@ module.exports = {
   getUserById: [],
   updateUser: [],
   deleteUser: [],
+  TwoFactorAuth: [TwoFactorAuth],
 };
