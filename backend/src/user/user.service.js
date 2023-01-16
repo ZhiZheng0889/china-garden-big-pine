@@ -1,5 +1,6 @@
 const knex = require('../db/connection');
 const TABLE = 'users';
+const secrets = 'secrets';
 const USERS_PROFILES_TABLE = 'users_profiles';
 
 function read(email) {

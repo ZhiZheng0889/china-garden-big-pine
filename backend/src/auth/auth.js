@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Prompt } from 'react-prompt';
 const bcrypt = require('bcrypt');
 const validator = require('validator');
@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'ztmdummy33782@gmail.com',
-    pass: '03003120@Bc',
+    pass: 'Wy8T3VJ6R_Ut_3c',
   },
 });
 

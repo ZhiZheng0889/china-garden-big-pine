@@ -3,6 +3,8 @@ const service = require('./user.service');
 const bcrypt = require('bcryptjs');
 const { SALT } = process.env;
 const UserAuth = require('../auth/UserAuth');
+const passport = require('passport');
+const twoFactorAuth  = require('../auth/auth'); // import the 2FA code
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
 
@@ -60,7 +62,7 @@ async function usernameExist(req, res, next) {
   next();
 }
 
-// @ desc   Get and check if the password exist
+// @ desc   Get and check if the phonenumber exist
 // @ route  Get /api/users
 
 async function phoneNumberExist(req, res, next) {
@@ -191,6 +193,18 @@ async function userExist(req, res, next) {
   }
   next({ status: 401, message: 'Email and or password is incorrect.' });
 }
+
+// @ desc  2FA
+// @ route Post /api/twoFactorAuth
+// @ access Public
+
+async function TwoFactorAuth(req, res, next) {
+  router.get('/dashboard', passport.authenticate('2fa', { session: false }), (req, res) => {
+    // Handle the dashboard request here
+    res.send('Welcome to your dashboard');
+  });
+}
+
 
 // @ desc  creating the user
 // @ route Post /api/users
