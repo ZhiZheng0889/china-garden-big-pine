@@ -9,7 +9,7 @@ router
 router.route('/login').post(controller.login).all(methodNotAllowed);
 router.route('/logout').post(controller.logout).all(methodNotAllowed);
 router.route('/:user_id').get(controller.getUserById).all(methodNotAllowed);
-router.get( service, passport.authenticate('2fa', { session: false }), dashboardController.handleDashboard);
+router.get( router, passport.authenticate('2fa', { session: false }), dashboardController.handleDashboard);
 router
   .route('/')
   .get(controller.getUsers)
