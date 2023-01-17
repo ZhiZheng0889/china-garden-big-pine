@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-const bcrypt = require('bcrypt');
-=======
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
->>>>>>> 0d87f1029a1a59de7e5f8e38f0301bb5c7d1598f
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 require('dotenv');
