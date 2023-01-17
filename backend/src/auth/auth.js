@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 const bcrypt = require('bcrypt');
+=======
+const bcrypt = require('bcryptjs');
+const validator = require('validator');
+>>>>>>> 0d87f1029a1a59de7e5f8e38f0301bb5c7d1598f
 const nodemailer = require('nodemailer');
-const passport = require("passport");
+const passport = require('passport');
 require('dotenv');
 
 const transporter = nodemailer.createTransport({
@@ -11,8 +16,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-passport.use('2fa', new passport.Strategy(
-  async function (req, done) {
+passport.use(
+  '2fa',
+  new passport.Strategy(async function (req, done) {
     try {
       // Retrieve the user's 2FA secret from the database or file
       const user = await User.findById(req.user.id);
@@ -20,8 +26,7 @@ passport.use('2fa', new passport.Strategy(
       const secret = user.secret;
       const hashedSecret = await bcrypt.hash(secret, 10);
 
-      await User.updateOne({ _id: req.user.id },
-         { secret: hashedSecret });
+      await User.updateOne({ _id: req.user.id }, { secret: hashedSecret });
 
       // Send the 2FA code to the user's email
       const message = {
@@ -35,9 +40,9 @@ passport.use('2fa', new passport.Strategy(
           return done(error);
         }
       });
-
     } catch (error) {
       console.error(error);
       return done(new Error('An error occurred while sending the 2FA code'));
     }
-}));
+  })
+);

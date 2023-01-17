@@ -12,22 +12,18 @@
   margin-right: 1rem;
 }
 
-.ul::-webkit-scrollbar {
-  display: none;
-}
-
-.ul::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-
-.ul::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-}
-
 .buttonLeft {
-  background-image: linear-gradient(to left, #fff, rgba(255, 255, 255, 0.137));
+  background-image: linear-gradient(
+    to right,
+    #fff 80%,
+    rgba(255, 255, 255, 0.438)
+  );
 }
 
 .buttonRight {
-  background-image: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.137));
+  background-image: linear-gradient(
+    to left,
+    #fff 80%,
+    rgba(255, 255, 255, 0.438)
+  );
 }
