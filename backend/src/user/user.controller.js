@@ -395,5 +395,5 @@ module.exports = {
   getUserById: [],
   updateUser: [],
   deleteUser: [],
-  TwoFactorAuth: [TwoFactorAuth],
+  TwoFactorAuth: [dashboardController],
 };
