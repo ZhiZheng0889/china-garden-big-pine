@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 require('dotenv');
