@@ -6,10 +6,10 @@ describe('2FA Passport Strategy', function () {
         // Create a test user with a known secret
         const testUser = {
             id: '123',
-            email: 'test@example.com',
+            email: 'ztmdummy33782@gmail.com',
             secret: 'testsecret'
         };
-
+s
         // Pass the test user to the passport strategy
         passport.use(
             '2fa',
