@@ -1,3 +1,7 @@
+const { expect } = require('chai');
+const request = require('supertest');
+const app = require('../src/app');
+const knex = require('../src/db/connection');
 const assert = require('assert');
 const passport = require('passport');
 
