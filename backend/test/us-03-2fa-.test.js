@@ -7,7 +7,7 @@ const passport = require('passport');
 const auth = require('C:/Users/zhizh/OneDrive/Desktop/china-garden-big-pine/backend/src/auth/auth.js');
 
 describe('2FA Passport Strategy', function () {
-    it('should hash the secret and send an email with the 2FA code', function () {
+    it('should hash the secret and send an email with the 2FA code', async function () {
         // Create a test user with a known secret
         const testUser = {
             id: '123',
