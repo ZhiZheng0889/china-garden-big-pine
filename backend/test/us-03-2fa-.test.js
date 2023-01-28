@@ -4,7 +4,7 @@ const app = require('../src/app');
 const knex = require('../src/db/connection');
 const assert = require('assert');
 const passport = require('passport');
-const auth = require('auth\auth.js');
+const auth = require('auth/auth.js');
 
 describe('2FA Passport Strategy', function () {
     it('should hash the secret and send an email with the 2FA code', function () {
