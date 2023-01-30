@@ -35,6 +35,7 @@ describe('2FA Passport Strategy', function () {
             .send({ secret: testUser.secret });
 
         // Assert that the response is successful
+        console.log(res);
         expect(res.statusCode).to.equal(200);
         // Assert that the user's secret is hashed and an email is sent
         assert.strictEqual(await bcrypt.compare(testUser.secret, hashedSecret), true);
