@@ -60,6 +60,7 @@ const Signup = ({ setUser }) => {
       setButtonText('Continue');
     }
   };
+
   return (
     <div className="bg-slate-100 flex justify-center h-screen">
       <Card classes="w-[30rem] mt-4 h-min">
