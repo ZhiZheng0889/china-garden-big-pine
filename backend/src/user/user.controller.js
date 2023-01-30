@@ -397,9 +397,10 @@ async function validatePassword(req, res, next) {
   next({ status: 404, message: 'Cannot find email or password is incorrect' });
 }
 
+//__2FA Login
 async function send2FA(req, res, next){
-  
-
+  //use the 2fa file.
+  '/auth', passport.authenticate('auth', { session: false });
 }
 
 module.exports = {
