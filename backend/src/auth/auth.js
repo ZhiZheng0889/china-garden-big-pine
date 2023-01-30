@@ -31,9 +31,19 @@ passport.use(
         subject: 'Your 2FA code',
         text: `Your 2FA code is: ${secret}`,
       };
+
+      console.log("Sending 2FA code: ", message); // Log the message
+      
       transporter.sendMail(message, (error, info) => {
         if (error) {
           return done(error);
+        }
+        console.log(info); // Log the info object
+        if(info.accepted.includes(req.user.email)){
+            console.log(`2FA code sent to ${req.user.email}`); // Check if the email was sent
+            return done(null, info);
+        }else{
+            return done(new Error(`An error occurred while sending the 2FA code to ${req.user.email}`));
         }
       });
     } catch (error) {
@@ -42,33 +52,3 @@ passport.use(
     }
   })
 );
-
-/**
-const assert = require('assert');
-const passport = require('passport');
-
-describe('2FA Passport Strategy', function () {
-    it('should hash the secret and send an email with the 2FA code', function () {
-        // Create a test user with a known secret
-        const testUser = {
-            id: '123',
-            email: 'test@example.com',
-            secret: 'testsecret'
-        };
-
-        // Pass the test user to the passport strategy
-        passport.use(
-            '2fa',
-            new passport.Strategy(async function (req, done) {
-                req.user = testUser;
-                // Call the passport strategy
-                await require('path/to/script')(req, done);
-            })
-        );
-
-        // Assert that the user's secret is hashed and an email is sent
-        assert.strictEqual(testUser.secret, hashedSecret);
-        assert.strictEqual(info.accepted[0], testUser.email);
-    });
-});
- */

@@ -33,7 +33,7 @@ const REQUIRED_LOGIN_PROPERTIES = ['email', 'password'];
 // @ desc   Get and check if the email exist
 // @ route  Get /api/users
 // @ access Public
-async function emailExist(req, res, next) {
+async function isEmailAvailable(req, res, next) {
   const { email } = req.body.data;
   const user = await service.read(email);
   if (user) {
@@ -42,7 +42,40 @@ async function emailExist(req, res, next) {
       message: 'Email already is in use. Please try a different one.',
     });
   }
-  next();
+  return next();
+}
+
+// @ desc   Get and check if the email exist
+// @ route  Get /api/users
+// @ access Public
+async function emailExist(req, res, next) {
+  const { email } = req.body.data;
+  const user = await service.read(email);
+  if (user) {
+    res.locals.user = user;
+    return next();
+  }
+  return next({
+    status: 404,
+    message: 'Email is not found. Please try again.',
+  });
+}
+
+// @ desc   Get and check if the username exist
+// @ route  Get /api/users
+// @ access Public
+
+async function isUsernameAvailable(req, res, next) {
+  const { username } = req.body.data;
+
+  const user = await service.readFromUsername(username);
+  if (user) {
+    return next({
+      status: 409,
+      message: 'Username already in use. Please try a different one.',
+    });
+  }
+  return next();
 }
 
 // @ desc   Get and check if the username exist
@@ -54,13 +87,14 @@ async function usernameExist(req, res, next) {
 
   const user = await service.readFromUsername(username);
   if (user) {
-    return next({
-      status: 409,
-      message: 'Username already in use. Please try a different one.',
-    });
+    return next();
   }
-  next();
+  return next({
+      status: 404,
+      message: 'Username is not exist. Please try again.',
+    });
 }
+
 
 // @ desc   Get and check if the phonenumber exist
 // @ route  Get /api/users
@@ -363,6 +397,12 @@ async function validatePassword(req, res, next) {
   next({ status: 404, message: 'Cannot find email or password is incorrect' });
 }
 
+//__2FA Login
+async function send2FA(req, res, next){
+  //use the 2fa file.
+  '/auth', passport.authenticate('auth', { session: false });
+}
+
 module.exports = {
   login: [
     hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
@@ -383,8 +423,8 @@ module.exports = {
   register: [
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
-    asyncErrorBoundary(emailExist),
-    asyncErrorBoundary(usernameExist),
+    asyncErrorBoundary(isEmailAvailable),
+    asyncErrorBoundary(isUsernameAvailable),
     asyncErrorBoundary(phoneNumberExist),
     asyncErrorBoundary(encryptPassword),
     asyncErrorBoundary(create),
@@ -395,5 +435,9 @@ module.exports = {
   getUserById: [],
   updateUser: [],
   deleteUser: [],
-  TwoFactorAuth: [dashboardController],
-};
+  TwoFA: [dashboardController, 
+    asyncErrorBoundary(emailExist),
+    asyncErrorBoundary(usernameExist),
+    asyncErrorBoundary(send2FA)
+  ],
+}
