@@ -44,7 +44,7 @@ app.use('/users', userRouter);
 
 //app.use('/2fa', passport.authenticate('2fa', { session: false }));
 
-app.use('/auth', passport.authenticate('auth', { session: false }));
+
 
 app.use(notFound);
 app.use(errorHandler);
