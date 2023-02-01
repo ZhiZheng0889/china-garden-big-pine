@@ -52,3 +52,17 @@ passport.use(
     }
   })
 );
+
+function send2FACode (req, res, next) {
+  passport.authenticate('2fa', async (err, info) => {
+    if (err) {
+      return next({
+        status: 500,
+        message: err.message
+      });
+    }
+    return res.status(200).json({ data: { message: '2FA code sent successfully' } });
+  })(req, res, next);
+}
+
+module.exports = send2FACode;

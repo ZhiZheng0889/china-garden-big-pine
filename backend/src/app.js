@@ -6,10 +6,6 @@ const cors = require('cors');
 const errorHandler = require('./errors/errorHandler');
 const notFound = require('./errors/notFound');
 
-const passport = require('passport');
-
-const { twoFactorAuth } = require('C:/Users/zhizh/OneDrive/Desktop/china-garden-big-pine/backend/src/auth/auth.js');
-
 
 // const passport = require('./auth/auth');
 const { FRONT_END_URL } = process.env;
@@ -48,7 +44,5 @@ app.use('/users', userRouter);
 
 app.use(notFound);
 app.use(errorHandler);
-
-app.listen(5000);
 
 module.exports = app;

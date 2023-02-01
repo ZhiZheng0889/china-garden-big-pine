@@ -7,6 +7,7 @@ const passport = require('passport');
 const twoFactorAuth  = require('../auth/auth'); // import the 2FA code
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
+const send2FACode = require('../auth/auth');
 
 const VALID_PROPERTIES = [
   'email',
@@ -397,11 +398,7 @@ async function validatePassword(req, res, next) {
   next({ status: 404, message: 'Cannot find email or password is incorrect' });
 }
 
-//__2FA Login
-async function send2FA(req, res, next){
-  //use the 2fa file.
-  '/auth', passport.authenticate('auth', { session: false });
-}
+
 
 module.exports = {
   login: [
@@ -435,9 +432,9 @@ module.exports = {
   getUserById: [],
   updateUser: [],
   deleteUser: [],
-  TwoFA: [dashboardController, 
+  TwoFA: [
     asyncErrorBoundary(emailExist),
     asyncErrorBoundary(usernameExist),
-    asyncErrorBoundary(send2FA)
+    asyncErrorBoundary(send2FACode)
   ],
 }
