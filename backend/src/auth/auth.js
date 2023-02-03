@@ -32,18 +32,22 @@ passport.use(
         text: `Your 2FA code is: ${secret}`,
       };
 
-      console.log("Sending 2FA code: ", message); // Log the message
-      
+      console.log('Sending 2FA code: ', message); // Log the message
+
       transporter.sendMail(message, (error, info) => {
         if (error) {
           return done(error);
         }
         console.log(info); // Log the info object
-        if(info.accepted.includes(req.user.email)){
-            console.log(`2FA code sent to ${req.user.email}`); // Check if the email was sent
-            return done(null, info);
-        }else{
-            return done(new Error(`An error occurred while sending the 2FA code to ${req.user.email}`));
+        if (info.accepted.includes(req.user.email)) {
+          console.log(`2FA code sent to ${req.user.email}`); // Check if the email was sent
+          return done(null, info);
+        } else {
+          return done(
+            new Error(
+              `An error occurred while sending the 2FA code to ${req.user.email}`
+            )
+          );
         }
       });
     } catch (error) {
@@ -53,15 +57,17 @@ passport.use(
   })
 );
 
-function send2FACode (req, res, next) {
+function send2FACode(req, res, next) {
   passport.authenticate('2fa', async (err, info) => {
     if (err) {
       return next({
         status: 500,
-        message: err.message
+        message: err.message,
       });
     }
-    return res.status(200).json({ data: { message: '2FA code sent successfully' } });
+    return res
+      .status(200)
+      .json({ data: { message: '2FA code sent successfully' } });
   })(req, res, next);
 }
 

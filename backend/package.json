@@ -51,6 +51,7 @@
     "jest": "^28.1.1",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.16",
+    "passport-local": "^1.0.0",
     "supertest": "^6.2.3"
   }
 }

@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { SALT } = process.env;
 const UserAuth = require('../auth/UserAuth');
 const passport = require('passport');
-const twoFactorAuth  = require('../auth/auth'); // import the 2FA code
+const twoFactorAuth = require('../auth/auth'); // import the 2FA code
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
 const send2FACode = require('../auth/auth');
@@ -25,6 +25,8 @@ const REQUIRED_PROPERTIES = [
   'phone_number',
   'password',
 ];
+
+const VALID_2FA_PROPERTIES = ['email', 'username'];
 
 const VALID_LOGIN_PROPERTIES = ['email', 'password'];
 const REQUIRED_LOGIN_PROPERTIES = ['email', 'password'];
@@ -91,11 +93,10 @@ async function usernameExist(req, res, next) {
     return next();
   }
   return next({
-      status: 404,
-      message: 'Username is not exist. Please try again.',
-    });
+    status: 404,
+    message: 'Username is not exist. Please try again.',
+  });
 }
-
 
 // @ desc   Get and check if the phonenumber exist
 // @ route  Get /api/users
@@ -237,9 +238,8 @@ const dashboardController = {
   handleDashboard: (req, res, next) => {
     const userEmail = req.body.data;
     res.send(`Welcome to your dashboard, ${userEmail}`);
-  }
+  },
 };
-
 
 // @ desc  creating the user
 // @ route Post /api/users
@@ -398,8 +398,6 @@ async function validatePassword(req, res, next) {
   next({ status: 404, message: 'Cannot find email or password is incorrect' });
 }
 
-
-
 module.exports = {
   login: [
     hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
@@ -433,8 +431,10 @@ module.exports = {
   updateUser: [],
   deleteUser: [],
   TwoFA: [
+    hasOnlyValidProperties(VALID_2FA_PROPERTIES),
+    hasRequiredProperties(VALID_2FA_PROPERTIES),
     asyncErrorBoundary(emailExist),
     asyncErrorBoundary(usernameExist),
-    asyncErrorBoundary(send2FACode)
+    asyncErrorBoundary(send2FACode),
   ],
-}
+};
