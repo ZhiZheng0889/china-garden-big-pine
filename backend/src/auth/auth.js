@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const passport = require('passport');
 require('dotenv');
 
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -54,15 +55,34 @@ passport.use(
 );
 
 function send2FACode (req, res, next) {
-  passport.authenticate('2fa', async (err, info) => {
+  const async = require('async');
+
+  const chunkSize = 10; // The number of emails to send in each chunk
+
+  async.eachLimit(req.user.emails, chunkSize, function(email, callback) {
+    const message = {
+      from: 'ztmdummy33782@gmail.com',
+      to: email,
+      subject: 'Your 2FA code',
+      text: `Your 2FA code is: ${secret}`,
+    };
+    transporter.sendMail(message, function (error, info) {
+      if (error) {
+        console.error(error);
+        return callback(error);
+      }
+      console.log(`2FA code sent to ${email}`);
+      callback();
+    });
+  }, function(err) {
     if (err) {
       return next({
         status: 500,
-        message: err.message
+        message: 'An error occurred while sending the 2FA code'
       });
     }
     return res.status(200).json({ data: { message: '2FA code sent successfully' } });
-  })(req, res, next);
+  });
 }
 
 module.exports = send2FACode;
