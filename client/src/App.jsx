@@ -70,6 +70,7 @@ function App() {
         <Navbar
           user={user}
           cart={cart}
+          setCart={setCart}
           setIsCheckoutOpen={setIsCheckoutOpen}
           setUser={setUser}
           setError={setError}

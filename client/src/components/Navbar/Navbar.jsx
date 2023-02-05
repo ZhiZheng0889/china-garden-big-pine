@@ -4,7 +4,15 @@ import NotSignedIn from './NotSignedIn/NotSignedIn';
 import SignedIn from './SignedIn/SignedIn';
 import styles from './Navbar.module.css';
 import CartButton from '../Button/CartButton/CartButton';
-const Navbar = ({ user, cart, setIsCheckoutOpen, setUser, setError }) => {
+import CheckoutCanvas from '../Checkout/CheckoutCanvas/CheckoutCanvas';
+const Navbar = ({
+  user,
+  cart,
+  setCart,
+  setIsCheckoutOpen,
+  setUser,
+  setError,
+}) => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   return (
     <nav className="flex bg-red-700 text-white items-center p-1 justify-center">
@@ -26,10 +34,11 @@ const Navbar = ({ user, cart, setIsCheckoutOpen, setUser, setError }) => {
               <NotSignedIn />
             )}
           </div>
-          <div className={`lg:hidden ${styles.cartButton}`}>
+          <div className={`xl:hidden ${styles.cartButton}`}>
             <CartButton cart={cart} setIsCheckoutOpen={setIsCheckoutOpen} />
           </div>
         </div>
+        <CheckoutCanvas cart={cart} setCart={setCart} />
       </div>
     </nav>
   );
