@@ -20,7 +20,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   return (
     <main className={`min-h-screen bg-slate-100 pt-6 `}>
       <div className={`container gap-6 custom-grid mx-auto`}>
-        <SideNav className="hidden md:block" />
+        <SideNav className="hidden md:block" setCategory={setCategory} />
         <section>
           <div className="mb-6">
             <Searchbar search={search} setSearch={setSearch} />
