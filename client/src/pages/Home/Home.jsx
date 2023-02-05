@@ -9,6 +9,7 @@ import FoodList from '../../components/Food/FoodList/FoodList';
 import ErrorAlert from '../../errors/ErrorAlert';
 import MenuNav from '../../components/MenuNav/MenuNav';
 import Footer from '../../components/Footer/Footer';
+import SideNav from '../../components/Nav/SideNav/SideNav';
 const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   // state of category nav
   const [category, setCategory] = useState('appetizers');
@@ -17,10 +18,10 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   const [error, setError] = useState(null);
 
   return (
-    <main className={`min-h-screen bg-slate-100 flex justify-center pt-6 `}>
-      <div className={`container gap-6 ${styles.container}`}>
+    <main className={`min-h-screen bg-slate-100 pt-6 `}>
+      <div className={`container gap-6 custom-grid mx-auto`}>
+        <SideNav className="hidden md:block" />
         <section>
-          {/* Main content */}
           <div className="mb-6">
             <Searchbar search={search} setSearch={setSearch} />
           </div>
@@ -32,7 +33,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
               </div>
             )}
             <StoreInfo />
-            <MenuNav category={category} setCategory={setCategory} />
+            {/* <MenuNav category={category} setCategory={setCategory} /> */}
             <FoodList
               category={category}
               search={search}
@@ -54,7 +55,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
           >
             X
           </button>
-          <Checkout cart={cart} setCart={setCart} />
+          <Checkout cart={cart} setCart={setCart} className="hidden lg:block" />
         </aside>
       </div>
     </main>

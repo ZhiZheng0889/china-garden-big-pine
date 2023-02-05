@@ -1,0 +1,47 @@
+import React from 'react';
+import { toTitleCase } from '../../../utils/toTitleCase';
+import Card from '../../Card/Card';
+
+const SideNav = ({ className }) => {
+  const categories = [
+    'appetizers',
+    'soup',
+    'drinks',
+    'side_orders',
+    'fried_rice',
+    'diet_dishes',
+    'lo_mein_or_chow_mei_fun',
+    'chicken',
+    'pork',
+    'beef',
+    'chow_mein',
+    'chop_suey',
+    'egg_foo_young',
+    'sweet_and_sour',
+    'seafood',
+    'chef_special',
+    'combo',
+    'lunch',
+  ];
+  return (
+    <Card padding="p-0" classes={`${className} h-fit sticky top-0`}>
+      <ul>
+        {categories.map((category) => {
+          return (
+            <li key={category}>
+              <button className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start">
+                {toTitleCase(category)}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </Card>
+  );
+};
+
+SideNav.defaultProps = {
+  className: '',
+};
+
+export default SideNav;

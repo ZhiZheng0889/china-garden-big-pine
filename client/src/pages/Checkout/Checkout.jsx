@@ -2,9 +2,9 @@ import React from 'react';
 import Card from '../../components/Card/Card';
 import CartList from '../../components/CartList/CartList';
 import MapContainer from '../../components/MapContainer/MapContainer';
-const Checkout = ({ cart, setCart }) => {
+const Checkout = ({ cart, setCart, className }) => {
   return (
-    <main className="min-h-screen pt-6">
+    <main className={`min-h-screen pt-6 ${className}`}>
       <section className="mx-auto max-w-2xl bg-white">
         <h1 className="text-5xl font-semibold mb-4">Checkout</h1>
         <Card classes="mb-4">
@@ -27,6 +27,10 @@ const Checkout = ({ cart, setCart }) => {
       </section>
     </main>
   );
+};
+
+Checkout.defaultProps = {
+  className: '',
 };
 
 export default Checkout;
