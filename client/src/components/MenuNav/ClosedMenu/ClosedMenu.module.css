@@ -1,0 +1,34 @@
+.nav {
+  position: relative;
+  scroll-behavior: smooth;
+}
+
+.list {
+  display: inline-flex;
+  list-style: none;
+  flex-wrap: nowrap;
+  border-bottom: solid 1px var(--color-border);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.listLink {
+  text-decoration: none;
+  color: inherit;
+  border: none;
+  background-color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 2px solid var(--background-light);
+}
+
+.listLink:hover,
+.active {
+  color: var(--color-main);
+  border-bottom: 2px solid var(--color-main);
+}
+
+.listItem :not(:last-child) {
+  margin-right: 0.8rem;
+}

@@ -5,14 +5,9 @@ const express = require('express');
 const cors = require('cors');
 const errorHandler = require('./errors/errorHandler');
 const notFound = require('./errors/notFound');
-
-
-// const passport = require('./auth/auth');
 const { FRONT_END_URL } = process.env;
 
 const app = express();
-// const passport = require('./auth/auth');
-
 
 const corsOptions = {
   origin: FRONT_END_URL,
@@ -33,14 +28,8 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 app.use('/foods', foodsRouter);
-
 app.use('/orders', orderRouter);
-
 app.use('/users', userRouter);
-
-//app.use('/2fa', passport.authenticate('2fa', { session: false }));
-
-
 
 app.use(notFound);
 app.use(errorHandler);

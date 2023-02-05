@@ -4,7 +4,6 @@ const nodemailer = require('nodemailer');
 const passport = require('passport');
 require('dotenv');
 
-
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -33,18 +32,22 @@ passport.use(
         text: `Your 2FA code is: ${secret}`,
       };
 
-      console.log("Sending 2FA code: ", message); // Log the message
-      
+      console.log('Sending 2FA code: ', message); // Log the message
+
       transporter.sendMail(message, (error, info) => {
         if (error) {
           return done(error);
         }
         console.log(info); // Log the info object
-        if(info.accepted.includes(req.user.email)){
-            console.log(`2FA code sent to ${req.user.email}`); // Check if the email was sent
-            return done(null, info);
-        }else{
-            return done(new Error(`An error occurred while sending the 2FA code to ${req.user.email}`));
+        if (info.accepted.includes(req.user.email)) {
+          console.log(`2FA code sent to ${req.user.email}`); // Check if the email was sent
+          return done(null, info);
+        } else {
+          return done(
+            new Error(
+              `An error occurred while sending the 2FA code to ${req.user.email}`
+            )
+          );
         }
       });
     } catch (error) {
@@ -54,35 +57,42 @@ passport.use(
   })
 );
 
-function send2FACode (req, res, next) {
+function send2FACode(req, res, next) {
   const async = require('async');
 
   const chunkSize = 10; // The number of emails to send in each chunk
 
-  async.eachLimit(req.user.emails, chunkSize, function(email, callback) {
-    const message = {
-      from: 'ztmdummy33782@gmail.com',
-      to: email,
-      subject: 'Your 2FA code',
-      text: `Your 2FA code is: ${secret}`,
-    };
-    transporter.sendMail(message, function (error, info) {
-      if (error) {
-        console.error(error);
-        return callback(error);
-      }
-      console.log(`2FA code sent to ${email}`);
-      callback();
-    });
-  }, function(err) {
-    if (err) {
-      return next({
-        status: 500,
-        message: 'An error occurred while sending the 2FA code'
+  async.eachLimit(
+    req.user.emails,
+    chunkSize,
+    function (email, callback) {
+      const message = {
+        from: 'ztmdummy33782@gmail.com',
+        to: email,
+        subject: 'Your 2FA code',
+        text: `Your 2FA code is: ${secret}`,
+      };
+      transporter.sendMail(message, function (error, info) {
+        if (error) {
+          console.error(error);
+          return callback(error);
+        }
+        console.log(`2FA code sent to ${email}`);
+        callback();
       });
+    },
+    function (err) {
+      if (err) {
+        return next({
+          status: 500,
+          message: 'An error occurred while sending the 2FA code',
+        });
+      }
+      return res
+        .status(200)
+        .json({ data: { message: '2FA code sent successfully' } });
     }
-    return res.status(200).json({ data: { message: '2FA code sent successfully' } });
-  });
+  );
 }
 
 module.exports = send2FACode;

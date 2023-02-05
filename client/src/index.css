@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  min-height: 100vh;
+  font: inherit;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+:root {
+  --color-main-lightest: rgb(255, 151, 151);
+  --color-main--light: rgb(231, 48, 48);
+  --color-main: rgb(192, 14, 14);
+  --color-main--hover: rgb(124, 9, 9);
+  --color-gray: #f5f5f5;
+  --color-gray--dark: #a0a0a0;
+  --color-light: #fff;
+  --color-dark: #222;
+  --color-border: #e6e6e6;
+  --color-main-border: rgb(168, 119, 119);
+  --background-light: #f8f9fa;
+  --background-light-hover: #f0f0f0;
+  --background-light-darker: #e6e6e6;
+  --background-dark: #222;
+  --burger-width: 18px;
+  --burger-height: 2px;
+  --container-spacing: 10%;
+  --container-gap: 1rem;
+}
+
+/* Base hamburger menu */
+
+.burger-menu {
+  height: 30px;
+  width: var(--burger-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.burger-menu,
+.burger-menu * {
+  position: relative;
+  cursor: pointer;
+}
+
+.burger {
+  border-radius: 10px;
+  width: var(--burger-width);
+  height: var(--burger-height);
+  background-color: #000;
+  transition: all 0.25s ease-in-out;
+}
+
+.burger::after,
+.burger::before {
+  content: '';
+  border-radius: 10px;
+  width: var(--burger-width);
+  height: var(--burger-height);
+  background-color: #000;
+  transition: all 0.25s ease-in-out;
+  position: absolute;
+}
+
+.burger::before {
+  transform: translateY(-7px);
+}
+
+.burger::after {
+  transform: translateY(7px);
+}
+
+.burger-menu.opened .burger {
+  transform: translateX(-12px);
+  background: transparent;
+}
+
+.burger-menu.opened .burger::before {
+  transform: rotate(45deg) translate(8px, -8px);
+}
+.burger-menu.opened .burger::after {
+  transform: rotate(-45deg) translate(8px, 8px);
+}
+
+/* special request on checkoutlistItem */
+.specialRequest {
+  font-size: 0.8rem;
+  white-space: pre-line;
+}
