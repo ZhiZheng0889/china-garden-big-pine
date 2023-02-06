@@ -46,9 +46,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
           {/* End Main Content*/}
           <Footer />
         </section>
-        <aside
-          className={`${styles.aside} ${isCheckoutOpen ? styles.opened : ''} `}
-        >
+        <aside>
           <Checkout cart={cart} setCart={setCart} className="hidden xl:block" />
         </aside>
       </div>
