@@ -2,7 +2,7 @@ import React from 'react';
 import { toTitleCase } from '../../../utils/toTitleCase';
 import Card from '../../Card/Card';
 
-const SideNav = ({ className, setCategory }) => {
+const SideNav = ({ className, category, setCategory }) => {
   const changeCategory = ({ target }) => {
     const { id } = target;
     setCategory(id);
@@ -34,7 +34,9 @@ const SideNav = ({ className, setCategory }) => {
           return (
             <li key={cat} onClick={changeCategory} id={cat}>
               <button
-                className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start"
+                className={`py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start ${
+                  category === cat && 'text-red-700 underline bg-slate-50'
+                }`}
                 onClick={changeCategory}
                 id={cat}
               >

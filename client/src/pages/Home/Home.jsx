@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Searchbar from '../../components/Searchbar/Searchbar';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Checkout from '../../components/Checkout/Checkout';
@@ -17,10 +17,18 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   const [search, setSearch] = useState('');
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    setCategory('');
+  }, [search]);
+
   return (
     <main className={`min-h-screen bg-slate-100 pt-6 `}>
       <div className={`container gap-6 custom-grid mx-auto`}>
-        <SideNav className="hidden md:block" setCategory={setCategory} />
+        <SideNav
+          className="hidden md:block"
+          category={category}
+          setCategory={setCategory}
+        />
         <section>
           <div className="mb-6">
             <Searchbar search={search} setSearch={setSearch} />
