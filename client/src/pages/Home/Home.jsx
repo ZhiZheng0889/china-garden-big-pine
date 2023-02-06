@@ -55,7 +55,13 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
           <Footer />
         </section>
         <aside>
-          <Checkout cart={cart} setCart={setCart} className="hidden xl:block" />
+          <Card padding="p-0">
+            <Checkout
+              cart={cart}
+              setCart={setCart}
+              className="hidden xl:block"
+            />
+          </Card>
         </aside>
       </div>
     </main>
