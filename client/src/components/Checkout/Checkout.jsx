@@ -4,7 +4,7 @@ import CheckoutList from './CheckoutList/CheckoutList';
 import CheckoutFooter from './CheckoutFooter/CheckoutFooter';
 const Checkout = ({ cart, setCart }) => {
   return (
-    <Card padding="p-0">
+    <>
       <div className="p-3 border-bottom d-flex flex-column w-100">
         <h3 className="text-lg font-semibold">Cart</h3>
         <CheckoutList cart={cart} setCart={setCart} />
@@ -15,7 +15,7 @@ const Checkout = ({ cart, setCart }) => {
           <CheckoutFooter cart={cart} />
         </div>
       )}
-    </Card>
+    </>
   );
 };
 

@@ -9,27 +9,10 @@ import Checkout from './Checkout/Checkout';
 import Receipt from './Receipt/Receipt';
 import Profile from './Profile/Profile';
 
-const PageRoutes = ({
-  cart,
-  setCart,
-  isCheckoutOpen,
-  setIsCheckoutOpen,
-  user,
-  setUser,
-}) => {
+const PageRoutes = ({ cart, setCart, user, setUser }) => {
   return (
     <Routes>
-      <Route
-        index
-        element={
-          <Home
-            cart={cart}
-            setCart={setCart}
-            isCheckoutOpen={isCheckoutOpen}
-            setIsCheckoutOpen={setIsCheckoutOpen}
-          />
-        }
-      />
+      <Route index element={<Home cart={cart} setCart={setCart} />} />
       <Route
         path="/checkout"
         element={<Checkout cart={cart} setCart={setCart} />}

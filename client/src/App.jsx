@@ -8,8 +8,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
   const [error, setError] = useState(null);
-  // mobile checkout responsiveness
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   useEffect(() => {
     // check if anything is in storage for cart
@@ -71,19 +69,11 @@ function App() {
           user={user}
           cart={cart}
           setCart={setCart}
-          setIsCheckoutOpen={setIsCheckoutOpen}
           setUser={setUser}
           setError={setError}
         />
       </header>
-      <PageRoutes
-        cart={cart}
-        setCart={setCart}
-        isCheckoutOpen={isCheckoutOpen}
-        setIsCheckoutOpen={setIsCheckoutOpen}
-        user={user}
-        setUser={setUser}
-      />
+      <PageRoutes cart={cart} setCart={setCart} user={user} setUser={setUser} />
     </>
   );
 }
