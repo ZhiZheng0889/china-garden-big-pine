@@ -28,25 +28,23 @@ const SideNav = ({ className, category, setCategory }) => {
     'lunch',
   ];
   return (
-    <Card padding="p-0" classes={`${className} h-fit sticky top-0`}>
-      <ul>
-        {categories.map((cat) => {
-          return (
-            <li key={cat} onClick={changeCategory} id={cat}>
-              <button
-                className={`py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start ${
-                  category === cat && 'text-red-700 underline bg-slate-50'
-                }`}
-                onClick={changeCategory}
-                id={cat}
-              >
-                {toTitleCase(cat)}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </Card>
+    <ul>
+      {categories.map((cat) => {
+        return (
+          <li key={cat} onClick={changeCategory} id={cat}>
+            <button
+              className={`py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start ${
+                category === cat && 'text-red-700 underline bg-slate-50'
+              }`}
+              onClick={changeCategory}
+              id={cat}
+            >
+              {toTitleCase(cat)}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 
