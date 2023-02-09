@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Card.module.css';
-const Card = ({ padding, margin, children, width, classes }) => {
+const Card = ({ padding, margin, children, width, classes, borderRadius }) => {
   return (
     <article
-      className={`${padding} ${margin} ${width} border rounded bg-white ${classes}`}
+      className={`${padding} ${margin} ${width} border ${borderRadius} bg-white ${classes}`}
     >
       {children}
     </article>
@@ -15,6 +15,7 @@ Card.defaultProps = {
   margin: 'm-0',
   width: '',
   classes: '',
+  borderRadius: 'rounded',
 };
 
 export default Card;

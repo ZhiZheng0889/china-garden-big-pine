@@ -8,7 +8,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
   const [error, setError] = useState(null);
-
+  const [category, setCategory] = useState('appetizers');
   useEffect(() => {
     // check if anything is in storage for cart
     const foundCart = storage.local.get('cart');
@@ -71,9 +71,18 @@ function App() {
           setCart={setCart}
           setUser={setUser}
           setError={setError}
+          category={category}
+          setCategory={setCategory}
         />
       </header>
-      <PageRoutes cart={cart} setCart={setCart} user={user} setUser={setUser} />
+      <PageRoutes
+        cart={cart}
+        setCart={setCart}
+        user={user}
+        setUser={setUser}
+        category={category}
+        setCategory={setCategory}
+      />
     </>
   );
 }

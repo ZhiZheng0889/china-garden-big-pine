@@ -10,9 +10,7 @@ import ErrorAlert from '../../errors/ErrorAlert';
 import MenuNav from '../../components/MenuNav/MenuNav';
 import Footer from '../../components/Footer/Footer';
 import SideNav from '../../components/Nav/SideNav/SideNav';
-const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
-  // state of category nav
-  const [category, setCategory] = useState('appetizers');
+const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
   // state of searchbar
   const [search, setSearch] = useState('');
   const [error, setError] = useState(null);
@@ -24,11 +22,14 @@ const Home = ({ cart, setCart, isCheckoutOpen, setIsCheckoutOpen }) => {
   return (
     <main className={`min-h-screen bg-slate-100 pt-6 `}>
       <div className={`container gap-6 custom-grid mx-auto`}>
-        <SideNav
-          className="hidden md:block"
-          category={category}
-          setCategory={setCategory}
-        />
+        <Card padding="p-0" classes="hidden md:block h-fit sticky top-0">
+          <SideNav
+            className="hidden md:block"
+            category={category}
+            setCategory={setCategory}
+          />
+        </Card>
+
         <section>
           <div className="mb-6">
             <Searchbar search={search} setSearch={setSearch} />

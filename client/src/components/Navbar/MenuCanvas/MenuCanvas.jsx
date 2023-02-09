@@ -1,39 +1,41 @@
 import React from 'react';
 import Card from '../../Card/Card';
-import Checkout from '../Checkout';
+import SideNav from '../../Nav/SideNav/SideNav';
 
-const CheckoutCanvas = ({
-  cart,
-  setCart,
-  isCheckoutOpen,
-  setIsCheckoutOpen,
+const MenuCanvas = ({
+  isBurgerOpen,
+  setIsBurgerOpen,
+  category,
+  setCategory,
+  is,
 }) => {
   const closeCanvas = () => {
-    setIsCheckoutOpen(false);
+    setIsBurgerOpen(false);
   };
   return (
     <div
       className={`z-30 ease-out duration-300 ${
-        isCheckoutOpen ? 'right-0 block' : 'left-full hidden'
+        isBurgerOpen ? 'left-0 block' : 'right-full hidden'
       }`}
     >
       <div className="modalBackdrop"></div>
+
       <Card
         classes={`z-50 w-5/12 top-0 h-screen absolute text-black ${
-          isCheckoutOpen ? 'right-0 block' : 'left-full hidden'
+          isBurgerOpen ? 'left-0 block' : 'right-full hidden'
         }`}
         borderRadius=""
         padding="p-0"
       >
         <div className="flex border-b p-3">
-          <button className="p-1" onClick={closeCanvas}>
+          <button className="p-1 ml-auto" onClick={closeCanvas}>
             <i class="fa-solid fa-x" onClick={closeCanvas}></i>
           </button>
         </div>
-        <Checkout cart={cart} setCart={setCart} />
+        <SideNav category={category} setCategory={setCategory} />
       </Card>
     </div>
   );
 };
 
-export default CheckoutCanvas;
+export default MenuCanvas;
