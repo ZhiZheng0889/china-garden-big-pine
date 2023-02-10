@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const controller = require('./user.controller');
 const methodNotAllowed = require('../errors/methodNotAllowed');
-const passport = require('passport');
 
 router
   .route('/login/token')
@@ -9,7 +8,6 @@ router
   .all(methodNotAllowed);
 router.route('/login').post(controller.login).all(methodNotAllowed);
 router.route('/logout').post(controller.logout).all(methodNotAllowed);
-router.route('/2fa').post(controller.TwoFA).all(methodNotAllowed);
 router.route('/:user_id').get(controller.getUserById).all(methodNotAllowed);
 //router.get( router, passport.authenticate('2fa', { session: false }), dashboardController.handleDashboard);
 router
