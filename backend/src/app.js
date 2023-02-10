@@ -21,6 +21,7 @@ const corsOptions = {
 const foodsRouter = require('./foods/foods.router');
 const orderRouter = require('./order/order.router');
 const userRouter = require('./user/user.router');
+const verifyRouter = require('./verify/verify.router');
 
 app.use(cookieParser());
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use(cors(corsOptions));
 app.use('/foods', foodsRouter);
 app.use('/orders', orderRouter);
 app.use('/users', userRouter);
+app.use('/authentication', verifyRouter);
 
 app.use(notFound);
 app.use(errorHandler);
