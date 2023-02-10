@@ -28,6 +28,8 @@ function isFood_idsValid(food_ids) {
     });
 }
 
+function createOrder(order) {}
+
 /*
  * reads one signle order
  * @returns Promise<Order[]>
@@ -41,4 +43,5 @@ module.exports = {
   list,
   read,
   isFood_idsValid,
+  createOrder,
 };

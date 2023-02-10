@@ -3,16 +3,9 @@ const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
-const REQUIRED_PROPERTIES = ['cart', 'user_id', 'email'];
-const PROPERTIES = [
-  'cart',
-  'user_id',
-  'phone_number',
-  'email',
-  'order_id',
-  'created_at',
-  'updated_at',
-];
+const PROPERTIES = ['cart', 'user_id', 'phone_number', 'email'];
+const REQUIRED_PROPERTIES = ['cart', 'user_id'];
+
 const CART_VALID_PROPERTIES = [
   'food_id',
   'specialRequest',
@@ -83,6 +76,11 @@ function isValidCart(req, res, next) {
   });
 }
 
+async function create(req, res, next) {
+  const response = await service.createOrder(req.body.data);
+  res.status(200).json({ data: 'SUCCESS' });
+}
+
 /*
  * Order controller
  * @returns array of middleware functions that the router can handle.
@@ -91,12 +89,13 @@ module.exports = {
   list: [],
   read: [],
   create: [
-    hasRequiredProperties(REQUIRED_PROPERTIES),
     hasOnlyValidProperties(PROPERTIES),
+    hasRequiredProperties(REQUIRED_PROPERTIES),
     asyncErrorBoundary(isValidUser_id),
     isValidEmail,
     isValidPhoneNumber,
     isValidCart,
+    asyncErrorBoundary(create),
   ],
   destroy: [],
 };

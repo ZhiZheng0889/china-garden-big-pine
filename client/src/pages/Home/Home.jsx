@@ -22,7 +22,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
   return (
     <main className={`min-h-screen bg-slate-100 pt-6 `}>
       <div className={`container gap-6 custom-grid mx-auto`}>
-        <Card padding="p-0" classes="hidden md:block h-fit sticky top-0">
+        <Card padding="p-0" classes="hidden md:block h-fit sticky top-5">
           <SideNav
             className="hidden md:block"
             category={category}

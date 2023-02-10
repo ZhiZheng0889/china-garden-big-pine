@@ -3,11 +3,8 @@ const service = require('./user.service');
 const bcrypt = require('bcryptjs');
 const { SALT } = process.env;
 const UserAuth = require('../auth/UserAuth');
-const passport = require('passport');
-const twoFactorAuth = require('../auth/auth'); // import the 2FA code
 const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
 const hasRequiredProperties = require('../utils/hasRequiredProperties');
-const send2FACode = require('../auth/auth');
 
 const VALID_PROPERTIES = [
   'email',
@@ -430,11 +427,4 @@ module.exports = {
   getUserById: [],
   updateUser: [],
   deleteUser: [],
-  TwoFA: [
-    hasOnlyValidProperties(VALID_2FA_PROPERTIES),
-    hasRequiredProperties(VALID_2FA_PROPERTIES),
-    asyncErrorBoundary(emailExist),
-    asyncErrorBoundary(usernameExist),
-    asyncErrorBoundary(send2FACode),
-  ],
 };
