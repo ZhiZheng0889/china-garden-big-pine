@@ -27,7 +27,7 @@ const CheckoutCanvas = ({
       >
         <div className="flex border-b p-3">
           <button className="p-1" onClick={closeCanvas}>
-            <i class="fa-solid fa-x" onClick={closeCanvas}></i>
+            <i className="fa-solid fa-x" onClick={closeCanvas}></i>
           </button>
         </div>
         <Checkout cart={cart} setCart={setCart} />

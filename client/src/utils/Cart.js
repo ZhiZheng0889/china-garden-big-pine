@@ -10,12 +10,6 @@ export class Cart {
       console.log(item, cartItem);
       return objectIsEqual(item, cartItem, ['quantity', 'total'], {
         specialRequest: (obj1, obj2) => {
-          console.log(
-            'obj1: ',
-            obj1.specialRequest,
-            'obj2: ',
-            obj2.specialRequest
-          );
           if (
             obj1.specialRequest.toLowerCase() !==
             obj2.specialRequest.toLowerCase()
@@ -60,11 +54,12 @@ export class Cart {
 
   static updateQuantity(index, amount, cart, setCart) {
     const updatedQuantity = cart[index];
+    const { option = 1, size = 1 } = cart[index];
     updatedQuantity.quantity += amount;
     this.update(index, updatedQuantity, setCart);
   }
 
-  static getTotal(cart) {
+  static getCartTotal(cart) {
     return (
       (Array.isArray(cart) &&
         cart.reduce(
@@ -74,6 +69,8 @@ export class Cart {
       0
     );
   }
+
+  static getItemTotal(index, cart) {}
 
   static clearCart(setCart) {
     setCart([]);

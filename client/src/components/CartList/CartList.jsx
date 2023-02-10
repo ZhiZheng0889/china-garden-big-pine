@@ -13,7 +13,7 @@ const CartList = ({ cart }) => {
                 {item.option && <li>item.option</li>}
                 {item.currentSize && <li>{item.currentSize}</li>}
               </ul>
-              <p className="font-medium">${item.total * item.quantity}</p>
+              <p className="font-medium">${cart[index].total}</p>
             </li>
           );
         })}
