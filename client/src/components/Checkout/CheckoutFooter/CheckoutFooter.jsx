@@ -9,7 +9,7 @@ const CheckoutFooter = ({ cart }) => {
   const [tax, setTax] = useState(FLORIDA_TAX);
   const [total, setTotal] = useState(0);
   useEffect(() => {
-    const cartTotal = Cart.getTotal(cart);
+    const cartTotal = Cart.getCartTotal(cart);
     setSubTotal(cartTotal);
   }, [cart]);
 

@@ -23,7 +23,7 @@ const Navbar = ({
           className="p-2 md:hidden"
           onClick={() => setIsBurgerOpen((c) => !c)}
         >
-          <i class="fa-regular fa-bars fa-lg"></i>
+          <i className="fa-regular fa-bars fa-lg"></i>
         </button>
         <Link to="/" className="text-lg font-semibold py-2">
           China Garden

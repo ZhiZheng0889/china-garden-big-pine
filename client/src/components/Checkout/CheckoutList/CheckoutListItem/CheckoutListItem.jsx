@@ -35,7 +35,7 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
         {currentOption && <p>- {snakeToTitleCase(currentOption)}</p>}
         {currentSize && <p>- {snakeToTitleCase(currentSize)}</p>}
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
-        <p className={styles.cost}>${formatCost(total * quantity)}</p>
+        <p className={styles.cost}>${formatCost(total)}</p>
       </div>
       <div className="ml-auto">
         <ChangeQuantityButton
