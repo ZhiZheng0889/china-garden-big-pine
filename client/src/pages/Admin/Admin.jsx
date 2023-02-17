@@ -2,6 +2,84 @@
 //admin page will have a table of all users
 //admin page will have a table of all products
 //admin page will have a table of all categories
+
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { listOrders } from '../../api/orderApi';
+import Card from '../../components/Card/Card';
+import Footer from '../../components/Footer/Footer';
+import ProfileFavoriteMeals from '../../components/Profile/ProfileFavoriteMeals/ProfileFavoriteMeals';
+import ProfileFavoriteOrders from '../../components/Profile/ProfileFavoriteOrders/ProfileFavoriteOrders';
+import ProfileOrders from '../../components/Profile/ProfileOrders/ProfileOrders';
+import ErrorAlert from '../../errors/ErrorAlert';
+const Admin = ({ user }) => {
+  const [error, setError] = useState(null);
+  const { first_name, username, user_id } = user;
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    setError(null);
+    (async () => {
+      try {
+        const response = await listOrders(user_id);
+        if (response) {
+          setOrders(response);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    })();
+  }, [user_id]);
+  
+  return (
+    <main className="min-h-screen bg-slate-100 flex justify-center pt-6">
+      <div className="container grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">
+        <section className="">
+          {user && (
+            <div className="flex flex-col gap-6">
+              <Card classes="flex justify-between align-center">
+                <h3 className="font-lg font-semibold">
+                  Welcome back, {first_name}
+                </h3>
+                <Link to="/settings" className="text-slate-500">
+                  <i className="fa-regular fa-gear fa-lg"></i>
+                </Link>
+              </Card>
+              <ProfileFavoriteOrders user_id={user_id} />
+              <ProfileFavoriteMeals user_id={user_id} />
+            </div>
+          )}
+          <Footer />
+        </section>
+        <aside className="">
+          {error && (
+            <div className="pb-3">
+              <ErrorAlert error={error} />
+            </div>
+          )}
+          <Card>
+            <h3 className="font-lg font-semibold">Your Orders</h3>
+            <ProfileOrders orders={orders} />
+          </Card>
+        </aside>
+      </div>
+    </main>
+  );
+};
+
+
+export default Admin;
+
+
+// Path: client\src\pages\Admin\Admin.css
+//admin.css for admin page
+//admin page will have a table of all users
+//admin page will have a table of all products
+//admin page will have a table of all categories
+
+
+
+
+
 //admin page will have a form to add a new user
 //admin page will have a form to add a new product
 //admin page will have a form to add a new category
@@ -15,85 +93,11 @@
 //admin page will have a form to add a new product
 //admin page will have a form to add a new category
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Button, TextField, Grid, Typography } from '@material-ui/core';
-import { Delete, Edit } from '@material-ui/icons';
-import { getUsers, deleteUser } from '../../redux/actions/userActions';
-import { getProducts, deleteProduct } from '../../redux/actions/productActions';
-import { getCategories, deleteCategory } from '../../redux/actions/categoryActions';
+//help me with this one
+//I need to figure out how to get the id of the user I want to delete
+//I need to figure out how to get the id of the product I want to delete
+//I need to figure out how to get the id of the category I want to delete
+//I need to figure out how to get the id of the user I want to edit
+//I need to figure out how to get the id of the product I want to edit
+//I need to figure out how to get the id of the category I want to edit
 
-const styles = theme => ({
-    root: {
-        width: '100%',
-        marginTop: theme.spacing(3),
-        overflowX: 'auto',
-    },
-    table: { minWidth: 650 },
-    tableContainer: { margin: theme.spacing(2) },  
-    tableHead: { backgroundColor: theme.palette.common.black, color: theme.palette.common.white },
-    tableCell: { color: theme.palette.common.white },
-    tableRow: { '&:nth-of-type(odd)': { backgroundColor: theme.palette.background.default } },
-    tablePagination: { backgroundColor: theme.palette.common.black, color: theme.palette.common.white },
-    button: { margin: theme.spacing(1) },
-    textField: { margin: theme.spacing(1) },
-    grid: { margin: theme.spacing(1) },
-    typography: { margin: theme.spacing(1) }
-});
-
-class Admin extends Component {
-
-    state = {
-        users: [],
-        products: [],
-        categories: [],
-        user: {
-            id: '',
-            username: '',
-            password: '',
-            role: ''
-        },
-        product: {
-            id: '',
-            name: '',
-            description: '',
-            price: '',
-            category: ''
-        },
-        category: {
-            id: '',
-            name: ''
-        },
-        page: 0,
-        rowsPerPage: 5
-    };
-
-    componentDidMount() {
-        this.props.getUsers();
-        this.props.getProducts();
-        this.props.getCategories();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.users !== prevProps.users) {
-            this.setState({ users: this.props.users });
-        }
-        if (this.props.products !== prevProps.products) {
-            this.setState({ products: this.props.products });
-        }
-        if (this.props.categories !== prevProps.categories) {
-            this.setState({ categories: this.props.categories });
-        }
-    }
-    
-    handleChangePage = (event, newPage) => {
-        this.setState({ page: newPage });
-    }; 
-    
-    handleChangeRowsPerPage = event => {
-        this.setState({ rowsPerPage: +event.target.value });
-        this.setState({ page: 0 });
-    };
-}
