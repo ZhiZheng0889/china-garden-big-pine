@@ -313,3 +313,7 @@ return (
         </div>
     </div>
 );
+
+
+//export the components
+export default UpdateUser;

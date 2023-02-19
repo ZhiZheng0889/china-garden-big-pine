@@ -195,3 +195,6 @@ return (
         </div>
     </div>
 );
+
+ //export the FoodItems function
+export default FoodItems;
