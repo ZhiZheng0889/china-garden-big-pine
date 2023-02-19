@@ -20,6 +20,7 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
           { search, category },
           abortControler.signal
         );
+        console.log(response);
         setFoods(response);
       } catch (error) {
         setError(error);

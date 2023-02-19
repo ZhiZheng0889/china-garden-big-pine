@@ -21,7 +21,7 @@ const MenuCanvas = ({
       <div className="modalBackdrop"></div>
 
       <Card
-        classes={`z-50 w-6/12 top-0 h-screen absolute text-black ${
+        classes={`z-50 w-6/12 top-0 fixed absolute text-black ${
           isBurgerOpen ? 'left-0 block' : 'right-full hidden'
         }`}
         borderRadius=""

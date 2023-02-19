@@ -5,6 +5,7 @@ import SpecialRequest from './SpecialRequest/SpecialRequest';
 import ModalOptions from './ModalOptions/ModalOptions';
 import styles from './Modal.module.css';
 import { Cart } from '../../utils/Cart';
+import { isObjectEmpty } from '../../utils/isObjectEmpty';
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
@@ -34,23 +35,31 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (quantity <= 0) {
       setError({ message: 'Quantity has to be greater than zero' });
     } else {
-      const itemToAdd = {
+      console.log(
         food_id,
         name,
         description,
-        total,
         base_price,
         option,
         size,
         quantity,
+        currentOption,
+        currentSize,
+        specialRequest
+      );
+      console.log(isObjectEmpty(currentSize));
+      const itemToAdd = {
+        food_id,
+        name,
+        description,
+        base_price,
+        option,
+        size,
+        quantity,
+        currentOption: isObjectEmpty(currentOption) ? {} : currentOption,
+        currentSize: isObjectEmpty(currentSize) ? {} : currentSize,
         specialRequest: specialRequest,
       };
-      if (currentOption && currentOption.option) {
-        itemToAdd.currentOption = currentOption.option;
-      }
-      if (currentSize && currentSize.option) {
-        itemToAdd.currentSize = currentSize.option;
-      }
       Cart.add(itemToAdd, cart, setCart);
       setFood(null);
     }

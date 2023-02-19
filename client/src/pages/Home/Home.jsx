@@ -55,7 +55,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
           {/* End Main Content*/}
           <Footer />
         </section>
-        <aside>
+        <aside className="hidden xl:block">
           <Card padding="p-0">
             <Checkout
               cart={cart}

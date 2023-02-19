@@ -22,15 +22,16 @@ export class Cart {
   }
 
   static add(item, cart, setCart) {
-    console.log(cart);
     const index = this.getIndex(item, cart);
     if (index >= 0) {
-      setCart((curr) => {
-        const newArr = [...curr];
-        newArr[index].quantity += item.quantity;
-        newArr[index].total += item.total;
-        return [...newArr];
-      });
+      if (
+        cart[index].specialRequest.toLowerCase() ===
+        item.specialRequest.toLowerCase()
+      ) {
+        this.updateQuantity(index, 1, cart, setCart);
+      } else {
+        setCart((curr) => [...curr, item]);
+      }
     } else {
       setCart((curr) => [...curr, item]);
     }
@@ -70,7 +71,21 @@ export class Cart {
     );
   }
 
-  static getItemTotal(index, cart) {}
+  static getItemTotal(index, cart) {
+    const cartItem = cart[index];
+    console.log(cart?.currentSize);
+    const currentOptionPrice =
+      cart?.curentOption?.upCharge > 0 ? cart.curentOption.upCharge : 0;
+    const currentSizePrice =
+      cart?.currentSize?.upCharge > 0 ? cart.currentSize.upCharge : 0;
+    console.log(cartItem?.currentSize);
+    console.log(cartItem?.currentSize?.upCharge, currentSizePrice);
+    console.log(cartItem?.currentOption?.upCharge, currentOptionPrice);
+    const total =
+      (cartItem.base_price + currentOptionPrice + currentSizePrice) *
+      cartItem.quantity;
+    return total;
+  }
 
   static clearCart(setCart) {
     setCart([]);
