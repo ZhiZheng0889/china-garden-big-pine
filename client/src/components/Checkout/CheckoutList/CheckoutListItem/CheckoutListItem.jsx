@@ -34,10 +34,10 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
         </h4>
         <p className={styles.description}>{description}</p>
         {!isObjectEmpty(currentOption) && (
-          <p>- {snakeToTitleCase(currentOption)}</p>
+          <p>- {snakeToTitleCase(currentOption.option)}</p>
         )}
         {!isObjectEmpty(currentSize) && (
-          <p>- {snakeToTitleCase(currentSize)}</p>
+          <p>- {snakeToTitleCase(currentSize.option)}</p>
         )}
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
         <p className={styles.cost}>

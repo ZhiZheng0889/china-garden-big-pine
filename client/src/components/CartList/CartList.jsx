@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Cart } from '../../utils/Cart';
 const CartList = ({ cart }) => {
   return (
     cart &&
@@ -13,7 +13,7 @@ const CartList = ({ cart }) => {
                 {item.option && <li>item.option</li>}
                 {item.currentSize && <li>{item.currentSize}</li>}
               </ul>
-              <p className="font-medium">${cart[index].total}</p>
+              <p className="font-medium">${Cart.getItemTotal(index, cart)}</p>
             </li>
           );
         })}

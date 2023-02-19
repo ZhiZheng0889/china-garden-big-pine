@@ -35,7 +35,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (quantity <= 0) {
       setError({ message: 'Quantity has to be greater than zero' });
     } else {
-      console.log(
+      const itemToAdd = {
         food_id,
         name,
         description,
@@ -45,19 +45,6 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         quantity,
         currentOption,
         currentSize,
-        specialRequest
-      );
-      console.log(isObjectEmpty(currentSize));
-      const itemToAdd = {
-        food_id,
-        name,
-        description,
-        base_price,
-        option,
-        size,
-        quantity,
-        currentOption: isObjectEmpty(currentOption) ? {} : currentOption,
-        currentSize: isObjectEmpty(currentSize) ? {} : currentSize,
         specialRequest: specialRequest,
       };
       Cart.add(itemToAdd, cart, setCart);

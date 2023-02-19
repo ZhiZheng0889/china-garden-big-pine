@@ -7,7 +7,6 @@ export class Cart {
   */
   static getIndex(item, cart) {
     return cart.findIndex((cartItem) => {
-      console.log(item, cartItem);
       return objectIsEqual(item, cartItem, ['quantity', 'total'], {
         specialRequest: (obj1, obj2) => {
           if (
@@ -73,14 +72,8 @@ export class Cart {
 
   static getItemTotal(index, cart) {
     const cartItem = cart[index];
-    console.log(cart?.currentSize);
-    const currentOptionPrice =
-      cart?.curentOption?.upCharge > 0 ? cart.curentOption.upCharge : 0;
-    const currentSizePrice =
-      cart?.currentSize?.upCharge > 0 ? cart.currentSize.upCharge : 0;
-    console.log(cartItem?.currentSize);
-    console.log(cartItem?.currentSize?.upCharge, currentSizePrice);
-    console.log(cartItem?.currentOption?.upCharge, currentOptionPrice);
+    const currentOptionPrice = cartItem.currentOption?.upCharge || 0;
+    const currentSizePrice = cartItem.currentSize?.upCharge || 0;
     const total =
       (cartItem.base_price + currentOptionPrice + currentSizePrice) *
       cartItem.quantity;
