@@ -12,6 +12,7 @@ const MapContainer = () => {
     },
     zoom: 11,
   };
+
   return (
     <div style={{ height: '50rem', width: '100%' }}>
       <GoogleMapReact

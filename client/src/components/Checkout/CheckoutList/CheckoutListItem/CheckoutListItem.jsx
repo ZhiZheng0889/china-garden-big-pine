@@ -4,6 +4,7 @@ import { formatCost } from '../../../../utils/formatCost';
 import { formatSpecialRequest } from '../../../../utils/FormatSpecialRequest';
 import { snakeToTitleCase } from '../../../../utils/snakeToTitleCase';
 import ChangeQuantityButton from '../../../Button/ChangeQuantityButton/ChangeQuantityButton';
+import { isObjectEmpty } from '../../../../utils/isObjectEmpty';
 import styles from './CheckoutListItem.module.css';
 const CheckoutListItem = ({ item, cart, setCart, index }) => {
   const {
@@ -11,7 +12,6 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
     description,
     quantity,
     amount = null,
-    total,
     option,
     size,
     currentOption,
@@ -32,10 +32,16 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
-        {currentOption && <p>- {snakeToTitleCase(currentOption)}</p>}
-        {currentSize && <p>- {snakeToTitleCase(currentSize)}</p>}
+        {!isObjectEmpty(currentOption) && (
+          <p>- {snakeToTitleCase(currentOption.option)}</p>
+        )}
+        {!isObjectEmpty(currentSize) && (
+          <p>- {snakeToTitleCase(currentSize.option)}</p>
+        )}
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
-        <p className={styles.cost}>${formatCost(total)}</p>
+        <p className={styles.cost}>
+          ${Cart.getItemTotal(index, cart).toFixed(2)}
+        </p>
       </div>
       <div className="ml-auto">
         <ChangeQuantityButton

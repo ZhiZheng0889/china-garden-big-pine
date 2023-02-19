@@ -7,7 +7,6 @@ export class Cart {
   */
   static getIndex(item, cart) {
     return cart.findIndex((cartItem) => {
-      console.log(item, cartItem);
       return objectIsEqual(item, cartItem, ['quantity', 'total'], {
         specialRequest: (obj1, obj2) => {
           if (
@@ -22,15 +21,16 @@ export class Cart {
   }
 
   static add(item, cart, setCart) {
-    console.log(cart);
     const index = this.getIndex(item, cart);
     if (index >= 0) {
-      setCart((curr) => {
-        const newArr = [...curr];
-        newArr[index].quantity += item.quantity;
-        newArr[index].total += item.total;
-        return [...newArr];
-      });
+      if (
+        cart[index].specialRequest.toLowerCase() ===
+        item.specialRequest.toLowerCase()
+      ) {
+        this.updateQuantity(index, 1, cart, setCart);
+      } else {
+        setCart((curr) => [...curr, item]);
+      }
     } else {
       setCart((curr) => [...curr, item]);
     }
@@ -62,15 +62,28 @@ export class Cart {
   static getCartTotal(cart) {
     return (
       (Array.isArray(cart) &&
-        cart.reduce(
-          (accumulator, item) => accumulator + item.total * item.quantity,
-          0
-        )) ||
+        cart.reduce((accumulator, item) => {
+          const currentOptionPrice = item.currentOption?.upCharge || 0;
+          const currentSizePrice = item.currentSize?.upCharge || 0;
+          return (
+            accumulator +
+            (item.base_price + currentOptionPrice + currentSizePrice) *
+              item.quantity
+          );
+        }, 0)) ||
       0
     );
   }
 
-  static getItemTotal(index, cart) {}
+  static getItemTotal(index, cart) {
+    const cartItem = cart[index];
+    const currentOptionPrice = cartItem.currentOption?.upCharge || 0;
+    const currentSizePrice = cartItem.currentSize?.upCharge || 0;
+    const total =
+      (cartItem.base_price + currentOptionPrice + currentSizePrice) *
+      cartItem.quantity;
+    return total;
+  }
 
   static clearCart(setCart) {
     setCart([]);

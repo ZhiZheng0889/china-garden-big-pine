@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { listOrders } from '../../api/orderApi';
 import Card from '../../components/Card/Card';
 import Footer from '../../components/Footer/Footer';
@@ -9,8 +9,11 @@ import ProfileOrders from '../../components/Profile/ProfileOrders/ProfileOrders'
 import ErrorAlert from '../../errors/ErrorAlert';
 const Profile = ({ user }) => {
   const [error, setError] = useState(null);
-  const { first_name, username, user_id } = user;
+
   const [orders, setOrders] = useState([]);
+  if (!user) {
+    redirect('/');
+  }
   useEffect(() => {
     setError(null);
     (async () => {
@@ -24,7 +27,7 @@ const Profile = ({ user }) => {
       }
     })();
   }, [user_id]);
-
+  const { first_name, username, user_id } = user;
   return (
     <main className="min-h-screen bg-slate-100 flex justify-center pt-6">
       <div className="container grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">

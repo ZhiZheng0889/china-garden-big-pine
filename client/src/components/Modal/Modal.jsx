@@ -5,6 +5,7 @@ import SpecialRequest from './SpecialRequest/SpecialRequest';
 import ModalOptions from './ModalOptions/ModalOptions';
 import styles from './Modal.module.css';
 import { Cart } from '../../utils/Cart';
+import { isObjectEmpty } from '../../utils/isObjectEmpty';
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
@@ -38,19 +39,14 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         food_id,
         name,
         description,
-        total,
         base_price,
         option,
         size,
         quantity,
+        currentOption,
+        currentSize,
         specialRequest: specialRequest,
       };
-      if (currentOption && currentOption.option) {
-        itemToAdd.currentOption = currentOption.option;
-      }
-      if (currentSize && currentSize.option) {
-        itemToAdd.currentSize = currentSize.option;
-      }
       Cart.add(itemToAdd, cart, setCart);
       setFood(null);
     }

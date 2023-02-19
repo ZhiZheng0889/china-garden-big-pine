@@ -8,7 +8,6 @@ import Card from '../../components/Card/Card';
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
     email: '',
-    username: '',
     first_name: '',
     phone_number: '',
     password: '',
