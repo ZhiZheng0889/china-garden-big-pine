@@ -1,5 +1,6 @@
 import React from 'react';
 import { Cart } from '../../utils/Cart';
+import { isObjectEmpty } from '../../utils/isObjectEmpty';
 const CartList = ({ cart }) => {
   return (
     cart &&
@@ -10,8 +11,12 @@ const CartList = ({ cart }) => {
             <li key={item.name + index}>
               <h4 className="font-semibold">{item.name}</h4>
               <ul className="pl-3">
-                {item.option && <li>item.option</li>}
-                {item.currentSize && <li>{item.currentSize}</li>}
+                {!isObjectEmpty(item.currentOption) && (
+                  <li>item.option.option</li>
+                )}
+                {!isObjectEmpty(item.currentSize) && (
+                  <li>{item.currentSize.option}</li>
+                )}
               </ul>
               <p className="font-medium">${Cart.getItemTotal(index, cart)}</p>
             </li>

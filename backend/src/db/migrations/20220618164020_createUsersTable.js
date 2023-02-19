@@ -8,7 +8,6 @@ exports.up = function (knex) {
     table.string('email').unique().notNullable();
     table.string('first_name').notNullable();
     table.string('last_name').nullable();
-    table.string('username').unique().notNullable();
     table.boolean('isAdmin').nullable();
     table.text('phone_number').unique().notNullable();
     table.text('password').notNullable();

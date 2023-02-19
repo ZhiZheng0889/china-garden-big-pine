@@ -62,10 +62,15 @@ export class Cart {
   static getCartTotal(cart) {
     return (
       (Array.isArray(cart) &&
-        cart.reduce(
-          (accumulator, item) => accumulator + item.total * item.quantity,
-          0
-        )) ||
+        cart.reduce((accumulator, item) => {
+          const currentOptionPrice = item.currentOption?.upCharge || 0;
+          const currentSizePrice = item.currentSize?.upCharge || 0;
+          return (
+            accumulator +
+            (item.base_price + currentOptionPrice + currentSizePrice) *
+              item.quantity
+          );
+        }, 0)) ||
       0
     );
   }

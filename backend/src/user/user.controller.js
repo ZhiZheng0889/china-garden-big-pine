@@ -10,18 +10,11 @@ const VALID_PROPERTIES = [
   'email',
   'phone_number',
   'password',
-  'username',
   'isAdmin',
   'first_name',
   'last_name',
 ];
-const REQUIRED_PROPERTIES = [
-  'email',
-  'first_name',
-  'username',
-  'phone_number',
-  'password',
-];
+const REQUIRED_PROPERTIES = ['email', 'first_name', 'phone_number', 'password'];
 
 const VALID_2FA_PROPERTIES = ['email', 'username'];
 

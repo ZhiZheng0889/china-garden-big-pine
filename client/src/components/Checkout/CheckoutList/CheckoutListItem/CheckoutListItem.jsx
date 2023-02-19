@@ -12,7 +12,6 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
     description,
     quantity,
     amount = null,
-
     option,
     size,
     currentOption,
