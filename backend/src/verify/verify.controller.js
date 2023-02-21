@@ -18,18 +18,26 @@ const VALID_VERIFY_PROPERTIES = ['request_id', 'code'];
 const REQUIRED_VERIFY_PROPERTIES = ['request_id', 'code'];
 const VALID_SEND_PROPERTIES = ['phone_number'];
 const REQUIRED_SEND_PROPERTIES = ['phone_number'];
-function verify(req, res, next) {
-  const { request_id, code } = req.body.data;
-  vonage.verify
-    .check(request_id, code)
-    .then((response) => {
-      console.log(response);
-      return res.status(200).json({ data: response });
-    })
-    .catch((err) => {
-      console.log(err);
-      return next({ status: 404, message: err.error_text });
-    });
+async function verify(req, res, next) {
+  try {
+    const { request_id, code, user_id } = req.body.data;
+    const response = await vonage.verify.check(request_id, code);
+    console.log(response);
+    if (user_id) {
+      const updatedUser = await service.phoneNumberIsVerified(user_id);
+      return res.status(200).json({
+        data: {
+          updatedUser,
+          response,
+          warning: 'Unable to update verified Phone Number to database',
+        },
+      });
+    }
+    return res.status(200).json({ data: response });
+  } catch (error) {
+    console.log(error);
+    return next({ status: 404, message: err.error_text });
+  }
 }
 
 function send(req, res, next) {
@@ -40,6 +48,9 @@ function send(req, res, next) {
       brand: 'China Garden',
     })
     .then((response) => {
+      if (response.status === '15') {
+        return next({ status: 400, message: response.error_text });
+      }
       return res
         .status(200)
         .json({ data: { request_id: response.request_id, response } });

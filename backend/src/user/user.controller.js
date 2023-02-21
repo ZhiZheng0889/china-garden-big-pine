@@ -143,7 +143,14 @@ function logout(req, res, next) {
 }
 
 function sendPayload(req, res, next) {
-  const { email, first_name, phone_number, user_id } = res.locals.user;
+  const {
+    email,
+    first_name,
+    phone_number,
+    user_id,
+    email_is_verified,
+    phone_number_is_verified,
+  } = res.locals.user;
   const { accessToken, refreshToken } = res.locals;
   if (!accessToken || !refreshToken) {
     return next({
@@ -165,6 +172,8 @@ function sendPayload(req, res, next) {
         first_name,
         phone_number,
         refreshToken,
+        email_is_verified,
+        phone_number_is_verified,
       },
     });
 }

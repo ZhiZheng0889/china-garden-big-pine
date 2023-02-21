@@ -32,7 +32,14 @@ const PageRoutes = ({
       />
       <Route
         path="/checkout"
-        element={<Checkout cart={cart} setCart={setCart} />}
+        element={
+          <Checkout
+            cart={cart}
+            setCart={setCart}
+            user={user}
+            setUser={setUser}
+          />
+        }
       />
       <Route path="/receipt" element={<Receipt />} />
       <Route path="/profile" element={<Profile user={user} />} />

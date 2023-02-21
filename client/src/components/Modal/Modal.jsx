@@ -53,9 +53,9 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   };
   return (
     <>
-      <div className={`${styles.modalBackdrop}`}></div>
+      <div className="modalBackdrop"></div>
       <article
-        className={`${styles.modal} bg-white border rounded`}
+        className="modal bg-white border rounded"
         id="foodModal"
         tabIndex="-1"
         aria-labelledby="foodModalLabel"
