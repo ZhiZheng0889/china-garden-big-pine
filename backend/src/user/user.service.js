@@ -28,10 +28,6 @@ function createUsersProfile(user) {
     .then((createdUser) => createdUser[0]);
 }
 
-function readFromUsername(username) {
-  return knex(TABLE).select('*').where({ username }).first();
-}
-
 function readFromPhoneNumber(phone_number) {
   return knex(TABLE).select('*').where({ phone_number }).first();
 }
@@ -50,7 +46,6 @@ module.exports = {
   createUsersProfile,
   getAllUsers,
   getUserById,
-  readFromUsername,
   readFromPhoneNumber,
   readFromUserProfile,
   destroy,

@@ -11,9 +11,11 @@ const Profile = ({ user }) => {
   const [error, setError] = useState(null);
 
   const [orders, setOrders] = useState([]);
+  console.log(user);
   if (!user) {
     redirect('/');
   }
+  const { first_name, user_id } = user;
   useEffect(() => {
     setError(null);
     (async () => {
@@ -27,7 +29,7 @@ const Profile = ({ user }) => {
       }
     })();
   }, [user_id]);
-  const { first_name, username, user_id } = user;
+
   return (
     <main className="min-h-screen bg-slate-100 flex justify-center pt-6">
       <div className="container grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">

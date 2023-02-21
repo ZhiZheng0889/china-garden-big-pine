@@ -16,7 +16,7 @@ const VALID_PROPERTIES = [
 ];
 const REQUIRED_PROPERTIES = ['email', 'first_name', 'phone_number', 'password'];
 
-const VALID_2FA_PROPERTIES = ['email', 'username'];
+const VALID_2FA_PROPERTIES = ['email'];
 
 const VALID_LOGIN_PROPERTIES = ['email', 'password'];
 const REQUIRED_LOGIN_PROPERTIES = ['email', 'password'];
@@ -28,6 +28,7 @@ const REQUIRED_LOGIN_PROPERTIES = ['email', 'password'];
 // @ access Public
 async function isEmailAvailable(req, res, next) {
   const { email } = req.body.data;
+  console.log(req.body.data);
   const user = await service.read(email);
   if (user) {
     return next({
@@ -51,40 +52,6 @@ async function emailExist(req, res, next) {
   return next({
     status: 404,
     message: 'Email is not found. Please try again.',
-  });
-}
-
-// @ desc   Get and check if the username exist
-// @ route  Get /api/users
-// @ access Public
-
-async function isUsernameAvailable(req, res, next) {
-  const { username } = req.body.data;
-
-  const user = await service.readFromUsername(username);
-  if (user) {
-    return next({
-      status: 409,
-      message: 'Username already in use. Please try a different one.',
-    });
-  }
-  return next();
-}
-
-// @ desc   Get and check if the username exist
-// @ route  Get /api/users
-// @ access Public
-
-async function usernameExist(req, res, next) {
-  const { username } = req.body.data;
-
-  const user = await service.readFromUsername(username);
-  if (user) {
-    return next();
-  }
-  return next({
-    status: 404,
-    message: 'Username is not exist. Please try again.',
   });
 }
 
@@ -176,8 +143,7 @@ function logout(req, res, next) {
 }
 
 function sendPayload(req, res, next) {
-  const { username, email, first_name, phone_number, user_id } =
-    res.locals.user;
+  const { email, first_name, phone_number, user_id } = res.locals.user;
   const { accessToken, refreshToken } = res.locals;
   if (!accessToken || !refreshToken) {
     return next({
@@ -195,7 +161,6 @@ function sendPayload(req, res, next) {
     .json({
       data: {
         user_id,
-        username,
         email,
         first_name,
         phone_number,
@@ -409,7 +374,6 @@ module.exports = {
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
     asyncErrorBoundary(isEmailAvailable),
-    asyncErrorBoundary(isUsernameAvailable),
     asyncErrorBoundary(phoneNumberExist),
     asyncErrorBoundary(encryptPassword),
     asyncErrorBoundary(create),
