@@ -11,6 +11,7 @@ import ErrorAlert from "../../errors/ErrorAlert";
 //call the readFoodItem function from the foodItemApi.js file
 //call the updateFoodItem function from the foodItemApi.js file
 //call the ErrorAlert function from the ErrorAlert.js file
+
 const FoodItems = () => {
     //create a variable called foodItem and set it to an empty object
     FoodItem = {
@@ -62,19 +63,9 @@ const FoodItems = () => {
         console.log("FoodItems.jsx: foodItemImage = ", foodItemImage)
     );
 
-    //create a variable called foodItemQuantity and set it to useState
-    foodItemQuantity = useState(
-        console.log("FoodItems.jsx: foodItemQuantity = ", foodItemQuantity)
-    );
-
     //create a variable called foodItemStatus and set it to useState
     foodItemStatus = useState(
         console.log("FoodItems.jsx: foodItemStatus = ", foodItemStatus)
-    );
-
-    //create a variable called foodItemRating and set it to useState
-    foodItemRating = useState(
-        console.log("FoodItems.jsx: foodItemRating = ", foodItemRating)
     );
     
 }
@@ -149,18 +140,6 @@ return (
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="foodItemQuantity">Food Item Quantity</label>
-                        <input
-                            className="form-control"
-                            id="foodItemQuantity"
-                            type="number"
-                            name="foodItemQuantity"
-                            value={foodItemQuantity}
-                            onChange={handleChange}
-                            required={true}
-                        />  
-                    </div>
-                    <div className="form-group">
                         <label htmlFor="foodItemStatus">Food Item Status</label>
                         <input
                             className="form-control"
@@ -171,18 +150,6 @@ return (
                             onChange={handleChange}
                             required={true}
                         /> 
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="foodItemRating">Food Item Rating</label>
-                        <input
-                            className="form-control"
-                            id="foodItemRating"
-                            type="number"
-                            name="foodItemRating"
-                            value={foodItemRating}
-                            onChange={handleChange}
-                            required={true}
-                        />
                     </div>
                     <button type="submit" className="btn btn-primary">
                         Submit
