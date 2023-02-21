@@ -119,6 +119,7 @@ async function getCartInfo(req, res, next) {
     const orderItems = await service.readCart(order_id);
     const food_ids = orderItems.map((item) => item.food_id);
     const foodInfo = await service.foodsFromCart(food_ids);
+    console.log('FOODINFO: ', foodInfo);
     const foodOptionIds = orderItems.map((item) => item.food_option_id);
     const foodOptions = await service.optionsFromCart(foodOptionIds);
     const foodSizeIds = orderItems.map((item) => item.food_size_id);

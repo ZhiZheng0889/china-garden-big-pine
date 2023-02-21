@@ -1,7 +1,7 @@
 const mapCart = (orderItems, foods) => {
-  console.log('==============================>');
+  console.log('==============================>', orderItems);
   return orderItems.map((item) => {
-    return { ...item, ...foods[item.order_id] };
+    return { ...item, ...foods.find((food) => food.food_id === item.food_id) };
   });
 };
 

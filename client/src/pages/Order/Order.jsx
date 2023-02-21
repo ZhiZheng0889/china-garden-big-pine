@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { OrderApi } from '../../api/orderApi';
 import Card from '../../components/Card/Card';
+import CartList from '../../components/CartList/CartList';
 import Footer from '../../components/Footer/Footer';
 import ErrorAlert from '../../errors/ErrorAlert';
 const Order = () => {
@@ -21,35 +22,27 @@ const Order = () => {
     })();
   }, [order_id]);
   console.log(error);
+  console.log(order?.cart);
   return (
-    <main className="min-h-screen bg-slate-100 flex justify-center pt-6">
-      {error && (
-        <div className="mb-3">
-          <ErrorAlert error={error} />
-        </div>
-      )}
-      <div className="container grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">
-        <section className="">
-          <div className="flex flex-col gap-6">
-            <Card classes="flex justify-between align-center">
-              <h3 className="text- font-semibold">Order</h3>
-            </Card>
-          </div>
-
-          <Footer />
-        </section>
-        <aside className="">
+    <main className="min-h-screen bg-slate-100 pt-6">
+      <section className="mx-auto max-w-2xl bg-white bg-slate-100 flex flex-col gap-4">
+        <ErrorAlert error={error} />
+        <Card>
+          <h3 className="font-semibold">Info</h3>
+          <p className="font-semibold text-center text-lg">
+            Estimated Completion Time
+          </p>
+          <p className="text-center text-green-900 font-semibold">
+            20-35 minutes
+          </p>
+        </Card>
+        {order.hasOwnProperty('cart') && (
           <Card>
-            <h3 className="font-semibold">Info</h3>
-            <p className="font-semibold text-center text-lg">
-              Estimated Completion Time
-            </p>
-            <p className="text-center text-green-900 font-semibold">
-              20-35 minutes
-            </p>
+            <h3 className="font-semibold">Cart</h3>
+            <CartList cart={order.cart} />
           </Card>
-        </aside>
-      </div>
+        )}
+      </section>
     </main>
   );
 };
