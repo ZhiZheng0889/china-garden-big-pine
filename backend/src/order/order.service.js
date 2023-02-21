@@ -58,6 +58,24 @@ function read(order_id) {
   return knex('orders').select('*').where({ order_id }).first();
 }
 
+function readCart(order_id) {
+  return knex('order_items').select('*').where({ order_id });
+}
+
+function foodsFromCart(food_ids) {
+  return knex('foods').select('*').whereIn('food_id', food_ids);
+}
+
+function optionsFromCart(food_option_ids) {
+  return knex('food_options')
+    .select('*')
+    .whereIn('food_option_id', food_option_ids);
+}
+
+function sizesFromCart(food_size_ids) {
+  return knex('food_sizes').select('*').whereIn('food_size_id', food_size_ids);
+}
+
 function readUser(user_id) {
   return knex('users').select('*').where({ user_id }).first();
 }
@@ -67,4 +85,9 @@ module.exports = {
   read,
   isFood_idsValid,
   createOrder,
+  readCart,
+  foodsFromCart,
+  readUser,
+  optionsFromCart,
+  sizesFromCart,
 };

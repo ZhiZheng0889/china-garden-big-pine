@@ -20,4 +20,9 @@ export class OrderApi {
     // return await fetchJson(url, { headers, signal }, []);
     return [];
   }
+
+  static async read(order_id) {
+    const url = `${API_BASE_URL}/orders/${order_id}`;
+    return await fetchJson(url, { headers }, []);
+  }
 }
