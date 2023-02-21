@@ -27,7 +27,8 @@ exports.up = function (knex) {
       .foreign('food_amount_id')
       .references('food_amount_id')
       .inTable('food_amounts');
-    table.string('requests', 500).nullable();
+    table.string('specialRequest', 500).nullable();
+    table.integer('quantity').notNullable();
     table.timestamps(true, true);
   });
 };

@@ -1,5 +1,4 @@
 const knex = require('../db/connection');
-
 /*
  * List orders in descending order
  * @returns Promise<Orders[]>
@@ -28,7 +27,27 @@ function isFood_idsValid(food_ids) {
     });
 }
 
-function createOrder(order) {}
+function createOrder(order) {
+  const { phone_number = null, email = null, user_id, cart } = order;
+  return knex.transaction(async (trx) => {
+    try {
+      const order = await trx('orders')
+        .insert({
+          phone_number,
+          email,
+          user_id,
+        })
+        .returning('*')
+        .then((_) => _[0]);
+      cart.forEach((item) => (item.order_id = order.order_id));
+      const order_items = await trx('order_items').insert(cart).returning('*');
+      return { order_id: order.order_id };
+    } catch (error) {
+      console.log('error: ', error);
+      throw new error(error);
+    }
+  });
+}
 
 /*
  * reads one signle order
@@ -37,6 +56,10 @@ function createOrder(order) {}
 
 function read(order_id) {
   return knex('orders').select('*').where({ order_id }).first();
+}
+
+function readUser(user_id) {
+  return knex('users').select('*').where({ user_id }).first();
 }
 
 module.exports = {

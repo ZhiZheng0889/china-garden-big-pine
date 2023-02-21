@@ -6,21 +6,19 @@ const AuthenticationModal = ({
   setIsModalOpen,
   user,
   setUser,
+  phoneNumber,
+  setPhoneNumber,
 }) => {
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState('1');
   const [requestId, setRequestId] = useState(null);
   const [code, setCode] = useState('');
   const [error, setError] = useState(null);
   const handlePhoneChange = ({ target: { value } }) => {
     if (!value.match(/[a-z]/i)) {
-      console.log(value);
-      console.log(typeof value);
       if (value.length <= 3) {
         setPhoneNumber(value);
       } else {
         const tempValue = value;
-        console.log(value, typeof value);
         if (value.length >= 4) {
           console.log(tempValue.split(''));
           tempValue.split('').splice(3, 0, '-').join('');
@@ -46,7 +44,6 @@ const AuthenticationModal = ({
     try {
       setError(null);
       event.preventDefault();
-      console.log(phoneNumber, countryCode);
       const response = await VerifyApi.sendVerifyToPhoneNumber(
         countryCode + phoneNumber
       );
@@ -69,7 +66,7 @@ const AuthenticationModal = ({
     }
   };
 
-  console.log(requestId);
+  // console.log(requestId);
 
   return (
     isModalOpen && (

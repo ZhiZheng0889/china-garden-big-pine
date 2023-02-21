@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listOrders } from '../../api/orderApi';
+import { OrderApi } from '../../api/orderApi';
 import Card from '../../components/Card/Card';
 import Footer from '../../components/Footer/Footer';
 import ProfileFavoriteMeals from '../../components/Profile/ProfileFavoriteMeals/ProfileFavoriteMeals';
@@ -20,7 +20,7 @@ const Admin = ({ user }) => {
     setError(null);
     (async () => {
       try {
-        const response = await listOrders(user_id);
+        const response = await OrderApi.listOrders(user_id);
         if (response) {
           setOrders(response);
         }
