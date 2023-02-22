@@ -11,6 +11,8 @@ exports.up = function (knex) {
     table.boolean('isAdmin').nullable();
     table.text('phone_number').unique().notNullable();
     table.text('password').notNullable();
+    table.boolean('email_is_verified').defaultTo(0);
+    table.boolean('phone_number_is_verified').defaultTo(0);
     table.timestamps(true, true);
   });
 };

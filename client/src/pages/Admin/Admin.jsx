@@ -4,23 +4,29 @@
 //admin page will have a table of all categories
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { listOrders } from '../../api/orderApi';
+import { Link, useNavigate } from 'react-router-dom';
+import { OrderApi } from '../../api/orderApi';
 import Card from '../../components/Card/Card';
 import Footer from '../../components/Footer/Footer';
 import ProfileFavoriteMeals from '../../components/Profile/ProfileFavoriteMeals/ProfileFavoriteMeals';
 import ProfileFavoriteOrders from '../../components/Profile/ProfileFavoriteOrders/ProfileFavoriteOrders';
 import ProfileOrders from '../../components/Profile/ProfileOrders/ProfileOrders';
 import ErrorAlert from '../../errors/ErrorAlert';
+import { isObjectEmpty } from '../../utils/isObjectEmpty';
+
 const Admin = ({ user }) => {
   const [error, setError] = useState(null);
-  const { first_name, username, user_id } = user;
+  const { first_name, user_id } = user;
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
+  if (isObjectEmpty(user)) {
+    navigate('/');
+  }
   useEffect(() => {
     setError(null);
     (async () => {
       try {
-        const response = await listOrders(user_id);
+        const response = await OrderApi.listOrders(user_id);
         if (response) {
           setOrders(response);
         }
@@ -29,7 +35,7 @@ const Admin = ({ user }) => {
       }
     })();
   }, [user_id]);
-  
+
   return (
     <main className="min-h-screen bg-slate-100 flex justify-center pt-6">
       <div className="container grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">
@@ -66,19 +72,13 @@ const Admin = ({ user }) => {
   );
 };
 
-
 export default Admin;
-
 
 // Path: client\src\pages\Admin\Admin.css
 //admin.css for admin page
 //admin page will have a table of all users
 //admin page will have a table of all products
 //admin page will have a table of all categories
-
-
-
-
 
 //admin page will have a form to add a new user
 //admin page will have a form to add a new product
@@ -100,4 +100,3 @@ export default Admin;
 //I need to figure out how to get the id of the user I want to edit
 //I need to figure out how to get the id of the product I want to edit
 //I need to figure out how to get the id of the category I want to edit
-

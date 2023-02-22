@@ -1,25 +1,6 @@
 const service = require('./foods.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 const mapFood = require('../utils/mapFood');
-/*
- * Check queries for specific type of order or list of food.
- *
- */
-
-const asynclist = async (req, res) => {
-  const keyword = req.query.keyword
-    ? {
-        name: {
-          $regex: req.query.keyword,
-          options: 'i',
-        },
-      }
-    : {};
-
-  const food = await foods.find({ ...keyword });
-
-  res.json(food);
-};
 
 function checkQueryParams(req, res, next) {
   /*
@@ -43,7 +24,6 @@ async function list(req, res, next) {
    * If res.locals.search is defined use service.search() function
    */
   const { category = '', search = '' } = res.locals;
-  console.log('search: ', search);
   let data;
   if (search) {
     data = await service.search(search);
@@ -52,11 +32,9 @@ async function list(req, res, next) {
   } else {
     data = await service.list();
   }
-  console.log('data: ', data);
   const sizes = await service.listSizes();
   const options = await service.listOptions();
   const formattedData = mapFood(data, sizes, options);
-  console.log('formattedData: ', formattedData);
   res.status(200).json({ data: formattedData });
 }
 

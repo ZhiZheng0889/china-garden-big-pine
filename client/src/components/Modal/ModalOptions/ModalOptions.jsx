@@ -14,6 +14,7 @@ const ModalOptions = ({
     const { id } = target;
     setSelectedOption({ option: id, ...options[id] });
   };
+  console.log(options);
   if (Object.keys(options).length > 0) {
     return (
       <>

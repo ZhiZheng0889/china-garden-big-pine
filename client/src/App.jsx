@@ -5,7 +5,7 @@ import { UserApi } from './api/userApi';
 import { storage } from './utils/Storage';
 import ErrorAlert from './errors/ErrorAlert';
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [cart, setCart] = useState([]);
   const [error, setError] = useState(null);
   const [category, setCategory] = useState('appetizers');

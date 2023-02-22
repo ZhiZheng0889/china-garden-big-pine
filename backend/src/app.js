@@ -6,14 +6,13 @@ const cors = require('cors');
 const errorHandler = require('./errors/errorHandler');
 const notFound = require('./errors/notFound');
 const { FRONT_END_URL } = process.env;
-
 const app = express();
-
 const corsOptions = {
-  origin: '*',
+  origin: FRONT_END_URL,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   credentials: true,
+  optionsSuccessStatus: 204,
 };
 
 // Routes
@@ -26,7 +25,6 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use(cors(corsOptions));
-
 app.use('/foods', foodsRouter);
 app.use('/orders', orderRouter);
 app.use('/users', userRouter);

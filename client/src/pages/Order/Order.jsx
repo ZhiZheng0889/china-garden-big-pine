@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { OrderApi } from '../../api/orderApi';
 import Card from '../../components/Card/Card';
 import CartList from '../../components/CartList/CartList';
 import Footer from '../../components/Footer/Footer';
 import ErrorAlert from '../../errors/ErrorAlert';
-const Receipt = () => {
+const Order = () => {
+  const { order_id } = useParams();
   const [order, setOrder] = useState({});
   const [error, setError] = useState(null);
-  const { order_id = null } = useLocation();
-  const navigate = useNavigate();
-  if (!order_id) {
-    navigate('/');
-  }
   useEffect(() => {
     (async () => {
       try {
@@ -51,4 +47,4 @@ const Receipt = () => {
   );
 };
 
-export default Receipt;
+export default Order;
