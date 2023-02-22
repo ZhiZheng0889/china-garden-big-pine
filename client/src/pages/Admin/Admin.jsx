@@ -4,7 +4,7 @@
 //admin page will have a table of all categories
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { OrderApi } from '../../api/orderApi';
 import Card from '../../components/Card/Card';
 import Footer from '../../components/Footer/Footer';
@@ -12,10 +12,16 @@ import ProfileFavoriteMeals from '../../components/Profile/ProfileFavoriteMeals/
 import ProfileFavoriteOrders from '../../components/Profile/ProfileFavoriteOrders/ProfileFavoriteOrders';
 import ProfileOrders from '../../components/Profile/ProfileOrders/ProfileOrders';
 import ErrorAlert from '../../errors/ErrorAlert';
+import { isObjectEmpty } from '../../utils/isObjectEmpty';
+
 const Admin = ({ user }) => {
   const [error, setError] = useState(null);
   const { first_name, user_id } = user;
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
+  if (isObjectEmpty(user)) {
+    navigate('/');
+  }
   useEffect(() => {
     setError(null);
     (async () => {

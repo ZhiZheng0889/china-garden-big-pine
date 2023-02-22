@@ -25,4 +25,9 @@ export class OrderApi {
     const url = `${API_BASE_URL}/orders/${order_id}`;
     return await fetchJson(url, { headers }, []);
   }
+
+  static async listUserOrders(user_id, signal) {
+    const url = `${API_BASE_URL}/orders/user/${user_id}`;
+    return await fetchJson(url, { headers }, []);
+  }
 }

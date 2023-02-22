@@ -13,7 +13,7 @@ const SignedIn = ({ user, setUser, setError }) => {
         abortController.signal
       );
       if (response.status === 203) {
-        setUser(null);
+        setUser({});
         storage.local.remove('refreshToken');
         navigate('/');
       }

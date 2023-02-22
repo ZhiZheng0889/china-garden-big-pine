@@ -1,25 +1,6 @@
 const service = require('./foods.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 const mapFood = require('../utils/mapFood');
-/*
- * Check queries for specific type of order or list of food.
- *
- */
-
-const asynclist = async (req, res) => {
-  const keyword = req.query.keyword
-    ? {
-        name: {
-          $regex: req.query.keyword,
-          options: 'i',
-        },
-      }
-    : {};
-
-  const food = await foods.find({ ...keyword });
-
-  res.json(food);
-};
 
 function checkQueryParams(req, res, next) {
   /*

@@ -86,9 +86,6 @@ video {
   background-color: var(--background-light-darker);
 }
 
-.container {
-}
-
 /* special request on checkoutlistItem */
 .specialRequest {
   font-size: 0.8rem;

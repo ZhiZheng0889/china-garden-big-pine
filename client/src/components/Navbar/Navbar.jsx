@@ -5,6 +5,7 @@ import SignedIn from './SignedIn/SignedIn';
 import CartButton from '../Button/CartButton/CartButton';
 import CheckoutCanvas from '../Checkout/CheckoutCanvas/CheckoutCanvas';
 import MenuCanvas from './MenuCanvas/MenuCanvas';
+import { isObjectEmpty } from '../../utils/isObjectEmpty';
 const Navbar = ({
   user,
   cart,
@@ -30,7 +31,7 @@ const Navbar = ({
         </Link>
         <div className="flex items-center ml-auto">
           <div className="hidden md:block" id="navbarContent">
-            {user ? (
+            {!isObjectEmpty(user) ? (
               <SignedIn user={user} setUser={setUser} setError={setError} />
             ) : (
               <NotSignedIn />

@@ -9,6 +9,7 @@ import Checkout from './Checkout/Checkout';
 import Receipt from './Receipt/Receipt';
 import Profile from './Profile/Profile';
 import Order from './Order/Order';
+import Orders from './Orders/Orders';
 
 const PageRoutes = ({
   cart,
@@ -31,7 +32,8 @@ const PageRoutes = ({
           />
         }
       />
-      <Route path="/order/:order_id" element={<Order />} />
+      <Route path="/orders" element={<Orders user={user} />} />
+      <Route path="/order/:order_id" element={<Order user={user} />} />
       <Route
         path="/checkout"
         element={

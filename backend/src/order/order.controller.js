@@ -144,12 +144,48 @@ async function read(req, res, next) {
   res.status(200).json({ data: { ...order, cart } });
 }
 
+function checkQueryParams(req, res, next) {
+  const { order_id } = req.params;
+  return next();
+}
+
+async function userExist(req, res, next) {
+  const { user_id = null } = req.params;
+  if (user_id) {
+    const foundUser = await service.getUser(user_id);
+    if (foundUser) {
+      res.locals.user = foundUser;
+      return next();
+    }
+    return next({
+      status: 404,
+      message: 'User not found.',
+    });
+  }
+  return next({ status: 400, message: 'No user id was provided.' });
+}
+
+async function listUserOrders(req, res, next) {
+  try {
+    const { user_id } = res.locals.user;
+    const orders = await service.listUserOrders(user_id);
+    res.status(200).json({ data: orders });
+  } catch (error) {
+    console.log(error);
+    return next({ status: 500, message: 'Error getting orders.' });
+  }
+}
+
+async function list(req, res, next) {
+  return res.status(200).json({ data: [] });
+}
+
 /*
  * Order controller
  * @returns array of middleware functions that the router can handle.
  */
 module.exports = {
-  list: [],
+  list: [checkQueryParams, asyncErrorBoundary(list)],
   read: [asyncErrorBoundary(orderExist), asyncErrorBoundary(getCartInfo), read],
   create: [
     hasOnlyValidProperties(PROPERTIES),
@@ -157,6 +193,10 @@ module.exports = {
     asyncErrorBoundary(isValidUser_id),
     isValidCart,
     asyncErrorBoundary(create),
+  ],
+  listFromUser: [
+    asyncErrorBoundary(userExist),
+    asyncErrorBoundary(listUserOrders),
   ],
   destroy: [],
 };

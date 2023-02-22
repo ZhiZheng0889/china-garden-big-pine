@@ -51,7 +51,10 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       const response = await OrderApi.create(order);
       console.log('res:', response);
       if (response) {
-        return navigate(`order/${response.order_id}`);
+        setCart([]);
+        return navigate('/receipt', {
+          order_id: response.order_id,
+        });
       }
     } catch (error) {
       setError(error.message);

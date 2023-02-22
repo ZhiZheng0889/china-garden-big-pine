@@ -8,6 +8,10 @@ router
   .post(controller.create)
   .all(methodNotAllowed);
 
-router.route('/:order_id').get(controller.read).all(methodNotAllowed);
+router
+  .route('/user/:user_id')
+  .get(controller.listFromUser)
+  .all(methodNotAllowed);
 
+router.route('/:order_id').get(controller.read).all(methodNotAllowed);
 module.exports = router;

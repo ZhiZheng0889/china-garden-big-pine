@@ -80,6 +80,18 @@ function readUser(user_id) {
   return knex('users').select('*').where({ user_id }).first();
 }
 
+function getUser(user_id) {
+  return knex('users').select('*').where({ user_id }).first();
+}
+
+function listUserOrders(user_id) {
+  return knex('orders')
+    .select('*')
+    .where({ user_id })
+    .orderBy('created_at', 'desc')
+    .limit(10);
+}
+
 module.exports = {
   list,
   read,
@@ -90,4 +102,6 @@ module.exports = {
   readUser,
   optionsFromCart,
   sizesFromCart,
+  getUser,
+  listUserOrders,
 };
