@@ -30,8 +30,6 @@ const UserEdit = () => {
     const [cancel, setCancel] = useState(false);
     //create a variable called [firstName, setFirstName] and set it to the useState function
     const [firstName, setFirstName] = useState("");
-    //create a variable called [lastName, setLastName] and set it to the useState function
-    const [lastName, setLastName] = useState("");
     //create a variable called [email, setEmail] and set it to the useState function
     const [email, setEmail] = useState("");
     //create a variable called [mobileNumber, setMobileNumber] and set it to the useState function
@@ -61,8 +59,6 @@ useEffect(() => {
         const user = response.user;
         //create a variable called firstName and set it to the first_name property of the user object
         const firstName = user.first_name;
-        //create a variable called lastName and set it to the last_name property of the user object
-        const lastName = user.last_name;
         //create a variable called email and set it to the email property of the user object
         const email = user.email;
         //create a variable called mobileNumber and set it to the mobile_number property of the user object
@@ -83,8 +79,6 @@ useEffect(() => {
         setUser(user);
         //set the firstName state to the firstName variable
         setFirstName(firstName);
-        //set the lastName state to the lastName variable
-        setLastName(lastName);
         //set the email state to the email variable
         setEmail(email);
         //set the mobileNumber state to the mobileNumber variable
@@ -145,8 +139,6 @@ const handleUpdate = () => {
     const updatedUser = {
         //set the first_name property to the firstName state
         first_name: firstName,
-        //set the last_name property to the lastName state
-        last_name: lastName,
         //set the email property to the email state
         email: email,
         //set the mobile_number property to the mobileNumber state
@@ -250,9 +242,6 @@ return (
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName">Last Name</label>
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" id="lastName" value={lastName} onChange={handleLastNameChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>

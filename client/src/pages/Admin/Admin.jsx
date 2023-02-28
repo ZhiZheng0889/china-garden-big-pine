@@ -11,8 +11,6 @@ import Footer from '../../components/Footer/Footer';
 import ProfileFavoriteMeals from '../../components/Profile/ProfileFavoriteMeals/ProfileFavoriteMeals';
 import ProfileFavoriteOrders from '../../components/Profile/ProfileFavoriteOrders/ProfileFavoriteOrders';
 import ProfileOrders from '../../components/Profile/ProfileOrders/ProfileOrders';
-import ErrorAlert from '../../errors/ErrorAlert';
-import { isObjectEmpty } from '../../utils/isObjectEmpty';
 
 const Admin = ({ user }) => {
   const [error, setError] = useState(null);
