@@ -28,7 +28,7 @@ const SideNav = ({ className, category, setCategory }) => {
     'lunch',
   ];
   return (
-    <ul>
+    <ul className="overflow-y-screen">
       {categories.map((cat) => {
         return (
           <li key={cat} onClick={changeCategory} id={cat}>

@@ -5,3 +5,10 @@
 .list li:not(:last-child) {
   margin-bottom: 0.6rem;
 }
+
+@media screen and (max-width: 1280px), screen and (max-height: 515px) {
+  .list {
+    max-height: 5.2rem;
+    overflow-y: scroll;
+  }
+}

@@ -26,7 +26,7 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
     Cart.updateQuantity(index, amount, cart, setCart);
   };
   return (
-    <li className="flex border-b py-1">
+    <li className="flex border-b py-3 px-3">
       <div>
         <h4 className={`${styles.header} font-semibold`}>
           {name} {amount && `(${amount})`}

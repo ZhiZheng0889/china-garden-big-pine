@@ -14,14 +14,14 @@ const MenuCanvas = ({
   };
   return (
     <div
-      className={`z-30 ease-out duration-300 ${
+      className={`xl:hidden z-30 ease-out duration-300 ${
         isBurgerOpen ? 'left-0 block' : 'right-full hidden'
       }`}
     >
       <div className="modalBackdrop"></div>
 
       <Card
-        classes={`z-50 w-6/12 top-0 fixed absolute text-black ${
+        classes={`z-50 w-full sm:w-7/12 md:w-5/12 lg:w-3/12 xl:w-3/12 top-0 fixed text-black ${
           isBurgerOpen ? 'left-0 block' : 'right-full hidden'
         }`}
         borderRadius=""
