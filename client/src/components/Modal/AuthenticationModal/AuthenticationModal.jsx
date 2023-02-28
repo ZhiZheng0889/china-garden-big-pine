@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { VerifyApi } from '../../../api/verifyApi';
+import { userContext } from '../../../context/UserContext';
 import ErrorAlert from '../../../errors/ErrorAlert';
 const AuthenticationModal = ({
   isModalOpen,
@@ -8,6 +9,7 @@ const AuthenticationModal = ({
   setUser,
   phoneNumber,
   setPhoneNumber,
+  submitOrder,
 }) => {
   const [countryCode, setCountryCode] = useState('1');
   const [requestId, setRequestId] = useState(null);
@@ -48,8 +50,10 @@ const AuthenticationModal = ({
         countryCode + phoneNumber
       );
       console.log(response);
-      if (response.requestId) {
-        setRequestId(response.requestId);
+      if (response.request_id) {
+        setRequestId(response.request_id);
+      } else {
+        throw new Error('Error sending request');
       }
     } catch (error) {
       setError(error.message);
@@ -60,7 +64,12 @@ const AuthenticationModal = ({
     try {
       setError(null);
       event.preventDefault();
-      const response = await VerifyApi.verifyPhoneNumber;
+      const response = await VerifyApi.verifyPhoneNumber(
+        requestId,
+        code,
+        user?.user_id
+      );
+      console.log(response);
     } catch (error) {
       setError(error.message);
     }
@@ -93,10 +102,7 @@ const AuthenticationModal = ({
               <p className="text-center max-w-4 mb-4">
                 Please enter the code sent to {phoneNumber}
               </p>
-              <form
-                className="flex flex-col gap-3"
-                onSubmit={onAfterVerifySubmit}
-              >
+              <form className="flex flex-col gap-3" onSubmit={onVerifySubmit}>
                 <input
                   type="text"
                   value={code}

@@ -17,11 +17,11 @@ export class VerifyApi {
     return await fetchJson(url, options, {});
   }
 
-  static async verifyPhoneNumber(phone_number, code, user_id = null) {
+  static async verifyPhoneNumber(request_id, code, user_id = null) {
     const url = `${API_BASE_URL}/authentication/verify`;
     const options = {
       method: 'POST',
-      body: JSON.stringify({ data: { phone_number, code, user_id } }),
+      body: JSON.stringify({ data: { request_id, code, user_id } }),
       headers,
     };
     return await fetchJson(url, options, {});
