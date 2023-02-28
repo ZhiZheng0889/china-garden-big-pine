@@ -5,12 +5,15 @@ import CheckoutFooter from './CheckoutFooter/CheckoutFooter';
 const Checkout = ({ cart, setCart }) => {
   return (
     <>
-      <div className="p-3 border-bottom d-flex flex-column w-100">
-        <h3 className="text-lg font-semibold">Cart</h3>
+      <div className="smallscreen-pb border-bottom d-flex flex-column w-100">
+        <header className="p-3 border-b">
+          <h3 className="text-lg font-semibold">Cart</h3>
+        </header>
+
         <CheckoutList cart={cart} setCart={setCart} />
       </div>
       {cart.length > 0 && (
-        <div className="p-3 d-flex flex-column w-100">
+        <div className="px-3 smallscreen-pt d-flex flex-column w-100">
           <h3 className="text-lg font-semibold">Checkout</h3>
           <CheckoutFooter cart={cart} />
         </div>

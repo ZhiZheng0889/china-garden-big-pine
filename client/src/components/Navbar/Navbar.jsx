@@ -37,7 +37,7 @@ const Navbar = ({
               <NotSignedIn />
             )}
           </div>
-          <div className="xl:hidden">
+          <div className="xl:hidden ml-3">
             <CartButton cart={cart} setIsCheckoutOpen={setIsCheckoutOpen} />
           </div>
         </div>

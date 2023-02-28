@@ -13,14 +13,14 @@ const CheckoutCanvas = ({
   };
   return (
     <div
-      className={`z-30 ease-out duration-300 ${
+      className={`top-0 bottom-0 xl:hidden  z-30 ease-out duration-300 ${
         isCheckoutOpen ? 'right-0 block' : 'left-full hidden'
       }`}
     >
       <div className="modalBackdrop"></div>
       <Card
-        classes={`z-50 w-5/12 top-0 h-screen absolute text-black ${
-          isCheckoutOpen ? 'right-0 block' : 'left-full hidden'
+        classes={`z-50 w-full sm:w-9/12 md:w-7/12 lg:w-5/12 top-0 bottom-0 text-black h-screen overflow-y-scroll fixed ${
+          isCheckoutOpen ? 'right-0' : 'left-full hidden'
         }`}
         borderRadius=""
         padding="p-0"
@@ -30,7 +30,9 @@ const CheckoutCanvas = ({
             <i className="fa-solid fa-x" onClick={closeCanvas}></i>
           </button>
         </div>
-        <Checkout cart={cart} setCart={setCart} />
+        <div className="">
+          <Checkout cart={cart} setCart={setCart} />
+        </div>
       </Card>
     </div>
   );

@@ -4,7 +4,7 @@ import styles from './CheckoutList.module.css';
 import { Cart } from '../../../utils/Cart';
 const CheckoutList = ({ cart, setCart }) => {
   if (!cart.length) {
-    return <p>Cart is empty...</p>;
+    return <p className="p-3">Cart is empty...</p>;
   }
   const clearCart = () => {
     Cart.clearCart(setCart);
@@ -26,7 +26,7 @@ const CheckoutList = ({ cart, setCart }) => {
           })}
       </ul>
       {Array.isArray(cart) && cart.length > 0 && (
-        <div className="">
+        <div className="smallscreen-and-landscape-condition px-3">
           <button
             className="ml-auto text-center p-2 bg-red-600 hover:bg-red-700 text-white rounded mt-2"
             onClick={clearCart}
