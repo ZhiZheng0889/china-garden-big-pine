@@ -14,13 +14,18 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const FLORIDA_TAX = 0.075;
   const navigate = useNavigate();
+
+  const checkVerification = async () => {
+    if (user && !isObjectEmpty(user) && user.email_is_verified) {
+      submitOrder();
+    } else {
+      console.log('in here');
+      setIsVerifyModalOpen(true);
+    }
+  };
+
   const submitOrder = async () => {
     try {
-      // if (user && !isObjectEmpty(user) && user.email_is_verified) {
-      // } else {
-      //   console.log('in here');
-      //   setIsVerifyModalOpen(true);
-      // }
       const { user_id = null, email = null } = user;
       const mappedCart = cart.map((item) => {
         const {
@@ -101,7 +106,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           <button
             className="w-full text-center p-2 bg-red-600 hover:bg-red-700 text-white rounded"
             disabled={cart.length === 0}
-            onClick={submitOrder}
+            onClick={checkVerification}
           >
             Place Order
           </button>
@@ -114,6 +119,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         setUser={setUser}
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
+        submitOrder={submitOrder}
       />
     </>
   );

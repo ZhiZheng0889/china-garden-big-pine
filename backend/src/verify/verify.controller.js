@@ -14,7 +14,7 @@ const vonage = new Vonage(
   }
 );
 
-const VALID_VERIFY_PROPERTIES = ['request_id', 'code'];
+const VALID_VERIFY_PROPERTIES = ['request_id', 'code', 'user_id'];
 const REQUIRED_VERIFY_PROPERTIES = ['request_id', 'code'];
 const VALID_SEND_PROPERTIES = ['phone_number'];
 const REQUIRED_SEND_PROPERTIES = ['phone_number'];
@@ -61,6 +61,42 @@ function send(req, res, next) {
     });
 }
 
+const from = '12013508387';
+const to = '19102006686';
+const text = 'A text message sent using the Vonage SMS API';
+
+async function sendSMS(req, res, next) {
+  return await vonage.sms
+    .send({ to, from, text })
+    .then((resp) => {
+      console.log('Message sent successfully');
+      console.log(resp);
+      return res.status(200).json({ data: resp });
+    })
+    .catch((err) => {
+      console.log('There was an error sending the messages.');
+      console.error(err);
+      return next({ status: 400, message: err.message });
+    });
+}
+
+sendSMS();
+
+// async function sendSMS(req, res, next) {
+//   try {
+//     const { phone_number } = req.body.data;
+//     const from = 'China Garden';
+//     const to = phone_number;
+//     const text = `Your China Garden verification code: 1234. The code expires in 3 minutes.`;
+//     const response = await vonage.sms.send({ to, from, text });
+//     console.log('RES: ', response);
+//     res.status(200).json({ data: response });
+//   } catch (error) {
+//     console.error(error);
+//     return next({ status: 400, message: error.message });
+//   }
+// }
+
 module.exports = {
   verify: [
     hasOnlyValidProperties(VALID_VERIFY_PROPERTIES),
@@ -71,5 +107,14 @@ module.exports = {
     hasOnlyValidProperties(VALID_SEND_PROPERTIES),
     hasRequiredProperties(REQUIRED_SEND_PROPERTIES),
     asyncErrorBoundary(send),
+  ],
+  sendSMS: [
+    hasOnlyValidProperties(VALID_SEND_PROPERTIES),
+    hasRequiredProperties(REQUIRED_SEND_PROPERTIES),
+    asyncErrorBoundary(sendSMS),
+  ],
+  verifySMS: [
+    hasOnlyValidProperties(VALID_VERIFY_PROPERTIES),
+    hasRequiredProperties(REQUIRED_VERIFY_PROPERTIES),
   ],
 };
