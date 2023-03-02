@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import './Admin.css';
+import './Admin.module.css';
 
 //change the price for food items
 //change the price for food options
