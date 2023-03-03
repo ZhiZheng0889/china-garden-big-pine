@@ -60,7 +60,7 @@ function send(req, res, next) {
       return next({ status: 404, message: err });
     });
 }
-
+/*
 const from = '12013508387';
 const to = '17275454718';
 const text = 'A text message sent using the Vonage SMS API';
@@ -81,6 +81,8 @@ async function sendSMS(req, res, next) {
 }
 
 sendSMS(req, res, next);
+
+*/
 
 // async function sendSMS(req, res, next) {
 //   try {
@@ -108,11 +110,13 @@ module.exports = {
     hasRequiredProperties(REQUIRED_SEND_PROPERTIES),
     asyncErrorBoundary(send),
   ],
+  /*
   sendSMS: [
     hasOnlyValidProperties(VALID_SEND_PROPERTIES),
     hasRequiredProperties(REQUIRED_SEND_PROPERTIES),
     asyncErrorBoundary(sendSMS),
   ],
+  */
   verifySMS: [
     hasOnlyValidProperties(VALID_VERIFY_PROPERTIES),
     hasRequiredProperties(REQUIRED_VERIFY_PROPERTIES),
