@@ -62,7 +62,7 @@ function send(req, res, next) {
 }
 
 const from = '12013508387';
-const to = '19102006686';
+const to = '17275454718';
 const text = 'A text message sent using the Vonage SMS API';
 
 async function sendSMS(req, res, next) {
@@ -80,7 +80,7 @@ async function sendSMS(req, res, next) {
     });
 }
 
-sendSMS();
+sendSMS(req, res, next);
 
 // async function sendSMS(req, res, next) {
 //   try {
