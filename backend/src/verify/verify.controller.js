@@ -59,29 +59,33 @@ function send(req, res, next) {
       console.log(err);
       return next({ status: 404, message: err });
     });
-}
-
-const from = '12013508387';
-const to = '17275454718';
-const text = 'A text message sent using the Vonage SMS API';
+};
 
 async function sendSMS(req, res, next) {
-  return await vonage.sms
-    .send({ to, from, text })
-    .then((resp) => {
-      console.log('Message sent successfully');
-      console.log(resp);
-      return res.status(200).json({ data: resp });
-    })
-    .catch((err) => {
-      console.log('There was an error sending the messages.');
-      console.error(err);
-      return next({ status: 400, message: err.message });
-    });
+  const from = '12013508387';
+  const to = '17275454718';
+  const text = 'A text message sent using the Vonage SMS API';
+
+  try {
+    const response = await vonage.sms.send({ to, from, text });
+    console.log('Message sent successfully');
+    console.log(response);
+    res.status(200).json({ data: response });
+  } catch (err) {
+    console.error('There was an error sending the message.');
+    console.error(err);
+    return next({ status: 400, message: err.message });
+  }
+};
+
+function sendSMSHandler(req, res, next) {
+  try {
+     sendSMS(req, res, next);
+  } catch (error) {
+    console.error(error);
+    return next({ status: 400, message: error.message });
+  }
 }
-
-sendSMS(req, res, next);
-
 
 // async function sendSMS(req, res, next) {
 //   try {
@@ -109,13 +113,13 @@ module.exports = {
     hasRequiredProperties(REQUIRED_SEND_PROPERTIES),
     asyncErrorBoundary(send),
   ],
-  /*
+ 
   sendSMS: [
     hasOnlyValidProperties(VALID_SEND_PROPERTIES),
     hasRequiredProperties(REQUIRED_SEND_PROPERTIES),
     asyncErrorBoundary(sendSMS),
   ],
-  */
+ 
   verifySMS: [
     hasOnlyValidProperties(VALID_VERIFY_PROPERTIES),
     hasRequiredProperties(REQUIRED_VERIFY_PROPERTIES),
