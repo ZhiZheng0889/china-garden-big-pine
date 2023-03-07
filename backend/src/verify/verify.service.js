@@ -1,9 +1,9 @@
-const knex = require('../db/connection');
-const TABLE = 'verify';
-const USER_TABLE = 'users';
+const knex = require("../db/connection");
+const TABLE = "verify";
+const USER_TABLE = "users";
 
 function readFromEmail(email) {
-  return knex(TABLE).select('*').where({ email }).first();
+  return knex(TABLE).select("*").where({ email }).first();
 }
 
 function destroy(verify_id) {
@@ -12,21 +12,21 @@ function destroy(verify_id) {
 
 function emailIsVerified(user_id) {
   return knex(USER_TABLE)
-    .select('*')
+    .select("*")
     .where({ user_id })
-    .update({ email_is_verified: true }, '*');
+    .update({ email_is_verified: true }, "*");
 }
 
-function phoneNumberIsVerified(user_id) {
+function verifyPhoneNumber(user_id) {
   return knex(USER_TABLE)
-    .select('*')
+    .select("*")
     .where({ user_id })
-    .update({ phone_number_is_verified: true }, '*');
+    .update({ phone_number_is_verified: true }, "*");
 }
 
 module.exports = {
   readFromEmail,
   destroy,
-  phoneNumberIsVerified,
+  verifyPhoneNumber,
   emailIsVerified,
 };

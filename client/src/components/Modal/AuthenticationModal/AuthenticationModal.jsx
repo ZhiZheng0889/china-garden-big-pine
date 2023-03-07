@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { VerifyApi } from '../../../api/verifyApi';
-import { userContext } from '../../../context/UserContext';
-import ErrorAlert from '../../../errors/ErrorAlert';
+import React, { useContext, useEffect, useState } from "react";
+import { VerifyApi } from "../../../api/verifyApi";
+import { userContext } from "../../../context/UserContext";
+import ErrorAlert from "../../../errors/ErrorAlert";
 const AuthenticationModal = ({
   isModalOpen,
   setIsModalOpen,
@@ -10,11 +10,34 @@ const AuthenticationModal = ({
   phoneNumber,
   setPhoneNumber,
   submitOrder,
+  sentRequestId,
 }) => {
-  const [countryCode, setCountryCode] = useState('1');
+  const [countryCode, setCountryCode] = useState("1");
   const [requestId, setRequestId] = useState(null);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   if (user?.user_id) {
+  //     (async () => {
+  //       try {
+  //         setError(null);
+  //         const response = await VerifyApi.sendVerifyToPhoneNumber(
+  //           user.phoneNumber
+  //         );
+  //         console.log(response);
+  //         if (response.request_id) {
+  //           setRequestId(response.request_id);
+  //         } else {
+  //           throw new Error("Error sending request");
+  //         }
+  //       } catch (error) {
+  //         setError(error.message);
+  //       }
+  //     })();
+  //   }
+  // }, [user]);
+
   const handlePhoneChange = ({ target: { value } }) => {
     if (!value.match(/[a-z]/i)) {
       if (value.length <= 3) {
@@ -22,12 +45,12 @@ const AuthenticationModal = ({
       } else {
         const tempValue = value;
         if (value.length >= 4) {
-          console.log(tempValue.split(''));
-          tempValue.split('').splice(3, 0, '-').join('');
+          console.log(tempValue.split(""));
+          tempValue.split("").splice(3, 0, "-").join("");
           setPhoneNumber(tempValue);
         }
         if (value.length >= 7) {
-          tempValue.split('').splice(7, 0, '-').join('');
+          tempValue.split("").splice(7, 0, "-").join("");
           setPhoneNumber(tempValue);
         }
       }
@@ -53,7 +76,7 @@ const AuthenticationModal = ({
       if (response.request_id) {
         setRequestId(response.request_id);
       } else {
-        throw new Error('Error sending request');
+        throw new Error("Error sending request");
       }
     } catch (error) {
       setError(error.message);
@@ -65,11 +88,16 @@ const AuthenticationModal = ({
       setError(null);
       event.preventDefault();
       const response = await VerifyApi.verifyPhoneNumber(
-        requestId,
+        sentRequestId ? sentRequestId : requestId,
         code,
         user?.user_id
       );
       console.log(response);
+      if (response.status === "0") {
+        submitOrder();
+      } else {
+        throw new Error("Error Verifying Phone Number");
+      }
     } catch (error) {
       setError(error.message);
     }
@@ -94,7 +122,7 @@ const AuthenticationModal = ({
               <i className="fa-regular fa-xmark fa-2x"></i>
             </button>
           </header>
-          {requestId ? (
+          {sentRequestId || requestId ? (
             <section className="p-3">
               <h2 className="text-xl font-semibold text-center">
                 Verification Code

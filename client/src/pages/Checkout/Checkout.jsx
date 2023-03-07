@@ -1,25 +1,51 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Card from '../../components/Card/Card';
-import CartList from '../../components/CartList/CartList';
-import MapContainer from '../../components/MapContainer/MapContainer';
-import AuthenticationModal from '../../components/Modal/AuthenticationModal/AuthenticationModal';
-import ErrorAlert from '../../errors/ErrorAlert';
-import { Cart } from '../../utils/Cart';
-import { isObjectEmpty } from '../../utils/isObjectEmpty';
-import { OrderApi } from '../../api/orderApi';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Card from "../../components/Card/Card";
+import CartList from "../../components/CartList/CartList";
+import MapContainer from "../../components/MapContainer/MapContainer";
+import AuthenticationModal from "../../components/Modal/AuthenticationModal/AuthenticationModal";
+import ErrorAlert from "../../errors/ErrorAlert";
+import { Cart } from "../../utils/Cart";
+import { isObjectEmpty } from "../../utils/isObjectEmpty";
+import { OrderApi } from "../../api/orderApi";
+import { VerifyApi } from "../../api/verifyApi";
+
 const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
   const [error, setError] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
   const FLORIDA_TAX = 0.075;
+  const [requestId, setRequestId] = useState(null);
   const navigate = useNavigate();
+  console.log(user);
 
   const checkVerification = async () => {
-    if (user && !isObjectEmpty(user) && user.email_is_verified) {
+    if (user && !isObjectEmpty(user) && user.phone_number_is_verified) {
       submitOrder();
+    } else if (
+      user &&
+      !isObjectEmpty(user) &&
+      user.user_id &&
+      !user.phone_number_is_verified
+    ) {
+      try {
+        setError(null);
+        console.log("IN HERE", user.phone_number);
+        const response = await VerifyApi.sendVerifyToPhoneNumber(
+          user.phone_number
+        );
+        console.log("res: ", response);
+        if (response.request_id) {
+          setRequestId(response.request_id);
+          setIsVerifyModalOpen(true);
+        } else {
+          throw new Error("Error sending request");
+        }
+      } catch (error) {
+        setError(error.message);
+      }
     } else {
-      console.log('in here');
+      console.log("in here");
       setIsVerifyModalOpen(true);
     }
   };
@@ -45,7 +71,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           food_size_id,
         };
       });
-      const phone_number = '19102006686';
+      const phone_number = "19102006686";
       const order = {
         user_id,
         email,
@@ -54,10 +80,10 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       };
       console.log(cart, order);
       const response = await OrderApi.create(order);
-      console.log('res:', response);
+      console.log("res:", response);
       if (response) {
         setCart([]);
-        return navigate('/receipt', {
+        return navigate("/receipt", {
           order_id: response.order_id,
         });
       }
@@ -95,7 +121,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             <p>Total</p>
             <p className="font-semibold text-xl">
               {cart.length === 0
-                ? 'Your Cart is empty'
+                ? "Your Cart is empty"
                 : `$
             ${(
               Cart.getCartTotal(cart) +
@@ -120,13 +146,14 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
         submitOrder={submitOrder}
+        sentRequestId={requestId}
       />
     </>
   );
 };
 
 Checkout.defaultProps = {
-  className: '',
+  className: "",
 };
 
 export default Checkout;
