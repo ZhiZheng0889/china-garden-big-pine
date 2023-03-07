@@ -10,6 +10,7 @@ import Receipt from './Receipt/Receipt';
 import Profile from './Profile/Profile';
 import Order from './Order/Order';
 import Orders from './Orders/Orders';
+import foodOptions from './Admin/FoodOptions';
 
 const PageRoutes = ({
   cart,
@@ -47,7 +48,9 @@ const PageRoutes = ({
       />
       <Route path="/receipt" element={<Receipt />} />
       <Route path="/profile" element={<Profile user={user} />} />
-      <Route path="/admin" element={<Admin user={{}} />} />
+      <Route path="/admin" element={<Admin user={{}} />} >
+        <Route path="/admin/food-options" element={<foodOptions />} />
+      </Route>
       <Route path="/login" element={<Login setUser={setUser} />} />
       <Route path="/signup" element={<Signup setUser={setUser} />} />
       <Route path="*" element={<NotFound />} />
