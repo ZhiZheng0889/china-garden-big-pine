@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Link, redirect, useNavigate } from 'react-router-dom';
-import { OrderApi } from '../../api/orderApi';
-import Card from '../../components/Card/Card';
-import Footer from '../../components/Footer/Footer';
-import ProfileFavoriteMeals from '../../components/Profile/ProfileFavoriteMeals/ProfileFavoriteMeals';
-import ProfileFavoriteOrders from '../../components/Profile/ProfileFavoriteOrders/ProfileFavoriteOrders';
-import ProfileOrders from '../../components/Profile/ProfileOrders/ProfileOrders';
-import ErrorAlert from '../../errors/ErrorAlert';
-import { isObjectEmpty } from '../../utils/isObjectEmpty';
+import React, { useEffect, useState } from "react";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { OrderApi } from "../../api/orderApi";
+import Card from "../../components/Card/Card";
+import Footer from "../../components/Footer/Footer";
+import ProfileFavoriteMeals from "../../components/Profile/ProfileFavoriteMeals/ProfileFavoriteMeals";
+import ProfileFavoriteOrders from "../../components/Profile/ProfileFavoriteOrders/ProfileFavoriteOrders";
+import ProfileOrders from "../../components/Profile/ProfileOrders/ProfileOrders";
+import ErrorAlert from "../../errors/ErrorAlert";
+import { isObjectEmpty } from "../../utils/isObjectEmpty";
 const Profile = ({ user }) => {
   const [error, setError] = useState(null);
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
   console.log(isObjectEmpty(user));
   if (isObjectEmpty(user)) {
-    navigate('/');
+    navigate("/");
   }
   const { first_name, user_id } = user;
   useEffect(() => {
@@ -30,6 +30,8 @@ const Profile = ({ user }) => {
       }
     })();
   }, [user_id]);
+
+  console.log("USER => ", user);
 
   return (
     <main className="min-h-screen bg-slate-100 flex justify-center pt-6">
