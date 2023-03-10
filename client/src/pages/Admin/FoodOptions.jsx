@@ -9,21 +9,35 @@ import { Button, Table } from "react-bootstrap";
 import axios from "axios";
 import "./Admin.module.css";
 
+//connect to the database and get the food table
+//display the food table in a table
+//give user the option to add, edit, or delete food prices
+//and to add, edit, or delete food items
+
 const FoodOptions = () => {
     const [food, setFood] = useState([]);
-    const [foodPrice, setFoodPrice] = useState([]);
-    const [foodItem, setFoodItem] = useState([]);
-
+    
+    //get the food table from the database
     useEffect(() => {
-        axios.get('/api/food')
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        axios
+        .get("/api/food")
+        .then((res) => {
+            setFood(res.data);
+        })
+        .catch((err) => console.log(err));
+    }, []);
+    
+    //display the food table in a table
+    const foodTable = food.map((food) => {
+        return (
+            <tr key={food.id}>
+                <td>{food.id}</td>
+                <td>{food.name}</td>
+                <td>{food.price}</td>
+            </tr>
+        );
     }
-    , []);
+    );
 
     return (
         <div>
@@ -34,23 +48,18 @@ const FoodOptions = () => {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Food Item</th>
-                        <th>Food Price</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Food Item</td>
-                        <td>Food Price</td>
-                        <td>Edit</td>
-                        <td>Delete</td>
-                    </tr>
+                    {foodTable}
                 </tbody>
             </Table>
         </div>
     );
-}
+};
 
 export default FoodOptions;
+
