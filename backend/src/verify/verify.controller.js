@@ -87,20 +87,20 @@ function sendSMSHandler(req, res, next) {
   }
 }
 
-async function sendSMS(req, res, next) {
-  try {
-    const { phone_number } = req.body.data;
-    const from = "China Garden";
-    const to = phone_number;
-    const text = `Your China Garden verification code: 1234. The code expires in 3 minutes.`;
-    const response = await vonage.sms.send({ to, from, text });
-    console.log("RES: ", response);
-    res.status(200).json({ data: response });
-  } catch (error) {
-    console.error(error);
-    return next({ status: 400, message: error.message });
-  }
-}
+// async function sendSMS(req, res, next) {
+//   try {
+//     const { phone_number } = req.body.data;
+//     const from = "China Garden";
+//     const to = phone_number;
+//     const text = `Your China Garden verification code: 1234. The code expires in 3 minutes.`;
+//     const response = await vonage.sms.send({ to, from, text });
+//     console.log("RES: ", response);
+//     res.status(200).json({ data: response });
+//   } catch (error) {
+//     console.error(error);
+//     return next({ status: 400, message: error.message });
+//   }
+// }
 
 module.exports = {
   verify: [
