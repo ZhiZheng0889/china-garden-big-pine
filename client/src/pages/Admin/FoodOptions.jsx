@@ -18,46 +18,63 @@ const FoodOptions = () => {
     const [food, setFood] = useState([]);
     
     //get the food table from the database
+    //get foodOptions table from the database
+
     useEffect(() => {
-        axios
-        .get("/api/food")
-        .then((res) => {
+        axios.get("/api/foodOptions").then((res) => {
             setFood(res.data);
-        })
-        .catch((err) => console.log(err));
-    }, []);
-    
-    //display the food table in a table
-    const foodTable = food.map((food) => {
-        return (
-            <tr key={food.id}>
-                <td>{food.id}</td>
-                <td>{food.name}</td>
-                <td>{food.price}</td>
-            </tr>
-        );
+        });
     }
-    );
+    , []);
+
+    //delete a food item from the database
+
+    const deleteFood = (id) => {
+        axios.delete(`/api/foodOptions/${id}`).then((res) => {
+            setFood(food.filter((food) => food.id !== id));
+        });
+    }
+
+    //display the food table in a table
+    //give user the option to add, edit, or delete food prices
 
     return (
         <div>
-            <h2>Food Options</h2>
-            <Link to="/admin">
-                <Button>Back</Button>
-            </Link>
+            <h1>Food Options</h1>
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
+                        <th>Food Item</th>
                         <th>Price</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {foodTable}
+                    {food.map((food) => (
+                        <tr key={food.id}>
+                            <td>{food.foodItem}</td>
+                            <td>{food.price}</td>
+                            <td>
+                                <Link to={`/admin/foodOptions/edit/${food.id}`}>
+                                    <Button variant="primary">Edit</Button>
+                                </Link>
+                                <Button
+
+                                    variant="danger"
+                                    onClick={() => deleteFood(food.id)}
+                                >
+                                    Delete
+                                </Button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
+            <Link to="/admin/foodOptions/add">
+                <Button variant="primary">Add Food Item</Button>
+            </Link>
         </div>
+
     );
 };
 
