@@ -1,16 +1,44 @@
-//admin page
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import './Admin.module.css';
-import FoodOptions from './FoodOptions';
+//admin page for admin users
+//check if user is logged in
+//if user is not logged in, redirect to login page
+//if user is logged in, display admin page
+//display admin page
 
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button, Table } from "react-bootstrap";
+import axios from "axios";
+import "./Admin.module.css";
 
+//connect to the database and check if user is logged in
+//if user is not logged in, redirect to login page
+//if user is logged in, display admin page
 
-const Admin = () => {
-  //check if user is logged in
-  //if not, redirect to login page
-  //if so, display admin page
+function Home() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    axios.get('/check-login-status')
+      .then(response => {
+        setLoggedIn(response.data.loggedIn);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  if (!loggedIn) {
+    return (
+      <div>
+        <h1>Admin Login</h1>
+        <Link to="/login">
+          <Button variant="primary">Login</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  //display admin page
 
   return (
     <div>
@@ -18,19 +46,8 @@ const Admin = () => {
       <Link to="/admin/foodOptions">
         <Button variant="primary">Food Options</Button>
       </Link>
-      <Link to="/admin/foodOptions/add">
-        <Button variant="primary">Add Food Option</Button>
-      </Link>
-      <Link to="/admin/foodOptions/edit">
-        <Button variant="primary">Edit Food Option</Button>
-      </Link>
-      <Link to="/admin/foodOptions/delete">
-        <Button variant="primary">Delete Food Option</Button>
-      </Link>
-     
-
     </div>
   );
-};
+}
 
-export default Admin;
+export default Home;
