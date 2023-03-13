@@ -232,16 +232,17 @@ async function destroy(req, res, next) {
 // @desc    Get user profile and check if the user is admin
 // @route   GET /api/users/profile
 // @access  Private
-const getUserProfile = asyncErrorBoundary(async (req, res) => {
+const getUserProfile = asyncErrorBoundary(async (req, res, next) => {
   const user = await service.read(req.user.email);
   if (user) {
-    res.json(user);
-  } else {
-    res.status(404);
-    throw new Error('User not found');
+    delete user.password;
+    return (res.status(200).json({ data: user }));
   }
+  return next({
+    status: 404,
+    message: "User not found."
+  });
 });
-
 
 // @desc    Get all users
 // @route   GET /api/users
