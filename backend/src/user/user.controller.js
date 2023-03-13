@@ -228,6 +228,21 @@ async function destroy(req, res, next) {
 }
 
 //__ADMIN
+
+// @desc    Get user profile and check if the user is admin
+// @route   GET /api/users/profile
+// @access  Private
+const getUserProfile = asyncErrorBoundary(async (req, res) => {
+  const user = await service.read(req.user.email);
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+
 // @desc    Get all users
 // @route   GET /api/users
 // @access  Private/Admin
@@ -389,6 +404,7 @@ module.exports = {
     asyncErrorBoundary(createToken),
     sendPayload,
   ],
+  getUserProfile: [asyncErrorBoundary(getUserProfile)],
   getUsers: [],
   getUserById: [],
   updateUser: [],
