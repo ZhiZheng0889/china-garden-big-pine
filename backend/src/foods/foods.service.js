@@ -38,12 +38,46 @@ function search(text) {
   return knex(TABLE).select('*').whereILike('name', `%${text}%`);
 }
 
+//change price in food table
+function update(food_id, price) {
+  return knex(TABLE).where({ food_id }).update({ price });
+}
+
+//change price in foodOptions table
+function updateOption(food_id, option_id, price) {
+  return knex(FOOD_OPTIONS_TABLE)
+    .where({ food_id, option_id })
+    .update({ price });
+}
+
+//change price in foodSizes table
+
+function updateSize(food_id, size_id, price) {
+  return knex(FOOD_SIZES_TABLE)
+    .where({ food_id, size_id })
+    .update({ price });
+}
+
+//change price in foodAmounts table
+
+function updateAmount(food_id, amount_id, price) {
+  return knex(FOOD_AMOUNTS_TABLE)
+    .where({ food_id, amount_id })
+    .update({ price });
+}
+
+
 module.exports = {
   list,
-  listAmounts,
-  listSizes,
-  listOptions,
   listByCategory,
   read,
   search,
+  listSizes,
+  listOptions,
+  listAmounts,
+  update,
+  updateOption,
+  updateSize,
+  updateAmount,
 };
+
