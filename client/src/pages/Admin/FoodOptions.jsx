@@ -1,65 +1,98 @@
-//request the food table from the database
-//and display it in a table
-//give user the option to add, edit, or delete food prices
-//and to add, edit, or delete food items
-
+//Frontend page for admin users to view and edit food prices
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Table } from "react-bootstrap";
 import axios from "axios";
-import "./Admin.module.css";
+import "./FoodOptions.module.css";
 
-//connect to the database and get the food table
-//display the food table in a table
-//give user the option to add, edit, or delete food prices
-//and to add, edit, or delete food items
+//check if user is a admin user
+//display food table
+//display edit food price form
 
-const FoodOptions = () => {
+function FoodOptions() {
+    const [loggedIn, setLoggedIn] = useState(false);
     const [food, setFood] = useState([]);
     
-    //get the food table from the database
     useEffect(() => {
-        axios
-        .get("/api/food")
-        .then((res) => {
-            setFood(res.data);
+        axios.get('/check-login-status')
+        .then(response => {
+            setLoggedIn(response.data.loggedIn);
         })
-        .catch((err) => console.log(err));
+        .catch(error => {
+            console.log(error);
+        });
     }, []);
     
-    //display the food table in a table
-    const foodTable = food.map((food) => {
+    useEffect(() => {
+        axios.get('/food')
+        .then(response => {
+            setFood(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, []);
+    
+    if (!loggedIn) {
         return (
-            <tr key={food.id}>
-                <td>{food.id}</td>
-                <td>{food.name}</td>
-                <td>{food.price}</td>
-            </tr>
+        <div>
+            <h1>Admin Login</h1>
+            <Link to="/login">
+            <Button variant="primary">Login</Button>
+            </Link>
+        </div>
         );
     }
-    );
 
+    //change food price
+
+    const changeFoodPrice = (event) => {
+        event.preventDefault();
+        const id = event.target.id.value;
+        const price = event.target.price.value;
+        axios.put(`/food/${id}`, { price })
+        .then(response => {
+            setFood(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    //display edit food price form
+    //display food table
+    
     return (
         <div>
-            <h2>Food Options</h2>
-            <Link to="/admin">
-                <Button>Back</Button>
-            </Link>
+            <h1>Food Options</h1>
+            <form onSubmit={changeFoodPrice}>
+                <label htmlFor="id">Food ID</label>
+                <input type="text" name="id" />
+                <label htmlFor="price">New Price</label>
+                <input type="text" name="price" />
+                <input type="submit" value="Change Price" />
+            </form>
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {foodTable}
+                    {food.map((food) => (
+                        <tr key={food.id}>
+                            <td>{food.id}</td>
+                            <td>{food.name}</td>
+                            <td>{food.price}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </div>
     );
-};
+}
 
 export default FoodOptions;
 
