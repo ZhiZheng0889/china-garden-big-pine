@@ -6,7 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "npx cross-env CI=true npm run test:run",
+    "test:run": "run-s test:unit test:e2e",
+    "test:0": "run-p -1 r test:start:* \"test:e2e:run -- us-00\"",
+    "test:e2e": "run-p -l -r test:start:* test:e2e:run",
+    "test:e2e:run": "wait-on http://localhost:5000/foods && jest --detectOpenHandles --forceExit --config ./e2e/jest.config.js",
+    "test:start:backend": "npm run test:start --prefix ./../backend",
+    "test:start:frontend": "npx cross-env BROWSER=none NODE_ENV=test react-scripts start",
+    "test:unit": "react-scripts test"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -27,7 +35,11 @@
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.13",
+    "cross-fetch": "^3.1.5",
+    "jest": "^27.5.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.21",
+    "puppeteer": "^19.7.4",
     "tailwindcss": "^3.2.4",
     "vite": "^4.1.1"
   }

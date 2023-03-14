@@ -1,25 +1,25 @@
-const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
-const service = require('./user.service');
-const bcrypt = require('bcryptjs');
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+const service = require("./user.service");
+const bcrypt = require("bcryptjs");
 const { SALT } = process.env;
-const UserAuth = require('../auth/UserAuth');
-const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
-const hasRequiredProperties = require('../utils/hasRequiredProperties');
+const UserAuth = require("../auth/UserAuth");
+const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
+const hasRequiredProperties = require("../utils/hasRequiredProperties");
 
 const VALID_PROPERTIES = [
-  'email',
-  'phone_number',
-  'password',
-  'isAdmin',
-  'first_name',
-  'last_name',
+  "email",
+  "phone_number",
+  "password",
+  "isAdmin",
+  "first_name",
+  "last_name",
 ];
-const REQUIRED_PROPERTIES = ['email', 'first_name', 'phone_number', 'password'];
+const REQUIRED_PROPERTIES = ["email", "first_name", "phone_number", "password"];
 
-const VALID_2FA_PROPERTIES = ['email'];
+const VALID_2FA_PROPERTIES = ["email"];
 
-const VALID_LOGIN_PROPERTIES = ['email', 'password'];
-const REQUIRED_LOGIN_PROPERTIES = ['email', 'password'];
+const VALID_LOGIN_PROPERTIES = ["email", "password"];
+const REQUIRED_LOGIN_PROPERTIES = ["email", "password"];
 
 //__REGISTER
 
@@ -33,7 +33,7 @@ async function isEmailAvailable(req, res, next) {
   if (user) {
     return next({
       status: 409,
-      message: 'Email already is in use. Please try a different one.',
+      message: "Email already is in use. Please try a different one.",
     });
   }
   return next();
@@ -51,7 +51,7 @@ async function emailExist(req, res, next) {
   }
   return next({
     status: 404,
-    message: 'Email is not found. Please try again.',
+    message: "Email is not found. Please try again.",
   });
 }
 
@@ -65,7 +65,7 @@ async function phoneNumberExist(req, res, next) {
   if (user) {
     return next({
       status: 409,
-      message: 'Phone number is already in use. Please try a different one.',
+      message: "Phone number is already in use. Please try a different one.",
     });
   }
   next();
@@ -77,10 +77,10 @@ async function phoneNumberExist(req, res, next) {
 
 function isvalidPassword(req, res, next) {
   const { password } = req.body.data;
-  if (typeof password === 'string') {
+  if (typeof password === "string") {
     return next();
   }
-  next({ status: 400, message: 'Password must be a string.' });
+  next({ status: 400, message: "Password must be a string." });
 }
 
 // @ desc   Encrypting the password
@@ -89,7 +89,7 @@ function isvalidPassword(req, res, next) {
 
 async function encryptPassword(req, res, next) {
   const { data } = req.body;
-  const { password = '' } = data;
+  const { password = "" } = data;
   let saltError;
   const hashedPassword = await bcrypt
     .hash(password, parseInt(SALT))
@@ -97,7 +97,7 @@ async function encryptPassword(req, res, next) {
   if (saltError) {
     return next({
       status: 400,
-      message: 'Error hasing password. Please try again',
+      message: "Error hasing password. Please try again",
     });
   }
   res.locals.user = {
@@ -132,9 +132,9 @@ async function createToken(req, res, next) {
 }
 
 function logout(req, res, next) {
-  const refreshToken = '';
+  const refreshToken = "";
   return res
-    .cookie('access_token', '', {
+    .cookie("access_token", "", {
       httpOnly: true,
       secure: false,
     })
@@ -155,11 +155,11 @@ function sendPayload(req, res, next) {
   if (!accessToken || !refreshToken) {
     return next({
       status: 500,
-      message: 'Error creating tokens',
+      message: "Error creating tokens",
     });
   }
   return res
-    .cookie('access_token', accessToken, {
+    .cookie("access_token", accessToken, {
       httpOnly: true,
       secure: false,
       expires: new Date(Date.now() + 8 * 3600000), // 8 hours
@@ -191,7 +191,7 @@ async function userExist(req, res, next) {
     res.locals.user = userExist;
     return next();
   }
-  next({ status: 401, message: 'Email and or password is incorrect.' });
+  next({ status: 401, message: "Email and or password is incorrect." });
 }
 
 // @ desc  2FA
@@ -244,10 +244,10 @@ const deleteUser = asyncErrorBoundary(async (req, res) => {
 
   if (user) {
     await user.remove();
-    res.json({ message: 'User removed' });
+    res.json({ message: "User removed" });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -255,13 +255,13 @@ const deleteUser = asyncErrorBoundary(async (req, res) => {
 // @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncErrorBoundary(async (req, res) => {
-  const user = await service.findById(req.params.user_id).select('-password');
+  const user = await service.findById(req.params.user_id).select("-password");
 
   if (user) {
     res.json(user);
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -288,12 +288,12 @@ const updateUser = asyncErrorBoundary(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
 async function isAccessTokenValid(req, res, next) {
-  const { access_token = '' } = req.cookies;
+  const { access_token = "" } = req.cookies;
   try {
     if (access_token) {
       const data = UserAuth.authorize(access_token);
@@ -301,18 +301,18 @@ async function isAccessTokenValid(req, res, next) {
       return next();
     }
   } catch (error) {
-    if (error.name === 'TokenExpiredError') {
+    if (error.name === "TokenExpiredError") {
       return next();
     }
     return next({
       status: 404,
-      message: 'Error authenticating in please try again',
+      message: "Error authenticating in please try again",
     });
   }
 }
 
 async function isRefreshTokenValid(req, res, next) {
-  const { refreshToken = '' } = req.body.data;
+  const { refreshToken = "" } = req.body.data;
   if (refreshToken) {
     const data = UserAuth.authorize(refreshToken);
     res.locals.data = data;
@@ -320,7 +320,7 @@ async function isRefreshTokenValid(req, res, next) {
   }
   return next({
     status: 404,
-    message: 'Error authenticating in please try again',
+    message: "Error authenticating in please try again",
   });
 }
 
@@ -334,7 +334,7 @@ async function isValidEmailAndUserId(req, res, next) {
   }
   return next({
     status: 404,
-    message: 'Error logging in user',
+    message: "Error logging in user",
   });
 }
 
@@ -348,7 +348,7 @@ async function findEmail(req, res, next) {
   }
   return next({
     status: 404,
-    message: 'Cannot find email or password is incorrect',
+    message: "Cannot find email or password is incorrect",
   });
 }
 
@@ -359,7 +359,7 @@ async function validatePassword(req, res, next) {
   if (isValidPassword) {
     return next();
   }
-  next({ status: 404, message: 'Cannot find email or password is incorrect' });
+  next({ status: 404, message: "Cannot find email or password is incorrect" });
 }
 
 module.exports = {

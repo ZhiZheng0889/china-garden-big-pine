@@ -1,16 +1,16 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Home from './Home/Home';
-import Admin from './Admin/Admin';
-import NotFound from './NotFound/NotFound';
-import Login from './Login/Login';
-import Signup from './Signup/Signup';
-import Checkout from './Checkout/Checkout';
-import Receipt from './Receipt/Receipt';
-import Profile from './Profile/Profile';
-import Order from './Order/Order';
-import Orders from './Orders/Orders';
-import foodOptions from './Admin/FoodOptions';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./Home/Home";
+import Admin from "./Admin/Admin";
+import NotFound from "./NotFound/NotFound";
+import Login from "./Login/Login";
+import Signup from "./Signup/Signup";
+import Checkout from "./Checkout/Checkout";
+import Receipt from "./Receipt/Receipt";
+import Profile from "./Profile/Profile";
+import Order from "./Order/Order";
+import Orders from "./Orders/Orders";
+import FoodOptions from "./Admin/FoodOptions";
 
 const PageRoutes = ({
   cart,
@@ -48,7 +48,7 @@ const PageRoutes = ({
       />
       <Route path="/receipt" element={<Receipt />} />
       <Route path="/profile" element={<Profile user={user} />} />
-      <Route path="/admin" element={<Admin user={{}} />} >
+      <Route path="/admin" element={<Admin user={{}} />}>
         <Route path="/admin/food-options" element={<FoodOptions />} />
       </Route>
       <Route path="/login" element={<Login setUser={setUser} />} />

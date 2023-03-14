@@ -547,7 +547,7 @@ describe("01 - Create and Login users", () => {
       });
     });
 
-    describe("Test admin", () => {
+    describe("Test users not being allowed to set them self as admin", () => {
       test("Should return a status of 400 if data has admin property", async () => {
         const data = {
           email: "test@mail.com",

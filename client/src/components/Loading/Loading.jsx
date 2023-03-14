@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Loading = ({ padding }) => {
   return (
-    <div className={`d-flex justify-content-center ${padding}`}>
+    <div className={`d-flex justify-content-center ${padding}`} id="loader">
       <div className="spinner-border" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
@@ -11,7 +11,7 @@ const Loading = ({ padding }) => {
 };
 
 Loading.defaultProps = {
-  padding: 'p-0',
+  padding: "p-0",
 };
 
 export default Loading;
