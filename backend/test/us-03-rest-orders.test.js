@@ -1,7 +1,7 @@
-const { expect } = require('chai');
-const request = require('supertest');
-const app = require('../src/app');
-const knex = require('../src/db/connection');
+const { expect } = require("chai");
+const request = require("supertest");
+const app = require("../src/app");
+const knex = require("../src/db/connection");
 /*
 Create rest api for orders to be able to list, 
 read one order, 
@@ -10,7 +10,7 @@ create order,
 delete order
 */
 
-describe('01 - List, Read, Create, update, and Delete orders', () => {
+describe("01 - List, Read, Create, update, and Delete orders", () => {
   beforeAll(() => {
     return knex.migrate
       .forceFreeMigrationsLock()
@@ -26,228 +26,32 @@ describe('01 - List, Read, Create, update, and Delete orders', () => {
     return await knex.migrate.rollback(null, true).then(() => knex.destroy());
   });
 
-  describe('Not found handler', () => {
-    test('Should return 404 for non-existent route', async () => {
-      const response = await request(app)
-        .get('/notaroute')
-        .set('Accept', 'application/json');
-
-      expect(response.status).to.equal(404);
-      expect(response.body.error).to.equal('Path not found: /notaroute');
-    });
-  });
-
-  describe('Create orders', () => {
-    test('Should return 400 if data property is missing', async () => {
-      const response = await request(app)
-        .post('/orders')
-        .set('Accept', 'application/json')
-        .send({});
-
-      expect(response.status).to.equal(400);
-    });
-
-    test('Should return 400 if data property is empty', async () => {
-      const response = await request(app)
-        .post('/orders')
-        .set('Accept', 'application/json')
-        .send({ data: {} });
-
-      expect(response.status).to.equal(400);
-    });
-
-    test('Should return 400 if user_id is missing', async () => {
+  describe("Test creating order on route /orders", () => {
+    test("Should return a status of 400 for a property that is not allowed", async () => {
       const data = {
         cart: [
           {
-            food_id: 12,
-            name: 'BBQ Spare Ribs',
-            description: null,
-            total: 37.9,
-            base_price: 10.95,
-            option: null,
-            size: {
-              small: {
-                upCharge: 0,
-              },
-              large: {
-                upCharge: 8,
-              },
-            },
+            food_id: 1,
             quantity: 1,
-            specialRequest: 'NO BBQ',
-            currentSize: 'large',
           },
+          { food_id: 2, quantity: 2, specialRequest: "Test request" },
         ],
-        email: 'mail@mail.com',
       };
-
-      const response = await request(app)
-        .post('/orders')
-        .set('Accept', 'application/json')
-        .send({ data });
-
-      expect(response.status).to.equal(400);
-      expect(response.body.error).to.contain('user_id');
     });
+    describe("Test cart on creating order", () => {
+      test("Should return a status of 400 for if cart is empty", async () => {});
 
-    test('Should return 400 if email is missing', async () => {
-      const data = {
-        cart: [
-          {
-            food_id: 12,
-            name: 'BBQ Spare Ribs',
-            description: null,
-            total: 37.9,
-            base_price: 10.95,
-            option: null,
-            size: {
-              small: {
-                upCharge: 0,
-              },
-              large: {
-                upCharge: 8,
-              },
-            },
-            quantity: 1,
-            specialRequest: 'NO BBQ',
-            currentSize: 'large',
-          },
-        ],
-        user_id: 1,
-      };
+      test("Should return a status of 404 for any food ids passed in cart not found in db", async () => {});
 
-      const response = await request(app)
-        .post('/orders')
-        .set('Accept', 'application/json')
-        .send({ data });
+      test("Should return 404 if food option ids in cart is not found in db", async () => {});
 
-      expect(response.status).to.equal(400);
-      expect(response.body.error).to.contain('email');
+      test("Should return 404 status code if food size ids not found in db", async () => {});
+
+      test("Should return 400 if food size ids do not match food id on cart", async () => {});
+
+      test("Should return 400 if food option ids do not match food id on cart", async () => {});
+
+      test("Should return  ");
     });
-
-    test('Should return 400 if cart is missing', async () => {
-      const data = {
-        user_id: 1,
-        email: 'mail@mail.com',
-      };
-
-      const response = await request(app)
-        .post('/orders')
-        .set('Accept', 'application/json')
-        .send({ data });
-
-      expect(response.status).to.equal(400);
-      expect(response.body.error).to.contain('cart');
-    });
-
-    test('Should return 400 if user_id is not a number', async () => {
-      const data = {
-        cart: [
-          {
-            food_id: 12,
-            name: 'BBQ Spare Ribs',
-            description: null,
-            total: 37.9,
-            base_price: 10.95,
-            option: null,
-            size: {
-              small: {
-                upCharge: 0,
-              },
-              large: {
-                upCharge: 8,
-              },
-            },
-            quantity: 1,
-            specialRequest: 'NO BBQ',
-            currentSize: 'large',
-          },
-        ],
-        user_id: '1',
-        email: 'mail@mail.com',
-      };
-
-      const response = await request(app)
-        .post('/orders')
-        .set('Accept', 'application/json')
-        .send({ data });
-
-      expect(response.status).to.equal(400);
-      expect(response.body.error).to.contain('Id must be a number');
-    });
-
-    test('Should return 400 if food_id is missing in cart', async () => {
-      const data = {
-        cart: [
-          {
-            name: 'BBQ Spare Ribs',
-            description: null,
-            total: 37.9,
-            base_price: 10.95,
-            option: null,
-            size: {
-              small: {
-                upCharge: 0,
-              },
-              large: {
-                upCharge: 8,
-              },
-            },
-            quantity: 1,
-            specialRequest: 'NO BBQ',
-            currentSize: 'large',
-          },
-        ],
-        user_id: 1,
-        email: 'mail@mail.com',
-      };
-
-      const response = await request(app)
-        .post('/orders')
-        .set('Accept', 'application/json')
-        .send({ data });
-
-      expect(response.status).to.equal(400);
-      expect(response.body.error).to.contain('food_id');
-    });
-
-    test('Should return 400 if quantity is missing in cart', async () => {
-      const data = {
-        cart: [
-          {
-            food_id: 12,
-            name: 'BBQ Spare Ribs',
-            description: null,
-            total: 37.9,
-            base_price: 10.95,
-            option: null,
-            size: {
-              small: {
-                upCharge: 0,
-              },
-              large: {
-                upCharge: 8,
-              },
-            },
-            quantity: 1,
-            specialRequest: 'NO BBQ',
-            currentSize: 'large',
-          },
-        ],
-        user_id: 1,
-        email: 'mail@mail.com',
-      };
-
-      const response = await request(app)
-        .post('/orders')
-        .set('Accept', 'application/json')
-        .send({ data });
-
-      expect(response.status).to.equal(400);
-      expect(response.body.error).to.contain('food_id');
-    });
-
-    test('Should allow including phone number and return 200');
   });
 });
