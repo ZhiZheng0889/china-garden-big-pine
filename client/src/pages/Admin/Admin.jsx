@@ -38,6 +38,34 @@ function Home() {
     );
   }
 
+  //check user token
+  //if user token is not valid, redirect to login page
+  //if user token is valid, display admin page
+
+  useEffect(() => {
+    axios.get('/check-user-token')
+      .then(response => {
+        if (!response.data.valid) {
+          setLoggedIn(false);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  if (!loggedIn) {
+    return (
+      <div>
+        <h1>Admin Login</h1>
+        <Link to="/login">
+          <Button variant="primary">Login</Button>
+        </Link>
+      </div>
+    );
+
+  }
+
   //display admin page
 
   return (
