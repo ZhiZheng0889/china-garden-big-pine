@@ -1,23 +1,19 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.up = function (knex) {
-  return knex.schema.createTable('orders', (table) => {
-    table.increments('order_id').primary().notNullable();
-    table.text('phone_number').nullable();
-    table.text('email').nullable();
-    table.integer('user_id').unsigned().nullable();
-    table.foreign('user_id').references('user_id').inTable('users');
-    table.boolean('is_complete').defaultTo(0);
-    table.timestamps(true, true);
-  });
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const orderSchema = new Schema({
+  phoneNumber: { type: String },
+  email: { type: String },
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  isComplete: { type: Boolean, default: false },
+}, { timestamps: true });
+
+const Order = mongoose.model('Order', orderSchema);
+
+exports.up = function() {
+  return Order.createCollection();
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.down = function (knex) {
-  return knex.schema.dropTable('orders');
+exports.down = function() {
+  return Order.collection.drop();
 };

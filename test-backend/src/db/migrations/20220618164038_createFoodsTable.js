@@ -1,24 +1,21 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.up = function (knex) {
-  return knex.schema.createTable('foods', (table) => {
-    table.increments('food_id').primary().notNullable();
-    table.string('name').notNullable();
-    table.float('base_price');
-    table.string('category').notNullable();
-    table.string('description').nullable();
-    table.boolean('spicy').defaultTo(0);
-    table.boolean('available').defaultTo(1);
-    table.timestamps(true, true);
-  });
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const foodSchema = new Schema({
+  name: { type: String, required: true },
+  basePrice: { type: Number },
+  category: { type: String, required: true },
+  description: { type: String },
+  spicy: { type: Boolean, default: false },
+  available: { type: Boolean, default: true },
+}, { timestamps: true });
+
+const Food = mongoose.model('Food', foodSchema);
+
+exports.up = function() {
+  return Food.createCollection();
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.down = function (knex) {
-  return knex.schema.dropTable('foods');
+exports.down = function() {
+  return Food.collection.drop();
 };
