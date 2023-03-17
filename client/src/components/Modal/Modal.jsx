@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
-import ModalFooter from './ModalFooter/ModalFooter';
-import ErrorAlert from '../../errors/ErrorAlert';
-import SpecialRequest from './SpecialRequest/SpecialRequest';
-import ModalOptions from './ModalOptions/ModalOptions';
-import styles from './Modal.module.css';
-import { Cart } from '../../utils/Cart';
-import { isObjectEmpty } from '../../utils/isObjectEmpty';
+import React, { useContext, useEffect, useState } from "react";
+import ModalFooter from "./ModalFooter/ModalFooter";
+import ErrorAlert from "../../errors/ErrorAlert";
+import SpecialRequest from "./SpecialRequest/SpecialRequest";
+import ModalOptions from "./ModalOptions/ModalOptions";
+import styles from "./Modal.module.css";
+import { Cart } from "../../utils/Cart";
+import { isObjectEmpty } from "../../utils/isObjectEmpty";
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
-  const [specialRequest, setSpecialRequest] = useState('');
+  const [specialRequest, setSpecialRequest] = useState("");
   const [currentOption, setCurrentOption] = useState({});
   const [currentSize, setCurrentSize] = useState({});
   const [error, setError] = useState(null);
   const {
     food_id,
-    name = '',
+    name = "",
     base_price = null,
-    description = '',
+    description = "",
     option = null,
     amount = null,
     size = null,
@@ -33,7 +33,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
 
   const handleAddToCart = (event) => {
     if (quantity <= 0) {
-      setError({ message: 'Quantity has to be greater than zero' });
+      setError({ message: "Quantity has to be greater than zero" });
     } else {
       const itemToAdd = {
         food_id,
@@ -61,7 +61,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         aria-labelledby="foodModalLabel"
         aria-hidden={food ? true : false}
       >
-        <header className="flex items-center p-3">
+        <header className="flex items-center p-3 border-b">
           <button
             type="button"
             className="w-10 h-10 hover:bg-slate-100 rounded-full"
@@ -69,30 +69,30 @@ const Modal = ({ food, setCart, cart, setFood }) => {
             aria-label="Close"
             onClick={() => setFood(null)}
           >
-            <i className="fa-regular fa-xmark fa-2x"></i>
+            <i className="fa-regular fa-xmark fa-lg"></i>
           </button>
         </header>
-        <section className="px-3">
+        <section className="p-3">
           {<ErrorAlert error={error} />}
-          <h2 className="text-5xl mb-5">{name}</h2>
+          <h2 className="text-4xl mb-5">{name}</h2>
           <p>{description}</p>
           {size && (
             <ModalOptions
-              title={'Size Options'}
-              description={'Choose 1'}
+              title={"Size Options"}
+              description={"Choose 1"}
               options={size}
               selectedOption={currentSize}
               setSelectedOption={setCurrentSize}
-              optionType={'size'}
+              optionType={"size"}
             />
           )}
           {option && (
             <ModalOptions
-              title={'Options'}
+              title={"Options"}
               options={option}
               selectedOption={currentOption}
               setSelectedOption={setCurrentOption}
-              optionType={'options'}
+              optionType={"options"}
             />
           )}
           <SpecialRequest

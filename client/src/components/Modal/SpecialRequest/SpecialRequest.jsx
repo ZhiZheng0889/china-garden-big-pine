@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './SpecialRequest.module.css';
+import React from "react";
+import styles from "./SpecialRequest.module.css";
 const SpecialRequest = ({ specialRequest, setSpecialRequest }) => {
   // create ability to fill out special requests
   function handler(event) {
@@ -19,7 +19,7 @@ const SpecialRequest = ({ specialRequest, setSpecialRequest }) => {
         <textarea
           value={specialRequest}
           onChange={handler}
-          className={`${styles.textArea} border rounded`}
+          className={`${styles.textArea} border rounded focus:outline outline-2 outline-offset-2 outline-red-600`}
           id="specialRequest"
           name="specialRequest"
           placeholder="Special Request..."

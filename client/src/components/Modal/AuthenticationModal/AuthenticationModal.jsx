@@ -137,7 +137,7 @@ const AuthenticationModal = ({
                   value={code}
                   onChange={handleCodeChange}
                   placeholder="Enter Verification Code"
-                  className="border rounded p-2"
+                  className="border rounded p-2 focus:outline outline-2 outline-offset-2 outline-red-600"
                 />
                 <Link
                   to="/"
@@ -179,7 +179,7 @@ const AuthenticationModal = ({
                   </select>
                   <input
                     type="tel"
-                    className="border rounded p-2"
+                    className="border rounded p-2 focus:outline outline-2 outline-offset-2 outline-red-600"
                     required
                     placeholder="1234567890"
                     value={phoneNumber}

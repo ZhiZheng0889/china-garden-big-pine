@@ -30,11 +30,9 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     ) {
       try {
         setError(null);
-        console.log("IN HERE", user.phone_number);
         const response = await VerifyApi.sendVerifyToPhoneNumber(
           user.phone_number
         );
-        console.log("res: ", response);
         if (response.request_id) {
           setRequestId(response.request_id);
           setIsVerifyModalOpen(true);
@@ -80,7 +78,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       };
       console.log(cart, order);
       const response = await OrderApi.create(order);
-      console.log("res:", response);
       if (response) {
         setCart([]);
         return navigate("/receipt", {
@@ -96,8 +93,9 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       <main className={`bg-slate-100 min-h-screen pt-6 ${className}`}>
         <section className="mx-auto max-w-2xl bg-white bg-slate-100">
           <ErrorAlert error={error} />
-          <h1 className="text-5xl font-semibold mb-4">Checkout</h1>
+
           <Card classes="mb-4">
+            <h1 className="text-4xl font-semibold mb-4">Checkout</h1>
             <h3 className="text-lg font-semibold">1. Confirm Order</h3>
             <div className="pl-3">
               <CartList cart={cart} />
@@ -130,9 +128,9 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             </p>
           </Card>
           <button
-            className="w-full text-center p-2 bg-red-600 hover:bg-red-700 text-white rounded"
+            className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded"
             disabled={cart.length === 0}
-            onClick={checkVerification}
+            onClick={submitOrder}
           >
             Place Order
           </button>

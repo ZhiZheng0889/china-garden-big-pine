@@ -1,6 +1,6 @@
-import React from 'react';
-import Input from './Input/Input';
-import styles from './Form.module.css';
+import React from "react";
+import Input from "./Input/Input";
+import styles from "./Form.module.css";
 /*
  * Form component that is created from an object.
  *
@@ -13,24 +13,24 @@ import styles from './Form.module.css';
 const Form = ({ data, onChange, onSubmit, submitText, children, footer }) => {
   const inputElements = [];
   // Pattersn and titles for form validation
-  const emailPattern = '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
-  const emailTitle = 'Enter valid email address';
+  const emailPattern = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
+  const emailTitle = "Enter valid email address";
   const passwordPattern =
     '"^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$"';
   const passwordTitle =
-    'Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character';
+    "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";
   for (const item in data) {
-    const value = data[item] || '';
-    let type = '';
-    let pattern = '';
-    let title = '';
-    if (item === 'password') {
-      type = 'password';
+    const value = data[item] || "";
+    let type = "";
+    let pattern = "";
+    let title = "";
+    if (item === "password") {
+      type = "password";
       pattern = passwordPattern;
       title = passwordTitle;
     }
-    if (item === 'email') {
-      type = 'email';
+    if (item === "email") {
+      type = "email";
       pattern = emailPattern;
       title = emailTitle;
     }
@@ -55,7 +55,7 @@ const Form = ({ data, onChange, onSubmit, submitText, children, footer }) => {
       {children}
       <button
         type="submit"
-        className={`w-full p-3 rounded bg-red-600 text-white`}
+        className={`w-full p-3 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800`}
       >
         {submitText}
       </button>
@@ -65,7 +65,7 @@ const Form = ({ data, onChange, onSubmit, submitText, children, footer }) => {
 };
 
 Form.defaultProps = {
-  submitText: 'Submit',
+  submitText: "Submit",
 };
 
 export default Form;

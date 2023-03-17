@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import styles from './ModalFooter.module.css';
+import React, { useEffect, useState } from "react";
+import styles from "./ModalFooter.module.css";
 const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const updateQuantity = (event) => {
     event.preventDefault();
     const { id } = event.target;
-    if (id === '+' && quantity < 999) {
+    if (id === "+" && quantity < 999) {
       setQuantity((prev) => prev + 1);
     }
-    if (id === '-' && quantity > 0) {
+    if (id === "-" && quantity > 0) {
       setQuantity((prev) => prev - 1);
     }
   };
@@ -41,7 +41,7 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
           value={input}
           type="text"
           onChange={handleInputChange}
-          className={styles.input}
+          className={`${styles.input} focus:outline outline-2 outline-offset-2 outline-red-600`}
         />
         <button
           onClick={updateQuantity}
@@ -53,7 +53,7 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
         </button>
       </form>
       <button
-        className="p-3 rounded bg-red-600 text-white disabled:bg-red-500 disabled:cursor-not-allowed"
+        className="p-3 rounded bg-red-600 hover:bg-red-700 active:bg-red-800 text-white disabled:bg-red-500 disabled:cursor-not-allowed"
         disabled={quantity === 999 || quantity === 0}
         onClick={handleAddToCart}
       >

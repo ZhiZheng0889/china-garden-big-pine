@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import NotSignedIn from './NotSignedIn/NotSignedIn';
-import SignedIn from './SignedIn/SignedIn';
-import CartButton from '../Button/CartButton/CartButton';
-import CheckoutCanvas from '../Checkout/CheckoutCanvas/CheckoutCanvas';
-import MenuCanvas from './MenuCanvas/MenuCanvas';
-import { isObjectEmpty } from '../../utils/isObjectEmpty';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import NotSignedIn from "./NotSignedIn/NotSignedIn";
+import SignedIn from "./SignedIn/SignedIn";
+import CartButton from "../Button/CartButton/CartButton";
+import CheckoutCanvas from "../Checkout/CheckoutCanvas/CheckoutCanvas";
+import MenuCanvas from "./MenuCanvas/MenuCanvas";
+import { isObjectEmpty } from "../../utils/isObjectEmpty";
 const Navbar = ({
   user,
   cart,
@@ -19,9 +19,9 @@ const Navbar = ({
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   return (
     <nav className="flex bg-red-700 text-white items-center p-1 justify-center">
-      <div className="container flex items-center">
+      <div className="container flex items-center gap-2">
         <button
-          className="p-2 md:hidden"
+          className="p-2 md:hidden hover:bg-red-800 rounded"
           onClick={() => setIsBurgerOpen((c) => !c)}
         >
           <i className="fa-regular fa-bars fa-lg"></i>
