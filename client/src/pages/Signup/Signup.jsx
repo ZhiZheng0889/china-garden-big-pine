@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import ErrorAlert from '../../errors/ErrorAlert';
-import { UserApi } from '../../api/userApi';
-import Form from '../../components/Form/Form';
-import Input from '../../components/Form/Input/Input';
-import Card from '../../components/Card/Card';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import ErrorAlert from "../../errors/ErrorAlert";
+import { UserApi } from "../../api/userApi";
+import Form from "../../components/Form/Form";
+import Input from "../../components/Form/Input/Input";
+import Card from "../../components/Card/Card";
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
-    email: '',
-    first_name: '',
-    phone_number: '',
-    password: '',
+    email: "",
+    first_name: "",
+    phone_number: "",
+    password: "",
   });
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
-  const [buttonText, setButtonText] = useState('Continue');
+  const [buttonText, setButtonText] = useState("Continue");
   const navigate = useNavigate();
   const onChange = ({ target }) => {
     const { name, value } = target;
-    if (name === 'passwordConfirm') {
+    if (name === "passwordConfirm") {
       setConfirmPassword(value);
     } else {
       setSignup({
@@ -28,8 +28,8 @@ const Signup = ({ setUser }) => {
     }
   };
   const footerText = (
-    <p className="mt-2">
-      Already have an account?{' '}
+    <p className="mt-2 text-center">
+      Already have an account?{" "}
       <Link to="/login" className="text-red-900">
         Sign in here
       </Link>
@@ -38,8 +38,7 @@ const Signup = ({ setUser }) => {
   const onSubmit = async (event) => {
     setError(null);
     event.preventDefault();
-    setButtonText('Loading...');
-    console.log('Submitting');
+    setButtonText("Loading...");
     try {
       if (signup.password === confirmPassword) {
         const payload = {
@@ -50,16 +49,16 @@ const Signup = ({ setUser }) => {
         console.log(response);
         if (response) {
           setUser(response);
-          navigate('/');
+          navigate("/");
         }
       } else {
-        throw { message: 'Passwords are not matching. Please try again.' };
+        throw { message: "Passwords are not matching. Please try again." };
       }
     } catch (error) {
       console.log(error);
       setError(error);
     } finally {
-      setButtonText('Continue');
+      setButtonText("Continue");
     }
   };
 
@@ -67,6 +66,7 @@ const Signup = ({ setUser }) => {
     <div className="bg-slate-100 flex justify-center h-screen">
       <Card classes="w-[30rem] mt-4 h-min">
         {error && <ErrorAlert error={error} />}
+        <p className="text-center">Welcome to</p>
         <h1 className="text-center text-2xl font-semibold">China Garden</h1>
         <Form
           data={signup}

@@ -4,18 +4,18 @@
   margin-bottom: 1.2rem;
 }
 
-.inputContainer label {
+/* .inputContainer label {
   margin-bottom: 0.5rem;
   text-transform: capitalize;
-}
+} */
 
-.inputContainer input {
+/* .inputContainer input {
   padding: 0.7rem;
   border: solid 1px var(--color-border);
   border-radius: 5px;
   background-color: inherit;
   color: inherit;
-}
+} */
 
 .inputContainer input::placeholder {
   text-transform: capitalize;

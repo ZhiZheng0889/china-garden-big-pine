@@ -1,6 +1,6 @@
-import React from 'react';
-import { snakeToTitleCase } from '../../../utils/snakeToTitleCase';
-import styles from './Input.module.css';
+import React from "react";
+import { snakeToTitleCase } from "../../../utils/snakeToTitleCase";
+import styles from "./Input.module.css";
 
 const Input = ({
   onChange,
@@ -13,12 +13,14 @@ const Input = ({
   pattern,
 }) => {
   const formattedLabel =
-    label.indexOf('_') > -1 ? snakeToTitleCase(label) : label;
+    label.indexOf("_") > -1 ? snakeToTitleCase(label) : label;
   const formattedPlaceholder =
-    placeholder.indexOf('_') > -1 ? snakeToTitleCase(placeholder) : placeholder;
+    placeholder.indexOf("_") > -1 ? snakeToTitleCase(placeholder) : placeholder;
   return (
     <div className={styles.inputContainer}>
-      <label htmlFor={label}>{formattedLabel}</label>
+      <label htmlFor={label} className="capitalize mb-2">
+        {formattedLabel}
+      </label>
       <input
         id={label}
         onChange={onChange}
@@ -27,13 +29,14 @@ const Input = ({
         name={name}
         placeholder={formattedPlaceholder}
         required={false}
+        className="p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
       />
     </div>
   );
 };
 
 Input.defaultProps = {
-  type: 'text',
+  type: "text",
 };
 
 export default Input;
