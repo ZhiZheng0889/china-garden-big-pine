@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import Searchbar from '../../components/Searchbar/Searchbar';
-import Sidebar from '../../components/Sidebar/Sidebar';
-import Checkout from '../../components/Checkout/Checkout';
-import styles from './Home.module.css';
-import Card from '../../components/Card/Card';
-import StoreInfo from '../../components/StoreInfo/StoreInfo';
-import FoodList from '../../components/Food/FoodList/FoodList';
-import ErrorAlert from '../../errors/ErrorAlert';
-import MenuNav from '../../components/MenuNav/MenuNav';
-import Footer from '../../components/Footer/Footer';
-import SideNav from '../../components/Nav/SideNav/SideNav';
+import React, { useEffect, useState } from "react";
+import Searchbar from "../../components/Searchbar/Searchbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Checkout from "../../components/Checkout/Checkout";
+import styles from "./Home.module.css";
+import Card from "../../components/Card/Card";
+import StoreInfo from "../../components/StoreInfo/StoreInfo";
+import FoodList from "../../components/Food/FoodList/FoodList";
+import ErrorAlert from "../../errors/ErrorAlert";
+import MenuNav from "../../components/MenuNav/MenuNav";
+import Footer from "../../components/Footer/Footer";
+import SideNav from "../../components/Nav/SideNav/SideNav";
 const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
   // state of searchbar
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    setCategory('');
-  }, [search]);
 
   return (
     <main className={`min-h-screen bg-slate-100 pt-6 `}>
@@ -35,7 +31,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
             <Searchbar search={search} setSearch={setSearch} />
           </div>
 
-          <Card padding={'p-0'} margin={'mt-gap'}>
+          <Card padding={"p-0"} margin={"mt-gap"}>
             {error && (
               <div className="p-3 pb-0">
                 <ErrorAlert error={error} />

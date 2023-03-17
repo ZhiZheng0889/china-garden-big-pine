@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { listFoods } from '../../../api/foodApi';
-import Loading from '../../Loading/Loading';
-import Modal from '../../Modal/Modal';
-import FoodCard from '../FoodCard/FoodCard';
+import React, { useEffect, useState } from "react";
+import { listFoods } from "../../../api/foodApi";
+import Loading from "../../Loading/Loading";
+import Modal from "../../Modal/Modal";
+import FoodCard from "../FoodCard/FoodCard";
 
 const FoodList = ({ category, cart, setCart, error, setError, search }) => {
   const [foods, setFoods] = useState([]);
@@ -16,11 +16,13 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
     const abortControler = new AbortController();
     const getFoods = async () => {
       try {
-        const response = await listFoods(
-          { search, category },
-          abortControler.signal
-        );
-        setFoods(response);
+        if (category) {
+          const response = await listFoods(
+            { search, category },
+            abortControler.signal
+          );
+          setFoods(response);
+        }
       } catch (error) {
         setError(error);
       }
