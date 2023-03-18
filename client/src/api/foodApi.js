@@ -1,8 +1,8 @@
-import { fetchJson } from './fetchJson';
+import { fetchJson } from "./fetchJson";
 
-const API_BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 const headers = new Headers();
-headers.append('Content-Type', 'application/json');
+headers.append("Content-Type", "application/json");
 
 /**
  *
@@ -16,5 +16,7 @@ export async function listFoods(params, signal) {
   Object.entries(params).forEach(([key, value]) =>
     url.searchParams.append(key, value.toString())
   );
-  return await fetchJson(url, { headers, signal }, []);
+  const timeout = 8000;
+  const options = { headers, signal, timeout };
+  return await fetchJson(url, options, []);
 }

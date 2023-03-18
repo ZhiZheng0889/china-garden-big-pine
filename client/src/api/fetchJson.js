@@ -15,7 +15,11 @@
  */
 export async function fetchJson(url, options, onCancel) {
   try {
+    const { timeout = 8000 } = options;
+    const controller = options.controller || new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
     const response = await fetch(url, options);
+    clearTimeout(id);
     if (response.status === 204) {
       return null;
     }
@@ -29,7 +33,7 @@ export async function fetchJson(url, options, onCancel) {
     }
     return payload.data;
   } catch (error) {
-    if (error.name !== 'AbortError') {
+    if (error.name !== "AbortError") {
       throw error;
     }
     return Promise.resolve(onCancel);

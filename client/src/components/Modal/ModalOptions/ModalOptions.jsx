@@ -44,11 +44,9 @@ const ModalOptions = ({
                   <label htmlFor={option} className={styles.label}>
                     {label}
                   </label>
-                  {options[option].upCharge > 0 && (
-                    <p className={styles.price}>
-                      {"+ $" + formatCost(options[option].upCharge)}
-                    </p>
-                  )}
+                  <p className={styles.price}>
+                    {"+ $" + formatCost(options[option].upCharge)}
+                  </p>
                 </div>
               );
             })}

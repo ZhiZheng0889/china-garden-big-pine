@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Cart } from "../../../utils/Cart";
 import { formatCost } from "../../../utils/formatCost";
 import styles from "./CheckoutFooter.module.css";
-const CheckoutFooter = ({ cart }) => {
+const CheckoutFooter = ({ cart, hideButton }) => {
   const FLORIDA_TAX = 0.075;
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(FLORIDA_TAX);
@@ -34,16 +34,22 @@ const CheckoutFooter = ({ cart }) => {
         <p>Total: </p>
         <p className={styles.number}>${total && formatCost(total)}</p>
       </div>
-      <div className="py-3">
-        <Link
-          to="/checkout"
-          className={`block text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded mt-3`}
-        >
-          Checkout
-        </Link>
-      </div>
+      {!hideButton && (
+        <div className="py-3">
+          <Link
+            to="/checkout"
+            className={`block text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded mt-3`}
+          >
+            Checkout
+          </Link>
+        </div>
+      )}
     </section>
   );
+};
+
+CheckoutFooter.defaultProps = {
+  hideButton: false,
 };
 
 export default CheckoutFooter;
