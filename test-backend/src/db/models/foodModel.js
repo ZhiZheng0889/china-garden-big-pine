@@ -12,10 +12,22 @@ const FoodSchema = new mongoose.Schema(
     spicy: { type: Boolean, default: false },
     available: { type: Boolean, default: true },
     options: {
-      option: { upcharge: { type: Number, required: true } },
+      type: [
+        {
+          option: { type: String, required: true },
+          upcharge: { type: Number, required: true },
+        },
+      ],
+      default: [],
     },
     sizes: {
-      size: { upcharge: { type: Number, required: true } },
+      type: [
+        {
+          size: { type: String, required: true },
+          upcharge: { type: Number, required: true },
+        },
+      ],
+      default: [],
     },
   },
   { timestamps: true }
@@ -24,3 +36,32 @@ const FoodSchema = new mongoose.Schema(
 const Food = mongoose.model("Food", FoodSchema);
 
 module.exports = Food;
+
+/* EXAMPLE */
+/*
+  {
+    "name": "Steamed Rice",
+    "basePrice": 3,
+    "category": "fried_rice",
+    "description": "A very good description",
+    "spicy": false,
+    "available": true,
+    "options": {
+      "small": {
+        "upcharge": 0
+      },
+      "large": {
+        "upcharge": 5.5
+      }
+    },
+    "sizes": {
+      "pint": {
+        "upcharge": 0
+      },
+      "quart": {
+        "upcharge": 5.5
+      }
+    }
+  }
+
+*/

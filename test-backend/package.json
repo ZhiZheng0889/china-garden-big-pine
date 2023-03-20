@@ -18,8 +18,14 @@
     "test:drop-database": "node test/drop-database",
     "test:start": "npx cross-env LOG_LEVEL=warn NODE_ENV=test npm run test:start:run",
     "test:start:run": "run-s test:drop-database start ",
-    "seed:run": "node src/db/seeds/dataProvider.js --import",
-    "seed:delete": "node src/db/seeds/dataProvider.js --delete"
+    "seed:all": "node src/db/seeds/dataProvider.js --import --all",
+    "seed:users": "node src/db/seeds/dataProvider.js --import --users",
+    "seed:foods": "node src/db/seeds/dataProvider.js --import --foods",
+    "seed:orders": "node src/db/seeds/dataProvider.js --import --orders",
+    "seed:delete:all": "node src/db/seeds/dataProvider.js --delete --all",
+    "seed:delete:users": "node src/db/seeds/dataProvider.js --delete --users",
+    "seed:delete:foods": "node src/db/seeds/dataProvider.js --delete --foods",
+    "seed:delete:orders": "node src/db/seeds/dataProvider.js --delete --orders"
   },
   "keywords": [],
   "author": "",

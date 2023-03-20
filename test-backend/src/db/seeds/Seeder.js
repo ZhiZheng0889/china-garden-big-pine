@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import fs from "fs";
-import { DatabaseConfig } from "../config";
+const mongoose = require("mongoose");
+const fs = require("fs");
+const DatabaseConfig = require("../config");
 
 class Seeder {
   static async connect() {

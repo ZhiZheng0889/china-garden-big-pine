@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-
 const OrderSchema = new mongoose.Schema(
   {
     phoneNumber: { type: String },
     email: { type: String },
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     isComplete: { type: Boolean, default: false },
     cart: [
       {

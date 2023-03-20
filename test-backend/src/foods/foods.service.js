@@ -57,7 +57,6 @@ module.exports = {
   listByCategory,
   read,
   search,
-  update,
   updateOption,
   updateSize,
   updateAmount,

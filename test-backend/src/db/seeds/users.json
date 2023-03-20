@@ -1,0 +1,10 @@
+[
+  {
+    "email": "anthonymclamb@mail.com",
+    "firstName": "anthony",
+    "lastName": "mclamb",
+    "phoneNumber": "18454994090",
+    "password": "123Abc",
+    "isAdmin": true
+  }
+]
