@@ -1,4 +1,3 @@
-//change the code for mongodb
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -15,13 +14,5 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
-
-export const User = mongoose.model("User", userSchema);
-
-exports.up = function () {
-  return User.createCollection();
-};
-
-exports.down = function () {
-  return User.collection.drop();
-};
+const User = mongoose.model("User", userSchema);
+module.exports = User;

@@ -12,13 +12,4 @@ const orderSchema = new Schema(
 );
 
 const Order = mongoose.model("Order", orderSchema);
-
-exports.up = function () {
-  return Order.createCollection();
-};
-
-exports.down = function () {
-  return Order.collection.drop();
-};
-
-//export users the table
+module.exports = Order;

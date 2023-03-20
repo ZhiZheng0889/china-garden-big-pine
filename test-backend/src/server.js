@@ -1,17 +1,17 @@
 const { PORT = 5000 } = process.env;
 
-const app = require('./app');
-const knex = require('./db/connection');
+const app = require("./app");
+const { DatabaseConfig } = require("./db/config");
 
-knex.migrate
-  .latest()
-  .then((migrations) => {
-    console.log('migrations', migrations);
+mongoose
+  .connect(DatabaseConfig.getDatabaseUri())
+  .then((ans) => {
+    console.log("DB connection is successful 🚀");
     app.listen(PORT, listener);
   })
   .catch((error) => {
+    console.log("💣😑 What Happened");
     console.error(error);
-    knex.destroy();
   });
 
 function listener() {
