@@ -17,7 +17,9 @@
     "test:4": "npm run test -- 04",
     "test:drop-database": "node test/drop-database",
     "test:start": "npx cross-env LOG_LEVEL=warn NODE_ENV=test npm run test:start:run",
-    "test:start:run": "run-s test:drop-database start "
+    "test:start:run": "run-s test:drop-database start ",
+    "seed:run": "node src/db/seeds/dataProvider.js --import",
+    "seed:delete": "node src/db/seeds/dataProvider.js --delete"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +37,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.2.0",
     "lodash": "^4.17.21",
+    "mongoose": "^7.0.2",
     "multer": "^1.4.5-lts.1",
     "nanoid": "^4.0.0",
     "nodemailer": "^6.8.0",

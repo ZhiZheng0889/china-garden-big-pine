@@ -1,11 +1,25 @@
+const Food = require("../models/foodModel");
 const User = require("../models/userModel");
-const { Seeder } = require("./Seeder");
+const Order = require("../models/orderModel");
+const Seeder = require("./Seeder");
 
-function seed() {
-  const seeder = new Seeder(`${__dirname}/users.json`, User);
+async function seed() {
+  // seed foods
+  await Seeder.inject(`${__dirname}/foods.json`, Food);
+  // seed users
+  await Seeder.inject(`${__dirname}/users.json`, User);
+  // seed orders
+  await Seeder.inject(`${__dirname}/orders.json`, Order);
 }
 
-function destroy() {}
+async function destroy() {
+  // seed foods
+  await Seeder.delete(Food);
+  // seed users
+  await Seeder.delete(User);
+  // seed orders
+  await Seeder.delete(Order);
+}
 
 if (process.argv[2] === "--import") {
   seed();

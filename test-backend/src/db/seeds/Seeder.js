@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import fs from "fs";
 import { DatabaseConfig } from "../config";
 
-export class Seeder {
-  connect() {
+class Seeder {
+  static async connect() {
     const URI = DatabaseConfig.getDatabaseUri();
     mongoose
       .connect(URI)
@@ -11,24 +11,26 @@ export class Seeder {
       .catch((err) => console.log("OH NO SOMETHING WENT WRONG ", err));
   }
 
-  async inject() {
+  static async inject(file, model) {
     try {
-      this.connect();
-      const data = JSON.parse(fs.readFileSync(this.file, "utf-8"));
-      await this.model.create(data);
+      await this.connect();
+      const data = JSON.parse(fs.readFileSync(file, "utf-8"));
+      await model.create(data);
       console.log("Data successfully injected!");
     } catch (error) {
       console.error("ERROR: ", error);
     }
   }
 
-  async delete() {
+  static async delete(model) {
     try {
       this.connect();
-      await this.model.deleteMany();
+      await model.deleteMany();
       console.log("Data successfully deleted!");
     } catch (error) {
       console.error(error);
     }
   }
 }
+
+module.exports = Seeder;

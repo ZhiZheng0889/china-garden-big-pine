@@ -1,7 +1,7 @@
 const { PORT = 5000 } = process.env;
-
+const mongoose = require("mongoose");
 const app = require("./app");
-const { DatabaseConfig } = require("./db/config");
+const DatabaseConfig = require("./db/config");
 
 mongoose
   .connect(DatabaseConfig.getDatabaseUri())

@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 require("dotenv").config();
 
-export class DatabaseConfig {
+class DatabaseConfig {
   static getDatabaseUri() {
     if (process.env.NODE_ENV === "production") {
       return process.env.DATABASE_URL || "";
@@ -24,3 +24,5 @@ export class DatabaseConfig {
     });
   }
 }
+
+module.exports = DatabaseConfig;

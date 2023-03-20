@@ -1,16 +1,16 @@
-const service = require('./foods.service');
-const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
-const mapFood = require('../utils/mapFood');
+const service = require("./foods.service");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+const mapFood = require("../utils/mapFood");
 
 function checkQueryParams(req, res, next) {
   /*
    * update so that if there is a search query in the url to save the search to res.locals.search
    */
-  const { category = '' } = req.query;
+  const { category = "" } = req.query;
   if (category) {
     res.locals.category = category;
   }
-  const { search = '' } = req.query;
+  const { search = "" } = req.query;
   if (search) {
     res.locals.search = search;
   }
@@ -23,7 +23,7 @@ async function list(req, res, next) {
   /*
    * If res.locals.search is defined use service.search() function
    */
-  const { category = '', search = '' } = res.locals;
+  const { category = "", search = "" } = res.locals;
   let data;
   if (search) {
     data = await service.search(search);
@@ -32,10 +32,7 @@ async function list(req, res, next) {
   } else {
     data = await service.list();
   }
-  const sizes = await service.listSizes();
-  const options = await service.listOptions();
-  const formattedData = mapFood(data, sizes, options);
-  res.status(200).json({ data: formattedData });
+  res.status(200).json({ data });
 }
 
 //change price in food table
@@ -72,7 +69,6 @@ async function updateAmount(req, res, next) {
   const data = await service.updateAmount(food_id, amount_id, price);
   res.status(200).json({ data });
 }
-
 
 module.exports = {
   list: [checkQueryParams, asyncErrorBoundary(list)],
