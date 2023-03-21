@@ -13,6 +13,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
     description = null,
     amount = null,
   } = food;
+  console.log("food: ", food);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen((curr) => !curr);

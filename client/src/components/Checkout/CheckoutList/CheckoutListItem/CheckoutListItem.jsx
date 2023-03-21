@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Cart } from '../../../../utils/Cart';
-import { formatCost } from '../../../../utils/formatCost';
-import { formatSpecialRequest } from '../../../../utils/FormatSpecialRequest';
-import { snakeToTitleCase } from '../../../../utils/snakeToTitleCase';
-import ChangeQuantityButton from '../../../Button/ChangeQuantityButton/ChangeQuantityButton';
-import { isObjectEmpty } from '../../../../utils/isObjectEmpty';
-import styles from './CheckoutListItem.module.css';
+import React, { useEffect, useState } from "react";
+import { Cart } from "../../../../utils/Cart";
+import { formatCost } from "../../../../utils/formatCost";
+import { formatSpecialRequest } from "../../../../utils/FormatSpecialRequest";
+import { snakeToTitleCase } from "../../../../utils/snakeToTitleCase";
+import ChangeQuantityButton from "../../../Button/ChangeQuantityButton/ChangeQuantityButton";
+import { isObjectEmpty } from "../../../../utils/isObjectEmpty";
+import styles from "./CheckoutListItem.module.css";
 const CheckoutListItem = ({ item, cart, setCart, index }) => {
   const {
-    name,
-    description,
     quantity,
     amount = null,
-    option,
-    size,
-    currentOption,
-    currentSize,
-    specialRequest = '',
+    food,
+    selectedOption,
+    selectedSize,
+    specialRequest = "",
   } = item;
+  const { name, description, options, sizes } = food;
+  console.log("ITEM: ", item);
   const handleDelete = () => {
     Cart.remove(index, setCart);
   };
@@ -25,6 +24,7 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
   const updateQuantity = (amount) => {
     Cart.updateQuantity(index, amount, cart, setCart);
   };
+  console.log(Cart.getItemTotal(index, cart));
   return (
     <li className="flex border-b py-3 px-3">
       <div>
@@ -32,11 +32,11 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
-        {!isObjectEmpty(currentOption) && (
-          <p>- {snakeToTitleCase(currentOption.option)}</p>
+        {selectedOption && (
+          <p>- {snakeToTitleCase(options[selectedOption]?.option)}</p>
         )}
-        {!isObjectEmpty(currentSize) && (
-          <p>- {snakeToTitleCase(currentSize.option)}</p>
+        {selectedSize && (
+          <p>- {snakeToTitleCase(sizes[selectedSize].option)}</p>
         )}
         {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
         <p className={styles.cost}>

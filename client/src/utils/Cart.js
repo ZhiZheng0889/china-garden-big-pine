@@ -1,4 +1,4 @@
-import { objectIsEqual } from './objectEquality';
+import { objectIsEqual } from "./objectEquality";
 
 export class Cart {
   /*
@@ -7,7 +7,7 @@ export class Cart {
   */
   static getIndex(item, cart) {
     return cart.findIndex((cartItem) => {
-      return objectIsEqual(item, cartItem, ['quantity', 'total'], {
+      return objectIsEqual(item, cartItem, ["quantity", "total"], {
         specialRequest: (obj1, obj2) => {
           if (
             obj1.specialRequest.toLowerCase() !==
@@ -60,28 +60,39 @@ export class Cart {
   }
 
   static getCartTotal(cart) {
-    return (
-      (Array.isArray(cart) &&
-        cart.reduce((accumulator, item) => {
-          const currentOptionPrice = item.currentOption?.upCharge || 0;
-          const currentSizePrice = item.currentSize?.upCharge || 0;
-          return (
-            accumulator +
-            (item.base_price + currentOptionPrice + currentSizePrice) *
-              item.quantity
-          );
-        }, 0)) ||
-      0
-    );
+    return Array.isArray(cart)
+      ? cart.reduce((accumulator, item) => {
+          let currentOptionPrice = 0;
+          let currentSizePrice = 0;
+          if (item.selectedOption) {
+            currentOptionPrice =
+              item.options[item.selectedOption].upCharge || 0;
+          }
+          if (item.selectedSize) {
+            currentSizePrice = item.sizes[item.selectedSize].upCharge || 0;
+          }
+          console.log(currentOptionPrice, currentSizePrice, item);
+          console.log(accumulator);
+          const total =
+            (item.food.basePrice + currentOptionPrice + currentSizePrice) *
+            item.quantity;
+          return accumulator + total;
+        }, 0)
+      : 0;
   }
 
   static getItemTotal(index, cart) {
     const cartItem = cart[index];
-    const currentOptionPrice = cartItem.currentOption?.upCharge || 0;
-    const currentSizePrice = cartItem.currentSize?.upCharge || 0;
+    let optionTotal = 0;
+    let sizeTotal = 0;
+    if (optionTotal) {
+      optionTotal = cartItem.food.options[cartItem.selectedOption];
+    }
+    if (sizeTotal) {
+      sizeTotal = cartItem.food.sizes[cartItem.selectedSize];
+    }
     const total =
-      (cartItem.base_price + currentOptionPrice + currentSizePrice) *
-      cartItem.quantity;
+      (cartItem.food.basePrice + optionTotal + sizeTotal) * cartItem.quantity;
     return total;
   }
 

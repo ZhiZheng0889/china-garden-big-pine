@@ -32,26 +32,26 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     );
   }, [quantity, selectedOption, selectedSize, basePrice]);
 
+  useEffect(() => {
+    if (options.length === 0) setSelectedOption(null);
+    if (sizes.length === 0) setSelectedSize(null);
+  }, [food]);
+
   if (!food) return null;
 
   const handleAddToCart = (event) => {
     if (quantity <= 0) {
       setError({ message: "Quantity has to be greater than zero" });
     } else {
-      // const itemToAdd = {
-      //   food_id,
-      //   name,
-      //   description,
-      //   basePrice,
-      //   option,
-      //   size,
-      //   quantity,
-      //   currentOption,
-      //   currentSize,
-      //   specialRequest: specialRequest,
-      // };
-      // Cart.add(itemToAdd, cart, setCart);
-      // setFood(null);
+      const itemToAdd = {
+        food,
+        selectedSize,
+        selectedOption,
+        specialRequest,
+        quantity,
+      };
+      Cart.add(itemToAdd, cart, setCart);
+      setFood(null);
     }
   };
   console.log(food);
