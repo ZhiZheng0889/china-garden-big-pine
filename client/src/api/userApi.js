@@ -1,65 +1,61 @@
-import { fetchJson } from './fetchJson';
-const API_BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:5000';
+import { fetchJson } from "./fetchJson";
+const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 const headers = new Headers();
-headers.append('Content-Type', 'application/json');
+headers.append("Content-Type", "application/json");
 
 export class UserApi {
-  static async signup(user, signal) {
+  static async signup(user, controller) {
     const url = `${API_BASE_URL}/users`;
     const options = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ data: user }),
       headers,
-      signal,
-      credentials: 'include',
+      credentials: "include",
     };
-    return await fetchJson(url, options, {});
+    return await fetchJson(url, options, {}, controller);
   }
 
-  static async login(login, signal) {
+  static async login(login, controller) {
     const url = `${API_BASE_URL}/users/login`;
     const options = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ data: login }),
       headers,
-      signal,
-      credentials: 'include',
+
+      credentials: "include",
     };
-    return await fetchJson(url, options, {});
+    return await fetchJson(url, options, {}, controller);
   }
-  static async logout(logout, signal) {
+  static async logout(logout, controller) {
     const url = `${API_BASE_URL}/users/logout`;
     const options = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ data: logout }),
       headers,
-      signal,
-      credentials: 'include',
+      credentials: "include",
     };
-    return await fetchJson(url, options, {});
+    return await fetchJson(url, options, {}, controller);
   }
 
-  static async deleteUser(user, signal) {
+  static async deleteUser(user, controller) {
     const url = `${API_BASE_URL}/users`;
     const options = {
-      method: 'DELETE',
+      method: "DELETE",
       body: JSON.stringify({ data: user }),
       headers,
-      signal,
-      credentials: 'include',
+      credentials: "include",
     };
-    return await fetchJson(url, options, {});
+    return await fetchJson(url, options, {}, controller);
   }
 
-  static async loginToken(refreshToken, signal) {
+  static async loginToken(refreshToken, controller) {
     const url = `${API_BASE_URL}/users/login/token`;
     const options = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ data: { refreshToken } }),
       headers,
-      signal,
-      credentials: 'include',
+      credentials: "include",
     };
-    return await fetchJson(url, options, {});
+    return await fetchJson(url, options, {}, controller);
   }
 }

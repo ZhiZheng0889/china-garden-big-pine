@@ -13,13 +13,13 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
     setFoods([]);
     // create abort controller to handle cancelling
     // requests on query change
-    const abortControler = new AbortController();
+    const abortController = new AbortController();
     const getFoods = async () => {
       try {
         if (category) {
           const response = await listFoods(
             { search, category },
-            abortControler.signal
+            abortController
           );
           setFoods(response);
         }
@@ -28,7 +28,7 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
       }
     };
     getFoods();
-    return () => abortControler.abort();
+    return () => abortController.abort();
   }, [category, search]);
 
   // create list of foods

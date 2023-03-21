@@ -13,11 +13,18 @@
  *  a promise that resolves to the `json` data or an error.
  *  If the response is not in the 200 - 399 range the promise is rejected.
  */
-export async function fetchJson(url, options, onCancel) {
+export async function fetchJson(
+  url,
+  options,
+  onCancel,
+  controller = new AbortController()
+) {
   try {
-    const { timeout = 8000 } = options;
-    const controller = options.controller || new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
+    const { timeout = 10000 } = options;
+    options.signal = controller.signal;
+    const id = setTimeout(() => {
+      controller.abort();
+    }, timeout);
     const response = await fetch(url, options);
     clearTimeout(id);
     if (response.status === 204) {

@@ -7,16 +7,16 @@ headers.append("Content-Type", "application/json");
 /**
  *
  * @param {params} params object has a key category and a value query for which category food.
- * @param {AbortController.signal} signal that allows user to cancel request when changing params
+ * @param {AbortController} controller that allows user to cancel request when changing params
  * @returns list of foods in []
  */
-export async function listFoods(params, signal) {
+export async function listFoods(params, controller) {
   const url = new URL(`${API_BASE_URL}/foods`);
   // Map parameters for url with key value pairs from params object
   Object.entries(params).forEach(([key, value]) =>
     url.searchParams.append(key, value.toString())
   );
   const timeout = 8000;
-  const options = { headers, signal, timeout };
-  return await fetchJson(url, options, []);
+  const options = { headers, timeout };
+  return await fetchJson(url, options, [], controller);
 }

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { OrderApi } from '../../../api/orderApi';
-import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { OrderApi } from "../../../api/orderApi";
+import dayjs from "dayjs";
+import { Link } from "react-router-dom";
 const ProfileOrders = ({ user }) => {
   const [orders, setOrders] = useState([]);
   const { user_id = null } = user;
@@ -11,7 +11,7 @@ const ProfileOrders = ({ user }) => {
       if (user_id) {
         const response = await OrderApi.listUserOrders(
           user_id,
-          abortController.signal
+          abortController
         );
         setOrders(response);
       }
@@ -30,8 +30,8 @@ const ProfileOrders = ({ user }) => {
             <li key={order.order_id} className="py-3 border-b last:border-none">
               <div className="flex justify-between mx-3">
                 <p className="font-semibold">{`${day.format(
-                  'dddd'
-                )}, ${day.format('D MMM')}`}</p>
+                  "dddd"
+                )}, ${day.format("D MMM")}`}</p>
                 <button className="w-10 h-10 rounded-full hover:bg-slate-100">
                   <i class="fa-regular fa-star fa-lg"></i>
                 </button>
@@ -40,10 +40,10 @@ const ProfileOrders = ({ user }) => {
               <div className="flex mt-3 px-3">
                 <p
                   className={`${
-                    order.is_complete ? 'text-green-600' : 'text-red-600'
+                    order.is_complete ? "text-green-600" : "text-red-600"
                   }`}
                 >
-                  {order.is_complete ? 'Completed' : 'In progress'}
+                  {order.is_complete ? "Completed" : "In progress"}
                 </p>
                 <Link
                   to={`/order/${order.order_id}`}

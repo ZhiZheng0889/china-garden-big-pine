@@ -1,21 +1,18 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserApi } from '../../../api/userApi';
-import { storage } from '../../../utils/Storage';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserApi } from "../../../api/userApi";
+import { storage } from "../../../utils/Storage";
 const SignedIn = ({ user, setUser, setError }) => {
   const navigate = useNavigate();
   const logout = async () => {
     setError(null);
     try {
       const abortController = new AbortController();
-      const response = await UserApi.logout(
-        user.user_id,
-        abortController.signal
-      );
+      const response = await UserApi.logout(user.user_id, abortController);
       if (response.status === 203) {
         setUser({});
-        storage.local.remove('refreshToken');
-        navigate('/');
+        storage.local.remove("refreshToken");
+        navigate("/");
       }
     } catch (error) {
       setError(error);
