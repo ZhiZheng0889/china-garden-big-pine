@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import styles from './FoodCard.module.css';
-import QuantityButton from '../../Button/QuantityButton/QuantityButton';
-import Modal from '../../Modal/Modal';
+import React, { useState } from "react";
+import styles from "./FoodCard.module.css";
+import QuantityButton from "../../Button/QuantityButton/QuantityButton";
+import Modal from "../../Modal/Modal";
 const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const {
-    food_id,
+    _id,
     name,
-    base_price,
+    basePrice,
     likes = null,
     dislikes = null,
     spicy,
     description = null,
     amount = null,
-    options,
   } = food;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
@@ -35,7 +34,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
           {description && <p className={styles.description}>{description}</p>}
           <div>
             <p className="me-2 mb-0">
-              ${base_price && Number(base_price).toFixed(2)}
+              ${basePrice && Number(basePrice).toFixed(2)}
             </p>
             <p></p>
           </div>

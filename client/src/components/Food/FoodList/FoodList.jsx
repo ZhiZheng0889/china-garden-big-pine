@@ -35,7 +35,7 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
   const foodsList = foods.map((food) => {
     return (
       <FoodCard
-        key={food.food_id}
+        key={food._id}
         food={food}
         setCurrentFood={setCurrentFood}
         setCart={setCart}

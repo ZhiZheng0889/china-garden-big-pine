@@ -6,28 +6,31 @@ import ModalOptions from "./ModalOptions/ModalOptions";
 import styles from "./Modal.module.css";
 import { Cart } from "../../utils/Cart";
 import { isObjectEmpty } from "../../utils/isObjectEmpty";
+import ModalSizes from "./ModalSizes/ModalSizes";
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
   const [specialRequest, setSpecialRequest] = useState("");
-  const [currentOption, setCurrentOption] = useState({});
-  const [currentSize, setCurrentSize] = useState({});
+  const [selectedOption, setSelectedOption] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(0);
   const [error, setError] = useState(null);
   const {
-    food_id,
+    _id,
     name = "",
-    base_price = null,
+    basePrice = null,
     description = "",
-    option = null,
-    amount = null,
-    size = null,
+    options = null,
+    sizes = null,
   } = food;
 
   useEffect(() => {
-    const { upCharge: optionUpcharge = 0 } = currentOption;
-    const { upCharge: sizeUpcharge = 0 } = currentSize;
-    setTotal(quantity * (optionUpcharge + sizeUpcharge + base_price));
-  }, [quantity, currentOption, currentSize, base_price]);
+    setTotal(
+      quantity *
+        (options[selectedOption]?.upcharge ||
+          0 + sizes[selectedSize]?.upcharge ||
+          0 + basePrice)
+    );
+  }, [quantity, selectedOption, selectedSize, basePrice]);
 
   if (!food) return null;
 
@@ -35,22 +38,23 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (quantity <= 0) {
       setError({ message: "Quantity has to be greater than zero" });
     } else {
-      const itemToAdd = {
-        food_id,
-        name,
-        description,
-        base_price,
-        option,
-        size,
-        quantity,
-        currentOption,
-        currentSize,
-        specialRequest: specialRequest,
-      };
-      Cart.add(itemToAdd, cart, setCart);
-      setFood(null);
+      // const itemToAdd = {
+      //   food_id,
+      //   name,
+      //   description,
+      //   basePrice,
+      //   option,
+      //   size,
+      //   quantity,
+      //   currentOption,
+      //   currentSize,
+      //   specialRequest: specialRequest,
+      // };
+      // Cart.add(itemToAdd, cart, setCart);
+      // setFood(null);
     }
   };
+  console.log(food);
   return (
     <>
       <div className="modalBackdrop"></div>
@@ -76,22 +80,19 @@ const Modal = ({ food, setCart, cart, setFood }) => {
           {<ErrorAlert error={error} />}
           <h2 className="text-4xl mb-5">{name}</h2>
           <p>{description}</p>
-          {size && (
-            <ModalOptions
-              title={"Size Options"}
-              description={"Choose 1"}
-              options={size}
-              selectedOption={currentSize}
-              setSelectedOption={setCurrentSize}
-              optionType={"size"}
+          {sizes && (
+            <ModalSizes
+              sizes={sizes}
+              setSelectedSize={setSelectedSize}
+              selectedSize={selectedSize}
             />
           )}
-          {option && (
+          {options && (
             <ModalOptions
               title={"Options"}
-              options={option}
-              selectedOption={currentOption}
-              setSelectedOption={setCurrentOption}
+              options={options}
+              selectedOption={selectedOption}
+              setSelectedOption={setSelectedOption}
               optionType={"options"}
             />
           )}

@@ -1,0 +1,38 @@
+.fieldSet {
+  border: none;
+}
+
+.description {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-gray--dark);
+}
+
+.div {
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+}
+
+.input {
+  margin-right: 0.8rem;
+  accent-color: var(--color-main);
+}
+
+.input[type="radio"] {
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+}
+
+.form {
+  margin-bottom: 0.75rem;
+}
+
+.price {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0%;
+}

@@ -2,60 +2,58 @@ import React, { useEffect, useState } from "react";
 import { formatCost } from "../../../utils/formatCost";
 import { snakeToTitleCase } from "../../../utils/snakeToTitleCase";
 import styles from "./ModalOptions.module.css";
-const ModalOptions = ({
-  title,
-  description,
-  options,
-  optionType,
-  selectedOption,
-  setSelectedOption,
-}) => {
-  const changeOption = ({ target }) => {
-    const { id } = target;
-    setSelectedOption({ option: id, ...options[id] });
+const ModalOptions = ({ options, selectedOption, setSelectedOption }) => {
+  const changeCurrentOption = ({ target }) => {
+    if (target.getAttribute("data-id")) {
+      setSelectedOption(parseInt(target.getAttribute("data-id")));
+    }
   };
-  console.log(options);
-  if (Object.keys(options).length > 0) {
-    return (
-      <>
-        <form className={styles.form}>
-          <fieldset className={styles.fieldSet}>
-            <legend>
-              <h3 className="text-lg font-semibold mb-2">{title}</h3>
-            </legend>
-            {/* <p className={styles.description}>{description}</p> */}
-            {Object.keys(options).map((option) => {
-              const label = snakeToTitleCase(option);
-              return (
-                <div
-                  key={option}
-                  className={styles.div}
-                  onClick={changeOption}
-                  id={option}
+  return options.length > 0 ? (
+    <>
+      <form className={styles.form}>
+        <fieldset className={styles.fieldset}>
+          <legend>
+            <h3 className="text-lg font-semibold mb-2">Options</h3>
+          </legend>
+          {options.map((option, index) => {
+            return (
+              <div
+                id={option.option + index}
+                data-id={index}
+                className={styles.div}
+                onClick={changeCurrentOption}
+              >
+                <input
+                  type="radio"
+                  id={option.option + index}
+                  data-id={index}
+                  name="option"
+                  className={styles.input}
+                  onChange={changeCurrentOption}
+                  checked={selectedOption === index}
+                />
+                <label
+                  htmlFor={option.option + index}
+                  className={styles.label}
+                  onClick={changeCurrentOption}
+                  data-id={index}
                 >
-                  <input
-                    type="radio"
-                    id={option}
-                    name="option"
-                    className={styles.input}
-                    onChange={changeOption}
-                    checked={selectedOption && selectedOption.option === option}
-                  />
-                  <label htmlFor={option} className={styles.label}>
-                    {label}
-                  </label>
-                  <p className={styles.price}>
-                    {"+ $" + formatCost(options[option].upCharge)}
-                  </p>
-                </div>
-              );
-            })}
-          </fieldset>
-        </form>
-      </>
-    );
-  }
-  return null;
+                  {snakeToTitleCase(option.option)}
+                </label>
+                <p
+                  className={styles.price}
+                  onClick={changeCurrentOption}
+                  data-id={index}
+                >
+                  {"+ $" + formatCost(option.upcharge)}
+                </p>
+              </div>
+            );
+          })}
+        </fieldset>
+      </form>
+    </>
+  ) : null;
 };
 
 ModalOptions.defaultProps = {
