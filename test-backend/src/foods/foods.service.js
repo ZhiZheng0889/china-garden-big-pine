@@ -22,8 +22,7 @@ function read(_id) {
 }
 
 function search(text) {
-  return [];
-  // return knex(TABLE).select("*").whereILike("name", `%${text}%`);
+  return Food.find({ name: { $regex: text, $options: "i" } });
 }
 
 //change price in food table
