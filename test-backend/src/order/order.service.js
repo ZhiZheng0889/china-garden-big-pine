@@ -1,3 +1,6 @@
+const Food = require("../db/models/foodModel");
+const Order = require("../db/models/orderModel");
+
 /*
  * List orders in descending order
  * @returns Promise<Orders[]>
@@ -27,25 +30,7 @@ function isFood_idsValid(food_ids) {
 }
 
 function createOrder(order) {
-  // const { phone_number = null, email = null, user_id, cart } = order;
-  // return knex.transaction(async (trx) => {
-  //   try {
-  //     const order = await trx('orders')
-  //       .insert({
-  //         phone_number,
-  //         email,
-  //         user_id,
-  //       })
-  //       .returning('*')
-  //       .then((_) => _[0]);
-  //     cart.forEach((item) => (item.order_id = order.order_id));
-  //     const order_items = await trx('order_items').insert(cart).returning('*');
-  //     return { order_id: order.order_id };
-  //   } catch (error) {
-  //     console.log('error: ', error);
-  //     throw new error(error);
-  //   }
-  // });
+  return Order.insert(order);
 }
 
 /*
@@ -90,6 +75,9 @@ function listUserOrders(user_id) {
   // .orderBy('created_at', 'desc')
   // .limit(10);
 }
+function listFoodsWithFoodIds(food_ids) {
+  return Food.find({ _id: { $in: food_ids } });
+}
 
 module.exports = {
   list,
@@ -103,4 +91,5 @@ module.exports = {
   sizesFromCart,
   getUser,
   listUserOrders,
+  listFoodsWithFoodIds,
 };

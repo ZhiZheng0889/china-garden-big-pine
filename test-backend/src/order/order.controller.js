@@ -1,22 +1,22 @@
-const service = require('./order.service');
-const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
+const service = require("./order.service");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
-const hasRequiredProperties = require('../utils/hasRequiredProperties');
-const hasOnlyValidProperties = require('../utils/hasOnlyValidProperties');
-const mapCart = require('../utils/mapCart');
-const mapFoodInfo = require('../utils/mapFoodInfo');
-const PROPERTIES = ['cart', 'user_id', 'phone_number', 'email'];
-const REQUIRED_PROPERTIES = ['cart'];
+const hasRequiredProperties = require("../utils/hasRequiredProperties");
+const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
+const mapCart = require("../utils/mapCart");
+const mapFoodInfo = require("../utils/mapFoodInfo");
+const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
+const REQUIRED_PROPERTIES = ["cart"];
 
 const CART_VALID_PROPERTIES = [
-  'food_id',
-  'specialRequest',
-  'quantity',
-  'food_size_id',
-  'food_option_id',
+  "food_id",
+  "specialRequest",
+  "quantity",
+  "selectedOptionId",
+  "selectedOptionId",
 ];
 
-const CART_REQUIRED_PROPERTIES = ['food_id', 'quantity'];
+const CART_REQUIRED_PROPERTIES = ["food_id", "quantity"];
 
 async function orderExist(req, res, next) {
   const { order_id = null } = req.params;
@@ -27,7 +27,7 @@ async function orderExist(req, res, next) {
       return next();
     }
   }
-  return next({ satus: 404, message: `Order ${order_id + ' '}not found.` });
+  return next({ satus: 404, message: `Order ${order_id + " "}not found.` });
 }
 
 async function isValidUser_id(req, res, next) {
@@ -40,7 +40,7 @@ async function isValidUser_id(req, res, next) {
     }
     return next({
       status: 404,
-      message: 'User not found.',
+      message: "User not found.",
     });
   }
   return next();
@@ -92,24 +92,23 @@ function isValidCart(req, res, next) {
     if (invalidFields.length) {
       return next({
         status: 400,
-        message: `Invalid cart items: ${invalidFields.join(', ')}`,
+        message: `Invalid cart items: ${invalidFields.join(", ")}`,
       });
     }
     return next();
   }
   return next({
     status: 400,
-    message: 'Cart cannot be empty.',
+    message: "Cart cannot be empty.",
   });
 }
 
 async function create(req, res, next) {
   try {
     const response = await service.createOrder(req.body.data);
-
     res.status(200).json({ data: response });
   } catch (error) {
-    return next({ status: 500, message: 'Error creating order.' });
+    return next({ status: 500, message: "Error creating order." });
   }
 }
 
@@ -119,7 +118,7 @@ async function getCartInfo(req, res, next) {
     const orderItems = await service.readCart(order_id);
     const food_ids = orderItems.map((item) => item.food_id);
     const foodInfo = await service.foodsFromCart(food_ids);
-    console.log('FOODINFO: ', foodInfo);
+    console.log("FOODINFO: ", foodInfo);
     const foodOptionIds = orderItems.map((item) => item.food_option_id);
     const foodOptions = await service.optionsFromCart(foodOptionIds);
     const foodSizeIds = orderItems.map((item) => item.food_size_id);
@@ -140,7 +139,7 @@ async function getCartInfo(req, res, next) {
 async function read(req, res, next) {
   const { order } = res.locals;
   const { cart } = res.locals;
-  console.log('ORDER: ', order);
+  console.log("ORDER: ", order);
   res.status(200).json({ data: { ...order, cart } });
 }
 
@@ -159,10 +158,10 @@ async function userExist(req, res, next) {
     }
     return next({
       status: 404,
-      message: 'User not found.',
+      message: "User not found.",
     });
   }
-  return next({ status: 400, message: 'No user id was provided.' });
+  return next({ status: 400, message: "No user id was provided." });
 }
 
 async function listUserOrders(req, res, next) {
@@ -172,12 +171,28 @@ async function listUserOrders(req, res, next) {
     res.status(200).json({ data: orders });
   } catch (error) {
     console.log(error);
-    return next({ status: 500, message: 'Error getting orders.' });
+    return next({ status: 500, message: "Error getting orders." });
   }
 }
 
 async function list(req, res, next) {
   return res.status(200).json({ data: [] });
+}
+
+/*
+ * Check to make sure all food ids are valid and if there is a selected option or size that it is valid index.
+ */
+async function isValidFoodIdsAndIndexes(req, res, next) {
+  const { cart } = req.body.data;
+  const foodIds = cart.map((food) => food._id);
+  const foods = await listFoodsWithFoodIds(foodIds);
+  if (foods.length !== cart.length) {
+    return next({
+      status: 400,
+      message: "Some Food ids not found.",
+    });
+  }
+  return next();
 }
 
 /*
@@ -192,6 +207,7 @@ module.exports = {
     hasRequiredProperties(REQUIRED_PROPERTIES),
     asyncErrorBoundary(isValidUser_id),
     isValidCart,
+    asyncErrorBoundary(isValidFoodIdsAndIndexes),
     asyncErrorBoundary(create),
   ],
   listFromUser: [

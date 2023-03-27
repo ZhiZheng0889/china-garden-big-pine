@@ -16,7 +16,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [requestId, setRequestId] = useState(null);
   const navigate = useNavigate();
   console.log(user);
-
+  console.log(cart);
   const checkVerification = async () => {
     if (user && !isObjectEmpty(user) && user.phone_number_is_verified) {
       submitOrder();
@@ -106,7 +106,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             </div>
             {/* <MapContainer /> */}
             <p>Estimated completion time</p>
-            <p className="font-semibold text-xl">25-35 Minutes</p>
+            <p className="font-semibold text-xl">15-25 Minutes</p>
           </Card>
           <button
             className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded"

@@ -22,7 +22,14 @@ function read(_id) {
 }
 
 function search(text) {
-  return Food.find({ name: { $regex: text, $options: "i" } });
+  const includeUnderScoreText = text.split(" ").join("_");
+  return Food.find({
+    $or: [
+      { name: { $regex: text, $options: "i" } },
+      { category: { $regex: text, $options: "i" } },
+      { name: { $regex: includeUnderScoreText, $options: "i" } },
+    ],
+  });
 }
 
 //change price in food table

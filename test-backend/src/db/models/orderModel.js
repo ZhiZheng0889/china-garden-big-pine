@@ -11,6 +11,8 @@ const OrderSchema = new mongoose.Schema(
         ref: "food",
         specialRequest: { type: String, default: "" },
         quantity: { type: Number, required: true },
+        selectedFoodOption: { type: Number, required: false },
+        selectedFoodSize: { type: Number, required: false },
       },
     ],
   },
