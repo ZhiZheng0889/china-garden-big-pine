@@ -1,10 +1,13 @@
-import React from 'react';
-import styles from './ErrorAlert.module.css';
+import React from "react";
+import styles from "./ErrorAlert.module.css";
 function ErrorAlert({ error, classes, showClose, setError = () => {} }) {
   return (
     error &&
     error.message && (
-      <div className={`${styles.alert} ${classes} relative`}>
+      <div
+        className={`${styles.alert} ${classes} relative`}
+        data-test-id="error-alert"
+      >
         Error: {error.message}
         {showClose && (
           <button
@@ -20,7 +23,7 @@ function ErrorAlert({ error, classes, showClose, setError = () => {} }) {
 }
 
 ErrorAlert.defaultProps = {
-  classes: '',
+  classes: "",
 };
 
 export default ErrorAlert;

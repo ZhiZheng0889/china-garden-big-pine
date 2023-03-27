@@ -20,7 +20,10 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   };
   return (
     <>
-      <article className={`food-item ${styles.container} p-3`}>
+      <article
+        className={`food-item ${styles.container} p-3`}
+        data-testid="food-card"
+      >
         <div className="details">
           <div className={styles.header}>
             <h5 className={styles.title}>

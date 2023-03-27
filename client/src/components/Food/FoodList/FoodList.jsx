@@ -48,9 +48,11 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
   // Render loading or food
   return (
     <>
-      <div>
+      <div data-testid="foods-list-container">
         {error ? (
-          <p className="p-3">No Food Available</p>
+          <p className="p-3" data-testid="no-foods-available">
+            No Food Available
+          </p>
         ) : foods.length > 0 ? (
           foodsList
         ) : (

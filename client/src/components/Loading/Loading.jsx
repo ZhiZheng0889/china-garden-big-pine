@@ -2,7 +2,11 @@ import React from "react";
 
 const Loading = ({ padding }) => {
   return (
-    <div className={`d-flex justify-content-center ${padding}`} id="loader">
+    <div
+      className={`d-flex justify-content-center ${padding}`}
+      id="loader"
+      data-testid="loading"
+    >
       <div className="spinner-border" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
