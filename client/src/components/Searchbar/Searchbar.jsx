@@ -9,6 +9,7 @@ const Searchbar = ({ search, setSearch }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     setSearch(keyword);
+    //Boolean keyword does not exist return error
   };
   const onChange = ({ target }) => {
     setKeyword(target.value);
