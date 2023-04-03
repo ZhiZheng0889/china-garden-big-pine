@@ -12,8 +12,8 @@ const CART_VALID_PROPERTIES = [
   "food_id",
   "specialRequest",
   "quantity",
-  "selectedOptionId",
-  "selectedOptionId",
+  "selctedFoodOption",
+  "selectedFoodSize",
 ];
 
 const CART_REQUIRED_PROPERTIES = ["food_id", "quantity"];
@@ -76,12 +76,14 @@ async function isValidUser_id(req, res, next) {
 //   return next();
 // }
 
-function isValidCart(req, res, next) {
+function cartHasValidProperties(req, res, next) {
   const { cart = [] } = req.body.data;
+  console.log("CART: ", cart);
   if (Array.isArray(cart) && cart.length > 0) {
     const invalidFields = cart.reduce((acc, item) => {
-      const invalidCartFields = Object.keys(item).reduce((acc, key) => {
-        return !CART_VALID_PROPERTIES.includes(key) ? acc.push(key) : acc;
+      const invalidCartFields = Object.keys(item).reduce((acc2, key) => {
+        console.log("ACC: ", acc, "ACC2: ", acc2);
+        return !CART_VALID_PROPERTIES.includes(key) ? acc2.push(key) : acc2;
       }, []);
       if (invalidCartFields.length > 0) {
         return acc.push(item);
@@ -103,6 +105,25 @@ function isValidCart(req, res, next) {
   });
 }
 
+function cartHasRequiredProperties(req, res, next) {
+  const { cart = [] } = req.body.data;
+  try {
+    cart.forEach((cartItem) => {
+      CART_REQUIRED_PROPERTIES.forEach((property) => {
+        if (!cartItem[property]) {
+          return next({
+            status: 400,
+            message: `A '${property}' property is required`,
+          });
+        }
+      });
+    });
+    next();
+  } catch (error) {
+    next({ status: 400, message: error.message });
+  }
+}
+
 async function create(req, res, next) {
   try {
     const response = await service.createOrder(req.body.data);
@@ -118,7 +139,6 @@ async function getCartInfo(req, res, next) {
     const orderItems = await service.readCart(order_id);
     const food_ids = orderItems.map((item) => item.food_id);
     const foodInfo = await service.foodsFromCart(food_ids);
-    console.log("FOODINFO: ", foodInfo);
     const foodOptionIds = orderItems.map((item) => item.food_option_id);
     const foodOptions = await service.optionsFromCart(foodOptionIds);
     const foodSizeIds = orderItems.map((item) => item.food_size_id);
@@ -131,7 +151,6 @@ async function getCartInfo(req, res, next) {
     res.locals.cart = cart;
     return next();
   } catch (error) {
-    console.log(error);
     return next({ status: 500, message: error.message });
   }
 }
@@ -139,7 +158,6 @@ async function getCartInfo(req, res, next) {
 async function read(req, res, next) {
   const { order } = res.locals;
   const { cart } = res.locals;
-  console.log("ORDER: ", order);
   res.status(200).json({ data: { ...order, cart } });
 }
 
@@ -170,7 +188,6 @@ async function listUserOrders(req, res, next) {
     const orders = await service.listUserOrders(user_id);
     res.status(200).json({ data: orders });
   } catch (error) {
-    console.log(error);
     return next({ status: 500, message: "Error getting orders." });
   }
 }
@@ -206,7 +223,8 @@ module.exports = {
     hasOnlyValidProperties(PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
     asyncErrorBoundary(isValidUser_id),
-    isValidCart,
+    cartHasValidProperties,
+    cartHasRequiredProperties,
     asyncErrorBoundary(isValidFoodIdsAndIndexes),
     asyncErrorBoundary(create),
   ],
