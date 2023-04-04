@@ -7,6 +7,7 @@ import FoodCard from "../FoodCard/FoodCard";
 const FoodList = ({ category, cart, setCart, error, setError, search }) => {
   const [foods, setFoods] = useState([]);
   const [currentFood, setCurrentFood] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   // Get food items based on query of food type
   useEffect(() => {
     setError(null);
@@ -16,6 +17,7 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
     const abortController = new AbortController();
     const getFoods = async () => {
       try {
+        setIsLoading(true);
         if (category) {
           const response = await listFoods(
             { search, category },
@@ -26,6 +28,8 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
         }
       } catch (error) {
         setError(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getFoods();
@@ -49,14 +53,14 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
   return (
     <>
       <div data-testid="foods-list-container">
-        {error ? (
-          <p className="p-3" data-testid="no-foods-available">
-            No Food Available
-          </p>
+        {isLoading ? (
+          <Loading padding="p-3" />
         ) : foods.length > 0 ? (
           foodsList
         ) : (
-          <Loading padding="p-3" />
+          <p className="p-3" data-testid="no-foods-available">
+            No Food Available
+          </p>
         )}
       </div>
       {currentFood && (
