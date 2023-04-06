@@ -16,6 +16,7 @@ function checkQueryParams(req, res, next) {
   }
   next();
 }
+
 /*
  * List foods based on if there is a query parameter or not.
  */
@@ -35,39 +36,56 @@ async function list(req, res, next) {
   res.status(200).json({ data });
 }
 
-//change price in food table
+// change price in food collection
 async function update(req, res, next) {
   const { food_id } = req.params;
   const { price } = req.body.data;
-  const data = await service.update(food_id, price);
-  res.status(200).json({ data });
+
+  try {
+    const updatedFood = await service.update(food_id, { price });
+    res.status(200).json({ data: updatedFood });
+  } catch (error) {
+    next(error);
+  }
 }
 
-//change price in foodOptions table
-
+// change price in foodOptions collection
 async function updateOption(req, res, next) {
   const { food_id, option_id } = req.params;
   const { price } = req.body.data;
-  const data = await service.updateOption(food_id, option_id, price);
-  res.status(200).json({ data });
+
+  try {
+    const updatedFoodOption = await service.updateOption(food_id, option_id, { price });
+    res.status(200).json({ data: updatedFoodOption });
+  } catch (error) {
+    next(error);
+  }
 }
 
-//change price in foodSizes table
-
+// change price in foodSizes collection
 async function updateSize(req, res, next) {
   const { food_id, size_id } = req.params;
   const { price } = req.body.data;
-  const data = await service.updateSize(food_id, size_id, price);
-  res.status(200).json({ data });
+
+  try {
+    const updatedFoodSize = await service.updateSize(food_id, size_id, { price });
+    res.status(200).json({ data: updatedFoodSize });
+  } catch (error) {
+    next(error);
+  }
 }
 
-//change price in foodAmounts table
-
+// change price in foodAmounts collection
 async function updateAmount(req, res, next) {
   const { food_id, amount_id } = req.params;
   const { price } = req.body.data;
-  const data = await service.updateAmount(food_id, amount_id, price);
-  res.status(200).json({ data });
+
+  try {
+    const updatedFoodAmount = await service.updateAmount(food_id, amount_id, { price });
+    res.status(200).json({ data: updatedFoodAmount });
+  } catch (error) {
+    next(error);
+  }
 }
 
 module.exports = {

@@ -2,79 +2,93 @@ const { expect } = require("chai");
 const request = require("supertest");
 
 const app = require("../src/app");
-const knex = require("../src/db/connection");
+const { MongoClient } = require("mongodb");
 
-describe("01 - Create and Login users", () => {
-  beforeAll(() => {
-    return knex.migrate
-      .forceFreeMigrationsLock()
-      .then(() => knex.migrate.rollback(null, true))
-      .then(() => knex.migrate.latest());
-  });
+describe("Update Price of Food Item", () => {
+  let connection;
+  let db;
 
-  beforeEach(() => {
-    return knex.seed.run();
+  beforeAll(async () => {
+    connection = await MongoClient.connect(global.__MONGO_URI__, {
+      useNewUrlParser: true,
+    });
+    db = await connection.db(global.__MONGO_DB_NAME__);
   });
 
   afterAll(async () => {
-    return await knex.migrate.rollback(null, true).then(() => knex.destroy());
+    await connection.close();
+    await db.close();
   });
 
-  describe("Create a user on /users route", () => {
-    test("Should return a status of 400 for a property that is not allowed", async () => {
-      const data = {
-        email: "test@mail.com",
-        first_name: "Test",
-        phone_number: "19009009999",
-        password: "12345Ab!",
-        notAllowedProperty: "This Property should not be allowed",
+  describe("PATCH /foods/:id", () => {
+    let foodId;
+
+    beforeEach(async () => {
+      const food = {
+        name: "Test Food Item",
+        base_price: 10.99,
+        category: "Test Category",
+        description: "Test description.",
+        spicy: false,
+        available: true,
       };
-      const response = await request(app)
-        .post("/users")
-        .set("Accept", "application/json")
-        .send({ data });
-      expect(response.status).to.equal(400);
-      expect(response.body.error).to.contain("notAllowedProperty");
+      const res = await db.collection("foods").insertOne(food);
+      foodId = res.insertedId.toString();
     });
 
-    test("Should return a status of 201 if data is valid", async () => {
-      const data = {
-        email: "test@mail.com",
-        first_name: "Test",
-        phone_number: "19009009999",
-        password: "12345Ab!",
-      };
-      const response = await request(app)
-        .post("/users")
-        .set("Accept", "application/json")
-        .send({ data });
-
-      const user = response.body.data;
-      expect(response.status).to.equal(201);
-      expect(response.body.error).to.equal.undefined;
-      expect(typeof user.user_id === "number").to.be.true;
-      expect(user.email).to.equal(data.email);
-      expect(user.first_name).to.equal(data.first_name);
-      expect(user.first_name).to.equal(data.phone_number);
-      expect(user.password).to.be.undefined;
+    afterEach(async () => {
+      await db.collection("foods").deleteMany({});
     });
 
-    test("Should return a refreshToken ", async () => {
-      const data = {
-        email: "test@mail.com",
-        first_name: "Test",
-        phone_number: "19009009999",
-        password: "12345Ab!",
+    test("Should return 200 status after updating the price", async () => {
+      const update = {
+        data: {
+          price: 15.99,
+        },
       };
-      const response = await request(app)
-        .post("/users")
-        .set("Accept", "application/json")
-        .send({ data });
 
-      const user = response.body.data;
-      expect(response.status).to.equal(201);
-      expect(response.body.error).to.equal.undefined;
-      expect(user.refreshToken).to.not.be.undefined;
+      const response = await request(app)
+        .patch(`/foods/${foodId}`)
+        .set("Accept", "application/json")
+        .send(update);
+
+      expect(response.status).to.equal(200);
+    });
+
+    test("Should update the price of the food item", async () => {
+      const update = {
+        data: {
+          price: 15.99,
+        },
+      };
+
+      await request(app)
+        .patch(`/foods/${foodId}`)
+        .set("Accept", "application/json")
+        .send(update);
+
+      const updatedFood = await db
+        .collection("foods")
+        .findOne({ _id: new ObjectId(foodId) });
+
+      expect(updatedFood.base_price).to.equal(15.99);
+    });
+
+    test("Should return an error if the food item is not found", async () => {
+      const update = {
+        data: {
+          price: 15.99,
+        },
+      };
+
+      const invalidId = "invalid_id";
+      const response = await request(app)
+        .patch(`/foods/${invalidId}`)
+        .set("Accept", "application/json")
+        .send(update);
+
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal("Food item not found.");
     });
 
     describe("Test email property", () => {
