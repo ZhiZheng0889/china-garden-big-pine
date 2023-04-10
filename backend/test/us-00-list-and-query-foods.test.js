@@ -3,11 +3,11 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 
 const app = require("../src/app");
-const Food = require("../src/models/food");
+const Food = require("../src/db/models/foodModel");
 
 describe("00 - List and Query Food From Categories", () => {
-  before(async () => {
-    await mongoose.connect(process.env.MONGO_URI_TEST, {
+  beforeAll(async () => {
+    await mongoose.connect(process.env.DATABASE_URL_DEVELOPMENT, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
@@ -59,7 +59,7 @@ describe("00 - List and Query Food From Categories", () => {
     await Food.deleteMany();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await mongoose.disconnect();
   });
 
