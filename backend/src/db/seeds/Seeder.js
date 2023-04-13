@@ -3,8 +3,13 @@ const fs = require("fs");
 const DatabaseConfig = require("../config");
 
 class Seeder {
-  static async connect() {
-    const URI = DatabaseConfig.getDatabaseUri();
+  static async connect(config) {
+    let URI;
+    if (config === "test") {
+      URI = DatabaseConfig.getDatabaseUriForTest();
+    } else {
+      URI = DatabaseConfig.getDatabaseUri();
+    }
     mongoose
       .connect(URI)
       .then((con) => console.log("DB connection successful!", con.connection))
@@ -12,6 +17,17 @@ class Seeder {
   }
 
   static async inject(file, model) {
+    try {
+      await this.connect();
+      const data = JSON.parse(fs.readFileSync(file, "utf-8"));
+      await model.create(data);
+      console.log("Data successfully injected!");
+    } catch (error) {
+      console.error("ERROR: ", error);
+    }
+  }
+
+  static async injectTest(file, model) {
     try {
       await this.connect();
       const data = JSON.parse(fs.readFileSync(file, "utf-8"));

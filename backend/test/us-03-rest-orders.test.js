@@ -1,6 +1,10 @@
 const { expect } = require("chai");
 const request = require("supertest");
 const app = require("../src/app");
+const DatabaseConfig = require("../src/db/config");
+const Order = require("../src/db/models/orderModel");
+const mongoose = require("mongoose");
+const { seedTest } = require("../src/db/seeds/dataProvider");
 /*
 Create rest api for orders to be able to list, 
 read one order, 
@@ -10,21 +14,6 @@ delete order
 */
 
 describe("01 - List, Read, Create, update, and Delete orders", () => {
-  // beforeAll(() => {
-  //   return knex.migrate
-  //     .forceFreeMigrationsLock()
-  //     .then(() => knex.migrate.rollback(null, true))
-  //     .then(() => knex.migrate.latest());
-  // });
-
-  // beforeEach(() => {
-  //   return knex.seed.run();
-  // });
-
-  // afterAll(async () => {
-  //   return await knex.migrate.rollback(null, true).then(() => knex.destroy());
-  // });
-
   describe("List orders by user", () => {
     test("Should return 404 error if user _id is not found", () => {});
 

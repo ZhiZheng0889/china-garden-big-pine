@@ -15,6 +15,18 @@ async function seed(type = "") {
   }
 }
 
+async function seedTest(type = "") {
+  if (type === "--users" || !type) {
+    await Seeder.inject(`${__dirname}/users.json`, User);
+  }
+  if (type === "--foods" || !type) {
+    await Seeder.inject(`${__dirname}/foods.json`, Food);
+  }
+  if (type === "--orders" || !type) {
+    await Seeder.inject(`${__dirname}/orders.json`, Order);
+  }
+}
+
 async function destroy(type = "") {
   if (type === "--users" || !type) {
     await Seeder.delete(User);
@@ -36,3 +48,7 @@ if (process.argv[2] === "--import" && process.argv[3] === "--all") {
 } else if (process.argv[2] === "--delete" && process.argv[3] !== undefined) {
   destroy(process.argv[3]);
 }
+
+module.exports = {
+  seedTest,
+};

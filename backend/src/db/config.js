@@ -12,6 +12,10 @@ class DatabaseConfig {
     }
   }
 
+  static getDatabaseUriForTest() {
+    return process.env.DATABASE_URL_TEST;
+  }
+
   static init() {
     mongoose.connect(this.getDatabaseUri());
     const db = mongoose.connection;

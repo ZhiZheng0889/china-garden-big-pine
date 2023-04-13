@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const OrderSchema = new mongoose.Schema(
   {
-    phoneNumber: { type: String },
+    phoneNumber: { type: String, required: true },
     email: { type: String },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     isComplete: { type: Boolean, default: false },
