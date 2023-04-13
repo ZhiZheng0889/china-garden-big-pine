@@ -5,6 +5,7 @@ const hasRequiredProperties = require("../utils/hasRequiredProperties");
 const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const mapCart = require("../utils/mapCart");
 const mapFoodInfo = require("../utils/mapFoodInfo");
+
 const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
 const REQUIRED_PROPERTIES = ["cart"];
 
