@@ -76,6 +76,22 @@ describe("FoodList", () => {
     vi.restoreAllMocks();
   });
 
+  it("Should return No foods avaiable when the component mounts", async () => {
+    const defaultCategory = "appetizers";
+    render(
+      <FoodList
+        category={defaultCategory}
+        cart={[]}
+        setCart={() => {}}
+        error={null}
+        setError={() => {}}
+        search=""
+      />
+    );
+
+    expect(screen.getByText("No Food Available")).toBeInTheDocument();
+  });
+
   it("Should return a list of food by default", async () => {
     const defaultCategory = "appetizers";
     render(
@@ -93,6 +109,40 @@ describe("FoodList", () => {
         expect(screen.getByText("Spring Rolls(2)")).toBeInTheDocument();
       },
       { timeout: 4000 }
+    );
+
+    expect(screen.getByText("Spring Rolls(2)")).toBeInTheDocument();
+    expect(screen.getByText("Egg Rolls(2)")).toBeInTheDocument();
+    expect(screen.getByText("Shrimp Toast")).toBeInTheDocument();
+  });
+});
+
+describe("FoodList ZHI", () => {
+  beforeEach(() => {
+    windowFetchSpy = vi.spyOn(obj, "listFoods").mockImplementation(mockFetch);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("Should return a list of food by default", async () => {
+    const defaultCategory = "appetizers";
+    render(
+      <FoodList
+        category={defaultCategory}
+        cart={[]}
+        setCart={() => {}}
+        error={null}
+        setError={() => {}}
+        search=""
+      />
+    );
+    await waitFor(
+      () => {
+        expect(screen.getByText("Spring Rolls(2)")).toBeInTheDocument();
+      },
+      { timeout: 8000 }
     );
 
     expect(screen.getByText("Spring Rolls(2)")).toBeInTheDocument();
