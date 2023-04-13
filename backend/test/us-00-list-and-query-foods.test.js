@@ -3,7 +3,10 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 
 const app = require("../src/app");
-const Food = require("../src/models/Food");
+const Food = require("../src/db/models/foodModel");
+const DatabaseConfig = require("../src/db/config");
+
+const { seedTest } = require("../src/db/seeds/dataProvider");
 
 describe("00 - List and Query Food From Categories", () => {
   beforeAll(async () => {
