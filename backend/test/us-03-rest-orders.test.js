@@ -1,10 +1,6 @@
 const { expect } = require("chai");
 const request = require("supertest");
 const app = require("../src/app");
-const DatabaseConfig = require("../src/db/config");
-const Order = require("../src/db/models/orderModel");
-const mongoose = require("mongoose");
-const { seedTest } = require("../src/db/seeds/dataProvider");
 /*
 Create rest api for orders to be able to list, 
 read one order, 
@@ -23,55 +19,70 @@ describe("01 - List, Read, Create, update, and Delete orders", () => {
   describe("Read order from order _id ", () => {
     test("Should return 404 error if order _id is not found", () => {});
 
-    test("Should return an order from order_id without phone number, email, or order id", () => {});
+    test("Should return an order from order_id without phone number, email, or user id", () => {});
   });
 
   describe("Create order", () => {
-    test("Should return 400 error if user _id is not null and not a number", () => {});
+    test("Should return 400 error if phone number is not defined", async () => {
+      const data = {};
+      const response = await request(app)
+        .post("/orders")
+        .set("Accept", "application/json")
+        .send({ data });
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.contain("phoneNumber");
+    });
 
-    test("Should return 400 error if phone number is not null and a valid phone number", () => {});
+    test("Should return 400 error if phone number is not a valid phone number", async () => {
+      const data = {};
+      const response = await request(app)
+        .post("/orders")
+        .set("Accept", "application/json")
+        .send({ data });
 
-    test("Should return 400 error if email is not null and not a valid email", () => {});
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.contain("phoneNumber");
+    });
 
-    test("Should create order without a user _id", () => {});
+    test("Should return 400 error if email is not null and not a valid email", async () => {});
 
-    test("Should create order without a phone_number", () => {});
+    test("Should create order without a user _id", async () => {});
 
-    test("Should create order without a email", () => {});
+    test("Should create order without a email", async () => {});
     describe("Cart", () => {
-      test("Should return 400 error if cart does not exist", () => {});
+      test("Should return 400 error if cart does not exist", async () => {});
 
-      test("Should return 400 error if cart is not an array", () => {});
+      test("Should return 400 error if cart is not an array", async () => {});
 
-      test("Should return 400 error if cart item is not an object", () => {});
+      test("Should return 400 error if cart item is not an object", async () => {});
 
-      test("Should return 400 error if cart item does not have a food id", () => {});
+      test("Should return 400 error if cart item does not have a food id", async () => {});
 
-      test("Should return 400 error if cart item food _id is not null", () => {});
+      test("Should return 400 error if cart item food _id is not null", async () => {});
 
-      test("Should return 400 error if cart item food _id is not a number", () => {});
+      test("Should return 400 error if cart item food _id is not a number", async () => {});
 
-      test("Should return 400 error if cart item does not have a quantity", () => {});
+      test("Should return 400 error if cart item does not have a quantity", async () => {});
 
-      test("Should return 400 error if cart item quantity is not a number", () => {});
+      test("Should return 400 error if cart item quantity is not a number", async () => {});
 
-      test("Should return 400 error if cart item specialRequest is not a string", () => {});
+      test("Should return 400 error if cart item specialRequest is not a string", async () => {});
 
-      test("Should return 400 error if cart item specialRequest is not at most a certain length", () => {});
+      test("Should return 400 error if cart item specialRequest is not at most a certain length", async () => {});
 
-      test("Should return 400 error if cart item selectedFoodOption is not a number", () => {});
+      test("Should return 400 error if cart item selectedFoodOption is not a number", async () => {});
 
-      test("Should return 400 error if cart item selectedFoodSize is not a number", () => {});
+      test("Should return 400 error if cart item selectedFoodSize is not a number", async () => {});
 
-      test("Should return 400 error if cart item does not have a valid property", () => {});
+      test("Should return 400 error if cart item does not have a valid property", async () => {});
 
-      test("Should return 400 error if cart item does not have all required properties", () => {});
+      test("Should return 400 error if cart item does not have all required properties", async () => {});
 
-      test("Should create order if specialRequest does not exist", () => {});
+      test("Should create order if specialRequest does not exist", async () => {});
 
-      test("Should create order if selectedFoodOption does not exist", () => {});
+      test("Should create order if selectedFoodOption does not exist", async () => {});
 
-      test("Should create order if selectedFoodSize does not exist", () => {});
+      test("Should create order if selectedFoodSize does not exist", async () => {});
     });
   });
 
