@@ -5,6 +5,7 @@ const hasRequiredProperties = require("../utils/hasRequiredProperties");
 const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const mapCart = require("../utils/mapCart");
 const mapFoodInfo = require("../utils/mapFoodInfo");
+const DatabaseErrorHandler = require("../errors/DatabaseErrorHandler");
 
 const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
 const REQUIRED_PROPERTIES = ["cart"];
@@ -194,7 +195,18 @@ async function listUserOrders(req, res, next) {
 }
 
 async function list(req, res, next) {
-  return res.status(200).json({ data: [] });
+  try {
+    const { user_id = null } = req.params;
+    if (!user_id) {
+      return next({
+        status: 400,
+        message: "A user id is required",
+      });
+    }
+    res.status(200).json({ data: await service.listFromId(user_id) });
+  } catch (err) {
+    return next(DatabaseErrorHandler.handleError(err));
+  }
 }
 
 /*
@@ -218,7 +230,7 @@ async function isValidFoodIdsAndIndexes(req, res, next) {
  * @returns array of middleware functions that the router can handle.
  */
 module.exports = {
-  list: [checkQueryParams, asyncErrorBoundary(list)],
+  listUserOrders: [checkQueryParams, asyncErrorBoundary(list)],
   read: [asyncErrorBoundary(orderExist), asyncErrorBoundary(getCartInfo), read],
   create: [
     hasOnlyValidProperties(PROPERTIES),
