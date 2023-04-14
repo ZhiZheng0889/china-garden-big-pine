@@ -7,17 +7,17 @@ const mapCart = require("../utils/mapCart");
 const mapFoodInfo = require("../utils/mapFoodInfo");
 
 const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
-const REQUIRED_PROPERTIES = ["cart"];
+const REQUIRED_PROPERTIES = ["cart", "phone_number"];
 
 const CART_VALID_PROPERTIES = [
-  "food_id",
+  "_id",
   "specialRequest",
   "quantity",
   "selctedFoodOption",
   "selectedFoodSize",
 ];
 
-const CART_REQUIRED_PROPERTIES = ["food_id", "quantity"];
+const CART_REQUIRED_PROPERTIES = ["_id", "quantity"];
 
 async function orderExist(req, res, next) {
   const { order_id = null } = req.params;
@@ -134,26 +134,8 @@ async function create(req, res, next) {
   }
 }
 
-async function getCartInfo(req, res, next) {
-  try {
-    const { order_id } = res.locals.order;
-    const orderItems = await service.readCart(order_id);
-    const food_ids = orderItems.map((item) => item.food_id);
-    const foodInfo = await service.foodsFromCart(food_ids);
-    const foodOptionIds = orderItems.map((item) => item.food_option_id);
-    const foodOptions = await service.optionsFromCart(foodOptionIds);
-    const foodSizeIds = orderItems.map((item) => item.food_size_id);
-    const foodSizes = await service.sizesFromCart(foodSizeIds);
-    const cart = mapFoodInfo(
-      mapCart(orderItems, foodInfo),
-      foodOptions,
-      foodSizes
-    );
-    res.locals.cart = cart;
-    return next();
-  } catch (error) {
-    return next({ status: 500, message: error.message });
-  }
+async function isValidPhoneNumber(req, res, next) {
+  return next();
 }
 
 async function read(req, res, next) {
@@ -223,10 +205,10 @@ module.exports = {
   create: [
     hasOnlyValidProperties(PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
-    asyncErrorBoundary(isValidUser_id),
     cartHasValidProperties,
     cartHasRequiredProperties,
-    asyncErrorBoundary(isValidFoodIdsAndIndexes),
+    asyncErrorBoundary(isValidUser_id),
+    isValidPhoneNumber,
     asyncErrorBoundary(create),
   ],
   listFromUser: [
