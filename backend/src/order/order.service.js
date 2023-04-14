@@ -1,6 +1,6 @@
 const Food = require("../db/models/foodModel");
 const Order = require("../db/models/orderModel");
-
+const User = require("../db/models/userModel");
 /*
  * List orders in descending order
  * @returns Promise<Orders[]>
@@ -60,12 +60,8 @@ function sizesFromCart(food_size_ids) {
   // return knex('food_sizes').select('*').whereIn('food_size_id', food_size_ids);
 }
 
-function readUser(user_id) {
-  // return knex('users').select('*').where({ user_id }).first();
-}
-
-function getUser(user_id) {
-  // return knex('users').select('*').where({ user_id }).first();
+function readUser(_id) {
+  return User.findOne({ _id });
 }
 
 function listUserOrders(user_id) {
@@ -89,7 +85,6 @@ module.exports = {
   readUser,
   optionsFromCart,
   sizesFromCart,
-  getUser,
   listUserOrders,
   listFoodsWithFoodIds,
 };

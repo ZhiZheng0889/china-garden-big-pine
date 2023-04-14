@@ -12,7 +12,6 @@ const Profile = ({ user }) => {
   const [error, setError] = useState(null);
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-  console.log(isObjectEmpty(user));
   if (isObjectEmpty(user)) {
     navigate("/");
   }
@@ -30,8 +29,6 @@ const Profile = ({ user }) => {
       }
     })();
   }, [user_id]);
-
-  console.log("USER => ", user);
 
   return (
     <main className="min-h-screen bg-slate-100 flex justify-center pt-6">

@@ -46,7 +46,6 @@ const Signup = ({ setUser }) => {
           isAdmin: false,
         };
         const response = await UserApi.signup(payload);
-        console.log(response);
         if (response) {
           setUser(response);
           navigate("/");
@@ -55,7 +54,6 @@ const Signup = ({ setUser }) => {
         throw { message: "Passwords are not matching. Please try again." };
       }
     } catch (error) {
-      console.log(error);
       setError(error);
     } finally {
       setButtonText("Continue");

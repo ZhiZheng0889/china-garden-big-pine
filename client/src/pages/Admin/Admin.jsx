@@ -18,13 +18,12 @@ function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    axios.get('/check-login-status')
-      .then(response => {
+    axios
+      .get("/check-login-status")
+      .then((response) => {
         setLoggedIn(response.data.loggedIn);
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   if (!loggedIn) {
@@ -43,15 +42,14 @@ function Home() {
   //if user token is valid, display admin page
 
   useEffect(() => {
-    axios.get('/check-user-token')
-      .then(response => {
+    axios
+      .get("/check-user-token")
+      .then((response) => {
         if (!response.data.valid) {
           setLoggedIn(false);
         }
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   if (!loggedIn) {
@@ -63,7 +61,6 @@ function Home() {
         </Link>
       </div>
     );
-
   }
 
   //display admin page

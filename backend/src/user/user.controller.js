@@ -28,7 +28,6 @@ const REQUIRED_LOGIN_PROPERTIES = ["email", "password"];
 // @ access Public
 async function isEmailAvailable(req, res, next) {
   const { email } = req.body.data;
-  console.log(req.body.data);
   const user = await service.read(email);
   if (user) {
     return next({
@@ -236,11 +235,11 @@ const getUserProfile = asyncErrorBoundary(async (req, res, next) => {
   const user = await service.read(req.user.email);
   if (user) {
     delete user.password;
-    return (res.status(200).json({ data: user }));
+    return res.status(200).json({ data: user });
   }
   return next({
     status: 404,
-    message: "User not found."
+    message: "User not found.",
   });
 });
 

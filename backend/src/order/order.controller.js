@@ -47,43 +47,11 @@ async function isValidUser_id(req, res, next) {
   return next();
 }
 
-// function isValidEmail(req, res, next) {
-//   const { email = null } = req.body.data;
-//   if (email) {
-//     const { email: foundEmail } = res.locals.user;
-//     if (email === foundEmail) {
-//       return next();
-//     }
-//     return next({
-//       status: 404,
-//       message: 'Email is not valid.',
-//     });
-//   }
-//   return next();
-// }
-
-// function isValidPhoneNumber(req, res, next) {
-//   const { phone_number = '' } = req.body.data;
-//   if (phone_number) {
-//     const { phone_number: foundPhone_number = null } = res.locals.user;
-//     if (phone_number && phone_number !== foundPhone_number) {
-//       return next({
-//         status: 404,
-//         message: 'Not valid phone number.',
-//       });
-//     }
-//     return next();
-//   }
-//   return next();
-// }
-
 function cartHasValidProperties(req, res, next) {
   const { cart = [] } = req.body.data;
-  console.log("CART: ", cart);
   if (Array.isArray(cart) && cart.length > 0) {
     const invalidFields = cart.reduce((acc, item) => {
       const invalidCartFields = Object.keys(item).reduce((acc2, key) => {
-        console.log("ACC: ", acc, "ACC2: ", acc2);
         return !CART_VALID_PROPERTIES.includes(key) ? acc2.push(key) : acc2;
       }, []);
       if (invalidCartFields.length > 0) {
@@ -135,6 +103,14 @@ async function create(req, res, next) {
 }
 
 async function isValidPhoneNumber(req, res, next) {
+  const { phoneNumber } = req.body.data;
+  const phoneRegex = /^\+?\d{1,3}[- ]?\d{3}[- ]?\d{4}$/;
+  if (!phoneNumber || !phoneRegex.test(isValidPhoneNumber)) {
+    return next({
+      status: 400,
+      message: "Phone number is not valid",
+    });
+  }
   return next();
 }
 
@@ -152,7 +128,7 @@ function checkQueryParams(req, res, next) {
 async function userExist(req, res, next) {
   const { user_id = null } = req.params;
   if (user_id) {
-    const foundUser = await service.getUser(user_id);
+    const foundUser = await service.readUser(user_id);
     if (foundUser) {
       res.locals.user = foundUser;
       return next();
@@ -201,7 +177,7 @@ async function isValidFoodIdsAndIndexes(req, res, next) {
  */
 module.exports = {
   list: [checkQueryParams, asyncErrorBoundary(list)],
-  read: [asyncErrorBoundary(orderExist), asyncErrorBoundary(getCartInfo), read],
+  read: [asyncErrorBoundary(orderExist), read],
   create: [
     hasOnlyValidProperties(PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),

@@ -79,15 +79,12 @@ exports.subtract = function (req, res, next) {
           return item.product_id === product_id;
         });
         if (indexFound !== -1) {
-          console.log("index Found: ", indexFound);
-          console.log("before update items: ", cart.items);
           let updatedQty = cart.items[indexFound].qty - qty;
           if (updatedQty <= 0) {
             cart.items.splice(indexFound, 1);
           } else {
             cart.items[indexFound].qty = updatedQty;
           }
-          console.log("after update items: ", cart.items);
           return cart.save();
         } else {
           throw new Error("Invalid request");
@@ -113,7 +110,6 @@ exports.subtract = function (req, res, next) {
  */
 exports.get = function (req, res, next) {
   const { email } = req.query;
-  // console.log(email);
   if (!email) {
     const error = new APIError("Invalid request", httpStatus.BAD_REQUEST, true);
     return next(error);

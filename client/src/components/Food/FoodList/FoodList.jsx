@@ -23,7 +23,6 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
             { search, category },
             abortController
           );
-          console.log("response: ", response);
           setFoods(response);
         }
       } catch (error) {

@@ -14,7 +14,6 @@ export class VerifyApi {
       body: JSON.stringify({ data: { phone_number } }),
       headers,
     };
-    console.log("HERE");
     return await fetchJson(url, options, {});
   }
 

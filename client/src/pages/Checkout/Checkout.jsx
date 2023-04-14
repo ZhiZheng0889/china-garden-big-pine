@@ -15,77 +15,11 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const FLORIDA_TAX = 0.075;
   const [requestId, setRequestId] = useState(null);
   const navigate = useNavigate();
-  console.log(user);
-  console.log(cart);
-  const checkVerification = async () => {
-    if (user && !isObjectEmpty(user) && user.phone_number_is_verified) {
-      submitOrder();
-    } else if (
-      user &&
-      !isObjectEmpty(user) &&
-      user.user_id &&
-      !user.phone_number_is_verified
-    ) {
-      try {
-        setError(null);
-        const response = await VerifyApi.sendVerifyToPhoneNumber(
-          user.phone_number
-        );
-        if (response.request_id) {
-          setRequestId(response.request_id);
-          setIsVerifyModalOpen(true);
-        } else {
-          throw new Error("Error sending request");
-        }
-      } catch (error) {
-        setError(error.message);
-      }
-    } else {
-      console.log("in here");
-      setIsVerifyModalOpen(true);
-    }
+
+  const verifyPhoneNumber = () => {
+    setIsVerifyModalOpen(true);
   };
 
-  const submitOrder = async () => {
-    try {
-      const { user_id = null, email = null } = user;
-      const mappedCart = cart.map((item) => {
-        const {
-          food_id,
-          specialRequest,
-          quantity,
-          currentOption,
-          currentSize,
-        } = item;
-        const food_option_id = currentOption?.food_option_id || null;
-        const food_size_id = currentSize?.food_size_id || null;
-        return {
-          food_id,
-          specialRequest,
-          quantity,
-          food_option_id,
-          food_size_id,
-        };
-      });
-      const phone_number = "19102006686";
-      const order = {
-        user_id,
-        email,
-        phone_number,
-        cart: mappedCart,
-      };
-      console.log(cart, order);
-      const response = await OrderApi.create(order);
-      if (response) {
-        setCart([]);
-        return navigate("/receipt", {
-          order_id: response.order_id,
-        });
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  };
   return (
     <>
       <main className={`bg-slate-100 min-h-screen pt-6 ${className}`}>
@@ -111,22 +45,18 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           <button
             className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded"
             disabled={cart.length === 0}
-            onClick={submitOrder}
+            onClick={verifyPhoneNumber}
           >
             Place Order
           </button>
         </section>
       </main>
-      <AuthenticationModal
-        isModalOpen={isVerifyModalOpen}
-        setIsModalOpen={setIsVerifyModalOpen}
-        user={user}
-        setUser={setUser}
-        phoneNumber={phoneNumber}
-        setPhoneNumber={setPhoneNumber}
-        submitOrder={submitOrder}
-        sentRequestId={requestId}
-      />
+      {isVerifyModalOpen && (
+        <AuthenticationModal
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+        />
+      )}
     </>
   );
 };
