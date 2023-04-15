@@ -13,8 +13,8 @@ const CART_VALID_PROPERTIES = [
   "_id",
   "specialRequest",
   "quantity",
-  "selctedFoodOption",
-  "selectedFoodSize",
+  "selctedOption",
+  "selectedSize",
 ];
 
 const CART_REQUIRED_PROPERTIES = ["_id", "quantity"];

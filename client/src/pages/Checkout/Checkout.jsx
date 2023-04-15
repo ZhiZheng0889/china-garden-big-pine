@@ -21,9 +21,42 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     setIsVerifyModalOpen(true);
   };
 
+  const submitOrder = async () => {
+    try {
+      setIsVerifyModalOpen(false);
+      if (!phoneNumber) {
+        throw new Error("A phone number is required");
+      }
+      if (!cart || cart.length === 0) {
+        throw new Error("A cart cannot be empty");
+      }
+      const { user_id = null, email = null } = user;
+      const formattedCart = cart.reduce((cartItem) => {
+        const {
+          food: { _id },
+          quantity,
+          selectedOption = null,
+          selectedSize = null,
+          specialRequest = "",
+        } = cartItem;
+        return { _id, quantity, selectedOption, selectedSize, specialRequest };
+      });
+      const createdOrder = await OrderApi.create({
+        phoneNumber,
+        user_id,
+        email,
+        cart: formattedCart,
+      });
+      console.log(createdOrder);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    }
+  };
+
   return (
     <>
-      <main className={`bg-slate-100 min-h-screen pt-6 ${className}`}>
+      <main className={`bg-slate-100 min-h-screen py-6 ${className}`}>
         <section className="mx-auto max-w-2xl bg-white bg-slate-100">
           <ErrorAlert error={error} />
           <h1 className="text-4xl font-semibold mb-4">Checkout</h1>
@@ -33,15 +66,17 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
               <CheckoutComponent cart={cart} setCart={setCart} hideButton />
             </div>
           </Card>
-          <Card classes="mb-4 flex flex-col items-center">
+          <Card classes="mb-4 flex flex-col gap-3 items-center">
             <div className="flex w-full">
               <h3 className="text-lg font-semibold text-left">
                 2. Review order
               </h3>
             </div>
             <Map />
-            <p>Estimated completion time</p>
-            <p className="font-semibold text-xl">15-25 Minutes</p>
+            <div>
+              <p className="text-center">Estimated completion time</p>
+              <p className="text-center font-semibold text-xl">15-25 Minutes</p>
+            </div>
           </Card>
           <button
             className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded"
@@ -52,12 +87,13 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           </button>
         </section>
       </main>
-      {isVerifyModalOpen && (
-        <AuthenticationModal
-          phoneNumber={phoneNumber}
-          setPhoneNumber={setPhoneNumber}
-        />
-      )}
+      <AuthenticationModal
+        phoneNumber={phoneNumber}
+        setPhoneNumber={setPhoneNumber}
+        isOpen={isVerifyModalOpen}
+        setIsOpen={setIsVerifyModalOpen}
+        submitOrder={submitOrder}
+      />
     </>
   );
 };
