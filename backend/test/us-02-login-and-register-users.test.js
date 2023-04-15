@@ -1,24 +1,18 @@
 const { expect } = require("chai");
 const request = require("supertest");
-const { response } = require("../src/app");
-
 const app = require("../src/app");
-const knex = require("../src/db/connection");
+const db = require("../src/mongoConnection");
+const User = require("../src/models/userModel");
 
-describe("02 - Reigster and Login users", () => {
-  beforeAll(() => {
-    return knex.migrate
-      .forceFreeMigrationsLock()
-      .then(() => knex.migrate.rollback(null, true))
-      .then(() => knex.migrate.latest());
-  });
-
-  beforeEach(() => {
-    return knex.seed.run();
+describe("02 - Register and Login users", () => {
+  beforeEach(async () => {
+    // Clear the User collection before each test
+    await User.deleteMany({});
   });
 
   afterAll(async () => {
-    return await knex.migrate.rollback(null, true).then(() => knex.destroy());
+    // Close the Mongoose connection after all tests
+    await db.close();
   });
 
   describe("Register user on /users", () => {
@@ -39,6 +33,11 @@ describe("02 - Reigster and Login users", () => {
         .post("/users")
         .set("Accept", "application/json")
         .send({ data: firstUser });
+
+      // Change this part to use the Mongoose User model
+      const existingUser = await User.findOne({ email: testedUser.email });
+      expect(existingUser).to.not.be.null;
+
       const response = await request(app)
         .post("/users")
         .set("Accept", "application/json")
@@ -64,6 +63,11 @@ describe("02 - Reigster and Login users", () => {
         .post("/users")
         .set("Accept", "application/json")
         .send({ data: firstUser });
+
+      // Change this part to use the Mongoose User model
+      const existingUser = await User.findOne({ phoneNumber: testedUser.phoneNumber });
+      expect(existingUser).to.not.be.null;
+
       const response = await request(app)
         .post("/users")
         .set("Accept", "application/json")
