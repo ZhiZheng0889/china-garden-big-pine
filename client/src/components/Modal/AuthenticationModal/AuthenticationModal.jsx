@@ -4,23 +4,6 @@ import { VerifyApi } from "../../../api/verifyApi";
 import { userContext } from "../../../context/UserContext";
 import ErrorAlert from "../../../errors/ErrorAlert";
 const AuthenticationModal = ({ phoneNumber, setPhoneNumber }) => {
-  // const handlePhoneChange = ({ target: { value } }) => {
-  //   if (!value.match(/[a-z]/i)) {
-  //     if (value.length <= 3) {
-  //       setPhoneNumber(value);
-  //     } else {
-  //       const tempValue = value;
-  //       if (value.length >= 4) {
-  //         tempValue.split("").splice(3, 0, "-").join("");
-  //         setPhoneNumber(tempValue);
-  //       }
-  //       if (value.length >= 7) {
-  //         tempValue.split("").splice(7, 0, "-").join("");
-  //         setPhoneNumber(tempValue);
-  //       }
-  //     }
-  //   }
-  // };
   const changeNumber = ({ target: { value } }) => {
     setPhoneNumber(value);
   };
