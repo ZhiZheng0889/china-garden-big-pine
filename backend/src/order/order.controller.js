@@ -6,8 +6,8 @@ const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const mapCart = require("../utils/mapCart");
 const mapFoodInfo = require("../utils/mapFoodInfo");
 
-const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
-const REQUIRED_PROPERTIES = ["cart", "phone_number"];
+const PROPERTIES = ["cart", "user_id", "phoneNumber", "email"];
+const REQUIRED_PROPERTIES = ["cart", "phoneNumber"];
 
 const CART_VALID_PROPERTIES = [
   "_id",
@@ -47,8 +47,12 @@ async function isValidUser_id(req, res, next) {
   return next();
 }
 
+/*
+ * Loops through and makes sure each property inside array cart has all valid properties using CART_VALID_PROPERTIES
+ */
 function cartHasValidProperties(req, res, next) {
   const { cart = [] } = req.body.data;
+  console.log("CART: ", cart);
   if (Array.isArray(cart) && cart.length > 0) {
     const invalidFields = cart.reduce((acc, item) => {
       const invalidCartFields = Object.keys(item).reduce((acc2, key) => {
@@ -74,6 +78,9 @@ function cartHasValidProperties(req, res, next) {
   });
 }
 
+/*
+ * Loops through and makes sure each property inside array is in CART_REQUIRED_PROPERTIES
+ */
 function cartHasRequiredProperties(req, res, next) {
   const { cart = [] } = req.body.data;
   try {
@@ -98,19 +105,22 @@ async function create(req, res, next) {
     const response = await service.createOrder(req.body.data);
     res.status(200).json({ data: response });
   } catch (error) {
+    console.log(error);
     return next({ status: 500, message: "Error creating order." });
   }
 }
 
 async function isValidPhoneNumber(req, res, next) {
   const { phoneNumber } = req.body.data;
-  const phoneRegex = /^\+?\d{1,3}[- ]?\d{3}[- ]?\d{4}$/;
-  if (!phoneNumber || !phoneRegex.test(isValidPhoneNumber)) {
-    return next({
-      status: 400,
-      message: "Phone number is not valid",
-    });
-  }
+  console.log("PN: ", phoneNumber);
+  // const phoneRegex = /^\+?\d{1,3}[- ]?\d{3}[- ]?\d{4}$/;
+  // if (!phoneNumber || !phoneRegex.test(isValidPhoneNumber)) {
+  //   return next({
+  //     status: 400,
+  //     message: "Phone number is not valid",
+  //   });
+  // }
+  console.log("HERE");
   return next();
 }
 

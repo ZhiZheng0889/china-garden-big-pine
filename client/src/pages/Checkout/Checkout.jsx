@@ -31,7 +31,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         throw new Error("A cart cannot be empty");
       }
       const { user_id = null, email = null } = user;
-      const formattedCart = cart.reduce((cartItem) => {
+      const formattedCart = cart.map((cartItem) => {
         const {
           food: { _id },
           quantity,

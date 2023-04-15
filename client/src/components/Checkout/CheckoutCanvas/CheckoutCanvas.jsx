@@ -17,7 +17,10 @@ const CheckoutCanvas = ({
         isCheckoutOpen ? "right-0 block" : "left-full hidden"
       }`}
     >
-      <div className="modalBackdrop"></div>
+      <div
+        className="modalBackdrop"
+        onClick={() => setIsBurgerOpen(false)}
+      ></div>
       <Card
         classes={`z-50 w-full sm:w-9/12 md:w-7/12 lg:w-5/12 top-0 bottom-0 text-black h-screen overflow-y-scroll fixed ${
           isCheckoutOpen ? "right-0" : "left-full hidden"
