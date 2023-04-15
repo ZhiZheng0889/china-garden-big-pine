@@ -213,6 +213,32 @@ async function isValidFoodIdsAndIndexes(req, res, next) {
   return next();
 }
 
+//Setup for reading a single order
+async function readOrder(req, res, next) {
+  const { order_id } = req.params;
+
+  try {
+    const foundOrder = await service.read(order_id);
+    if (foundOrder) {
+      res.status(200).json({ data: foundOrder });
+    } else {
+      return next({ status: 404, message: `Order ${order_id} not found.` });
+    }
+  } catch (error) {
+    return next({ status: 500, message: "Error reading order." });
+  }
+}
+
+//Setup listing the orders
+async function listOrders(req, res, next) {
+  try {
+    const orders = await service.list();
+    res.status(200).json({ data: orders });
+  } catch (error) {
+    return next({ status: 500, message: "Error getting orders." });
+  }
+}
+
 /*
  * Order controller
  * @returns array of middleware functions that the router can handle.
@@ -234,4 +260,7 @@ module.exports = {
     asyncErrorBoundary(listUserOrders),
   ],
   destroy: [],
+  readsingleorder: [asyncErrorBoundary(orderExist), asyncErrorBoundary(readOrder)],
+  listOrders: asyncErrorBoundary(listOrders),
 };
+
