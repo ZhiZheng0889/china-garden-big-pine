@@ -8,6 +8,7 @@ import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import { OrderApi } from "../../api/orderApi";
 import { VerifyApi } from "../../api/verifyApi";
 import CheckoutComponent from "../../components/Checkout/Checkout";
+import Map from "../../components/Map/Map";
 const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
   const [error, setError] = useState(null);
@@ -38,7 +39,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
                 2. Review order
               </h3>
             </div>
-            {/* <MapContainer /> */}
+            <Map />
             <p>Estimated completion time</p>
             <p className="font-semibold text-xl">15-25 Minutes</p>
           </Card>
