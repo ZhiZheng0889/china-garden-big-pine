@@ -54,5 +54,36 @@ describe("User model", () => {
   });
 
   // Add more tests for other CRUD operations and edge cases.
+  describe("Updating a user", () => {
+    it("should update a user successfully", async () => {
+      const newUser = new User({
+        email: "test@example.com",
+        firstName: "John",
+        lastName: "Doe",
+        isAdmin: false,
+        phoneNumber: "1234567890",
+        password: "password123",
+      });
+  
+      const savedUser = await newUser.save();
+  
+      const updatedUser = await User.findByIdAndUpdate(
+        savedUser._id,
+        { firstName: "Jane" },
+        { new: true }
+      );
+  
+      expect(updatedUser).to.have.property("_id");
+      expect(updatedUser.email).to.equal("test@example.com");
+      expect(updatedUser.firstName).to.equal("Jane");
+      expect(updatedUser.lastName).to.equal("Doe");
+      expect(updatedUser.isAdmin).to.equal(false);
+      expect(updatedUser.phoneNumber).to.equal("1234567890");
+      expect(updatedUser.password).to.equal("password123");
+      expect(updatedUser.emailIsVerified).to.equal(false);
+      expect(updatedUser.phoneNumberIsVerified).to.equal(false);
+    });
+  });
+  
 });
 
