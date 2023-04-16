@@ -1,0 +1,24 @@
+[
+    {
+    "phoneNumber": "+1(910)-200-6686",
+    "email": null,
+    "user": null,
+    "isComplete": false,
+    "cart": [
+        {
+            "_id": 1,
+            "specialRequest": "",
+            "quantity": 1,
+            "selectedFoodOption": null,
+            "selectedFoodSize": null
+        },
+        {
+            "_id": 3,
+            "specialRequest": "",
+            "quantity": 1,
+            "selectedFoodOption": null,
+            "selectedFoodSize": null
+        }
+    ]
+}
+]
