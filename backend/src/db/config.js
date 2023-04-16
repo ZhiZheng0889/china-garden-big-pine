@@ -2,22 +2,18 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 class DatabaseConfig {
-  static getDatabaseUri() {
-    if (process.env.NODE_ENV === "production") {
+  static getDatabaseUri(env) {
+    if (env === "production") {
       return process.env.DATABASE_URL || "";
-    } else if (process.env.NODE_ENV === "test") {
+    } else if (env === "test") {
       return process.env.DATABASE_URL_TEST || "";
     } else {
       return process.env.DATABASE_URL_DEVELOPMENT || "";
     }
   }
 
-  static getDatabaseUriForTest() {
-    return process.env.DATABASE_URL_TEST;
-  }
-
-  static init() {
-    mongoose.connect(this.getDatabaseUri());
+  static init(env) {
+    mongoose.connect(this.getDatabaseUri(env));
     const db = mongoose.connection;
     db.on("error", (error) => {
       console.log(error);

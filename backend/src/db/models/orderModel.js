@@ -6,7 +6,7 @@
 const mongoose = require("mongoose");
 
 const CartItemSchema = new mongoose.Schema({
-  food: {
+  food_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Food",
   },
@@ -32,7 +32,7 @@ const OrderSchema = new mongoose.Schema(
   {
     phoneNumber: { type: String, required: true },
     email: { type: String },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     isComplete: { type: Boolean, default: false },
     cart: [CartItemSchema],
   },
