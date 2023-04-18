@@ -6,7 +6,7 @@ const Order = require("../db/models/orderModel");
  * @returns Promise<Orders[]>
  */
 function list() {
-  return Order.find().sort({created_at: -1}).exec();
+  return Order.find().sort({ created_at: -1 }).exec();
 }
 
 /*
@@ -14,7 +14,7 @@ function list() {
  * @returns Promise<Boolean>
  */
 async function isFood_idsValid(food_ids) {
-  const foods = await Food.find({_id: { $in: food_ids }}, '_id').exec();
+  const foods = await Food.find({ _id: { $in: food_ids } }, "_id").exec();
   return foods.length === food_ids.length;
 }
 
@@ -23,7 +23,7 @@ async function isFood_idsValid(food_ids) {
  * @returns Promise<Order>
  */
 function createOrder(order) {
-  return Order.create(order);
+  return Order.insert(order);
 }
 
 /*
@@ -39,7 +39,11 @@ function read(order_id) {
  * @returns Promise<OrderItem[]>
  */
 function readCart(order_id) {
-  return Order.findById(order_id, 'cart').populate('cart.food_id', 'name price').populate('cart.selectedFoodOption', 'name price').populate('cart.selectedFoodSize', 'name price').exec();
+  return Order.findById(order_id, "cart")
+    .populate("cart.food_id", "name price")
+    .populate("cart.selectedFoodOption", "name price")
+    .populate("cart.selectedFoodSize", "name price")
+    .exec();
 }
 
 /*
@@ -47,7 +51,7 @@ function readCart(order_id) {
  * @returns Promise<Food[]>
  */
 function foodsFromCart(food_ids) {
-  return Food.find({_id: { $in: food_ids }}).exec();
+  return Food.find({ _id: { $in: food_ids } }).exec();
 }
 
 /*
@@ -55,7 +59,7 @@ function foodsFromCart(food_ids) {
  * @returns Promise<FoodOption[]>
  */
 function optionsFromCart(food_option_ids) {
-  return FoodOption.find({_id: { $in: food_option_ids }}).exec();
+  return FoodOption.find({ _id: { $in: food_option_ids } }).exec();
 }
 
 /*
@@ -63,7 +67,7 @@ function optionsFromCart(food_option_ids) {
  * @returns Promise<FoodSize[]>
  */
 function sizesFromCart(food_size_ids) {
-  return FoodSize.find({_id: { $in: food_size_ids }}).exec();
+  return FoodSize.find({ _id: { $in: food_size_ids } }).exec();
 }
 
 /*
@@ -87,7 +91,7 @@ function getUser(user_id) {
  * @returns Promise<Order[]>
  */
 function listUserOrders(user_id) {
-  return Order.find({ user_id }).sort({created_at: -1}).exec();
+  return Order.find({ user_id }).sort({ created_at: -1 }).exec();
 }
 
 /*
@@ -95,7 +99,7 @@ function listUserOrders(user_id) {
  * @returns Promise<Food[]>
  */
 function listFoodsWithFoodIds(food_ids) {
-  return Food.find({_id: { $in: food_ids }}).exec();
+  return Food.find({ _id: { $in: food_ids } }).exec();
 }
 
 async function deleteOrder(order_id) {
@@ -117,5 +121,3 @@ module.exports = {
   listFoodsWithFoodIds,
   deleteOrder,
 };
-
-
