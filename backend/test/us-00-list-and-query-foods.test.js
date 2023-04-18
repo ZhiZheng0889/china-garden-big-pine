@@ -1,12 +1,13 @@
-const { expect } = require("chai");
 const request = require("supertest");
 const mongoose = require("mongoose");
+const { expect } = require("chai");
+
 
 const app = require("../src/app");
 const Food = require("../src/db/models/foodModel");
 const DatabaseConfig = require("../src/db/config");
 
-const { seedTest } = require("../src/db/seeds/dataProvider");
+const { seed, reap } = require("../src/db/seeds/foods");
 
 describe("00 - List and Query Food From Categories", () => {
   beforeAll(async () => {
@@ -20,8 +21,15 @@ describe("00 - List and Query Food From Categories", () => {
 
   beforeEach(async () => {
     try {
-      await Food.deleteMany({});
-      await seedTest("--foods");
+      await seed("test"); // Assuming you want to seed the test environment
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  afterEach(async () => {
+    try {
+      await reap("test"); // Assuming you want to reap the test environment
     } catch (err) {
       console.error(err);
     }

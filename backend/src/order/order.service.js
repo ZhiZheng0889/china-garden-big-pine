@@ -98,6 +98,10 @@ function listFoodsWithFoodIds(food_ids) {
   return Food.find({_id: { $in: food_ids }}).exec();
 }
 
+async function deleteOrder(order_id) {
+  return await OrderModel.findByIdAndDelete(order_id).exec();
+}
+
 module.exports = {
   list,
   read,
@@ -111,6 +115,7 @@ module.exports = {
   getUser,
   listUserOrders,
   listFoodsWithFoodIds,
+  deleteOrder,
 };
 
 

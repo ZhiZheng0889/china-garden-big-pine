@@ -12,6 +12,10 @@ class DatabaseConfig {
     }
   }
 
+  static getDatabaseUriForTest() {
+    return this.getDatabaseUri("test");
+  }
+
   static init(env) {
     mongoose.connect(this.getDatabaseUri(env));
     const db = mongoose.connection;
@@ -26,3 +30,4 @@ class DatabaseConfig {
 }
 
 module.exports = DatabaseConfig;
+
