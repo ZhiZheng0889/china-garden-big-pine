@@ -45,8 +45,8 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     } else {
       const itemToAdd = {
         food,
-        selectedSize,
-        selectedOption,
+        selectedFoodSize,
+        selectedFoodOption,
         specialRequest,
         quantity,
       };
