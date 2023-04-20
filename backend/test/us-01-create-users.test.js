@@ -5,25 +5,27 @@ const mongoose = require("mongoose");
 const { expect } = chai;
 chai.use(chaiHttp);
 
-const User = require("../models/User");
+const User = require("../src/db/models/userModel.js");
+const DatabaseConfig = require("../src/db/config.js");
 
-describe("User model", () => {
-  before(async () => {
-    // Connect to the MongoDB test database
-    const uri = "mongodb://localhost:27017/test";
-    await mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    });
+jest.setTimeout(10000); // Set the timeout to 10 seconds
+
+beforeAll(async () => {
+  // Connect to the MongoDB test database
+  const uri = DatabaseConfig.getDatabaseUriForTest();
+  await mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
+});
+
 
   beforeEach(async () => {
     // Clean up the User collection before each test
     await User.deleteMany({});
   });
 
-  after(async () => {
+  afterAll(async () => {
     // Close the MongoDB connection after testing
     await mongoose.connection.close();
   });
@@ -83,7 +85,4 @@ describe("User model", () => {
       expect(updatedUser.emailIsVerified).to.equal(false);
       expect(updatedUser.phoneNumberIsVerified).to.equal(false);
     });
-  });
-  
 });
-
