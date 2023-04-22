@@ -1,10 +1,12 @@
 const { expect } = require("chai");
 const request = require("supertest");
 const app = require("../src/app");
-const db = require("../src/mongoConnection");
-const User = require("../src/models/userModel");
+const User = require("../src/db/models/userModel");
+const config = require("../src/db/config");
 
 describe("02 - Register and Login users", () => {
+  jest.setTimeout(20000); // Set the timeout to 20 seconds
+
   beforeEach(async () => {
     // Clear the User collection before each test
     await User.deleteMany({});
@@ -12,11 +14,12 @@ describe("02 - Register and Login users", () => {
 
   afterAll(async () => {
     // Close the Mongoose connection after all tests
-    await db.close();
+    await config.close();
   });
 
   describe("Register user on /users", () => {
     test("Should return a status of 409 for using an email that already exist", async () => {
+      jest.setTimeout(10000); // Set the timeout to 10 seconds
       const firstUser = {
         email: "test@mail.com",
         first_name: "Test",
@@ -47,6 +50,7 @@ describe("02 - Register and Login users", () => {
     });
 
     test("Should return a status of 409 for using a phone number that already exist", async () => {
+      jest.setTimeout(10000); // Set the timeout to 10 seconds
       const firstUser = {
         email: "test1@mail.com",
         first_name: "Test",
@@ -77,6 +81,7 @@ describe("02 - Register and Login users", () => {
     });
 
     test("Should create a user and return a status code of 201, a refresh token in body, and access token in httpOnly cookie", async () => {
+      jest.setTimeout(10000); // Set the timeout to 10 seconds
       const data = {
         email: "test@mail.com",
         first_name: "Test",

@@ -17,7 +17,12 @@ class DatabaseConfig {
   }
 
   static init(env) {
-    mongoose.connect(this.getDatabaseUri(env));
+    mongoose.connect(this.getDatabaseUri(env), {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    });
     const db = mongoose.connection;
     db.on("error", (error) => {
       console.log(error);
@@ -30,4 +35,3 @@ class DatabaseConfig {
 }
 
 module.exports = DatabaseConfig;
-

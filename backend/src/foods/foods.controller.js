@@ -18,11 +18,8 @@ function checkQueryParams(req, res, next) {
 }
 /*
  * List foods based on if there is a query parameter or not.
- */
+*/
 async function list(req, res, next) {
-  /*
-   * If res.locals.search is defined use service.search() function
-   */
   const { category = "", search = "" } = res.locals;
   let data;
   if (search) {
@@ -32,8 +29,14 @@ async function list(req, res, next) {
   } else {
     data = await service.list();
   }
-  res.status(200).json({ data });
+  
+  if (category && !data.length) {
+    res.status(404).json({ error: `Category: ${category} does not exist` });
+  } else {
+    res.status(200).json({ data });
+  }
 }
+
 
 //change price in food table
 async function update(req, res, next) {
