@@ -1,8 +1,3 @@
-//Your order schema seems to have a small issue with the nested structure of the cart field.
-//  The cart should contain objects with properties such as food, specialRequest, quantity, etc. 
-//  To fix this issue, you should define the structure of the cart items as a separate schema and then use that schema 
-//  in the cart array. Here's the corrected schema:
-
 const mongoose = require("mongoose");
 
 const CartItemSchema = new mongoose.Schema({
@@ -41,5 +36,3 @@ const OrderSchema = new mongoose.Schema(
 
 const Order = mongoose.model("Order", OrderSchema);
 module.exports = Order;
-
-
