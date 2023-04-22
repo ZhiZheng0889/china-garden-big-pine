@@ -12,10 +12,6 @@ class DatabaseConfig {
     }
   }
 
-  static getDatabaseUriForTest() {
-    return this.getDatabaseUri("test");
-  }
-
   static init(env) {
     mongoose.connect(this.getDatabaseUri(env), {
       useNewUrlParser: true,
