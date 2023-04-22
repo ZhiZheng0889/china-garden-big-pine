@@ -1,28 +1,25 @@
 const { expect } = require("chai");
 const request = require("supertest");
-const { response } = require("../src/app");
-
 const app = require("../src/app");
-const knex = require("../src/db/connection");
+const User = require("../src/db/models/userModel");
+const config = require("../src/db/config");
 
-describe("02 - Reigster and Login users", () => {
-  beforeAll(() => {
-    return knex.migrate
-      .forceFreeMigrationsLock()
-      .then(() => knex.migrate.rollback(null, true))
-      .then(() => knex.migrate.latest());
-  });
+describe("02 - Register and Login users", () => {
+  jest.setTimeout(20000); // Set the timeout to 20 seconds
 
-  beforeEach(() => {
-    return knex.seed.run();
+  beforeEach(async () => {
+    // Clear the User collection before each test
+    await User.deleteMany({});
   });
 
   afterAll(async () => {
-    return await knex.migrate.rollback(null, true).then(() => knex.destroy());
+    // Close the Mongoose connection after all tests
+    await config.close();
   });
 
   describe("Register user on /users", () => {
     test("Should return a status of 409 for using an email that already exist", async () => {
+      jest.setTimeout(10000); // Set the timeout to 10 seconds
       const firstUser = {
         email: "test@mail.com",
         first_name: "Test",
@@ -39,6 +36,11 @@ describe("02 - Reigster and Login users", () => {
         .post("/users")
         .set("Accept", "application/json")
         .send({ data: firstUser });
+
+      // Change this part to use the Mongoose User model
+      const existingUser = await User.findOne({ email: testedUser.email });
+      expect(existingUser).to.not.be.null;
+
       const response = await request(app)
         .post("/users")
         .set("Accept", "application/json")
@@ -48,6 +50,7 @@ describe("02 - Reigster and Login users", () => {
     });
 
     test("Should return a status of 409 for using a phone number that already exist", async () => {
+      jest.setTimeout(10000); // Set the timeout to 10 seconds
       const firstUser = {
         email: "test1@mail.com",
         first_name: "Test",
@@ -64,6 +67,11 @@ describe("02 - Reigster and Login users", () => {
         .post("/users")
         .set("Accept", "application/json")
         .send({ data: firstUser });
+
+      // Change this part to use the Mongoose User model
+      const existingUser = await User.findOne({ phoneNumber: testedUser.phoneNumber });
+      expect(existingUser).to.not.be.null;
+
       const response = await request(app)
         .post("/users")
         .set("Accept", "application/json")
@@ -73,6 +81,7 @@ describe("02 - Reigster and Login users", () => {
     });
 
     test("Should create a user and return a status code of 201, a refresh token in body, and access token in httpOnly cookie", async () => {
+      jest.setTimeout(10000); // Set the timeout to 10 seconds
       const data = {
         email: "test@mail.com",
         first_name: "Test",

@@ -9,9 +9,14 @@ router
   .all(methodNotAllowed);
 
 router
-  .route("/user/:user_id")
+  .route("/:order_id")
+  .get(controller.read)
+  .delete(controller.destroy)
+  .all(methodNotAllowed);
+
+router
+  .route("/users/:user_id")
   .get(controller.listFromUser)
   .all(methodNotAllowed);
 
-router.route("/:order_id").get(controller.read).all(methodNotAllowed);
 module.exports = router;

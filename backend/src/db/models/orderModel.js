@@ -1,20 +1,35 @@
 const mongoose = require("mongoose");
+
+const CartItemSchema = new mongoose.Schema({
+  food_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Food",
+  },
+  specialRequest: {
+    type: String,
+    default: "",
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  selectedFoodOption: {
+    type: Number,
+    required: false,
+  },
+  selectedFoodSize: {
+    type: Number,
+    required: false,
+  },
+});
+
 const OrderSchema = new mongoose.Schema(
   {
     phoneNumber: { type: String, required: true },
     email: { type: String },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     isComplete: { type: Boolean, default: false },
-    cart: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "food",
-        specialRequest: { type: String, default: "" },
-        quantity: { type: Number, required: true },
-        selectedFoodOption: { type: Number, required: false },
-        selectedFoodSize: { type: Number, required: false },
-      },
-    ],
+    cart: [CartItemSchema],
   },
   { timestamps: true }
 );
