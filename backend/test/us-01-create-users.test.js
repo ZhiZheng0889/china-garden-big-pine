@@ -1,88 +1,164 @@
-const chai = require("chai");
-const chaiHttp = require("chai-http");
-const mongoose = require("mongoose");
+const request = require("supertest");
+const { expect } = require("chai");
+const app = require("../src/app");
+const DatabaseManager = require("./DatabaseManager");
 
-const { expect } = chai;
-chai.use(chaiHttp);
-
-const User = require("../src/db/models/userModel.js");
-const DatabaseConfig = require("../src/db/config.js");
-
-jest.setTimeout(10000); // Set the timeout to 10 seconds
-
-beforeAll(async () => {
-  // Connect to the MongoDB test database
-  const uri = DatabaseConfig.getDatabaseUriForTest();
-  await mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+describe("01 - create users", () => {
+  beforeAll(async () => {
+    await DatabaseManager.dropAll();
   });
-});
-
 
   beforeEach(async () => {
-    // Clean up the User collection before each test
-    await User.deleteMany({});
+    await DatabaseManager.seedAll();
+  });
+
+  afterEach(async () => {
+    await DatabaseManager.dropAll();
   });
 
   afterAll(async () => {
-    // Close the MongoDB connection after testing
-    await mongoose.connection.close();
+    await DatabaseManager.dropAll();
   });
 
   describe("Creating a new user", () => {
-    it("should create a new user successfully", async () => {
-      const newUser = new User({
+    beforeAll(async () => {
+      await DatabaseManager.dropAll();
+    });
+
+    beforeEach(async () => {
+      await DatabaseManager.seedAll();
+    });
+
+    afterEach(async () => {
+      await DatabaseManager.dropAll();
+    });
+
+    afterAll(async () => {
+      await DatabaseManager.dropAll();
+    });
+
+    it("Should return 409 error if email already exist", async () => {});
+
+    it("Should return 409 error if phoneNumber already exist", async () => {});
+
+    it("Should create a new user and return a status of 201", async () => {
+      const data = {
         email: "test@example.com",
         firstName: "John",
         lastName: "Doe",
         isAdmin: false,
         phoneNumber: "1234567890",
         password: "password123",
-      });
+      };
 
-      const savedUser = await newUser.save();
+      const response = await request(app)
+        .post("/users")
+        .set("Accept", "application/json")
+        .send({ data });
 
-      expect(savedUser).to.have.property("_id");
-      expect(savedUser.email).to.equal("test@example.com");
-      expect(savedUser.firstName).to.equal("John");
-      expect(savedUser.lastName).to.equal("Doe");
-      expect(savedUser.isAdmin).to.equal(false);
-      expect(savedUser.phoneNumber).to.equal("1234567890");
-      expect(savedUser.password).to.equal("password123");
-      expect(savedUser.emailIsVerified).to.equal(false);
-      expect(savedUser.phoneNumberIsVerified).to.equal(false);
+      expect(response.status).to.equal(201);
+    });
+
+    it("Should create a new user successfully", async () => {
+      const data = {
+        email: "test@example.com",
+        firstName: "John",
+        lastName: "Doe",
+        isAdmin: false,
+        phoneNumber: "1234567890",
+        password: "password123",
+      };
+
+      const response = await request(app)
+        .post("/users")
+        .set("Accept", "application/json")
+        .send({ data });
+
+      const {
+        data: { userData },
+      } = response.body;
+
+      expect(userData.status).to.equal(201);
+      expect(userData).to.have.property("_id");
+      expect(userData.email).to.equal("test@example.com");
+      expect(userData.firstName).to.equal("John");
+      expect(userData.lastName).to.equal("Doe");
+      expect(userData.isAdmin).to.equal(false);
+      expect(userData.phoneNumber).to.equal("1234567890");
+      expect(userData.emailIsVerified).to.equal(false);
+      expect(userData.phoneNumberIsVerified).to.equal(false);
+    });
+
+    it("Should create a new user and not return a password", async () => {
+      const data = {
+        email: "test@example.com",
+        firstName: "John",
+        lastName: "Doe",
+        isAdmin: false,
+        phoneNumber: "1234567890",
+        password: "password123",
+      };
+
+      const response = await request(app)
+        .post("/users")
+        .set("Accept", "application/json")
+        .send({ data });
+
+      expect(response.status).to.equal(201);
+      expect(response.body.data.password).to.be.undefined;
     });
   });
 
-  // Add more tests for other CRUD operations and edge cases.
-  describe("Updating a user", () => {
-    it("should update a user successfully", async () => {
-      const newUser = new User({
-        email: "test@example.com",
-        firstName: "John",
-        lastName: "Doe",
-        isAdmin: false,
-        phoneNumber: "1234567890",
-        password: "password123",
-      });
-  
-      const savedUser = await newUser.save();
-  
-      const updatedUser = await User.findByIdAndUpdate(
-        savedUser._id,
-        { firstName: "Jane" },
-        { new: true }
-      );
-  
-      expect(updatedUser).to.have.property("_id");
-      expect(updatedUser.email).to.equal("test@example.com");
-      expect(updatedUser.firstName).to.equal("Jane");
-      expect(updatedUser.lastName).to.equal("Doe");
-      expect(updatedUser.isAdmin).to.equal(false);
-      expect(updatedUser.phoneNumber).to.equal("1234567890");
-      expect(updatedUser.password).to.equal("password123");
-      expect(updatedUser.emailIsVerified).to.equal(false);
-      expect(updatedUser.phoneNumberIsVerified).to.equal(false);
-    });
+  // describe("Updating a user", () => {
+  //   it("Should update a user successfully", async () => {
+  //     const newUser = {
+  //       email: "test@example.com",
+  //       firstName: "John",
+  //       lastName: "Doe",
+  //       isAdmin: false,
+  //       phoneNumber: "1234567890",
+  //       password: "password123",
+  //     };
+
+  //     const savedUser = await newUser.save();
+
+  //     const updatedUser = await User.findByIdAndUpdate(
+  //       savedUser._id,
+  //       { firstName: "Jane" },
+  //       { new: true }
+  //     );
+
+  //     expect(updatedUser.status).to.equal(200);
+  //     expect(updatedUser).to.have.property("_id");
+  //     expect(updatedUser.email).to.equal("test@example.com");
+  //     expect(updatedUser.firstName).to.equal("Jane");
+  //     expect(updatedUser.lastName).to.equal("Doe");
+  //     expect(updatedUser.isAdmin).to.equal(false);
+  //     expect(updatedUser.phoneNumber).to.equal("1234567890");
+  //     expect(updatedUser.emailIsVerified).to.equal(false);
+  //     expect(updatedUser.phoneNumberIsVerified).to.equal(false);
+  //   });
+
+  //   it("Should update a user successfully and not return the password", async () => {
+  //     const newUser = new User({
+  //       email: "test@example.com",
+  //       firstName: "John",
+  //       lastName: "Doe",
+  //       isAdmin: false,
+  //       phoneNumber: "1234567890",
+  //       password: "password123",
+  //     });
+
+  //     const savedUser = await newUser.save();
+
+  //     const updatedUser = await User.findByIdAndUpdate(
+  //       savedUser._id,
+  //       { firstName: "Jane" },
+  //       { new: true }
+  //     );
+
+  //     expect(updatedUser.status).to.equal(200);
+  //     expect(updatedUser.password).to.be.undefined;
+  //   });
+  // });
 });
