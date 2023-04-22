@@ -13,6 +13,7 @@ class Seeder {
 
   static async inject(data, model, env) {
     try {
+      console.log("DATA: ", data);
       await this.connect(env);
       await model.create(data);
       console.log("Data successfully injected!");

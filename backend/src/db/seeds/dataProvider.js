@@ -5,11 +5,34 @@ const foodProvider = require("./foods.js");
 const userProvider = require("./users.js");
 const orderProvider = require("./orders.js");
 
-
 async function seedAll(env) {
   await foodProvider.seed(env);
   await userProvider.seed(env);
   await orderProvider.seed(env);
+}
+
+async function seed(env, provider) {
+  if (provider === "users") {
+    await userProvider.seed(env);
+  }
+  if (provider === "foods") {
+    await foodProvider.seed(env);
+  }
+  if (provider === "orders") {
+    await orderProvider.seed(env);
+  }
+}
+
+async function reap(env, provider) {
+  if (provider === "users") {
+    await userProvider.reap(env);
+  }
+  if (provider === "foods") {
+    await foodProvider.reap(env);
+  }
+  if (provider === "orders") {
+    await orderProvider.reap(env);
+  }
 }
 
 async function reapAll(env) {
@@ -22,11 +45,20 @@ if (!process.argv[3]) {
   throw new Error("A enviroment is required");
 }
 
-if (process.argv[2] === "--import") {
-  seedAll(process.argv[3]);
-}
-if (process.argv[2] === "--delete") {
-  reapAll(process.argv[3]);
+if (process.argv[4]) {
+  if (process.argv[2] === "--import") {
+    seed(process.argv[3], process.argv[4]);
+  }
+  if (process.argv[2] === "--delete") {
+    reap(process.argv[3], process.argv[4]);
+  }
+} else {
+  if (process.argv[2] === "--import") {
+    seedAll(process.argv[3]);
+  }
+  if (process.argv[2] === "--delete") {
+    reapAll(process.argv[3]);
+  }
 }
 
 // if (process.argv[2] === "--import" && process.argv[3] === "--all") {
@@ -39,10 +71,9 @@ if (process.argv[2] === "--delete") {
 //   destroy(process.argv[3]);
 // }
 
-
 // async function seed(type = "") {
 //   if (type === "--users" || !type) {
-    
+
 //     await Seeder.inject(`${__dirname}/users.json`, User);
 //   }
 //   if (type === "--foods" || !type) {
@@ -89,5 +120,5 @@ if (process.argv[2] === "--delete") {
 
 module.exports = {
   seedAll,
-  reapAll
+  reapAll,
 };

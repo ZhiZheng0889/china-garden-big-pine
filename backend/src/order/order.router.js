@@ -1,18 +1,22 @@
 const router = require("express").Router();
 const controller = require("./order.controller");
+const methodNotAllowed = require("../errors/methodNotAllowed");
 
 router
   .route("/")
-  .get(controller.list[0])
-  .post(controller.create[0], controller.create[1], controller.create[2]);
+  .get(controller.list)
+  .post(controller.create)
+  .all(methodNotAllowed);
 
 router
   .route("/:order_id")
-  .get(controller.read[0], controller.read[1])
-  .delete(controller.destroy[0], controller.destroy[1]);
+  .get(controller.read)
+  .delete(controller.destroy)
+  .all(methodNotAllowed);
 
 router
   .route("/users/:user_id")
-  .get(controller.listFromUser[0], controller.listFromUser[1]);
+  .get(controller.listFromUser)
+  .all(methodNotAllowed);
 
 module.exports = router;
