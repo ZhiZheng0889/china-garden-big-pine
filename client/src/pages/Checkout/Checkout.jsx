@@ -72,20 +72,18 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           food_size_id,
         };
       });
-      const phone_number = "19102006686";
+      const phoneNumber = "19102006686";
       const order = {
         user_id,
         email,
-        phone_number,
+        phoneNumber,
         cart: mappedCart,
       };
-      console.log("ORDER: ", order);
       const response = await OrderApi.create(order);
-      if (response) {
+      console.log(response);
+      if (response._id) {
         setCart([]);
-        return navigate("/receipt", {
-          order_id: response.order_id,
-        });
+        return navigate(`/receipt/${response._id}`);
       }
     } catch (error) {
       console.log(error);

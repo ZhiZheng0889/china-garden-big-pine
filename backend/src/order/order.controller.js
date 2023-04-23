@@ -6,8 +6,8 @@ const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const mapCart = require("../utils/mapCart");
 const mapFoodInfo = require("../utils/mapFoodInfo");
 
-const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
-const REQUIRED_PROPERTIES = ["cart", "phone_number"];
+const PROPERTIES = ["cart", "user_id", "phoneNumber", "email"];
+const REQUIRED_PROPERTIES = ["cart", "phoneNumber"];
 
 const CART_VALID_PROPERTIES = [
   "food_id",

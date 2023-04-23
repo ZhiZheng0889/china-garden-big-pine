@@ -8,8 +8,9 @@ import ErrorAlert from "../../errors/ErrorAlert";
 const Receipt = () => {
   const [order, setOrder] = useState({});
   const [error, setError] = useState(null);
-  const { order_id = null } = useLocation();
+  const { order_id } = useParams();
   const navigate = useNavigate();
+  console.log(order_id);
   if (!order_id) {
     navigate("/");
   }
@@ -18,6 +19,7 @@ const Receipt = () => {
       try {
         setError(null);
         const response = await OrderApi.read(order_id);
+        console.log(response);
         setOrder(response);
       } catch (error) {
         setError(error.message);
