@@ -15,7 +15,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const FLORIDA_TAX = 0.075;
   const [requestId, setRequestId] = useState(null);
   const navigate = useNavigate();
-  console.log(user);
   console.log(cart);
   const checkVerification = async () => {
     if (user && !isObjectEmpty(user) && user.phone_number_is_verified) {
@@ -41,7 +40,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         setError(error.message);
       }
     } else {
-      console.log("in here");
       setIsVerifyModalOpen(true);
     }
   };
@@ -51,7 +49,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       const { user_id = null, email = null } = user;
       const mappedCart = cart.map((item) => {
         const {
-          food_id,
+          food: { _id: food_id },
           specialRequest,
           quantity,
           currentOption,
@@ -59,6 +57,13 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         } = item;
         const food_option_id = currentOption?.food_option_id || null;
         const food_size_id = currentSize?.food_size_id || null;
+        console.log(
+          food_id,
+          specialRequest,
+          quantity,
+          currentOption,
+          currentSize
+        );
         return {
           food_id,
           specialRequest,
@@ -74,7 +79,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         phone_number,
         cart: mappedCart,
       };
-      console.log(cart, order);
+      console.log("ORDER: ", order);
       const response = await OrderApi.create(order);
       if (response) {
         setCart([]);
@@ -83,7 +88,8 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         });
       }
     } catch (error) {
-      setError(error.message);
+      console.log(error);
+      setError(error);
     }
   };
   return (

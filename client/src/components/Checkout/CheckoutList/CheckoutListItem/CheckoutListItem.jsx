@@ -16,7 +16,6 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
     specialRequest = "",
   } = item;
   const { name, description, options, sizes } = food;
-  console.log("ITEM: ", item);
   const handleDelete = () => {
     Cart.remove(index, setCart);
   };
@@ -24,7 +23,6 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
   const updateQuantity = (amount) => {
     Cart.updateQuantity(index, amount, cart, setCart);
   };
-  console.log(Cart.getItemTotal(index, cart));
   return (
     <li className="flex border-b py-3 px-3">
       <div>

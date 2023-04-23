@@ -27,7 +27,11 @@ const OrderSchema = new mongoose.Schema(
   {
     phoneNumber: { type: String, required: true },
     email: { type: String },
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
     isComplete: { type: Boolean, default: false },
     cart: [CartItemSchema],
   },

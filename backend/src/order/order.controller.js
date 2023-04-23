@@ -7,7 +7,7 @@ const mapCart = require("../utils/mapCart");
 const mapFoodInfo = require("../utils/mapFoodInfo");
 
 const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
-const REQUIRED_PROPERTIES = ["cart"];
+const REQUIRED_PROPERTIES = ["cart", "phone_number"];
 
 const CART_VALID_PROPERTIES = [
   "food_id",
@@ -79,12 +79,15 @@ async function isValidUser_id(req, res, next) {
 
 function cartHasValidProperties(req, res, next) {
   const { cart = [] } = req.body.data;
-  console.log("CART: ", cart);
   if (Array.isArray(cart) && cart.length > 0) {
     const invalidFields = cart.reduce((acc, item) => {
       const invalidCartFields = Object.keys(item).reduce((acc2, key) => {
-        console.log("ACC: ", acc, "ACC2: ", acc2);
-        return !CART_VALID_PROPERTIES.includes(key) ? acc2.push(key) : acc2;
+        return !CART_VALID_PROPERTIES.includes(key)
+          ? () => {
+              acc2.push(key);
+              return acc2;
+            }
+          : acc2;
       }, []);
       if (invalidCartFields.length > 0) {
         return acc.push(item);
@@ -127,9 +130,11 @@ function cartHasRequiredProperties(req, res, next) {
 
 async function create(req, res, next) {
   try {
+    console.log("ORDER: ", req.body.data);
     const response = await service.createOrder(req.body.data);
     res.status(200).json({ data: response });
   } catch (error) {
+    console.log(error.message);
     return next({ status: 500, message: "Error creating order." });
   }
 }
@@ -203,13 +208,15 @@ async function list(req, res, next) {
 async function isValidFoodIdsAndIndexes(req, res, next) {
   const { cart } = req.body.data;
   const foodIds = cart.map((food) => food._id);
-  const foods = await listFoodsWithFoodIds(foodIds);
-  if (foods.length !== cart.length) {
-    return next({
-      status: 400,
-      message: "Some Food ids not found.",
-    });
-  }
+  const foundFoods = await service.listFoodsWithFoodIds(foodIds);
+  foundFoods.forEach((foundFood) => {
+    if (!foundFoods.includes(foundFood._id)) {
+      return next({
+        status: 400,
+        message: "Some Food ids not found.",
+      });
+    }
+  });
   return next();
 }
 
@@ -254,7 +261,6 @@ async function destroy(req, res, next) {
   }
 }
 
-
 /*
  * Order controller
  * @returns array of middleware functions that the router can handle.
@@ -276,7 +282,9 @@ module.exports = {
     asyncErrorBoundary(listUserOrders),
   ],
   destroy: [asyncErrorBoundary(orderExist), asyncErrorBoundary(destroy)],
-  readsingleorder: [asyncErrorBoundary(orderExist), asyncErrorBoundary(readOrder)],
+  readsingleorder: [
+    asyncErrorBoundary(orderExist),
+    asyncErrorBoundary(readOrder),
+  ],
   listOrders: asyncErrorBoundary(listOrders),
 };
-

@@ -36,32 +36,3 @@ const FoodSchema = new mongoose.Schema(
 const Food = mongoose.model("Food", FoodSchema);
 
 module.exports = Food;
-
-/* EXAMPLE */
-/*
-  {
-    "name": "Steamed Rice",
-    "basePrice": 3,
-    "category": "fried_rice",
-    "description": "A very good description",
-    "spicy": false,
-    "available": true,
-    "options": {
-      "small": {
-        "upcharge": 0
-      },
-      "large": {
-        "upcharge": 5.5
-      }
-    },
-    "sizes": {
-      "pint": {
-        "upcharge": 0
-      },
-      "quart": {
-        "upcharge": 5.5
-      }
-    }
-  }
-
-*/

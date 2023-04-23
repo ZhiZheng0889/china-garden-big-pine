@@ -23,7 +23,7 @@ async function isFood_idsValid(food_ids) {
  * @returns Promise<Order>
  */
 function createOrder(order) {
-  return Order.insert(order);
+  return Order.save(order);
 }
 
 /*

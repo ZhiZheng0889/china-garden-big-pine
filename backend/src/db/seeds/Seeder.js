@@ -7,8 +7,8 @@ class Seeder {
     let URI = DatabaseConfig.getDatabaseUri(env);
     mongoose
       .connect(URI)
-      .then((con) => console.log("DB connection successful!", con.connection))
-      .catch((err) => console.log("OH NO SOMETHING WENT WRONG ", err));
+      .then((con) => console.log("DB connection successful!"))
+      .catch((err) => console.log("OH NO SOMETHING WENT WRONG ", err.message));
   }
 
   static async inject(data, model, env) {
@@ -17,7 +17,8 @@ class Seeder {
       await model.create(data);
       console.log("Data successfully injected!");
     } catch (error) {
-      console.error("ERROR: ", error);
+      // console.error("ERROR: ", error);
+      console.error("There was an error: ", error.message);
     }
   }
 

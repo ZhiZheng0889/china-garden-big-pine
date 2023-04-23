@@ -71,8 +71,6 @@ export class Cart {
           if (item.selectedSize) {
             currentSizePrice = item.sizes[item.selectedSize].upCharge || 0;
           }
-          console.log(currentOptionPrice, currentSizePrice, item);
-          console.log(accumulator);
           const total =
             (item.food.basePrice + currentOptionPrice + currentSizePrice) *
             item.quantity;
