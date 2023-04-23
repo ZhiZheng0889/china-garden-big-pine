@@ -6,8 +6,8 @@ const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const mapCart = require("../utils/mapCart");
 const mapFoodInfo = require("../utils/mapFoodInfo");
 
-const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
-const REQUIRED_PROPERTIES = ["cart", "phone_number"];
+const PROPERTIES = ["cart", "user_id", "phoneNumber", "email"];
+const REQUIRED_PROPERTIES = ["cart", "phoneNumber"];
 
 const CART_VALID_PROPERTIES = [
   "food_id",
@@ -23,6 +23,7 @@ async function orderExist(req, res, next) {
   const { order_id = null } = req.params;
   if (order_id) {
     const foundOrder = await service.read(order_id);
+    console.log(foundOrder, "order");
     if (foundOrder) {
       res.locals.order = foundOrder;
       return next();
@@ -141,19 +142,19 @@ async function create(req, res, next) {
 
 async function getCartInfo(req, res, next) {
   try {
-    const { order_id } = res.locals.order;
-    const orderItems = await service.readCart(order_id);
-    const food_ids = orderItems.map((item) => item.food_id);
-    const foodInfo = await service.foodsFromCart(food_ids);
-    const foodOptionIds = orderItems.map((item) => item.food_option_id);
-    const foodOptions = await service.optionsFromCart(foodOptionIds);
-    const foodSizeIds = orderItems.map((item) => item.food_size_id);
-    const foodSizes = await service.sizesFromCart(foodSizeIds);
-    const cart = mapFoodInfo(
-      mapCart(orderItems, foodInfo),
-      foodOptions,
-      foodSizes
-    );
+    const { order } = res.locals;
+    console.log("ORDER: ", order);
+    const foodIds = order.cart.map((cartItem) => cartItem.food_id);
+    console.log("foodIds: ", foodIds);
+    const foods = await service.listFoodsWithFoodIds(foodIds);
+    console.log("food: ", foods);
+    const cart = order.cart.map((cartItem) => {
+      console.log(cartItem);
+      const food = foods.find((food) => food._id === cartItem._id);
+      console.log("final food: ", food);
+      return { ...cartItem };
+    });
+    console.log("get cart order: ", cart);
     res.locals.cart = cart;
     return next();
   } catch (error) {
