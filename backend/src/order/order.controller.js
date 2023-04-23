@@ -145,16 +145,16 @@ async function getCartInfo(req, res, next) {
     const { order } = res.locals;
     console.log("ORDER: ", order);
     const foodIds = order.cart.map((cartItem) => cartItem.food_id);
-    console.log("foodIds: ", foodIds);
     const foods = await service.listFoodsWithFoodIds(foodIds);
-    console.log("food: ", foods);
     const cart = order.cart.map((cartItem) => {
-      console.log(cartItem);
-      const food = foods.find((food) => food._id === cartItem._id);
+      const food = foods.find((food) => {
+        return food._id.toString() == cartItem._id.toString();
+      });
       console.log("final food: ", food);
-      return { ...cartItem };
+      cartItem.food = food;
+      return cartItem;
     });
-    console.log("get cart order: ", cart);
+    // console.log("get cart order: ", cart);
     res.locals.cart = cart;
     return next();
   } catch (error) {
