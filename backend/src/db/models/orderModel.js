@@ -15,11 +15,11 @@ const CartItemSchema = new mongoose.Schema({
   },
   selectedFoodOption: {
     type: Number,
-    required: false,
+    default: null,
   },
   selectedFoodSize: {
     type: Number,
-    required: false,
+    default: null,
   },
 });
 

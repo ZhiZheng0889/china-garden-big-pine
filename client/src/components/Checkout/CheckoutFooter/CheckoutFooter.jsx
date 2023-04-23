@@ -32,7 +32,9 @@ const CheckoutFooter = ({ cart, hideButton }) => {
       </div>
       <div className={`total ${styles.flex}`}>
         <p>Total: </p>
-        <p className={styles.number}>${total && formatCost(total)}</p>
+        <p className={`${styles.number} font-semibold`}>
+          ${total && formatCost(total)}
+        </p>
       </div>
       {!hideButton && (
         <div className="py-3">
