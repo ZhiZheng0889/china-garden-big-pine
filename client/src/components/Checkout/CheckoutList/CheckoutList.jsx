@@ -14,6 +14,7 @@ const CheckoutList = ({ cart, setCart }) => {
       <ul className={styles.list}>
         {Array.isArray(cart) &&
           cart.map((item, index) => {
+            console.log(item);
             return (
               <CheckoutListItem
                 key={item.name + index}

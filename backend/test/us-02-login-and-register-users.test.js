@@ -1,20 +1,23 @@
-const { expect } = require("chai");
 const request = require("supertest");
+const { expect } = require("chai");
 const app = require("../src/app");
-const User = require("../src/db/models/userModel");
-const config = require("../src/db/config");
+const DatabaseManager = require("./DatabaseManager");
 
 describe("02 - Register and Login users", () => {
-  jest.setTimeout(20000); // Set the timeout to 20 seconds
+  beforeAll(async () => {
+    await DatabaseManager.dropAll();
+  });
 
   beforeEach(async () => {
-    // Clear the User collection before each test
-    await User.deleteMany({});
+    await DatabaseManager.seedAll();
+  });
+
+  afterEach(async () => {
+    await DatabaseManager.dropAll();
   });
 
   afterAll(async () => {
-    // Close the Mongoose connection after all tests
-    await config.close();
+    await DatabaseManager.dropAll();
   });
 
   describe("Register user on /users", () => {
@@ -69,7 +72,9 @@ describe("02 - Register and Login users", () => {
         .send({ data: firstUser });
 
       // Change this part to use the Mongoose User model
-      const existingUser = await User.findOne({ phoneNumber: testedUser.phoneNumber });
+      const existingUser = await User.findOne({
+        phoneNumber: testedUser.phoneNumber,
+      });
       expect(existingUser).to.not.be.null;
 
       const response = await request(app)

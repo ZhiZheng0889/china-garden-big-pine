@@ -7,8 +7,8 @@ const mapCart = require("../utils/mapCart");
 const mapFoodInfo = require("../utils/mapFoodInfo");
 const DatabaseErrorHandler = require("../errors/DatabaseErrorHandler");
 
-const PROPERTIES = ["cart", "user_id", "phone_number", "email"];
-const REQUIRED_PROPERTIES = ["cart"];
+const PROPERTIES = ["cart", "user_id", "phoneNumber", "email"];
+const REQUIRED_PROPERTIES = ["cart", "phoneNumber"];
 
 const CART_VALID_PROPERTIES = [
   "food_id",
@@ -24,6 +24,7 @@ async function orderExist(req, res, next) {
   const { order_id = null } = req.params;
   if (order_id) {
     const foundOrder = await service.read(order_id);
+    console.log(foundOrder, "order");
     if (foundOrder) {
       res.locals.order = foundOrder;
       return next();
@@ -80,12 +81,15 @@ async function isValidUser_id(req, res, next) {
 
 function cartHasValidProperties(req, res, next) {
   const { cart = [] } = req.body.data;
-  console.log("CART: ", cart);
   if (Array.isArray(cart) && cart.length > 0) {
     const invalidFields = cart.reduce((acc, item) => {
       const invalidCartFields = Object.keys(item).reduce((acc2, key) => {
-        console.log("ACC: ", acc, "ACC2: ", acc2);
-        return !CART_VALID_PROPERTIES.includes(key) ? acc2.push(key) : acc2;
+        return !CART_VALID_PROPERTIES.includes(key)
+          ? () => {
+              acc2.push(key);
+              return acc2;
+            }
+          : acc2;
       }, []);
       if (invalidCartFields.length > 0) {
         return acc.push(item);
@@ -128,28 +132,30 @@ function cartHasRequiredProperties(req, res, next) {
 
 async function create(req, res, next) {
   try {
+    console.log("ORDER: ", req.body.data);
     const response = await service.createOrder(req.body.data);
     res.status(200).json({ data: response });
   } catch (error) {
+    console.log(error.message);
     return next({ status: 500, message: "Error creating order." });
   }
 }
 
 async function getCartInfo(req, res, next) {
   try {
-    const { order_id } = res.locals.order;
-    const orderItems = await service.readCart(order_id);
-    const food_ids = orderItems.map((item) => item.food_id);
-    const foodInfo = await service.foodsFromCart(food_ids);
-    const foodOptionIds = orderItems.map((item) => item.food_option_id);
-    const foodOptions = await service.optionsFromCart(foodOptionIds);
-    const foodSizeIds = orderItems.map((item) => item.food_size_id);
-    const foodSizes = await service.sizesFromCart(foodSizeIds);
-    const cart = mapFoodInfo(
-      mapCart(orderItems, foodInfo),
-      foodOptions,
-      foodSizes
-    );
+    const { order } = res.locals;
+    const foodIds = order.cart.map((cartItem) => cartItem.food_id);
+    const foods = await service.listFoodsWithFoodIds(foodIds);
+    const cart = order.cart.map((cartItem) => {
+      const food = foods.find((food) => {
+        return food._id.equals(cartItem.food_id);
+      });
+      const tempCartItem = cartItem.toObject();
+      delete tempCartItem.food_id;
+      delete tempCartItem._id;
+      const tempFood = food.toObject();
+      return { ...tempCartItem, food: tempFood };
+    });
     res.locals.cart = cart;
     return next();
   } catch (error) {
@@ -160,7 +166,9 @@ async function getCartInfo(req, res, next) {
 async function read(req, res, next) {
   const { order } = res.locals;
   const { cart } = res.locals;
-  res.status(200).json({ data: { ...order, cart } });
+  const tempOrder = order.toObject();
+  tempOrder.cart = cart;
+  res.status(200).json({ data: tempOrder });
 }
 
 function checkQueryParams(req, res, next) {
@@ -215,13 +223,15 @@ async function list(req, res, next) {
 async function isValidFoodIdsAndIndexes(req, res, next) {
   const { cart } = req.body.data;
   const foodIds = cart.map((food) => food._id);
-  const foods = await listFoodsWithFoodIds(foodIds);
-  if (foods.length !== cart.length) {
-    return next({
-      status: 400,
-      message: "Some Food ids not found.",
-    });
-  }
+  const foundFoods = await service.listFoodsWithFoodIds(foodIds);
+  foundFoods.forEach((foundFood) => {
+    if (!foundFoods.includes(foundFood._id)) {
+      return next({
+        status: 400,
+        message: "Some Food ids not found.",
+      });
+    }
+  });
   return next();
 }
 
@@ -266,7 +276,6 @@ async function destroy(req, res, next) {
   }
 }
 
-
 /*
  * Order controller
  * @returns array of middleware functions that the router can handle.
@@ -288,7 +297,9 @@ module.exports = {
     asyncErrorBoundary(listUserOrders),
   ],
   destroy: [asyncErrorBoundary(orderExist), asyncErrorBoundary(destroy)],
-  readsingleorder: [asyncErrorBoundary(orderExist), asyncErrorBoundary(readOrder)],
+  readsingleorder: [
+    asyncErrorBoundary(orderExist),
+    asyncErrorBoundary(readOrder),
+  ],
   listOrders: asyncErrorBoundary(listOrders),
 };
-

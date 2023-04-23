@@ -15,7 +15,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const FLORIDA_TAX = 0.075;
   const [requestId, setRequestId] = useState(null);
   const navigate = useNavigate();
-  console.log(user);
   console.log(cart);
   const checkVerification = async () => {
     if (user && !isObjectEmpty(user) && user.phone_number_is_verified) {
@@ -41,7 +40,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         setError(error.message);
       }
     } else {
-      console.log("in here");
       setIsVerifyModalOpen(true);
     }
   };
@@ -51,7 +49,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       const { user_id = null, email = null } = user;
       const mappedCart = cart.map((item) => {
         const {
-          food_id,
+          food: { _id: food_id },
           specialRequest,
           quantity,
           currentOption,
@@ -59,6 +57,13 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         } = item;
         const food_option_id = currentOption?.food_option_id || null;
         const food_size_id = currentSize?.food_size_id || null;
+        console.log(
+          food_id,
+          specialRequest,
+          quantity,
+          currentOption,
+          currentSize
+        );
         return {
           food_id,
           specialRequest,
@@ -67,23 +72,22 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           food_size_id,
         };
       });
-      const phone_number = "19102006686";
+      const phoneNumber = "19102006686";
       const order = {
         user_id,
         email,
-        phone_number,
+        phoneNumber,
         cart: mappedCart,
       };
-      console.log(cart, order);
       const response = await OrderApi.create(order);
-      if (response) {
+      console.log(response);
+      if (response._id) {
         setCart([]);
-        return navigate("/receipt", {
-          order_id: response.order_id,
-        });
+        return navigate(`/receipt/${response._id}`);
       }
     } catch (error) {
-      setError(error.message);
+      console.log(error);
+      setError(error);
     }
   };
   return (

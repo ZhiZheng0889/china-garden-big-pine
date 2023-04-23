@@ -1,46 +1,46 @@
 [
-    {
-    "phoneNumber": "+1(910)-200-6686",
+  {
+    "phoneNumber": "19105555555",
     "email": null,
-    "user": null,
+    "userIndex": null,
     "isComplete": false,
     "cart": [
-        {
-            "foodIndex": 1,
-            "specialRequest": "",
-            "quantity": 1,
-            "selectedFoodOption": null,
-            "selectedFoodSize": null
-        },
-        {
-            "foodIndex": 3,
-            "specialRequest": "",
-            "quantity": 1,
-            "selectedFoodOption": null,
-            "selectedFoodSize": null
-        }
+      {
+        "foodIndex": 1,
+        "specialRequest": "",
+        "quantity": 1,
+        "selectedFoodOption": null,
+        "selectedFoodSize": null
+      },
+      {
+        "foodIndex": 3,
+        "specialRequest": "",
+        "quantity": 1,
+        "selectedFoodOption": null,
+        "selectedFoodSize": null
+      }
     ]
-},
-{
-    "phoneNumber": "+1(910)-200-6686",
+  },
+  {
+    "phoneNumber": "19107777777",
     "email": null,
     "userIndex": 0,
     "isComplete": false,
     "cart": [
-        {
-            "foodIndex": 5,
-            "specialRequest": "",
-            "quantity": 1,
-            "selectedFoodOption": null,
-            "selectedFoodSize": null
-        },
-        {
-            "foodIndex": 6,
-            "specialRequest": "",
-            "quantity": 1,
-            "selectedFoodOption": null,
-            "selectedFoodSize": null
-        }
+      {
+        "foodIndex": 5,
+        "specialRequest": "",
+        "quantity": 1,
+        "selectedFoodOption": null,
+        "selectedFoodSize": null
+      },
+      {
+        "foodIndex": 6,
+        "specialRequest": "",
+        "quantity": 1,
+        "selectedFoodOption": null,
+        "selectedFoodSize": null
+      }
     ]
-}
+  }
 ]

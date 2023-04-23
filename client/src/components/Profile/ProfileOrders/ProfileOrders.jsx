@@ -24,7 +24,6 @@ const ProfileOrders = ({ user }) => {
     (Array.isArray(orders) && orders.length > 0 && (
       <ul>
         {orders.map((order) => {
-          console.log(order);
           const day = dayjs(order.created_at);
           return (
             <li key={order.order_id} className="py-3 border-b last:border-none">

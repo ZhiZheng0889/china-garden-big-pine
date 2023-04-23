@@ -54,7 +54,6 @@ const Modal = ({ food, setCart, cart, setFood }) => {
       setFood(null);
     }
   };
-  console.log(food);
   return (
     <>
       <div className="modalBackdrop"></div>
