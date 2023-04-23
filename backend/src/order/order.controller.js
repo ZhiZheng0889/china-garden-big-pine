@@ -155,7 +155,6 @@ async function getCartInfo(req, res, next) {
       const tempFood = food.toObject();
       return { ...tempCartItem, food: tempFood };
     });
-    console.log("final food: ", cart);
     res.locals.cart = cart;
     return next();
   } catch (error) {
@@ -166,7 +165,9 @@ async function getCartInfo(req, res, next) {
 async function read(req, res, next) {
   const { order } = res.locals;
   const { cart } = res.locals;
-  res.status(200).json({ data: { ...order, cart } });
+  const tempOrder = order.toObject();
+  tempOrder.cart = cart;
+  res.status(200).json({ data: tempOrder });
 }
 
 function checkQueryParams(req, res, next) {
