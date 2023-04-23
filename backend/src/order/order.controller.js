@@ -143,18 +143,19 @@ async function create(req, res, next) {
 async function getCartInfo(req, res, next) {
   try {
     const { order } = res.locals;
-    console.log("ORDER: ", order);
     const foodIds = order.cart.map((cartItem) => cartItem.food_id);
     const foods = await service.listFoodsWithFoodIds(foodIds);
     const cart = order.cart.map((cartItem) => {
       const food = foods.find((food) => {
-        return food._id.toString() == cartItem._id.toString();
+        return food._id.equals(cartItem.food_id);
       });
-      console.log("final food: ", food);
-      cartItem.food = food;
-      return cartItem;
+      const tempCartItem = cartItem.toObject();
+      delete tempCartItem.food_id;
+      delete tempCartItem._id;
+      const tempFood = food.toObject();
+      return { ...tempCartItem, food: tempFood };
     });
-    // console.log("get cart order: ", cart);
+    console.log("final food: ", cart);
     res.locals.cart = cart;
     return next();
   } catch (error) {
