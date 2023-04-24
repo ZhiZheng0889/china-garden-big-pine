@@ -24,7 +24,6 @@ async function orderExist(req, res, next) {
   const { order_id = null } = req.params;
   if (order_id) {
     const foundOrder = await service.read(order_id);
-    console.log(foundOrder, "order");
     if (foundOrder) {
       res.locals.order = foundOrder;
       return next();
@@ -132,11 +131,9 @@ function cartHasRequiredProperties(req, res, next) {
 
 async function create(req, res, next) {
   try {
-    console.log("ORDER: ", req.body.data);
     const response = await service.createOrder(req.body.data);
     res.status(200).json({ data: response });
   } catch (error) {
-    console.log(error.message);
     return next({ status: 500, message: "Error creating order." });
   }
 }
