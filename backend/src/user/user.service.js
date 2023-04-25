@@ -1,7 +1,7 @@
 const User = require("../db/models/userModel");
 
 function getUserById(_id) {
-  return User.findOneById(_id);
+  return User.findOne({ _id });
 }
 
 function getAllUsers() {
