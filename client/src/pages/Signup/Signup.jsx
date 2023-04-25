@@ -41,8 +41,17 @@ const Signup = ({ setUser }) => {
     setButtonText("Loading...");
     try {
       if (signup.password === confirmPassword) {
+        const {
+          email,
+          password,
+          first_name: firstName,
+          phone_number: phoneNumber,
+        } = signup;
         const payload = {
-          ...signup,
+          email,
+          password,
+          firstName,
+          phoneNumber,
           isAdmin: false,
         };
         const response = await UserApi.signup(payload);

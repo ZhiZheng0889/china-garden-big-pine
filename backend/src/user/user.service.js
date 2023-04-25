@@ -12,6 +12,14 @@ function create(user) {
   return User.create(user);
 }
 
+function getUserByEmail(email) {
+  return User.findOne({ email });
+}
+
+function getUserByPhoneNumber(phoneNumber) {
+  return User.findOne({ phoneNumber });
+}
+
 // function readFromPhoneNumber(phone_number) {
 //   return knex(TABLE).select("*").where({ phone_number }).first();
 // }
@@ -38,4 +46,6 @@ module.exports = {
   create,
   getAllUsers,
   destroy,
+  getUserByEmail,
+  getUserByPhoneNumber,
 };

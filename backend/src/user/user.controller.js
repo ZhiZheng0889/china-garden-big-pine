@@ -8,13 +8,12 @@ const hasRequiredProperties = require("../utils/hasRequiredProperties");
 
 const VALID_PROPERTIES = [
   "email",
-  "phone_number",
+  "phoneNumber",
   "password",
   "isAdmin",
-  "first_name",
-  "last_name",
+  "firstName",
 ];
-const REQUIRED_PROPERTIES = ["email", "first_name", "phone_number", "password"];
+const REQUIRED_PROPERTIES = ["email", "firstName", "phoneNumber", "password"];
 
 const VALID_2FA_PROPERTIES = ["email"];
 
@@ -28,8 +27,8 @@ const REQUIRED_LOGIN_PROPERTIES = ["email", "password"];
 // @ access Public
 async function isEmailAvailable(req, res, next) {
   const { email } = req.body.data;
-  console.log(req.body.data);
-  const user = await service.read(email);
+  const user = await service.getUserByEmail(email);
+  console.log(user);
   if (user) {
     return next({
       status: 409,
@@ -61,7 +60,7 @@ async function emailExist(req, res, next) {
 async function phoneNumberExist(req, res, next) {
   const { phone_number } = req.body.data;
 
-  const user = await service.readFromPhoneNumber(phone_number);
+  const user = await service.getUserByPhoneNumber(phone_number);
   if (user) {
     return next({
       status: 409,
@@ -113,10 +112,19 @@ async function encryptPassword(req, res, next) {
 // @ access Public
 
 async function create(req, res, next) {
-  const { user } = res.locals;
-  const createdUser = await service.create(user);
-  res.locals.createdUser = createdUser;
-  next();
+  try {
+    const { user } = res.locals;
+    console.log("user: ", user);
+    const createdUser = await service.create(user);
+    console.log("created User");
+    res.locals.createdUser = createdUser;
+    return next();
+  } catch (error) {
+    return next({
+      status: 500,
+      message: error.message,
+    });
+  }
 }
 
 // @ desc Creating token for user
@@ -236,11 +244,11 @@ const getUserProfile = asyncErrorBoundary(async (req, res, next) => {
   const user = await service.read(req.user.email);
   if (user) {
     delete user.password;
-    return (res.status(200).json({ data: user }));
+    return res.status(200).json({ data: user });
   }
   return next({
     status: 404,
-    message: "User not found."
+    message: "User not found.",
   });
 });
 
