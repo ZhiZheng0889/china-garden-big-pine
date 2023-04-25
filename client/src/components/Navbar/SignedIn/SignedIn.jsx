@@ -24,7 +24,7 @@ const SignedIn = ({ user, setUser, setError }) => {
         <Link to="/">Home</Link>
       </li>
       <li className="px-3 py-2">
-        <Link to="/orders">Orders</Link>
+        <Link to="/profile/orders">Orders</Link>
       </li>
       <li className="px-3 py-2">
         <button onClick={logout}>Logout</button>

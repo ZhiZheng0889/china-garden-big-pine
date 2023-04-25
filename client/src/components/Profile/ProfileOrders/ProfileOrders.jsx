@@ -55,7 +55,7 @@ const ProfileOrders = ({ user }) => {
           );
         })}
       </ul>
-    )) || <p>You have no orders...</p>
+    )) || <p className="p-4">You have no orders...</p>
   );
 };
 
