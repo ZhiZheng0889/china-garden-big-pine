@@ -38,11 +38,11 @@ class UserAuth {
   }
 
   generateAccessToken(user_id) {
-    return this.generateToken(user_id, this.ACCESS_TOKEN_TIMEOUT);
+    return this.generateToken({ user_id }, this.ACCESS_TOKEN_TIMEOUT);
   }
 
   generateRefreshToken(user_id) {
-    return this.generateToken(user_id, this.REFRESH_TOKEN_TIMEOUT);
+    return this.generateToken({ user_id }, this.REFRESH_TOKEN_TIMEOUT);
   }
 }
 

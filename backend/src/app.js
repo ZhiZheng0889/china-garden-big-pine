@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
+const passportControl = require("./lib/auth/passport-control");
 const { FRONT_END_URL } = process.env;
 const app = express();
 const corsOptions = {
@@ -27,8 +28,9 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use("/foods", foodsRouter);
 app.use("/orders", orderRouter);
-app.use("/users", userRouter);
 app.use("/authentication", verifyRouter);
+app.use(passportControl.initialize());
+app.use("/users", userRouter);
 
 app.use(notFound);
 app.use(errorHandler);

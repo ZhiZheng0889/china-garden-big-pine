@@ -46,7 +46,7 @@ const Receipt = () => {
             </p>
 
             <p className="text-center text-green-900 font-semibold">
-              20-35 minutes
+              15-25 minutes
             </p>
           </Card>
           {order && order.hasOwnProperty("cart") && (

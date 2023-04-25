@@ -1,11 +1,9 @@
 const service = require("./order.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
-
 const hasRequiredProperties = require("../utils/hasRequiredProperties");
 const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
-const mapCart = require("../utils/mapCart");
-const mapFoodInfo = require("../utils/mapFoodInfo");
 const DatabaseErrorHandler = require("../errors/DatabaseErrorHandler");
+const sendEmailToRestaurant = require("../sender/nodemailer");
 
 const PROPERTIES = ["cart", "user_id", "phoneNumber", "email"];
 const REQUIRED_PROPERTIES = ["cart", "phoneNumber"];
@@ -132,10 +130,16 @@ function cartHasRequiredProperties(req, res, next) {
 async function create(req, res, next) {
   try {
     const response = await service.createOrder(req.body.data);
-    res.status(200).json({ data: response });
+    res.locals.order = response;
+    return next();
   } catch (error) {
     return next({ status: 500, message: "Error creating order." });
   }
+}
+
+function sendOrderPayload(req, res, next) {
+  const { order } = res.locals;
+  res.status(200).json({ data: order });
 }
 
 async function getCartInfo(req, res, next) {
@@ -273,6 +277,22 @@ async function destroy(req, res, next) {
   }
 }
 
+async function sendOrder(req, res, next) {
+  try {
+    const { order, cart } = res.locals;
+    const response = await sendEmailToRestaurant(order, cart);
+    console.log("RESPONSE: ", response);
+    return next();
+  } catch (error) {
+    // if sending the email fails
+    console.error(error.message);
+    return next({
+      status: 500,
+      message: "Error sending order to restaurant",
+    });
+  }
+}
+
 /*
  * Order controller
  * @returns array of middleware functions that the router can handle.
@@ -288,7 +308,11 @@ module.exports = {
     cartHasRequiredProperties,
     asyncErrorBoundary(isValidFoodIdsAndIndexes),
     asyncErrorBoundary(create),
+    asyncErrorBoundary(getCartInfo),
+    asyncErrorBoundary(sendOrder),
+    sendOrderPayload,
   ],
+
   listFromUser: [
     asyncErrorBoundary(userExist),
     asyncErrorBoundary(listUserOrders),

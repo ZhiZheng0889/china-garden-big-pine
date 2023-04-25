@@ -8,7 +8,7 @@ function getAllUsers() {
   return User.find();
 }
 
-function create(user) {
+function createUser(user) {
   return User.create(user);
 }
 
@@ -43,7 +43,7 @@ function destroy(_id) {
 
 module.exports = {
   read,
-  create,
+  createUser,
   getAllUsers,
   destroy,
   getUserByEmail,
