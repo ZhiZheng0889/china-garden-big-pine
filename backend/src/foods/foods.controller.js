@@ -1,7 +1,5 @@
 const service = require("./foods.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
-const mapFood = require("../utils/mapFood");
-
 function checkQueryParams(req, res, next) {
   /*
    * update so that if there is a search query in the url to save the search to res.locals.search
@@ -18,7 +16,7 @@ function checkQueryParams(req, res, next) {
 }
 /*
  * List foods based on if there is a query parameter or not.
-*/
+ */
 async function list(req, res, next) {
   const { category = "", search = "" } = res.locals;
   let data;
@@ -29,14 +27,13 @@ async function list(req, res, next) {
   } else {
     data = await service.list();
   }
-  
+
   if (category && !data.length) {
     res.status(404).json({ error: `Category: ${category} does not exist` });
   } else {
     res.status(200).json({ data });
   }
 }
-
 
 //change price in food table
 async function update(req, res, next) {

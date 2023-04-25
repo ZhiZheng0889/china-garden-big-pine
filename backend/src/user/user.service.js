@@ -1,15 +1,23 @@
 const User = require("../db/models/userModel");
 
-function read(_id) {
-  return User.findById(_id);
+function getUserById(_id) {
+  return User.findOne({ _id });
 }
 
 function getAllUsers() {
   return User.find();
 }
 
-function create(user) {
+function createUser(user) {
   return User.create(user);
+}
+
+function getUserByEmail(email) {
+  return User.findOne({ email });
+}
+
+function getUserByPhoneNumber(phoneNumber) {
+  return User.findOne({ phoneNumber });
 }
 
 // function readFromPhoneNumber(phone_number) {
@@ -34,8 +42,10 @@ function destroy(_id) {
 }
 
 module.exports = {
-  read,
-  create,
+  getUserById,
+  createUser,
   getAllUsers,
   destroy,
+  getUserByEmail,
+  getUserByPhoneNumber,
 };
