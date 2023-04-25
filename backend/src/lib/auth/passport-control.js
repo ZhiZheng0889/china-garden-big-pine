@@ -21,6 +21,7 @@ const cookieExtractor = function (req) {
 // Local Strategy
 passport.use(
   new Strategy((email, password, done) => {
+    console.log("HERE");
     User.findOne({ email }, (err, user) => {
       if (err) {
         return done(err);
@@ -30,7 +31,7 @@ passport.use(
           message: "No user found.",
         });
       }
-
+      console.log("HERE: ", user);
       user
         .login(password)
         .then(() => {

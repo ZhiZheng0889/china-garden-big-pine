@@ -101,21 +101,79 @@ function sendUserPayload(req, res, next) {
     .json({ data: user });
 }
 
-async function createToken(req, res, next) {
-  const {
-    createdUser: { _id },
-  } = res.locals;
-  const accessToken = await UserAuth.generateAccessToken(_id);
-  res.locals.accessToken = accessToken;
-  return next();
+async function getUserEmail(req, res, next) {
+  const { email = "" } = req.body.data;
+  const foundUser = await service.getUserByEmail(email);
+  if (foundUser) {
+    res.locals.user = foundUser;
+    res.locals.createdUser = foundUser;
+    return next();
+  }
+  return next({
+    status: 404,
+    message: "Cannot find email or password is incorrect",
+  });
 }
 
-function configurePassportUser(req, res, next) {
-  const { user } = req;
-  user.password = undefined;
-  res.locals.createdUser = user;
-  res.locals.user = user;
-  return next();
+async function validatePassword(req, res, next) {
+  try {
+    const { password } = req.body.data;
+    console.log(password);
+    const { password: foundPassword } = res.locals.user;
+    const isValidPassword = await bcrypt.compare(password, foundPassword);
+    if (isValidPassword) {
+      const user = res.locals.user;
+      user.password = undefined;
+      res.locals.user = user;
+      return next();
+    }
+    return next({
+      status: 404,
+      message: "Cannot find email or password is incorrect",
+    });
+  } catch (error) {
+    return next({
+      status: 500,
+      message: "Error validating password",
+    });
+  }
+}
+
+async function isAccessTokenValid(req, res, next) {
+  try {
+    const { access_token } = req.cookies;
+    if (access_token) {
+      const user_id = UserAuth.authorize(access_token);
+      res.locals.user_id = user_id;
+      return next();
+    }
+    return next({
+      status: 400,
+      message: "Access token has not been provided",
+    });
+  } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      return next();
+    }
+    return next({
+      status: 404,
+      message: "Error authenticating.",
+    });
+  }
+}
+
+async function isValidUserId(req, res, next) {
+  const { user_id } = res.locals;
+  const foundUser = await service.getUserById(user_id);
+  if (foundUser) {
+    res.locals.createdUser = foundUser;
+    res.locals.user = foundUser;
+    return next();
+  }
+  return next({
+    status: 404,
+    message: "Error loggin in user.",
+  });
 }
 
 /*
@@ -126,7 +184,6 @@ async function createUser(req, res, next) {
   try {
     const { data: user } = req.body;
     user.password = res.locals.password;
-    console.log(user);
     const createdUser = await service.createUser(user);
     createdUser.password = undefined;
     res.locals.createdUser = createdUser;
@@ -141,18 +198,20 @@ async function createUser(req, res, next) {
 }
 
 module.exports = {
-  loginWithToken: [],
-  login: [
-    hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
-    hasRequiredProperties(REQUIRED_LOGIN_PROPERTIES),
-    passport.authenticate("local", {
-      session: false,
-    }),
-    configurePassportUser,
+  loginWithToken: [
+    asyncErrorBoundary(isAccessTokenValid),
+    asyncErrorBoundary(isValidUserId),
     asyncErrorBoundary(createToken),
     sendUserPayload,
   ],
-  logout: [],
+  login: [
+    hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
+    hasRequiredProperties(REQUIRED_LOGIN_PROPERTIES),
+    asyncErrorBoundary(getUserEmail),
+    asyncErrorBoundary(validatePassword),
+    asyncErrorBoundary(createToken),
+    sendUserPayload,
+  ],
   register: [
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),

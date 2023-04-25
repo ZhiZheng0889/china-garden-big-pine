@@ -1,7 +1,7 @@
 const User = require("../db/models/userModel");
 
-function read(_id) {
-  return User.findById(_id);
+function getUserById(_id) {
+  return User.findOneById(_id);
 }
 
 function getAllUsers() {
@@ -42,7 +42,7 @@ function destroy(_id) {
 }
 
 module.exports = {
-  read,
+  getUserById,
   createUser,
   getAllUsers,
   destroy,
