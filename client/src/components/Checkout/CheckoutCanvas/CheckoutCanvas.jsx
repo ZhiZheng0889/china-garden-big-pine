@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "../../Card/Card";
 import Checkout from "../Checkout";
 
@@ -31,7 +31,11 @@ const CheckoutCanvas = ({
           </button>
         </div>
         <div className="">
-          <Checkout cart={cart} setCart={setCart} />
+          <Checkout
+            cart={cart}
+            setCart={setCart}
+            setIsCheckoutOpen={setIsCheckoutOpen}
+          />
         </div>
       </Card>
     </div>

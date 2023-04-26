@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Card from "../Card/Card";
 import CheckoutList from "./CheckoutList/CheckoutList";
 import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
-const Checkout = ({ cart, setCart, hideButton }) => {
+const Checkout = ({ cart, setCart, hideButton, setIsCheckoutOpen }) => {
   return (
     <>
       <div className="smallscreen-pb border-bottom d-flex flex-column w-100">
@@ -15,7 +15,11 @@ const Checkout = ({ cart, setCart, hideButton }) => {
       {cart.length > 0 && (
         <div className="px-3 smallscreen-pt d-flex flex-column w-100">
           <h3 className="text-lg font-semibold">Checkout</h3>
-          <CheckoutFooter cart={cart} hideButton={hideButton} />
+          <CheckoutFooter
+            cart={cart}
+            hideButton={hideButton}
+            setIsCheckoutOpen={setIsCheckoutOpen}
+          />
         </div>
       )}
     </>

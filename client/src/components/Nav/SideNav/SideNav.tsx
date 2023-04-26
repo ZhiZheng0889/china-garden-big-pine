@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { toTitleCase } from "../../../utils/toTitleCase";
 import Card from "../../Card/Card";
 
-const SideNav = ({ className, category, setCategory }) => {
+const SideNav = ({ className, category, setCategory, setIsBurgerOpen }) => {
   useEffect(() => {
     setCategory("appetizers");
   }, []);
   const changeCategory = ({ target }) => {
     const { id } = target;
     setCategory(id);
+    setIsBurgerOpen(false);
   };
   const categories = [
     "appetizers",

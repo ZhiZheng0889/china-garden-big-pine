@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Cart } from "../../../utils/Cart";
 import { formatCost } from "../../../utils/formatCost";
 import styles from "./CheckoutFooter.module.css";
-const CheckoutFooter = ({ cart, hideButton }) => {
+const CheckoutFooter = ({ cart, hideButton, setIsCheckoutOpen }) => {
   const FLORIDA_TAX = 0.075;
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(FLORIDA_TAX);
@@ -41,6 +41,7 @@ const CheckoutFooter = ({ cart, hideButton }) => {
           <Link
             to="/checkout"
             className={`block text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded mt-3`}
+            onClick={() => setIsCheckoutOpen(false)}
           >
             Checkout
           </Link>
