@@ -179,6 +179,7 @@ function checkQueryParams(req, res, next) {
 
 async function userExist(req, res, next) {
   const { user_id = null } = req.params;
+  console.log("id: ", user_id);
   if (user_id) {
     const foundUser = await service.getUser(user_id);
     if (foundUser) {
@@ -195,8 +196,9 @@ async function userExist(req, res, next) {
 
 async function listUserOrders(req, res, next) {
   try {
-    const { user_id } = res.locals.user;
-    const orders = await service.listUserOrders(user_id);
+    const { _id: user_id } = res.locals.user;
+    const orders = await service.listOrdersByUserId(user_id);
+    console.log("ORDERS: ", orders);
     res.status(200).json({ data: orders });
   } catch (error) {
     return next({ status: 500, message: "Error getting orders." });
@@ -298,7 +300,6 @@ async function sendOrder(req, res, next) {
  * @returns array of middleware functions that the router can handle.
  */
 module.exports = {
-  listUserOrders: [checkQueryParams, asyncErrorBoundary(list)],
   read: [asyncErrorBoundary(orderExist), asyncErrorBoundary(getCartInfo), read],
   create: [
     hasOnlyValidProperties(PROPERTIES),

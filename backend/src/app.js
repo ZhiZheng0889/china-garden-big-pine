@@ -17,18 +17,20 @@ const corsOptions = {
 };
 
 // Routes
-const foodsRouter = require("./foods/foods.router");
+const foodRouter = require("./foods/foods.router");
 const orderRouter = require("./order/order.router");
 const userRouter = require("./user/user.router");
 const verifyRouter = require("./verify/verify.router");
+const favoriteRouter = require("./favorites/favorites.router");
 
 app.use(cookieParser());
 app.use(express.json());
 
 app.use(cors(corsOptions));
-app.use("/foods", foodsRouter);
+app.use("/foods", foodRouter);
 app.use("/orders", orderRouter);
 app.use("/authentication", verifyRouter);
+app.use("/favorites", favoriteRouter);
 app.use(passportControl.initialize());
 app.use("/users", userRouter);
 

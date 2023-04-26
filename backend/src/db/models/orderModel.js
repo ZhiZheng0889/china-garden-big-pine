@@ -21,6 +21,14 @@ const CartItemSchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
+  isLiked: {
+    type: Boolean,
+    default: false,
+  },
+  isDisliked: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const OrderSchema = new mongoose.Schema(
@@ -33,6 +41,7 @@ const OrderSchema = new mongoose.Schema(
       required: false,
     },
     isComplete: { type: Boolean, default: false },
+    isLiked: { type: Boolean, default: false },
     cart: [CartItemSchema],
   },
   { timestamps: true }

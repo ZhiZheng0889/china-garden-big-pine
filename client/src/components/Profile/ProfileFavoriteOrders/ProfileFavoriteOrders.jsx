@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { listFavoriteOrders } from '../../../api/favoriteApi';
-import ErrorAlert from '../../../errors/ErrorAlert';
-import Card from '../../Card/Card';
+import React, { useEffect, useState } from "react";
+import { listFavoriteOrders } from "../../../api/favoriteApi";
+import ErrorAlert from "../../../errors/ErrorAlert";
+import Card from "../../Card/Card";
 const ProfileFavoriteOrders = ({ user_id }) => {
   const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
@@ -10,6 +10,7 @@ const ProfileFavoriteOrders = ({ user_id }) => {
       setError(null);
       try {
         const response = await listFavoriteOrders(user_id);
+        console.log(response);
         if (response) {
           setFavorites(response);
         }
@@ -20,7 +21,7 @@ const ProfileFavoriteOrders = ({ user_id }) => {
   }, [user_id]);
   return (
     <div>
-      <ErrorAlert error={error} classes={'mb-2'} />
+      <ErrorAlert error={error} classes={"mb-2"} />
       <Card padding="p-0">
         <header className="p-3 border-b">
           <h3 className="font-lg font-semibold">Favorite Orders</h3>

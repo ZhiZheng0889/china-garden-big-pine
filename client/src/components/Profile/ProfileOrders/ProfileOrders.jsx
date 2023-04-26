@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 const ProfileOrders = ({ user }) => {
   const [orders, setOrders] = useState([]);
-  const { user_id = null } = user;
+  const { _id: user_id = null } = user;
   useEffect(() => {
     const abortController = new AbortController();
     (async () => {
@@ -31,7 +31,7 @@ const ProfileOrders = ({ user }) => {
                 <p className="font-semibold">{`${day.format(
                   "dddd"
                 )}, ${day.format("D MMM")}`}</p>
-                <button className="w-10 h-10 rounded-full hover:bg-slate-100">
+                <button className="w-10 h-10 rounded-full hover:bg-slate-100 active:bg-slate-200 duration-200 ease-out">
                   <i class="fa-regular fa-star fa-lg"></i>
                 </button>
               </div>
@@ -45,8 +45,8 @@ const ProfileOrders = ({ user }) => {
                   {order.is_complete ? "Completed" : "In progress"}
                 </p>
                 <Link
-                  to={`/order/${order.order_id}`}
-                  className="px-2 py-1 ml-auto hover:bg-slate-100 rounded"
+                  to={`${order._id}`}
+                  className="px-2 py-1 ml-auto hover:bg-slate-100 hover:underline underline-offset-2 rounded duration-200 ease-out"
                 >
                   Show More <i className="fa-sharp fa-solid fa-arrow-right"></i>
                 </Link>

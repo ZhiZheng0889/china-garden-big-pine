@@ -5,11 +5,11 @@ const headers = new Headers();
 headers.append("Content-Type", "application/json");
 
 export async function listFavoriteOrders(user_id, controller) {
-  const url = new URL(`${API_BASE_URL}/favorite/order/${user_id}`);
+  const url = new URL(`${API_BASE_URL}/favorites/orders/${user_id}`);
   return await fetchJson(url, { headers }, [], controller);
 }
 
 export async function listFavoriteMeals(user_id, controller) {
-  const url = new URL(`${API_BASE_URL}/favorite/meals/${user_id}`);
+  const url = new URL(`${API_BASE_URL}/favorites/meals/${user_id}`);
   return await fetchJson(url, { headers }, [], controller);
 }

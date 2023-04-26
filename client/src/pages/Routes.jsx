@@ -49,7 +49,7 @@ const PageRoutes = ({
       <Route path="/receipt/:order_id" element={<Receipt />} />
       <Route path="/profile/orders" element={<Orders user={user} />} />
       <Route
-        path="/profile/order/:order_id"
+        path="/profile/orders/:order_id"
         element={<Receipt user={user} />}
       />
       <Route path="/profile" element={<Profile user={user} />} />
