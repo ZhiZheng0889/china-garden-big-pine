@@ -16,7 +16,7 @@ const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
   const [error, setError] = useState(null);
 
   return (
-    <main className={`min-h-screen bg-slate-100 pt-6 `}>
+    <main className={`min-h-screen bg-slate-100 py-2 md:py-6 `}>
       <div className={`container gap-6 custom-grid mx-auto`}>
         <Card padding="p-0" classes="hidden md:block h-fit sticky top-5">
           <SideNav
@@ -26,10 +26,8 @@ const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
           />
         </Card>
 
-        <section>
-          <div className="mb-6">
-            <Searchbar search={search} setSearch={setSearch} />
-          </div>
+        <section className="flex flex-col gap-2 md:gap-6">
+          <Searchbar search={search} setSearch={setSearch} />
 
           <Card padding={"p-0"} margin={"mt-gap"}>
             {error && (

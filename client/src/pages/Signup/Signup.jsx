@@ -70,7 +70,7 @@ const Signup = ({ setUser }) => {
   };
 
   return (
-    <div className="bg-slate-100 flex justify-center h-screen py-6">
+    <div className="bg-slate-100 flex justify-center h-screen py-2 md:py-6">
       <Card classes="w-[30rem] md:mt-4 h-min">
         {error && <ErrorAlert error={error} />}
         <p className="text-center">Welcome to</p>
