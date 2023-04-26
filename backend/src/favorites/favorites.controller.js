@@ -3,6 +3,18 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasRequiredProperties = require("../utils/hasRequiredProperties");
 const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 
+async function orderExist(req, res, next) {
+  const { order_id = null } = req.params;
+  if (order_id) {
+    const foundOrder = await service.getOrder(order_id);
+    if (foundOrder) {
+      res.locals.order = foundOrder.toObject();
+      return next();
+    }
+  }
+  return next({ satus: 404, message: `Order ${order_id + " "}not found.` });
+}
+
 async function userExist(req, res, next) {
   const { user_id = null } = req.params;
   console.log("id: ", user_id);
@@ -44,6 +56,22 @@ async function getUsersFavoriteMeals(req, res, next) {
   });
 }
 
+async function toggleOrdersLike(req, res, next) {
+  try {
+    const { order } = res.locals;
+    const updatedOrder = await service.updateOrdersLikeStatus(
+      order._id,
+      !order.isLiked
+    );
+    res.status(200).json({ data: updatedOrder });
+  } catch (error) {
+    return next({
+      status: 400,
+      message: "Error toggling like on order.",
+    });
+  }
+}
+
 module.exports = {
   getUsersFavoriteOrders: [
     asyncErrorBoundary(userExist),
@@ -52,5 +80,9 @@ module.exports = {
   getUsersFavoriteMeals: [
     asyncErrorBoundary(userExist),
     asyncErrorBoundary(getUsersFavoriteMeals),
+  ],
+  toggleOrderLike: [
+    asyncErrorBoundary(orderExist),
+    asyncErrorBoundary(toggleOrdersLike),
   ],
 };
