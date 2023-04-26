@@ -8,6 +8,7 @@ const notFound = require("./errors/notFound");
 const passportControl = require("./lib/auth/passport-control");
 const { FRONT_END_URL } = process.env;
 const app = express();
+console.log(FRONT_END_URL);
 const corsOptions = {
   origin: FRONT_END_URL,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
