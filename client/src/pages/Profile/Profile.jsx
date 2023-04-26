@@ -33,7 +33,7 @@ const Profile = ({ user }) => {
                   <i className="fa-regular fa-gear fa-lg"></i>
                 </Link>
               </Card>
-              <ProfileFavoriteOrders user_id={user_id} />
+              {/* <ProfileFavoriteOrders user_id={user_id} /> */}
             </div>
           )}
           <Footer />
