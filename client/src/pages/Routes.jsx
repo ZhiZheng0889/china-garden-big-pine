@@ -11,6 +11,7 @@ import Profile from "./Profile/Profile";
 import Order from "./Order/Order";
 import Orders from "./Orders/Orders";
 import FoodOptions from "./Admin/FoodOptions";
+import Settings from "./Settings/Settings";
 
 const PageRoutes = ({
   cart,
@@ -58,6 +59,7 @@ const PageRoutes = ({
       </Route>
       <Route path="/login" element={<Login setUser={setUser} />} />
       <Route path="/signup" element={<Signup setUser={setUser} />} />
+      <Route path="/settings" element={<Settings />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
