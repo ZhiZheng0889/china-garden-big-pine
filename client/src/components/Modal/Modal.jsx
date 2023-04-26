@@ -56,7 +56,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
   };
   return (
     <>
-      <div className="modalBackdrop"></div>
+      <div className="modalBackdrop" onClick={() => setFood(null)}></div>
       <article
         className="modal bg-white border rounded"
         id="foodModal"

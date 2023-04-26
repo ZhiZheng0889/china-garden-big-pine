@@ -46,7 +46,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
 
   const submitOrder = async () => {
     try {
-      const { user_id = null, email = null } = user;
+      const { _id: user_id = null, email = null } = user;
       const mappedCart = cart.map((item) => {
         const {
           food: { _id: food_id },

@@ -1,6 +1,6 @@
 const Food = require("../db/models/foodModel");
 const Order = require("../db/models/orderModel");
-
+const User = require("../db/models/userModel");
 /*
  * List orders in descending order
  * @returns Promise<Orders[]>
@@ -23,6 +23,7 @@ async function isFood_idsValid(food_ids) {
  * @returns Promise<Order>
  */
 function createOrder(order) {
+  console.log("order: ", order);
   return Order.create(order);
 }
 
@@ -90,8 +91,8 @@ function getUser(user_id) {
  * Retrieve a list of orders for a user, ordered by creation date (descending)
  * @returns Promise<Order[]>
  */
-function listUserOrders(user_id) {
-  return Order.find({ user_id }).sort({ created_at: -1 }).exec();
+function listOrdersByUserId(user_id) {
+  return Order.find({ user_id }).sort({ createdAt: -1 }).exec();
 }
 
 /*
@@ -117,7 +118,7 @@ module.exports = {
   optionsFromCart,
   sizesFromCart,
   getUser,
-  listUserOrders,
+  listOrdersByUserId,
   listFoodsWithFoodIds,
   deleteOrder,
 };

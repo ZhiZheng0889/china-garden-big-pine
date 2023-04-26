@@ -11,6 +11,7 @@ import Profile from "./Profile/Profile";
 import Order from "./Order/Order";
 import Orders from "./Orders/Orders";
 import FoodOptions from "./Admin/FoodOptions";
+import Settings from "./Settings/Settings";
 
 const PageRoutes = ({
   cart,
@@ -33,8 +34,8 @@ const PageRoutes = ({
           />
         }
       />
-      <Route path="/orders" element={<Orders user={user} />} />
-      <Route path="/order/:order_id" element={<Order user={user} />} />
+      {/* <Route path="/orders" element={<Orders user={user} />} />
+      <Route path="/order/:order_id" element={<Order user={user} />} /> */}
       <Route
         path="/checkout"
         element={
@@ -47,12 +48,18 @@ const PageRoutes = ({
         }
       />
       <Route path="/receipt/:order_id" element={<Receipt />} />
+      <Route path="/profile/orders" element={<Orders user={user} />} />
+      <Route
+        path="/profile/orders/:order_id"
+        element={<Receipt user={user} />}
+      />
       <Route path="/profile" element={<Profile user={user} />} />
       <Route path="/admin" element={<Admin user={{}} />}>
         <Route path="/admin/food-options" element={<FoodOptions />} />
       </Route>
       <Route path="/login" element={<Login setUser={setUser} />} />
       <Route path="/signup" element={<Signup setUser={setUser} />} />
+      <Route path="/settings" element={<Settings />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
