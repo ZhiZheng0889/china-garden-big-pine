@@ -92,11 +92,12 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   };
   return (
     <>
-      <main className={`bg-slate-100 min-h-screen pt-6 ${className}`}>
+      <main className={`bg-slate-100 min-h-screen py-6 ${className}`}>
         <section className="mx-auto max-w-2xl bg-white bg-slate-100">
           <ErrorAlert error={error} />
-          <h1 className="text-4xl font-semibold mb-4">Checkout</h1>
-          <Card classes="mb-4">
+
+          <Card classes="mb-4" isNotRoundedMobile>
+            <h1 className="text-2xl font-semibold mb-4">Checkout</h1>
             <h3 className="text-lg font-semibold">1. Confirm Order</h3>
             <div className="">
               <CheckoutComponent cart={cart} setCart={setCart} hideButton />
@@ -113,7 +114,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             <p className="font-semibold text-xl">15-25 Minutes</p>
           </Card>
           <button
-            className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded"
+            className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded"
             disabled={cart.length === 0}
             onClick={submitOrder}
           >
