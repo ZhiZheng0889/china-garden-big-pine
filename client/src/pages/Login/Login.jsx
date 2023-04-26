@@ -49,7 +49,7 @@ const Login = ({ setUser }) => {
     }
   };
   return (
-    <div className="bg-slate-100 flex justify-center h-screen">
+    <div className="bg-slate-100 flex justify-center h-screen  py-6">
       <Card classes="w-[30rem] md:mt-4 h-min">
         {error && <ErrorAlert error={error} classes="mb-2" />}
         <p className="text-center">Welcome back to</p>
