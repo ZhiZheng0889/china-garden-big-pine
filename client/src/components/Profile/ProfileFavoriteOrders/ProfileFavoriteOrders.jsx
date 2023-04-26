@@ -9,10 +9,11 @@ const ProfileFavoriteOrders = ({ user_id }) => {
     (async () => {
       setError(null);
       try {
-        const response = await listFavoriteOrders(user_id);
-        console.log(response);
-        if (response) {
-          setFavorites(response);
+        if (user_id) {
+          const response = await listFavoriteOrders(user_id);
+          if (response) {
+            setFavorites(response);
+          }
         }
       } catch (error) {
         setError(error);
@@ -30,7 +31,7 @@ const ProfileFavoriteOrders = ({ user_id }) => {
         {(Array.isArray(favorites) && favorites.length > 0 && (
           <ul>
             {favorites.map((favorite) => {
-              return <li key={favorite.favorite.id}></li>;
+              return <li key={favorite._id}></li>;
             })}
           </ul>
         )) || <p className="p-3">No favorite orders available...</p>}

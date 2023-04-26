@@ -7,4 +7,9 @@ router
   .get(controller.getUsersFavoriteOrders)
   .all(methodNotAllowed);
 
+router
+  .route("/orders/toggle-like/:order_id")
+  .post(controller.toggleOrderLike)
+  .all(methodNotAllowed);
+
 module.exports = router;

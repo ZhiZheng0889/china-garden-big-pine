@@ -11,12 +11,22 @@ function getUsersFavoriteOrders(user_id) {
     .limit(10);
 }
 
-function likeOrder(order_id) {}
-
+function getOrder(_id) {
+  return Order.findOne({ _id });
+}
+function updateOrdersLikeStatus(order_id, status) {
+  return Order.findOneAndUpdate(
+    { _id: order_id },
+    { isLiked: status },
+    { new: true }
+  );
+}
 function updateOrder(order_id, updatedOrder) {}
 
 module.exports = {
   getUser,
   getUsersFavoriteOrders,
   updateOrder,
+  getOrder,
+  updateOrdersLikeStatus,
 };
