@@ -3,7 +3,6 @@ import ModalFooter from "./ModalFooter/ModalFooter";
 import ErrorAlert from "../../errors/ErrorAlert";
 import SpecialRequest from "./SpecialRequest/SpecialRequest";
 import ModalOptions from "./ModalOptions/ModalOptions";
-import styles from "./Modal.module.css";
 import { Cart } from "../../utils/Cart";
 import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import ModalSizes from "./ModalSizes/ModalSizes";
@@ -58,7 +57,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     <>
       <div className="modalBackdrop" onClick={() => setFood(null)}></div>
       <article
-        className="modal bg-white border rounded"
+        className="modal bg-white border md:rounded"
         id="foodModal"
         tabIndex="-1"
         aria-labelledby="foodModalLabel"

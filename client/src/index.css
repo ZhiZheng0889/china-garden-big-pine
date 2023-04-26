@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   min-height: 100vh;
   font: inherit;
 }
@@ -64,10 +64,12 @@ video {
 
 .modal {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40rem;
+  top: 0%;
+  left: 0%;
+  max-width: 40rem;
+
+  /* transform: translate(-50%, -50%); */
+  /* width: 40rem; */
   transition: 0.5s;
 }
 
@@ -107,6 +109,21 @@ video {
 
   .smallscreen-pb {
     padding-bottom: 0;
+  }
+}
+@media screen and (min-width: 500px) {
+  .modal {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    border-radius: 0.25rem;
+  }
+}
+
+@media screen and (min-width: 575px) {
+  .modal {
+    width: 90%;
   }
 }
 
