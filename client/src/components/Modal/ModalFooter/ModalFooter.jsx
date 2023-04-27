@@ -32,7 +32,7 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
         <button
           onClick={updateQuantity}
           id="-"
-          className={`disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.decrement}`}
+          className={`disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.decrement}  focus:outline outline-2 outline-offset-2 outline-red-600`}
           disabled={quantity === 0}
         >
           <i id="-" className="fa-solid fa-minus"></i>
@@ -46,16 +46,17 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
         <button
           onClick={updateQuantity}
           id="+"
-          className={`disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.increment}`}
+          className={`disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.increment}  focus:outline outline-2 outline-offset-2 outline-red-600`}
           disabled={quantity === 999}
         >
           <i id="+" className="fa-solid fa-plus"></i>
         </button>
       </form>
       <button
-        className="p-3 rounded bg-red-600 hover:bg-red-700 active:bg-red-800 text-white disabled:bg-red-500 disabled:cursor-not-allowed"
+        className="p-3 rounded bg-red-600 hover:bg-red-700 active:bg-red-800 text-white disabled:bg-red-500 disabled:cursor-not-allowed  focus:outline outline-2 outline-offset-2 outline-red-600"
         disabled={quantity === 999 || quantity === 0}
         onClick={handleAddToCart}
+        autoFocus={true}
       >
         Add to Cart - ${total.toFixed(2)}
       </button>

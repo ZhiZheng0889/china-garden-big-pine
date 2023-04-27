@@ -27,7 +27,7 @@ const ModalSizes = ({ sizes, setSelectedSize, selectedSize }) => {
                   id={size.size + index}
                   data-id={index}
                   name="size"
-                  className={styles.input}
+                  className={`${styles.input}  focus:outline outline-2 outline-offset-2 outline-red-600`}
                   onChange={changeCurrentSize}
                   checked={selectedSize === index}
                 />

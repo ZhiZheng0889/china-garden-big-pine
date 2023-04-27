@@ -114,7 +114,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             <p className="font-semibold text-xl">15-25 Minutes</p>
           </Card>
           <button
-            className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded"
+            className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded focus:outline outline-2 outline-offset-2 outline-red-600"
             disabled={cart.length === 0}
             onClick={submitOrder}
           >

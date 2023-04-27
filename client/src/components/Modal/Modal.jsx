@@ -66,7 +66,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
         <header className="flex items-center p-3 border-b">
           <button
             type="button"
-            className="w-10 h-10 hover:bg-slate-100 rounded-full"
+            className="w-10 h-10 hover:bg-slate-100 rounded-full  focus:outline outline-2 outline-offset-2 outline-red-600"
             data-bs-dismiss="modal"
             aria-label="Close"
             onClick={() => setFood(null)}

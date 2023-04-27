@@ -40,7 +40,7 @@ const CheckoutFooter = ({ cart, hideButton, setIsCheckoutOpen }) => {
         <div className="py-3">
           <Link
             to="/checkout"
-            className={`block text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded mt-3`}
+            className={`block text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded mt-3  focus:outline outline-2 outline-offset-2 outline-red-600`}
             onClick={() => setIsCheckoutOpen(false)}
           >
             Checkout

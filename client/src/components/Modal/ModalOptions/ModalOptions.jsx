@@ -28,7 +28,7 @@ const ModalOptions = ({ options, selectedOption, setSelectedOption }) => {
                   id={option.option + index}
                   data-id={index}
                   name="option"
-                  className={styles.input}
+                  className={`${styles.input}  focus:outline outline-2 outline-offset-2 outline-red-600`}
                   onChange={changeCurrentOption}
                   checked={selectedOption === index}
                 />

@@ -26,7 +26,11 @@ const CheckoutCanvas = ({
         padding="p-0"
       >
         <div className="flex border-b p-3">
-          <button className="p-1" onClick={closeCanvas}>
+          <button
+            className="p-1  focus:outline outline-2 outline-offset-2 outline-red-600"
+            onClick={closeCanvas}
+            autoFocus={true}
+          >
             <i className="fa-solid fa-x" onClick={closeCanvas}></i>
           </button>
         </div>

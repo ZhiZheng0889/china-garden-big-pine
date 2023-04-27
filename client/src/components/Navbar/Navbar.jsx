@@ -21,12 +21,15 @@ const Navbar = ({
     <nav className="flex bg-red-700 text-white items-center p-1 justify-center">
       <div className="container flex items-center gap-2">
         <button
-          className="p-2 md:hidden hover:bg-red-800 rounded"
+          className="p-2 md:hidden hover:bg-red-800 rounded focus:outline outline-2 outline-offset-2 outline-white"
           onClick={() => setIsBurgerOpen((c) => !c)}
         >
           <i className="fa-regular fa-bars fa-lg"></i>
         </button>
-        <Link to="/" className="text-lg font-semibold py-2">
+        <Link
+          to="/"
+          className="text-lg font-semibold py-2 focus:outline outline-2 outline-offset-2 outline-white"
+        >
           China Garden
         </Link>
         <div className="flex items-center ml-auto">

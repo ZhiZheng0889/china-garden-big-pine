@@ -55,7 +55,7 @@ const Form = ({ data, onChange, onSubmit, submitText, children, footer }) => {
       {children}
       <button
         type="submit"
-        className={`w-full p-3 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800`}
+        className={`w-full p-3 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800  focus:outline outline-2 outline-offset-2 outline-red-600`}
       >
         {submitText}
       </button>

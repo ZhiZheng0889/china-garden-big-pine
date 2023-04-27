@@ -37,7 +37,7 @@ const SideNav = ({ className, category, setCategory, setIsBurgerOpen }) => {
         return (
           <li key={cat} onClick={changeCategory} id={cat}>
             <button
-              className={`py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start ${
+              className={`py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start focus:outline outline-2 outline-offset-2 outline-red-600 ${
                 category === cat && "text-red-700 underline bg-slate-50"
               }`}
               onClick={changeCategory}

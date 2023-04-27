@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 const ChangeQuantityButton = ({
   quantity,
   updateQuantity,
@@ -7,7 +7,7 @@ const ChangeQuantityButton = ({
 }) => {
   const handleClick = ({ target }) => {
     const { type } = target.dataset;
-    if (type === 'decrement') {
+    if (type === "decrement") {
       if (quantity === 1) {
         handleDelete();
       } else {
@@ -23,18 +23,18 @@ const ChangeQuantityButton = ({
       className={`${classes} flex border rounded-full py-0 px-0 items-center justify-center`}
     >
       <button
-        className="hover:bg-slate-100 active:bg-slate-100 rounded-full w-8 h-8"
+        className="hover:bg-slate-100 active:bg-slate-100 rounded-full w-8 h-8 focus:outline outline-2 outline-offset-2 outline-red-600"
         data-type="decrement"
         onClick={handleClick}
       >
         <i
-          className={`fa-solid fa-${quantity === 1 ? 'trash' : 'minus'} me-1`}
+          className={`fa-solid fa-${quantity === 1 ? "trash" : "minus"} me-1`}
           data-type="decrement"
         ></i>
       </button>
-      <p className="w-8 text-center">{quantity + 'x'}</p>
+      <p className="w-8 text-center">{quantity + "x"}</p>
       <button
-        className="hover:bg-slate-100 active:bg-slate-100 rounded-full w-8 h-8"
+        className="hover:bg-slate-100 active:bg-slate-100 rounded-full w-8 h-8  focus:outline outline-2 outline-offset-2 outline-red-600"
         data-type="increment"
         onClick={handleClick}
       >
@@ -45,7 +45,7 @@ const ChangeQuantityButton = ({
 };
 
 ChangeQuantityButton.defaultProps = {
-  classes: '',
+  classes: "",
 };
 
 export default ChangeQuantityButton;

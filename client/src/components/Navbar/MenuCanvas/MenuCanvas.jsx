@@ -28,10 +28,16 @@ const MenuCanvas = ({
         padding="p-0"
       >
         <div className="flex border-b px-3 py-1">
-          <Link to="/" className="text-lg font-semibold py-2">
+          <Link
+            to="/"
+            className="text-lg font-semibold py-2  focus:outline outline-2 outline-offset-2 outline-red-600"
+          >
             China Garden
           </Link>
-          <button className="p-1 ml-auto" onClick={closeCanvas}>
+          <button
+            className="p-1 ml-auto  focus:outline outline-2 outline-offset-2 outline-red-600  "
+            onClick={closeCanvas}
+          >
             <i className="fa-solid fa-x" onClick={closeCanvas}></i>
           </button>
         </div>
@@ -40,8 +46,9 @@ const MenuCanvas = ({
             <li>
               <Link
                 to="/"
-                className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block"
+                className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
                 onClick={() => setIsBurgerOpen(false)}
+                autoFocus={true}
               >
                 Home
               </Link>
@@ -49,7 +56,7 @@ const MenuCanvas = ({
             <li>
               <Link
                 to="/login"
-                className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block"
+                className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
                 onClick={() => setIsBurgerOpen(false)}
               >
                 Login
@@ -58,7 +65,7 @@ const MenuCanvas = ({
             <li>
               <Link
                 to="/signup"
-                className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block"
+                className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
                 onClick={() => setIsBurgerOpen(false)}
               >
                 Signup
