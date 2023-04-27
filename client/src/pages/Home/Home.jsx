@@ -15,6 +15,19 @@ const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    if (search) {
+      setCategory(null);
+    }
+  }, [search]);
+
+  useEffect(() => {
+    console.log(category);
+    if (category) {
+      setSearch("");
+    }
+  }, [category]);
+
   return (
     <main className={`min-h-screen bg-slate-100 py-2 md:py-6 `}>
       <div className={`container gap-6 custom-grid mx-auto`}>

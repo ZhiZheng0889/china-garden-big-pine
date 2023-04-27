@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Searchbar = ({ search, setSearch }) => {
   /**
    * when search is submitted update the value search in the query object to the current value of the input text
    *
    */
+
   const [keyword, setKeyword] = useState("");
+  useEffect(() => {
+    if (!search) {
+      setKeyword("");
+    }
+  }, [search]);
   const submitHandler = (e) => {
     e.preventDefault();
     setSearch(keyword);
-    //Boolean keyword does not exist return error
   };
   const onChange = ({ target }) => {
     setKeyword(target.value);
