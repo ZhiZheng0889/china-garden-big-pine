@@ -49,7 +49,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     try {
       setError(null);
       const { _id: user_id = null, email = null } = user;
-      if (Cart.getCartTotal(cart)) {
+      if (Cart.getCartTotal(cart) > parseInt(VITE_MAX_ORDER_TOTAL)) {
         throw new Error(
           `Cart total exceeds the allowed max order total: $${VITE_MAX_ORDER_TOTAL}. Please call in the order.`
         );
