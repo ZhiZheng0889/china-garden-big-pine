@@ -8,6 +8,7 @@ import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import { OrderApi } from "../../api/orderApi";
 import { VerifyApi } from "../../api/verifyApi";
 import CheckoutComponent from "../../components/Checkout/Checkout";
+const VITE_MAX_ORDER_TOTAL = import.meta.env.VITE_MAX_ORDER_TOTAL;
 const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
   const [error, setError] = useState(null);
@@ -48,6 +49,11 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     try {
       setError(null);
       const { _id: user_id = null, email = null } = user;
+      if (Cart.getCartTotal(cart)) {
+        throw new Error(
+          `Cart total exceeds the allowed max order total: $${VITE_MAX_ORDER_TOTAL}. Please call in the order.`
+        );
+      }
       const mappedCart = cart.map((item) => {
         const {
           food: { _id: food_id },
