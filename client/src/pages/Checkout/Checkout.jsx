@@ -101,7 +101,9 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     <>
       <main className={`bg-slate-100 min-h-screen py-6 ${className}`}>
         <section className="mx-auto max-w-2xl bg-white bg-slate-100">
-          <ErrorAlert error={error} />
+          <div className="mb-4">
+            <ErrorAlert error={error} />
+          </div>
 
           <Card classes="mb-4" isNotRoundedMobile>
             <h1 className="text-2xl font-semibold mb-4">Checkout</h1>
