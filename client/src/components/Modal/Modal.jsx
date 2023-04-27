@@ -42,8 +42,12 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (quantity <= 0) {
       setError({ message: "Quantity has to be greater than zero" });
     } else {
+      const formattedFood = {
+        ...food,
+        food_id: food._id,
+      };
       const itemToAdd = {
-        food,
+        food: formattedFood,
         selectedFodSize: selectedSize,
         selectedFoodOption: selectedOption,
         specialRequest,

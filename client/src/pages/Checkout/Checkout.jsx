@@ -8,6 +8,7 @@ import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import { OrderApi } from "../../api/orderApi";
 import { VerifyApi } from "../../api/verifyApi";
 import CheckoutComponent from "../../components/Checkout/Checkout";
+const VITE_MAX_ORDER_TOTAL = import.meta.env.VITE_MAX_ORDER_TOTAL;
 const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
   const [error, setError] = useState(null);
@@ -46,7 +47,13 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
 
   const submitOrder = async () => {
     try {
+      setError(null);
       const { _id: user_id = null, email = null } = user;
+      if (Cart.getCartTotal(cart) > parseInt(VITE_MAX_ORDER_TOTAL)) {
+        throw new Error(
+          `Cart total exceeds the allowed max order total: $${VITE_MAX_ORDER_TOTAL}. Please call in the order.`
+        );
+      }
       const mappedCart = cart.map((item) => {
         const {
           food: { _id: food_id },
@@ -94,7 +101,9 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     <>
       <main className={`bg-slate-100 min-h-screen py-6 ${className}`}>
         <section className="mx-auto max-w-2xl bg-white bg-slate-100">
-          <ErrorAlert error={error} />
+          <div className="mb-4">
+            <ErrorAlert error={error} />
+          </div>
 
           <Card classes="mb-4" isNotRoundedMobile>
             <h1 className="text-2xl font-semibold mb-4">Checkout</h1>
