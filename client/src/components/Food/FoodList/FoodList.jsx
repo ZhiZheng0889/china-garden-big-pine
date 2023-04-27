@@ -19,10 +19,10 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
       try {
         setIsLoading(true);
         if (category) {
-          const response = await listFoods(
-            { search, category },
-            abortController
-          );
+          const response = await listFoods({ category }, abortController);
+          setFoods(response);
+        } else if (search) {
+          const response = await listFoods({ search }, abortController);
           setFoods(response);
         }
       } catch (error) {
