@@ -24,6 +24,8 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
         } else if (search) {
           const response = await listFoods({ search }, abortController);
           setFoods(response);
+        } else {
+          throw new Error("No query has been provided");
         }
       } catch (error) {
         setError(error);
