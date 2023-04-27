@@ -16,7 +16,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const FLORIDA_TAX = 0.075;
   const [requestId, setRequestId] = useState(null);
   const navigate = useNavigate();
-  console.log(cart);
   const checkVerification = async () => {
     if (user && !isObjectEmpty(user) && user.phone_number_is_verified) {
       submitOrder();
@@ -44,7 +43,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       setIsVerifyModalOpen(true);
     }
   };
-
   const submitOrder = async () => {
     try {
       setError(null);
@@ -53,6 +51,9 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         throw new Error(
           `Cart total exceeds the allowed max order total: $${VITE_MAX_ORDER_TOTAL}. Please call in the order.`
         );
+      }
+      if (cart.length === 0) {
+        throw new Error("Cart cannot be empty");
       }
       const mappedCart = cart.map((item) => {
         const {
@@ -123,7 +124,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             <p className="font-semibold text-xl">15-25 Minutes</p>
           </Card>
           <button
-            className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+            className="w-full text-center p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded focus:outline outline-2 outline-offset-2 outline-red-600 disabled:bg-red-600 disabled:cursor-not-allowed"
             disabled={cart.length === 0}
             onClick={submitOrder}
           >
