@@ -22,6 +22,7 @@ const Receipt = () => {
       try {
         setError(null);
         const response = await OrderApi.read(order_id);
+        console.log("res: ", response);
         setOrder(response);
       } catch (error) {
         setError(error.message);

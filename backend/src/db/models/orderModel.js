@@ -4,6 +4,7 @@ const CartItemSchema = new mongoose.Schema({
   food_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Food",
+    required: true,
   },
   specialRequest: {
     type: String,
