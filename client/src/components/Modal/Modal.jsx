@@ -32,7 +32,6 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (selectedSize === 0 || selectedSize) {
       sizeTotal = sizes[selectedSize]?.upcharge;
     }
-    console.log(optionTotal, sizeTotal);
     setTotal(quantity * (optionTotal + sizeTotal + basePrice));
   }, [quantity, selectedOption, selectedSize, basePrice]);
 
