@@ -12,6 +12,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
     spicy,
     description = null,
     amount = null,
+    imageUrl,
   } = food;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
@@ -35,6 +36,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
           </div>
 
           {description && <p className={styles.description}>{description}</p>}
+          <div>{imageUrl && <img src={imageUrl} alt={`${name} image`} />}</div>
           <div>
             <p className="me-2 mb-0">
               ${basePrice && Number(basePrice).toFixed(2)}

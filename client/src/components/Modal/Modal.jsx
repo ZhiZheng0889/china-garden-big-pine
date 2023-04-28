@@ -20,15 +20,20 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     description = "",
     options = null,
     sizes = null,
+    imageUrl,
   } = food;
 
   useEffect(() => {
-    setTotal(
-      quantity *
-        (options[selectedOption]?.upcharge ||
-          0 + sizes[selectedSize]?.upcharge ||
-          0 + basePrice)
-    );
+    let optionTotal = 0;
+    let sizeTotal = 0;
+    if (selectedOption === 0 || selectedOption) {
+      optionTotal = options[selectedOption]?.upcharge;
+    }
+    if (selectedSize === 0 || selectedSize) {
+      sizeTotal = sizes[selectedSize]?.upcharge;
+    }
+    console.log(optionTotal, sizeTotal);
+    setTotal(quantity * (optionTotal + sizeTotal + basePrice));
   }, [quantity, selectedOption, selectedSize, basePrice]);
 
   useEffect(() => {
@@ -82,6 +87,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
           {<ErrorAlert error={error} />}
           <h2 className="text-4xl mb-5">{name}</h2>
           <p>{description}</p>
+          <div>{imageUrl && <img src={imageUrl} alt={`${name} image`} />}</div>
           {sizes && (
             <ModalSizes
               sizes={sizes}

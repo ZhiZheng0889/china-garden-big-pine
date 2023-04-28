@@ -11,6 +11,7 @@ const FoodSchema = new mongoose.Schema(
     description: { type: String, required: false },
     spicy: { type: Boolean, default: false },
     available: { type: Boolean, default: true },
+    imageUrl: { type: String, default: "" },
     options: {
       type: [
         {
