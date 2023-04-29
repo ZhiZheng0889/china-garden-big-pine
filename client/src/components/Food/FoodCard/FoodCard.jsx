@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./FoodCard.module.css";
 import QuantityButton from "../../Button/QuantityButton/QuantityButton";
 import Modal from "../../Modal/Modal";
+import bbqRibs from "../../../assets/Foods/Barbecue_Spare_Ribs.jpeg";
 const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const {
     _id,
@@ -36,7 +37,13 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
           </div>
 
           {description && <p className={styles.description}>{description}</p>}
-          <div>{imageUrl && <img src={imageUrl} alt={`${name} image`} />}</div>
+          <div>
+            <img
+              src={"https://i.imgur.com/KvkxN9H.jpg"}
+              className="w-[14rem]"
+              alt={`${name} image`}
+            />
+          </div>
           <div>
             <p className="me-2 mb-0">
               ${basePrice && Number(basePrice).toFixed(2)}

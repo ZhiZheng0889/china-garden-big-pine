@@ -181,7 +181,7 @@
     "category": "appetizers",
     "description": null,
     "spicy": false,
-    "imageUrl": "https://chinagarden-468498205125.s3-accesspoint.us-east-1.amazonaws.com/Food/Barbecue_Spare_Ribs.jpeg",
+    "imageUrl": "Barbecue_Spare_Ribs",
     "available": true,
     "sizes": [
       { "size": "small", "upcharge": 0 },
