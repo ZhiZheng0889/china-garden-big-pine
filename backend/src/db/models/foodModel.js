@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+const imgurUrlValidator = (value) => {
+  const imgurUrlPattern = /^(https?:\/\/)?(www\.)?imgur\.com\/[a-zA-Z0-9]+(\.[a-zA-Z]{2,4})?$/;
+  return imgurUrlPattern.test(value);
+};
+
 const FoodSchema = new mongoose.Schema(
   {
     name: { type: String, required: [true, "A food requires a name"] },
@@ -11,7 +16,14 @@ const FoodSchema = new mongoose.Schema(
     description: { type: String, required: false },
     spicy: { type: Boolean, default: false },
     available: { type: Boolean, default: true },
-    imageUrl: { type: String, default: "" },
+    imageUrl: {
+      type: String,
+      default: "",
+      validate: {
+        validator: imgurUrlValidator,
+        message: (props) => `${props.value} is not a valid Imgur URL`,
+      },
+    },
     options: {
       type: [
         {
