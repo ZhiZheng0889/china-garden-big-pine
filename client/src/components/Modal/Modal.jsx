@@ -86,7 +86,11 @@ const Modal = ({ food, setCart, cart, setFood }) => {
           {<ErrorAlert error={error} />}
           <h2 className="text-4xl mb-5">{name}</h2>
           <p>{description}</p>
-          <div>{imageUrl && <img src={imageUrl} alt={`${name} image`} />}</div>
+          <div>
+            {imageUrl && (
+              <img src={imageUrl} alt={`${name} image`} className="max-h-32" />
+            )}
+          </div>
           {sizes && (
             <ModalSizes
               sizes={sizes}

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./FoodCard.module.css";
 import QuantityButton from "../../Button/QuantityButton/QuantityButton";
 import Modal from "../../Modal/Modal";
-import bbqRibs from "../../../assets/Foods/Barbecue_Spare_Ribs.jpeg";
 const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const {
     _id,
@@ -13,19 +12,20 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
     spicy,
     description = null,
     amount = null,
-    imageUrl,
+    imageUrl = null,
   } = food;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen((curr) => !curr);
   };
+  console.log(food, imageUrl);
   return (
     <>
       <article
-        className={`food-item ${styles.container} p-3`}
+        className={`food-item ${styles.container} p-0 h-32 overflow-y-hidden`}
         data-testid="food-card"
       >
-        <div className="details">
+        <div className="details pl-3 pt-3 pb-3">
           <div className={styles.header}>
             <h5 className={styles.title}>
               {name}
@@ -38,13 +38,6 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
 
           {description && <p className={styles.description}>{description}</p>}
           <div>
-            <img
-              src={"https://i.imgur.com/KvkxN9H.jpg"}
-              className="w-[14rem]"
-              alt={`${name} image`}
-            />
-          </div>
-          <div>
             <p className="me-2 mb-0">
               ${basePrice && Number(basePrice).toFixed(2)}
             </p>
@@ -52,12 +45,26 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
           </div>
         </div>
         <div className={styles.quantityContainer}>
-          <QuantityButton
-            onClick={toggleModal}
-            cart={cart}
-            setCurrentFood={setCurrentFood}
-            food={food}
-          />
+          {imageUrl ? (
+            <div className="relative">
+              <img src={imageUrl} className="w-[14rem]" alt={`${name} image`} />
+              <QuantityButton
+                onClick={toggleModal}
+                cart={cart}
+                setCurrentFood={setCurrentFood}
+                food={food}
+                className="absolute top-3 right-3 drop-shadow-md"
+              />
+            </div>
+          ) : (
+            <QuantityButton
+              onClick={toggleModal}
+              cart={cart}
+              setCurrentFood={setCurrentFood}
+              food={food}
+              className={"drop-shadow-md mt-3 mr-3"}
+            />
+          )}
         </div>
       </article>
       {isModalOpen && <Modal food={food} setCart={setCart} cart={cart} />}
