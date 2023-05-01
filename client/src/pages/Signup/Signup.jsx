@@ -5,6 +5,7 @@ import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
     email: "",
@@ -69,12 +70,21 @@ const Signup = ({ setUser }) => {
     }
   };
 
+  const signupWithSocials = () => {};
+
   return (
     <div className="bg-slate-100 flex justify-center h-screen py-2 md:py-6">
       <Card classes="w-[30rem] md:mt-4 h-min">
         {error && <ErrorAlert error={error} />}
         <p className="text-center">Welcome to</p>
         <h1 className="text-center text-2xl font-semibold">China Garden</h1>
+        <button
+          className="px-3 py-2 w-full text-center border rounded"
+          onClick={signupWithSocials}
+        >
+          Google
+        </button>
+        <p className="text-center">Or</p>
         <Form
           data={signup}
           onChange={onChange}
