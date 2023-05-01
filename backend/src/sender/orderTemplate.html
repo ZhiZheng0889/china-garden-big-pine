@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      h3 {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>New Order Received</h1>
+    <h3>Order Details</h3>
+    <ul>
+      <li><b>Order Id: </b> {{order_id}}</li>
+      <li><b>Phone Number: </b>{{phoneNumber}}</li>
+      <li><b>Email: </b>{{email}}</li>
+      <li><b>Name: </b>{{name}}</li>
+    </ul>
+    <h3>Order Items</h3>
+    <div>
+      <ul>
+        {{cartItems}}
+      </ul>
+    </div>
+  </body>
+</html>

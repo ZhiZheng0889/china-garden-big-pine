@@ -44,6 +44,7 @@ const OrderSchema = new mongoose.Schema(
     isComplete: { type: Boolean, default: false },
     isLiked: { type: Boolean, default: false },
     cart: [CartItemSchema],
+    name: { type: String, default: "" },
   },
   { timestamps: true }
 );
