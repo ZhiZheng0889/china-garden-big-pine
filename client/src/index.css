@@ -63,14 +63,14 @@ video {
 }
 
 .modal {
-  position: fixed;
+  /* position: fixed;
   top: 0%;
   left: 0%;
-  max-width: 40rem;
+  max-width: 40rem; */
 
   /* transform: translate(-50%, -50%); */
   /* width: 40rem; */
-  transition: 0.5s;
+  /* transition: 0.5s; */
 }
 
 .button {
