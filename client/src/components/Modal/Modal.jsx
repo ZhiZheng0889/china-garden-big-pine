@@ -111,30 +111,6 @@ const Modal = ({ food, setCart, cart, setFood }) => {
             specialRequest={specialRequest}
             setSpecialRequest={setSpecialRequest}
           />
-          <SpecialRequest
-            specialRequest={specialRequest}
-            setSpecialRequest={setSpecialRequest}
-          />
-          <SpecialRequest
-            specialRequest={specialRequest}
-            setSpecialRequest={setSpecialRequest}
-          />
-          <SpecialRequest
-            specialRequest={specialRequest}
-            setSpecialRequest={setSpecialRequest}
-          />
-          <SpecialRequest
-            specialRequest={specialRequest}
-            setSpecialRequest={setSpecialRequest}
-          />
-          <SpecialRequest
-            specialRequest={specialRequest}
-            setSpecialRequest={setSpecialRequest}
-          />
-          <SpecialRequest
-            specialRequest={specialRequest}
-            setSpecialRequest={setSpecialRequest}
-          />
         </section>
         <ModalFooter
           total={total}
