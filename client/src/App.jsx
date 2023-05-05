@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import PageRoutes from './pages/Routes';
-import Navbar from './components/Navbar/Navbar';
-import { UserApi } from './api/userApi';
-import { storage } from './utils/Storage';
-import ErrorAlert from './errors/ErrorAlert';
+import React, { useEffect, useState } from "react";
+import PageRoutes from "./pages/Routes";
+import Navbar from "./components/Navbar/Navbar";
+import { UserApi } from "./api/userApi";
+import { storage } from "./utils/Storage";
+import ErrorAlert from "./errors/ErrorAlert";
 function App() {
   const [user, setUser] = useState({});
   const [cart, setCart] = useState([]);
   const [error, setError] = useState(null);
-  const [category, setCategory] = useState('appetizers');
+  const [category, setCategory] = useState("appetizers");
   useEffect(() => {
     // check if anything is in storage for cart
-    const foundCart = storage.local.get('cart');
+    const foundCart = storage.local.get("cart");
     if (foundCart) {
       const parsedCart = JSON.parse(foundCart);
       if (Array.isArray(parsedCart) && parsedCart.length > 0) {
@@ -21,13 +21,13 @@ function App() {
       }
     }
     // check if user has been logged in
-    const foundRefreshToken = storage.local.get('refreshToken');
+    const foundRefreshToken = storage.local.get("refreshToken");
     if (foundRefreshToken) {
       const getUser = async () => {
         try {
           const response = await UserApi.loginToken(foundRefreshToken);
           if (response) {
-            storage.local.set('refreshToken', response.refreshToken);
+            storage.local.set("refreshToken", response.refreshToken);
             delete response.refreshToken;
             setUser(response);
           }
@@ -42,11 +42,11 @@ function App() {
   // save session tokens
   useEffect(() => {
     if (user) {
-      const { refreshToken = '' } = user;
+      const { refreshToken = "" } = user;
       if (refreshToken) {
-        const foundToken = storage.local.get('refreshToken');
+        const foundToken = storage.local.get("refreshToken");
         if (refreshToken !== foundToken) {
-          storage.local.set('refreshToken', refreshToken);
+          storage.local.set("refreshToken", refreshToken);
         }
       }
     }
@@ -54,7 +54,7 @@ function App() {
 
   // save to local storage any time the cart is changed
   useEffect(() => {
-    storage.local.set('cart', JSON.stringify(cart));
+    storage.local.set("cart", JSON.stringify(cart));
   }, [cart]);
   return (
     <>

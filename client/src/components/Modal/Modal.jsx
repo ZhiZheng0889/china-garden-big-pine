@@ -65,7 +65,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     <>
       <div className="modalBackdrop" onClick={() => setFood(null)}></div>
       <article
-        className="modal bg-white border md:rounded"
+        className="modal fixed top-1/2 max-w-2xl max-h-[95%] overflow-y-scroll left-1/2 bg-white border md:rounded"
         id="foodModal"
         tabIndex="-1"
         aria-labelledby="foodModalLabel"
@@ -107,6 +107,30 @@ const Modal = ({ food, setCart, cart, setFood }) => {
               optionType={"options"}
             />
           )}
+          <SpecialRequest
+            specialRequest={specialRequest}
+            setSpecialRequest={setSpecialRequest}
+          />
+          <SpecialRequest
+            specialRequest={specialRequest}
+            setSpecialRequest={setSpecialRequest}
+          />
+          <SpecialRequest
+            specialRequest={specialRequest}
+            setSpecialRequest={setSpecialRequest}
+          />
+          <SpecialRequest
+            specialRequest={specialRequest}
+            setSpecialRequest={setSpecialRequest}
+          />
+          <SpecialRequest
+            specialRequest={specialRequest}
+            setSpecialRequest={setSpecialRequest}
+          />
+          <SpecialRequest
+            specialRequest={specialRequest}
+            setSpecialRequest={setSpecialRequest}
+          />
           <SpecialRequest
             specialRequest={specialRequest}
             setSpecialRequest={setSpecialRequest}
