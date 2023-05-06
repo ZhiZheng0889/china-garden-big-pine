@@ -101,7 +101,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   return (
     <>
       <main className={`bg-slate-100 min-h-screen py-6 ${className}`}>
-        <section className="mx-auto max-w-2xl bg-white bg-slate-100">
+        <section className="mx-auto max-w-2xl bg-slate-100">
           <div className="mb-4">
             <ErrorAlert error={error} />
           </div>
