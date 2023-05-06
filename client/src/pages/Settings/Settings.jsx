@@ -26,7 +26,16 @@ const Settings = ({ user, setUser }) => {
       return { ...curr, [id]: value };
     });
   };
-  const cancelChanges = () => {};
+  const cancelChanges = (event) => {
+    event.preventDefault();
+    setIsEditing((curr) => {
+      let temp = { ...curr };
+      Object.keys(temp).forEach((key) => {
+        temp[key] = false;
+      });
+      return temp;
+    });
+  };
   return (
     <>
       <main className="min-h-screen bg-slate-100 py-6">
@@ -119,7 +128,10 @@ const Settings = ({ user, setUser }) => {
               </div>
               {Object.values(isEditing).some((_) => _ === true) && (
                 <div className="flex justify-center items-center gap-3">
-                  <button className="w-32 px-3 py-2 border border-red-700 rounded hover:bg-red-700 hover:text-white active:text-white active:bg-red-800 ease-out duration-200 text-red-700">
+                  <button
+                    className="w-32 px-3 py-2 border border-red-700 rounded hover:bg-red-700 hover:text-white active:text-white active:bg-red-800 ease-out duration-200 text-red-700"
+                    onClick={cancelChanges}
+                  >
                     Cancel
                   </button>
                   <button
