@@ -5,18 +5,9 @@ import { storage } from "../../../utils/Storage";
 const SignedIn = ({ user, setUser, setError }) => {
   const navigate = useNavigate();
   const logout = async () => {
-    setError(null);
-    try {
-      const abortController = new AbortController();
-      const response = await UserApi.logout(user.user_id, abortController);
-      if (response.status === 203) {
-        setUser({});
-        storage.local.remove("refreshToken");
-        navigate("/");
-      }
-    } catch (error) {
-      setError(error);
-    }
+    storage.local.remove("refreshToken");
+    setUser({});
+    navigate("/");
   };
   return (
     <ul className="flex items-center">
