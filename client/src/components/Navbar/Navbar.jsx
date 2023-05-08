@@ -6,6 +6,7 @@ import CartButton from "../Button/CartButton/CartButton";
 import CheckoutCanvas from "../Checkout/CheckoutCanvas/CheckoutCanvas";
 import MenuCanvas from "./MenuCanvas/MenuCanvas";
 import { isObjectEmpty } from "../../utils/isObjectEmpty";
+import { useDisableBodyScroll } from "../../hooks/useDisableBodyScroll";
 const Navbar = ({
   user,
   cart,
@@ -17,6 +18,8 @@ const Navbar = ({
 }) => {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+  useDisableBodyScroll(isCheckoutOpen);
+  useDisableBodyScroll(isBurgerOpen);
   return (
     <nav className="flex bg-red-700 text-white items-center p-1 justify-center">
       <div className="container flex items-center gap-2">

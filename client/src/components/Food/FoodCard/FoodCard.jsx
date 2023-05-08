@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./FoodCard.module.css";
 import QuantityButton from "../../Button/QuantityButton/QuantityButton";
 import Modal from "../../Modal/Modal";
+
 const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const {
     _id,
@@ -71,7 +72,14 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
           )}
         </div>
       </article>
-      {isModalOpen && <Modal food={food} setCart={setCart} cart={cart} />}
+      {isModalOpen && (
+        <Modal
+          food={food}
+          setCart={setCart}
+          cart={cart}
+          isModalOpen={isModalOpen}
+        />
+      )}
     </>
   );
 };
