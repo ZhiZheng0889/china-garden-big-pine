@@ -63,14 +63,11 @@ video {
 }
 
 .modal {
-  /* position: fixed;
-  top: 0%;
-  left: 0%;
-  max-width: 40rem; */
-
-  /* transform: translate(-50%, -50%); */
-  /* width: 40rem; */
-  /* transition: 0.5s; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* max-width: 42rem; */
 }
 
 .button {
@@ -97,6 +94,12 @@ video {
 .smallscreen-pt {
   padding-top: 0.75rem !important;
 }
+
+/* .image {
+  object-fit: cover;
+  width: 14rem;
+  object-position: center;
+} */
 
 @media screen and (max-width: 1280px), screen and (max-height: 515px) {
   .smallscreen-and-landscape-condition {

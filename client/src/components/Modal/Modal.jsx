@@ -65,7 +65,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     <>
       <div className="modalBackdrop" onClick={() => setFood(null)}></div>
       <article
-        className="modal fixed top-1/2 max-w-2xl max-h-[95%] overflow-y-scroll left-1/2 bg-white border md:rounded"
+        className="modal w-11/12 md:max-w-2xl max-h-[95%] overflow-y-scroll bg-white border md:rounded"
         id="foodModal"
         tabIndex="-1"
         aria-labelledby="foodModalLabel"
@@ -88,7 +88,11 @@ const Modal = ({ food, setCart, cart, setFood }) => {
           <p>{description}</p>
           <div>
             {imageUrl && (
-              <img src={imageUrl} alt={`${name} image`} className="max-h-32" />
+              <img
+                src={imageUrl}
+                alt={`${name} image`}
+                className="w-full sm:w-1/2"
+              />
             )}
           </div>
           {sizes && (

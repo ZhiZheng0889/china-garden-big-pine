@@ -47,7 +47,11 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
         <div className={styles.quantityContainer}>
           {imageUrl ? (
             <div className="relative">
-              <img src={imageUrl} className="w-[14rem]" alt={`${name} image`} />
+              <img
+                src={imageUrl}
+                className="object-cover w-[14rem] object-center"
+                alt={`${name} image`}
+              />
               <QuantityButton
                 onClick={toggleModal}
                 cart={cart}
