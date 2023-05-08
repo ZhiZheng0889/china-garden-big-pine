@@ -4,8 +4,8 @@ import ErrorAlert from "../../errors/ErrorAlert";
 import SpecialRequest from "./SpecialRequest/SpecialRequest";
 import ModalOptions from "./ModalOptions/ModalOptions";
 import { Cart } from "../../utils/Cart";
-import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import ModalSizes from "./ModalSizes/ModalSizes";
+
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
