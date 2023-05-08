@@ -3,6 +3,7 @@ import CheckoutListItem from "./CheckoutListItem/CheckoutListItem";
 import styles from "./CheckoutList.module.css";
 import { Cart } from "../../../utils/Cart";
 const CheckoutList = ({ cart, setCart }) => {
+  console.log("CART: ", cart);
   if (!cart.length) {
     return <p className="p-3">Cart is empty...</p>;
   }
@@ -14,7 +15,6 @@ const CheckoutList = ({ cart, setCart }) => {
       <ul className={styles.list}>
         {Array.isArray(cart) &&
           cart.map((item, index) => {
-            console.log(item);
             return (
               <CheckoutListItem
                 key={item.name + index}

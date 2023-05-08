@@ -31,9 +31,7 @@ function App() {
             delete response.refreshToken;
             setUser(response);
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       };
       getUser();
     }

@@ -32,7 +32,6 @@ const ProfileOrders = ({ user }) => {
   let likeController = null;
   const toggleLike = async ({ target }) => {
     setError(null);
-    console.log("LIKING");
     const orderIndex = target.getAttribute("data-index");
     if (likeController) {
       likeController.abort();

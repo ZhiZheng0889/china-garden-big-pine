@@ -65,13 +65,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         } = item;
         const food_option_id = currentOption?.food_option_id || null;
         const food_size_id = currentSize?.food_size_id || null;
-        console.log(
-          food_id,
-          specialRequest,
-          quantity,
-          currentOption,
-          currentSize
-        );
         return {
           food_id,
           specialRequest,
@@ -88,13 +81,11 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         cart: mappedCart,
       };
       const response = await OrderApi.create(order);
-      console.log(response);
       if (response._id) {
         setCart([]);
         return navigate(`/receipt/${response._id}`);
       }
     } catch (error) {
-      console.log(error);
       setError(error);
     }
   };

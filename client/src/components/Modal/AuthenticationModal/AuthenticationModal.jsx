@@ -46,7 +46,6 @@ const AuthenticationModal = ({
       } else {
         const tempValue = value;
         if (value.length >= 4) {
-          console.log(tempValue.split(""));
           tempValue.split("").splice(3, 0, "-").join("");
           setPhoneNumber(tempValue);
         }
@@ -73,7 +72,6 @@ const AuthenticationModal = ({
       const response = await VerifyApi.sendVerifyToPhoneNumber(
         countryCode + phoneNumber
       );
-      console.log(response);
       if (response.request_id) {
         setRequestId(response.request_id);
       } else {
@@ -93,7 +91,6 @@ const AuthenticationModal = ({
         code,
         user?.user_id
       );
-      console.log(response);
       if (response.status === "0") {
         submitOrder();
       } else {
@@ -103,8 +100,6 @@ const AuthenticationModal = ({
       setError(error.message);
     }
   };
-
-  // console.log(requestId);
 
   return (
     isModalOpen && (
