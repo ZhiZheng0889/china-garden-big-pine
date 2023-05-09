@@ -5,9 +5,10 @@ const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const DatabaseErrorHandler = require("../errors/DatabaseErrorHandler");
 const sendEmailToRestaurant = require("../sender/nodemailer");
 const MAX_ORDER_TOTAL = process.env.MAX_ORDER_TOTAL;
-if (!MAX_ORDER_TOTAL) {
-  throw new Error("Max order total is not defined");
-}
+
+// if (!MAX_ORDER_TOTAL) {
+//   throw new Error("Max order total is not defined");
+// }
 
 const PROPERTIES = ["cart", "user_id", "phoneNumber", "email"];
 const REQUIRED_PROPERTIES = ["cart", "phoneNumber"];
