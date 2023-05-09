@@ -5,7 +5,9 @@ import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReCAPTCHA from "react-google-recaptcha";
+const RECAPTCHA_SITE_KEY = "your-recaptcha-site-key";
+
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
     email: "",
@@ -17,6 +19,7 @@ const Signup = ({ setUser }) => {
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState("Continue");
   const navigate = useNavigate();
+
   const onChange = ({ target }) => {
     const { name, value } = target;
     if (name === "passwordConfirm") {
@@ -28,6 +31,33 @@ const Signup = ({ setUser }) => {
       });
     }
   };
+
+  const [captchaValue, setCaptchaValue] = useState(null);
+
+  const onCaptchaChange = (value) => {
+    setCaptchaValue(value);
+  };
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (
+      password.length >= minLength &&
+      hasUpperCase &&
+      hasLowerCase &&
+      hasNumber &&
+      hasSpecialChar
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   const footerText = (
     <p className="mt-2 text-center">
       Already have an account?{" "}
@@ -36,10 +66,29 @@ const Signup = ({ setUser }) => {
       </Link>
     </p>
   );
+
   const onSubmit = async (event) => {
     setError(null);
     event.preventDefault();
     setButtonText("Loading...");
+
+    // Check if captcha is completed
+    if (!captchaValue) {
+      setError({ message: "Please complete the CAPTCHA verification." });
+      setButtonText("Continue");
+      return;
+    }
+
+    // Validate password
+    if (!validatePassword(signup.password)) {
+      setError({
+        message:
+          "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.",
+      });
+      setButtonText("Continue");
+      return;
+    }
+
     try {
       if (signup.password === confirmPassword) {
         const {
@@ -99,6 +148,10 @@ const Signup = ({ setUser }) => {
             name="passwordConfirm"
             placeholder="Confirm Password"
             label="Confirm Password"
+          />
+          <ReCAPTCHA
+            sitekey={RECAPTCHA_SITE_KEY}
+            onChange={onCaptchaChange}
           />
         </Form>
       </Card>
