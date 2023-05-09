@@ -31,11 +31,11 @@
     "seed:delete:orders": "node src/db/seeds/dataProvider.js --delete development orders",
     "seed:delete:foods": "node src/db/seeds/dataProvider.js --delete development foods",
     "seed:users:production": "node src/db/seeds/dataProvider.js --import development users",
-    "seed:orders:production": "node src/db/seeds/dataProvider.js --import development orders",
-    "seed:foods:production": "node src/db/seeds/dataProvider.js --import development foods",
-    "seed:delete:users:production": "node src/db/seeds/dataProvider.js --delete development users",
-    "seed:delete:orders:production": "node src/db/seeds/dataProvider.js --delete development orders",
-    "seed:delete:foods:production": "node src/db/seeds/dataProvider.js --delete development foods"
+    "seed:orders:production": "node src/db/seeds/dataProvider.js --import production orders",
+    "seed:foods:production": "node src/db/seeds/dataProvider.js --import production foods",
+    "seed:delete:users:production": "node src/db/seeds/dataProvider.js --delete production users",
+    "seed:delete:orders:production": "node src/db/seeds/dataProvider.js --delete production orders",
+    "seed:delete:foods:production": "node src/db/seeds/dataProvider.js --delete production foods"
   },
   "keywords": [],
   "author": "",
