@@ -40,6 +40,14 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (sizes.length === 0) setSelectedSize(null);
   }, [food]);
 
+  useEffect(() => {
+    if (quantity <= 0) {
+      setError({ message: "Quantity has to be greater than zero" });
+    } else {
+      setError(null);
+    }
+  }, [quantity]);
+
   if (!food) return null;
 
   const handleAddToCart = (event) => {
@@ -83,9 +91,14 @@ const Modal = ({ food, setCart, cart, setFood }) => {
           </button>
         </header>
         <section className="p-3">
-          {<ErrorAlert error={error} />}
-          <h2 className="text-4xl mb-5">{name}</h2>
-          <p>{description}</p>
+          <div className="py-2">
+            <ErrorAlert error={error} />
+          </div>
+          <div className="mb-5">
+            <h2 className="text-4xl">{name}</h2>
+            <p>{description}</p>
+          </div>
+
           <div>
             {imageUrl && (
               <img

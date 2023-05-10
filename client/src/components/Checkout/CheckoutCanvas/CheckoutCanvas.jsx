@@ -24,7 +24,7 @@ const CheckoutCanvas = ({
         >
           <div className="flex border-b p-3">
             <button
-              className="p-1  focus:outline outline-2 outline-offset-2 outline-red-600"
+              className="p-2 w-8 h-8 flex justify-center items-center hover:bg-neutral-100 rounded active:bg-neutral-200 duration-200 ease-out  focus:outline outline-2 outline-offset-2 outline-red-600"
               onClick={closeCanvas}
               autoFocus={true}
             >

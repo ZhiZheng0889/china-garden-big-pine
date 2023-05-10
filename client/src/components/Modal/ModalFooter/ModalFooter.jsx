@@ -32,7 +32,7 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
         <button
           onClick={updateQuantity}
           id="-"
-          className={`disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.decrement}  focus:outline outline-2 outline-offset-2 outline-red-600`}
+          className={`w-8 h-8 flex justify-center items-center  disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.decrement}  focus:outline outline-2 outline-offset-2 outline-red-600`}
           disabled={quantity === 0}
         >
           <i id="-" className="fa-solid fa-minus"></i>
@@ -46,7 +46,7 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
         <button
           onClick={updateQuantity}
           id="+"
-          className={`disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.increment}  focus:outline outline-2 outline-offset-2 outline-red-600`}
+          className={`w-8 h-8 flex justify-center items-center disabled:bg-neutral-100 disabled:cursor-not-allowed ${styles.button} ${styles.increment}  focus:outline outline-2 outline-offset-2 outline-red-600`}
           disabled={quantity === 999}
         >
           <i id="+" className="fa-solid fa-plus"></i>
