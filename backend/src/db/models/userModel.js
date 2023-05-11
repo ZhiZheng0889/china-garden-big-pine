@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { SALT } = process.env;
 
 const UserSchema = new mongoose.Schema(
   {
@@ -20,10 +21,10 @@ const UserSchema = new mongoose.Schema(
 UserSchema.pre("save", async function (next) {
   // Only hash the email and phone number if they have been modified or are new
   if (this.isModified("email") || this.isNew) {
-    this.hashedEmail = await bcrypt.hash(this.email, 10);
+    this.email = await bcrypt.hash(this.email, parseInt(SALT));
   }
   if (this.isModified("phoneNumber") || this.isNew) {
-    this.hashedPhoneNumber = await bcrypt.hash(this.phoneNumber, 10);
+    this.PhoneNumber = await bcrypt.hash(this.phoneNumber, parseInt(SALT));
   }
   next();
 });

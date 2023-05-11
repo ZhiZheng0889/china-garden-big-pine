@@ -5,8 +5,6 @@ import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
-import ReCAPTCHA from "react-google-recaptcha";
-const RECAPTCHA_SITE_KEY = "your-recaptcha-site-key";
 
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
@@ -30,12 +28,6 @@ const Signup = ({ setUser }) => {
         [name]: value,
       });
     }
-  };
-
-  const [captchaValue, setCaptchaValue] = useState(null);
-
-  const onCaptchaChange = (value) => {
-    setCaptchaValue(value);
   };
 
   const validatePassword = (password) => {
@@ -71,13 +63,6 @@ const Signup = ({ setUser }) => {
     setError(null);
     event.preventDefault();
     setButtonText("Loading...");
-
-    // Check if captcha is completed
-    if (!captchaValue) {
-      setError({ message: "Please complete the CAPTCHA verification." });
-      setButtonText("Continue");
-      return;
-    }
 
     // Validate password
     if (!validatePassword(signup.password)) {
@@ -148,10 +133,6 @@ const Signup = ({ setUser }) => {
             name="passwordConfirm"
             placeholder="Confirm Password"
             label="Confirm Password"
-          />
-          <ReCAPTCHA
-            sitekey={RECAPTCHA_SITE_KEY}
-            onChange={onCaptchaChange}
           />
         </Form>
       </Card>
