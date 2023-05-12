@@ -5,6 +5,7 @@ import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
@@ -17,6 +18,7 @@ const Signup = ({ setUser }) => {
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState("Continue");
   const navigate = useNavigate();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const onChange = ({ target }) => {
     const { name, value } = target;
@@ -74,6 +76,9 @@ const Signup = ({ setUser }) => {
       return;
     }
 
+    // Trigger reCAPTCHA v3 verification
+    const recaptchaToken = await executeRecaptcha('signup');
+
     try {
       if (signup.password === confirmPassword) {
         const {
@@ -88,6 +93,7 @@ const Signup = ({ setUser }) => {
           firstName,
           phoneNumber,
           isAdmin: false,
+          recaptchaResponse: recaptchaToken,
         };
         const response = await UserApi.signup(payload);
         if (response) {
@@ -128,6 +134,38 @@ const Signup = ({ setUser }) => {
         >
           <Input
             onChange={onChange}
+            value={signup.email}
+            type="email"
+            name="email"
+            placeholder="Email"
+            label="Email"
+          />
+          <Input
+            onChange={onChange}
+            value={signup.first_name}
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            label="First Name"
+          />
+          <Input
+            onChange={onChange}
+            value={signup.phone_number}
+            type="tel"
+            name="phone_number"
+            placeholder="Phone Number"
+            label="Phone Number"
+          />
+          <Input
+            onChange={onChange}
+            value={signup.password}
+            type="password"
+            name="password"
+            placeholder="Password"
+            label="Password"
+          />
+          <Input
+            onChange={onChange}
             value={confirmPassword}
             type="password"
             name="passwordConfirm"
@@ -141,3 +179,4 @@ const Signup = ({ setUser }) => {
 };
 
 export default Signup;
+
