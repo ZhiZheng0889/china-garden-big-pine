@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card/Card";
 import AuthenticationModal from "../../components/Modal/AuthenticationModal/AuthenticationModal";
-import ErrorAlert from "../../errors/ErrorAlert";
+import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 import { Cart } from "../../utils/Cart";
 import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import { OrderApi } from "../../api/orderApi";
@@ -106,9 +106,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     <>
       <main className={`bg-slate-100 min-h-screen py-6 ${className}`}>
         <section className="mx-auto max-w-2xl bg-slate-100">
-          <div className="mb-4">
-            <ErrorAlert error={error} />
-          </div>
+          <ErrorAlertFixed error={error} setError={setError} showClose />
 
           <Card classes="mb-4" isNotRoundedMobile>
             <h1 className="text-2xl font-semibold mb-4">Checkout</h1>
