@@ -20,7 +20,7 @@ const ErrorAlertFixed = ({
             className="w-9 h-9 rounded hover:bg-red-300 actve:bg-red-400 ease-out duration-200"
             onClick={() => setError(null)}
           >
-            X
+            <i className="fa-regular fa-xmark"></i>
           </button>
         )}
       </div>
