@@ -75,7 +75,6 @@ const Modal = ({ food, setCart, cart, setFood }) => {
       <article
         className="modal w-11/12 md:max-w-2xl max-h-[95%] overflow-y-scroll bg-white border md:rounded"
         id="foodModal"
-        tabIndex="-1"
         aria-labelledby="foodModalLabel"
         aria-hidden={food ? true : false}
       >
@@ -85,6 +84,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
             className="w-10 h-10 hover:bg-slate-100 rounded-full  focus:outline outline-2 outline-offset-2 outline-red-600"
             data-bs-dismiss="modal"
             aria-label="Close"
+            onFocus={true}
             onClick={() => setFood(null)}
           >
             <i className="fa-regular fa-xmark fa-lg"></i>

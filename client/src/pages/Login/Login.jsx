@@ -40,7 +40,7 @@ const Login = ({ setUser }) => {
         storage.local.set("refreshToken", response.refreshToken);
         delete response.refreshToken;
         setUser(response);
-        navigate("/profile");
+        navigate("/");
       }
     } catch (error) {
       setError(error);

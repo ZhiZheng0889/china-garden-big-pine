@@ -56,7 +56,6 @@ const ModalFooter = ({ total, setQuantity, quantity, handleAddToCart }) => {
         className="p-3 rounded bg-red-600 hover:bg-red-700 active:bg-red-800 text-white disabled:bg-red-500 disabled:cursor-not-allowed  focus:outline outline-2 outline-offset-2 outline-red-600"
         disabled={quantity === 999 || quantity === 0}
         onClick={handleAddToCart}
-        autoFocus={true}
       >
         Add to Cart - ${total.toFixed(2)}
       </button>
