@@ -19,8 +19,8 @@ const Profile = ({ user }) => {
   const { firstName, _id: user_id } = user;
 
   return (
-    <main className="min-h-screen bg-slate-100 flex justify-center pt-6">
-      <div className="container grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6">
+    <main className="min-h-screen bg-slate-100 pt-6">
+      <div className="mx-auto max-w-2xl flex flex-col gap-6">
         <section className="">
           {user && (
             <div className="flex flex-col gap-6">
@@ -36,9 +36,8 @@ const Profile = ({ user }) => {
               {/* <ProfileFavoriteOrders user_id={user_id} /> */}
             </div>
           )}
-          <Footer />
         </section>
-        <aside className="">
+        <div className="">
           <Card padding="p-0">
             <header className="border-b p-3">
               <h3 className="font-lg font-semibold">Recent Orders</h3>
@@ -46,7 +45,8 @@ const Profile = ({ user }) => {
 
             <ProfileOrders user={user} />
           </Card>
-        </aside>
+          <Footer />
+        </div>
       </div>
     </main>
   );
