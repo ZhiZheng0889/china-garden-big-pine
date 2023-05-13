@@ -19,7 +19,6 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const toggleModal = () => {
     setIsModalOpen((curr) => !curr);
   };
-  console.log(food, imageUrl);
   return (
     <>
       <article

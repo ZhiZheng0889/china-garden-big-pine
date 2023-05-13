@@ -97,7 +97,7 @@ function sendUserPayload(req, res, next) {
       expires: new Date(Date.now() + 8 * 36000000),
     })
     .status(200)
-    .json({ data: { user: user.toObject(), refreshToken } });
+    .json({ data: { ...user, refreshToken } });
 }
 
 async function getUserEmail(req, res, next) {
