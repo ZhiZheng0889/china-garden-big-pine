@@ -12,17 +12,20 @@ const Signup = ({ setUser }) => {
     email: "",
     first_name: "",
     phone_number: "",
-    password: "",
   });
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState("Continue");
   const navigate = useNavigate();
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const [showPassword, setShowPassword] = useState(false);
 
   const onChange = ({ target }) => {
     const { name, value } = target;
-    if (name === "passwordConfirm") {
+    if (name === "password") {
+      setPassword(value);
+    } else if (name === "passwordConfirm") {
       setConfirmPassword(value);
     } else {
       setSignup({
@@ -65,9 +68,9 @@ const Signup = ({ setUser }) => {
     setError(null);
     event.preventDefault();
     setButtonText("Loading...");
-
+  
     // Validate password
-    if (!validatePassword(signup.password)) {
+    if (!validatePassword(password)) {   // Changed from signup.password to password
       setError({
         message:
           "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.",
@@ -134,40 +137,20 @@ const Signup = ({ setUser }) => {
         >
           <Input
             onChange={onChange}
-            value={signup.email}
-            type="email"
-            name="email"
-            placeholder="Email"
-            label="Email"
-          />
-          <Input
-            onChange={onChange}
-            value={signup.first_name}
-            type="text"
-            name="first_name"
-            placeholder="First Name"
-            label="First Name"
-          />
-          <Input
-            onChange={onChange}
-            value={signup.phone_number}
-            type="tel"
-            name="phone_number"
-            placeholder="Phone Number"
-            label="Phone Number"
-          />
-          <Input
-            onChange={onChange}
-            value={signup.password}
-            type="password"
+            value={password}
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Password"
             label="Password"
           />
+          <div>
+            <input type="checkbox" id="showPassword" onClick={() => setShowPassword(!showPassword)} />
+            <label htmlFor="showPassword">Show Password</label>
+          </div>
           <Input
             onChange={onChange}
             value={confirmPassword}
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="passwordConfirm"
             placeholder="Confirm Password"
             label="Confirm Password"
@@ -179,4 +162,3 @@ const Signup = ({ setUser }) => {
 };
 
 export default Signup;
-
