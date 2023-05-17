@@ -217,14 +217,6 @@ async function createUser(req, res, next) {
   }
 }
 
-async function hashString(string) {
-  return await bcrypt.hash(string, SALT);
-}
-
-async function unhashString(string) {
-  return await bcrypt
-}
-
 module.exports = {
   loginWithToken: [
     asyncErrorBoundary(isAccessTokenValid),
