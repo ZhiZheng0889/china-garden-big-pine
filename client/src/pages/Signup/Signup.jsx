@@ -4,7 +4,7 @@ import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
@@ -13,25 +13,29 @@ const Signup = ({ setUser }) => {
     phone_number: "",
   });
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState("Continue");
   const navigate = useNavigate();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onChange = ({ target }) => {
     const { name, value } = target;
     if (name === "password") {
       setPassword(value);
-    } else if (name === "passwordConfirm") {
-      setConfirmPassword(value);
     } else {
       setSignup({
         ...signup,
         [name]: value,
       });
     }
+  };
+
+  const changeConfirmPassword = ({ target }) => {
+    const { value } = target;
+    setConfirmPassword(value);
   };
 
   const validatePassword = (password) => {
@@ -67,9 +71,10 @@ const Signup = ({ setUser }) => {
     setError(null);
     event.preventDefault();
     setButtonText("Loading...");
-  
+
     // Validate password
-    if (!validatePassword(password)) {   // Changed from signup.password to password
+    if (!validatePassword(password)) {
+      // Changed from signup.password to password
       setError({
         message:
           "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.",
@@ -79,7 +84,7 @@ const Signup = ({ setUser }) => {
     }
 
     // Trigger reCAPTCHA v3 verification
-    const recaptchaToken = await executeRecaptcha('signup');
+    const recaptchaToken = await executeRecaptcha("signup");
 
     try {
       if (password === confirmPassword) {
@@ -122,13 +127,6 @@ const Signup = ({ setUser }) => {
         )}
         <p className="text-center">Welcome to</p>
         <h1 className="text-center text-2xl font-semibold">China Garden</h1>
-        <button
-          className="px-3 py-2 w-full text-center border rounded"
-          onClick={signupWithSocials}
-        >
-          Google
-        </button>
-        <p className="text-center">Or</p>
         <Form
           data={signup}
           onChange={onChange}
@@ -136,26 +134,62 @@ const Signup = ({ setUser }) => {
           footer={footerText}
           submitText={buttonText}
         >
-          <Input
-            onChange={onChange}
-            value={password}
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Password"
-            label="Password"
-          />
           <div>
-            <input type="checkbox" id="showPassword" onClick={() => setShowPassword(!showPassword)} />
-            <label htmlFor="showPassword">Show Password</label>
+            <div className="flex flex-col mb-[1.2rem]">
+              <label htmlFor="password" className="capitalize mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  onChange={onChange}
+                  value={password}
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  id="password"
+                  className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+                />
+                <button
+                  id="showPassword"
+                  onClick={() => setShowPassword((curr) => !curr)}
+                  className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
+                >
+                  <i
+                    className={`fa-solid text-neutral-600 ${
+                      showPassword ? "fa-eye" : "fa-eye-slash"
+                    }`}
+                  ></i>
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-col mb-[1.2rem]">
+              <label htmlFor="passwordConfirm" className="capitalize mb-2">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <input
+                  onChange={changeConfirmPassword}
+                  value={confirmPassword}
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="passwordConfirm"
+                  placeholder="Confirm Password"
+                  id="passwordConfirm"
+                  className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+                />
+                <button
+                  id="showConfirmPassword"
+                  onClick={() => setShowConfirmPassword((curr) => !curr)}
+                  className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
+                >
+                  <i
+                    className={`fa-solid text-neutral-600 ${
+                      showConfirmPassword ? "fa-eye" : "fa-eye-slash"
+                    }`}
+                  ></i>
+                </button>
+              </div>
+            </div>
           </div>
-          <Input
-            onChange={onChange}
-            value={confirmPassword}
-            type={showPassword ? "text" : "password"}
-            name="passwordConfirm"
-            placeholder="Confirm Password"
-            label="Confirm Password"
-          />
         </Form>
       </Card>
     </div>

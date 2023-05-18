@@ -6,8 +6,8 @@
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Table } from "react-bootstrap";
-import axios from "axios";
+// import { Button, Table } from "react-bootstrap";
+// import axios from "axios";
 import "./Admin.module.css";
 
 //connect to the database and check if user is logged in
@@ -18,13 +18,13 @@ function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    axios.get('/check-login-status')
-      .then(response => {
-        setLoggedIn(response.data.loggedIn);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // axios.get('/check-login-status')
+    //   .then(response => {
+    //     setLoggedIn(response.data.loggedIn);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   }, []);
 
   if (!loggedIn) {
@@ -43,13 +43,14 @@ function Home() {
   //if user token is valid, display admin page
 
   useEffect(() => {
-    axios.get('/check-user-token')
-      .then(response => {
+    axios
+      .get("/check-user-token")
+      .then((response) => {
         if (!response.data.valid) {
           setLoggedIn(false);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
@@ -63,7 +64,6 @@ function Home() {
         </Link>
       </div>
     );
-
   }
 
   //display admin page

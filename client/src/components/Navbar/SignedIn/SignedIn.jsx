@@ -31,10 +31,13 @@ const SignedIn = ({ user, setUser, setError }) => {
         <li>
           <button
             onClick={toggleProfile}
-            className="px-3 py-2 focus:outline outline-2 outline-offset-2 outline-white"
+            className="w-6 h-6 focus:outline outline-2 outline-offset-2 outline-white rounded-full"
             id="profile-icon"
           >
-            <i className="fa-light fa-circle-user fa-lg" id="profile-icon"></i>
+            <i
+              className="fa-regular fa-circle-user fa-lg"
+              id="profile-icon"
+            ></i>
           </button>
         </li>
       </ul>
