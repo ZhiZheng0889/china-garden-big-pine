@@ -12,8 +12,9 @@ const VALID_PROPERTIES = [
   "password",
   "isAdmin",
   "firstName",
+  "recaptchaResponse"
 ];
-const REQUIRED_PROPERTIES = ["email", "firstName", "phoneNumber", "password"];
+const REQUIRED_PROPERTIES = ["email", "firstName", "phoneNumber", "password", "recaptchaResponse"];
 const VALID_LOGIN_PROPERTIES = ["email", "password"];
 const REQUIRED_LOGIN_PROPERTIES = ["email", "password"];
 
@@ -93,7 +94,8 @@ function sendUserPayload(req, res, next) {
   return res
     .cookie("access_token", accessToken, {
       httpOnly: true,
-      secure: false,
+      sameSite: 'None',
+      secure: process.env.NODE_ENV !== "development",
       expires: new Date(Date.now() + 8 * 36000000),
     })
     .status(200)
@@ -220,6 +222,11 @@ async function createUser(req, res, next) {
 
 module.exports = {
   loginWithToken: [
+    (req,res,next) => {
+      console.log('Cookies: ', req.cookies);
+      console.log('Body: ', req.body);
+      return next();
+    },
     asyncErrorBoundary(isAccessTokenValid),
     asyncErrorBoundary(isRefreshTokenValid),
     asyncErrorBoundary(isValidUserId),
@@ -235,6 +242,10 @@ module.exports = {
     sendUserPayload,
   ],
   register: [
+    (req,res,next) => {
+      console.log("DATA: ", req.body.data);
+      return next();
+    }, 
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
     asyncErrorBoundary(isEmailAvailable),

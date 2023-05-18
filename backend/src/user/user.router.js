@@ -5,11 +5,7 @@ const methodNotAllowed = require("../errors/methodNotAllowed");
 router.route("/login/google", controller.loginWithGoogle);
 router
   .route("/login/token")
-  .post((req, res, next) => {
-    console.log('Cookies: ', req.cookies);
-    console.log('Body: ', req.body);
-    next();
-  }, asyncErrorBoundary(controller.loginWithToken))
+  .post(controller.loginWithToken)
   .all(methodNotAllowed);
   
 router.route("/login").post(controller.login).all(methodNotAllowed);

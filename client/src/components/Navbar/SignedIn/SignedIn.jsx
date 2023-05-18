@@ -31,7 +31,7 @@ const SignedIn = ({ user, setUser, setError }) => {
       </li>
       <li className="px-3 py-2">
         <Link to="/profile">
-          <i className="fa-light fa-circle-user fa-lg"></i>
+        <i className="fa-regular fa-circle-user"></i>
         </Link>
       </li>
     </ul>

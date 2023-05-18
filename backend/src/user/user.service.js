@@ -57,7 +57,7 @@ function destroy(_id) {
 module.exports = {
   getUserById,
   createUser,
-  getAllUsers,
+  // getAllUsers,
   destroy,
   getUserByEmail,
   getUserByPhoneNumber,

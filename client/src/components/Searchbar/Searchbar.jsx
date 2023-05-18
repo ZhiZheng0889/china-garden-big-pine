@@ -26,7 +26,7 @@ const Searchbar = ({ search, setSearch }) => {
         className="absolute top-2/4 right-[2%] -translate-y-2/4 focus:outline outline-2 outline-offset-2 outline-red-600  "
         type="submit"
       >
-        <i className="fa-light fa-magnifying-glass fa-lg"></i>
+        <i className="fa-solid fa-magnifying-glass fa-lg"></i>
       </button>
       <input
         type="search"

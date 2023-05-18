@@ -83,10 +83,9 @@ const Signup = ({ setUser }) => {
     const recaptchaToken = await executeRecaptcha('signup');
 
     try {
-      if (signup.password === confirmPassword) {
+      if (password === confirmPassword) {
         const {
           email,
-          password,
           first_name: firstName,
           phone_number: phoneNumber,
         } = signup;
@@ -98,6 +97,7 @@ const Signup = ({ setUser }) => {
           isAdmin: false,
           recaptchaResponse: recaptchaToken,
         };
+        console.log("PAYLOAD: ", payload);
         const response = await UserApi.signup(payload);
         if (response) {
           setUser(response);
