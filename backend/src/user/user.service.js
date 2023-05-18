@@ -1,20 +1,33 @@
 const User = require("../db/models/userModel");
 
 function getUserById(_id) {
-  return User.findOne({ _id });
-}
-
-function getAllUsers() {
-  return User.find();
-}
-
-function createUser(user) {
-  return User.create(user);
+  return User.findOne({ _id }).then(user => {
+    console.log(`Fetched user by id ${_id}:`, user);
+    return user;
+  });
 }
 
 function getUserByEmail(email) {
-  return User.findOne({ email });
+  return User.findOne({ email }).then(user => {
+    console.log(`Fetched user by email ${email}:`, user);
+    return user;
+  });
 }
+
+function getUserByPhoneNumber(phoneNumber) {
+  return User.findOne({ phoneNumber }).then(user => {
+    console.log(`Fetched user by phone number ${phoneNumber}:`, user);
+    return user;
+  });
+}
+
+function createUser(user) {
+  return User.create(user).then(createdUser => {
+    console.log('Created user:', createdUser);
+    return createdUser;
+  });
+}
+
 
 function getUserByPhoneNumber(phoneNumber) {
   return User.findOne({ phoneNumber });
@@ -44,7 +57,7 @@ function destroy(_id) {
 module.exports = {
   getUserById,
   createUser,
-  getAllUsers,
+  // getAllUsers,
   destroy,
   getUserByEmail,
   getUserByPhoneNumber,

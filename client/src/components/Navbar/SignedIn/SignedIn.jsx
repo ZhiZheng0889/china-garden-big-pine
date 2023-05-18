@@ -6,7 +6,6 @@ const SignedIn = ({ user, setUser, setError }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const toggleProfile = () => {
-    console.log("OPENING ==================================");
     setIsProfileOpen((curr) => !curr);
   };
   console.log(isProfileOpen);

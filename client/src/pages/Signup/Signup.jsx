@@ -4,22 +4,27 @@ import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
     email: "",
     first_name: "",
     phone_number: "",
-    password: "",
   });
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState("Continue");
   const navigate = useNavigate();
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [showPassword, setShowPassword] = useState(false);
+
   const onChange = ({ target }) => {
     const { name, value } = target;
-    if (name === "passwordConfirm") {
+    if (name === "password") {
+      setPassword(value);
+    } else if (name === "passwordConfirm") {
       setConfirmPassword(value);
     } else {
       setSignup({
@@ -28,6 +33,27 @@ const Signup = ({ setUser }) => {
       });
     }
   };
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (
+      password.length >= minLength &&
+      hasUpperCase &&
+      hasLowerCase &&
+      hasNumber &&
+      hasSpecialChar
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   const footerText = (
     <p className="mt-2 text-center">
       Already have an account?{" "}
@@ -36,15 +62,29 @@ const Signup = ({ setUser }) => {
       </Link>
     </p>
   );
+
   const onSubmit = async (event) => {
     setError(null);
     event.preventDefault();
     setButtonText("Loading...");
+  
+    // Validate password
+    if (!validatePassword(password)) {   // Changed from signup.password to password
+      setError({
+        message:
+          "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.",
+      });
+      setButtonText("Continue");
+      return;
+    }
+
+    // Trigger reCAPTCHA v3 verification
+    const recaptchaToken = await executeRecaptcha('signup');
+
     try {
-      if (signup.password === confirmPassword) {
+      if (password === confirmPassword) {
         const {
           email,
-          password,
           first_name: firstName,
           phone_number: phoneNumber,
         } = signup;
@@ -54,7 +94,9 @@ const Signup = ({ setUser }) => {
           firstName,
           phoneNumber,
           isAdmin: false,
+          recaptchaResponse: recaptchaToken,
         };
+        console.log("PAYLOAD: ", payload);
         const response = await UserApi.signup(payload);
         if (response) {
           setUser(response);
@@ -96,8 +138,20 @@ const Signup = ({ setUser }) => {
         >
           <Input
             onChange={onChange}
+            value={password}
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+            label="Password"
+          />
+          <div>
+            <input type="checkbox" id="showPassword" onClick={() => setShowPassword(!showPassword)} />
+            <label htmlFor="showPassword">Show Password</label>
+          </div>
+          <Input
+            onChange={onChange}
             value={confirmPassword}
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="passwordConfirm"
             placeholder="Confirm Password"
             label="Confirm Password"
