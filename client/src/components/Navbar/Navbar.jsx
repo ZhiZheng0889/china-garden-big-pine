@@ -27,7 +27,7 @@ const Navbar = ({
           className="p-2 md:hidden hover:bg-red-800 rounded focus:outline outline-2 outline-offset-2 outline-white"
           onClick={() => setIsBurgerOpen((c) => !c)}
         >
-          <i className="fa-regular fa-bars fa-lg"></i>
+          <i className="fa-solid fa-bars fa-lg"></i>
         </button>
         <Link
           to="/"

@@ -30,7 +30,7 @@ const Profile = ({ user }) => {
                 </h3>
 
                 <Link to="/settings" className="text-slate-500">
-                  <i className="fa-regular fa-gear fa-lg"></i>
+                  <i className="fa-solid fa-gear fa-lg"></i>
                 </Link>
               </Card>
               {/* <ProfileFavoriteOrders user_id={user_id} /> */}

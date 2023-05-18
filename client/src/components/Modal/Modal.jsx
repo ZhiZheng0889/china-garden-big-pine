@@ -87,7 +87,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
             onFocus={true}
             onClick={() => setFood(null)}
           >
-            <i className="fa-regular fa-xmark fa-lg"></i>
+            <i className="fa-solid fa-xmark fa-lg"></i>
           </button>
         </header>
         <section className="p-3">

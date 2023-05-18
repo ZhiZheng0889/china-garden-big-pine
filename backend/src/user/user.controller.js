@@ -12,9 +12,15 @@ const VALID_PROPERTIES = [
   "password",
   "isAdmin",
   "firstName",
-  "recaptchaResponse"
+  "recaptchaResponse",
 ];
-const REQUIRED_PROPERTIES = ["email", "firstName", "phoneNumber", "password", "recaptchaResponse"];
+const REQUIRED_PROPERTIES = [
+  "email",
+  "firstName",
+  "phoneNumber",
+  "password",
+  "recaptchaResponse",
+];
 const VALID_LOGIN_PROPERTIES = ["email", "password"];
 const REQUIRED_LOGIN_PROPERTIES = ["email", "password"];
 
@@ -94,7 +100,7 @@ function sendUserPayload(req, res, next) {
   return res
     .cookie("access_token", accessToken, {
       httpOnly: true,
-      sameSite: 'None',
+      sameSite: "None",
       secure: process.env.NODE_ENV !== "development",
       expires: new Date(Date.now() + 8 * 36000000),
     })
@@ -144,7 +150,7 @@ async function isAccessTokenValid(req, res, next) {
     const { access_token } = req.cookies;
     if (access_token) {
       const { user_id } = await UserAuth.authorize(access_token);
-      console.log('User ID from access token: ', user_id);
+      console.log("User ID from access token: ", user_id);
       res.locals.user_id = user_id;
       return next();
     }
@@ -222,12 +228,12 @@ async function createUser(req, res, next) {
 
 module.exports = {
   loginWithToken: [
-    (req,res,next) => {
-      console.log('Cookies: ', req.cookies);
-      console.log('Body: ', req.body);
+    (req, res, next) => {
+      console.log("Cookies: ", req.cookies);
+      console.log("Body: ", req.body);
       return next();
     },
-    asyncErrorBoundary(isAccessTokenValid),
+    // asyncErrorBoundary(isAccessTokenValid),
     asyncErrorBoundary(isRefreshTokenValid),
     asyncErrorBoundary(isValidUserId),
     asyncErrorBoundary(createToken),
@@ -242,10 +248,10 @@ module.exports = {
     sendUserPayload,
   ],
   register: [
-    (req,res,next) => {
+    (req, res, next) => {
       console.log("DATA: ", req.body.data);
       return next();
-    }, 
+    },
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
     asyncErrorBoundary(isEmailAvailable),

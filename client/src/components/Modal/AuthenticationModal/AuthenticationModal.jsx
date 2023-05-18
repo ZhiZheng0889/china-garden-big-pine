@@ -120,7 +120,7 @@ const AuthenticationModal = ({
               aria-label="Close"
               onClick={() => setIsModalOpen(false)}
             >
-              <i className="fa-regular fa-chevron-left fa-lg"></i>
+              <i className="fa-solid fa-chevron-left fa-lg"></i>
             </button>
           </header>
           {sentRequestId || requestId ? (

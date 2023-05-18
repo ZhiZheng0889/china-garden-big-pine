@@ -34,10 +34,7 @@ const SignedIn = ({ user, setUser, setError }) => {
             className="w-6 h-6 focus:outline outline-2 outline-offset-2 outline-white rounded-full"
             id="profile-icon"
           >
-            <i
-              className="fa-regular fa-circle-user fa-lg"
-              id="profile-icon"
-            ></i>
+            <i className="fa-solid fa-circle-user fa-lg" id="profile-icon"></i>
           </button>
         </li>
       </ul>
