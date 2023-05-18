@@ -4,8 +4,8 @@ import ErrorAlert from "../../errors/ErrorAlert";
 import SpecialRequest from "./SpecialRequest/SpecialRequest";
 import ModalOptions from "./ModalOptions/ModalOptions";
 import { Cart } from "../../utils/Cart";
-import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import ModalSizes from "./ModalSizes/ModalSizes";
+
 const Modal = ({ food, setCart, cart, setFood }) => {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
@@ -40,6 +40,14 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     if (sizes.length === 0) setSelectedSize(null);
   }, [food]);
 
+  useEffect(() => {
+    if (quantity <= 0) {
+      setError({ message: "Quantity has to be greater than zero" });
+    } else {
+      setError(null);
+    }
+  }, [quantity]);
+
   if (!food) return null;
 
   const handleAddToCart = (event) => {
@@ -65,9 +73,8 @@ const Modal = ({ food, setCart, cart, setFood }) => {
     <>
       <div className="modalBackdrop" onClick={() => setFood(null)}></div>
       <article
-        className="modal fixed top-1/2 max-w-2xl max-h-[95%] overflow-y-scroll left-1/2 bg-white border md:rounded"
+        className="modal w-11/12 md:max-w-2xl max-h-[95%] overflow-y-scroll bg-white border md:rounded"
         id="foodModal"
-        tabIndex="-1"
         aria-labelledby="foodModalLabel"
         aria-hidden={food ? true : false}
       >
@@ -77,18 +84,28 @@ const Modal = ({ food, setCart, cart, setFood }) => {
             className="w-10 h-10 hover:bg-slate-100 rounded-full  focus:outline outline-2 outline-offset-2 outline-red-600"
             data-bs-dismiss="modal"
             aria-label="Close"
+            onFocus={true}
             onClick={() => setFood(null)}
           >
             <i className="fa-regular fa-xmark fa-lg"></i>
           </button>
         </header>
         <section className="p-3">
-          {<ErrorAlert error={error} />}
-          <h2 className="text-4xl mb-5">{name}</h2>
-          <p>{description}</p>
+          <div className="py-2">
+            <ErrorAlert error={error} />
+          </div>
+          <div className="mb-5">
+            <h2 className="text-4xl">{name}</h2>
+            <p>{description}</p>
+          </div>
+
           <div>
             {imageUrl && (
-              <img src={imageUrl} alt={`${name} image`} className="max-h-32" />
+              <img
+                src={imageUrl}
+                alt={`${name} image`}
+                className="w-full sm:w-1/2"
+              />
             )}
           </div>
           {sizes && (

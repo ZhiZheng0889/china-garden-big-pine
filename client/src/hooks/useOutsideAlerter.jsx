@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from "react";
 
 /**
  * An array that is used to allow state change based on target id
  */
-const allowedTargets = ['modal-toggle-btn'];
+const allowedTargets = ["profile-icon"];
 function useOutsideAlerter(ref, setState) {
   useEffect(() => {
     function handleClickOutside(event) {
@@ -16,10 +16,10 @@ function useOutsideAlerter(ref, setState) {
       }
     }
     // Bind the event listener
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       // Unbind the listener on cleanup
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref]);
 }

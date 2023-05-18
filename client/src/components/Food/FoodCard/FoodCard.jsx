@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./FoodCard.module.css";
 import QuantityButton from "../../Button/QuantityButton/QuantityButton";
 import Modal from "../../Modal/Modal";
+
 const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const {
     _id,
@@ -18,7 +19,6 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
   const toggleModal = () => {
     setIsModalOpen((curr) => !curr);
   };
-  console.log(food, imageUrl);
   return (
     <>
       <article
@@ -47,7 +47,11 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
         <div className={styles.quantityContainer}>
           {imageUrl ? (
             <div className="relative">
-              <img src={imageUrl} className="w-[14rem]" alt={`${name} image`} />
+              <img
+                src={imageUrl}
+                className="object-cover w-[14rem] object-center"
+                alt={`${name} image`}
+              />
               <QuantityButton
                 onClick={toggleModal}
                 cart={cart}
@@ -67,7 +71,14 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
           )}
         </div>
       </article>
-      {isModalOpen && <Modal food={food} setCart={setCart} cart={cart} />}
+      {isModalOpen && (
+        <Modal
+          food={food}
+          setCart={setCart}
+          cart={cart}
+          isModalOpen={isModalOpen}
+        />
+      )}
     </>
   );
 };

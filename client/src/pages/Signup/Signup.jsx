@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ErrorAlert from "../../errors/ErrorAlert";
 import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-
+import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
     email: "",
@@ -118,7 +117,9 @@ const Signup = ({ setUser }) => {
   return (
     <div className="bg-slate-100 flex justify-center h-screen py-2 md:py-6">
       <Card classes="w-[30rem] md:mt-4 h-min">
-        {error && <ErrorAlert error={error} />}
+        {error && (
+          <ErrorAlertFixed error={error} setError={setError} showClose />
+        )}
         <p className="text-center">Welcome to</p>
         <h1 className="text-center text-2xl font-semibold">China Garden</h1>
         <button

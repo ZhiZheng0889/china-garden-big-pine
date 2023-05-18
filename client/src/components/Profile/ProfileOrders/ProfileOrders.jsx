@@ -8,6 +8,8 @@ const ProfileOrders = ({ user }) => {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
   const { _id: user_id = null } = user;
+  console.log(user.user);
+  console.log(user_id);
   useEffect(() => {
     setError(null);
     const abortController = new AbortController();
@@ -32,7 +34,6 @@ const ProfileOrders = ({ user }) => {
   let likeController = null;
   const toggleLike = async ({ target }) => {
     setError(null);
-    console.log("LIKING");
     const orderIndex = target.getAttribute("data-index");
     if (likeController) {
       likeController.abort();
@@ -53,9 +54,11 @@ const ProfileOrders = ({ user }) => {
   };
   return (
     <>
-      <div className="p-3">
-        <ErrorAlert error={error} setError={setError} />
-      </div>
+      {error && (
+        <div className="p-3">
+          <ErrorAlert error={error} setError={setError} />
+        </div>
+      )}
 
       {Array.isArray(orders) && orders.length > 0 ? (
         <ul>
@@ -84,13 +87,7 @@ const ProfileOrders = ({ user }) => {
                 </div>
 
                 <div className="flex mt-3 px-3">
-                  <p
-                    className={`${
-                      order.is_complete ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
-                    {order.is_complete ? "Completed" : "In progress"}
-                  </p>
+                  <p className={"text-green-600"}>Submitted</p>
                   <Link
                     to={`${order._id}`}
                     className="px-2 py-1 ml-auto hover:bg-slate-100 hover:underline underline-offset-2 rounded duration-200 ease-out"
