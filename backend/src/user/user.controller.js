@@ -236,7 +236,7 @@ module.exports = {
       console.log("Body: ", req.body);
       return next();
     },
-    asyncErrorBoundary(isAccessTokenValid),
+    // asyncErrorBoundary(isAccessTokenValid),
     asyncErrorBoundary(isRefreshTokenValid),
     asyncErrorBoundary(isValidUserId),
     asyncErrorBoundary(createToken),
