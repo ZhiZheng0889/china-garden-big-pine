@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { UserApi } from "./api/userApi";
 import { storage } from "./utils/Storage";
 import ErrorAlert from "./errors/ErrorAlert";
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 function App() {
   const [user, setUser] = useState({});
@@ -60,7 +60,7 @@ function App() {
   }, [cart]);
 
   return (
-    <GoogleReCaptchaProvider reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}>
+    <>
       <header>
         <ErrorAlert
           error={error}
@@ -86,7 +86,7 @@ function App() {
         category={category}
         setCategory={setCategory}
       />
-    </GoogleReCaptchaProvider>
+    </>
   );
 }
 

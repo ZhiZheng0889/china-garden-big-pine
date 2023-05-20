@@ -87,6 +87,28 @@ function sendSMSHandler(req, res, next) {
   }
 }
 
+async function verifyCaptcha(req, res, next) {
+  try {
+    const { token } = req.body.data;
+    const response = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+      {
+        method: "POST",
+      }
+    );
+    return res
+      .status(200)
+      .json({
+        data: { message: "Token successfully verified", data: response.data },
+      });
+  } catch (err) {
+    return next({
+      status: 500,
+      message: "Error validating captcha",
+    });
+  }
+}
+
 // async function sendSMS(req, res, next) {
 //   try {
 //     const { phone_number } = req.body.data;
@@ -123,5 +145,10 @@ module.exports = {
   verifySMS: [
     hasOnlyValidProperties(VALID_VERIFY_PROPERTIES),
     hasRequiredProperties(REQUIRED_VERIFY_PROPERTIES),
+  ],
+  verifyCaptcha: [
+    hasOnlyValidProperties(["token"]),
+    hasRequiredProperties(["token"]),
+    asyncErrorBoundary(verifyCaptcha),
   ],
 };

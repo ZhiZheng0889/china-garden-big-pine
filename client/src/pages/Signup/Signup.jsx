@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
-import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
+import ReCAPTCHA from "react-google-recaptcha";
+import { VerifyApi } from "../../api/verifyApi";
+const captchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
     email: "",
@@ -17,9 +18,9 @@ const Signup = ({ setUser }) => {
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState("Continue");
   const navigate = useNavigate();
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const captchaRef = useRef(null);
 
   const onChange = ({ target }) => {
     const { name, value } = target;
@@ -83,10 +84,15 @@ const Signup = ({ setUser }) => {
       return;
     }
 
-    // Trigger reCAPTCHA v3 verification
-    const recaptchaToken = await executeRecaptcha("signup");
-
     try {
+      const token = captchaRef.current.getValue();
+      if (!token) {
+        throw new Error("No captcha token provided");
+      }
+      const validToken = await VerifyApi.verifyCaptchaToken(token);
+      if (!validToken) {
+        throw new Error("Invalid captcha Token");
+      }
       if (password === confirmPassword) {
         const {
           email,
@@ -188,6 +194,9 @@ const Signup = ({ setUser }) => {
                   ></i>
                 </button>
               </div>
+            </div>
+            <div className="mb-[1.2rem]">
+              <ReCAPTCHA sitekey={captchaKey} ref={captchaRef} />
             </div>
           </div>
         </Form>
