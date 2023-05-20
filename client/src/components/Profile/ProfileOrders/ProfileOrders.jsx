@@ -70,7 +70,7 @@ const ProfileOrders = ({ user }) => {
                   <p className="font-semibold">{`${day.format(
                     "dddd"
                   )}, ${day.format("D MMM")}`}</p>
-                  <button
+                  {/* <button
                     className="w-10 h-10 rounded-full hover:bg-slate-100 active:bg-slate-200 duration-200 ease-out"
                     id={order._id}
                     data-index={index}
@@ -83,7 +83,7 @@ const ProfileOrders = ({ user }) => {
                       id={order._id}
                       data-index={index}
                     ></i>
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="flex mt-3 px-3">
