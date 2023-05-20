@@ -172,8 +172,10 @@ async function isAccessTokenValid(req, res, next) {
 async function isRefreshTokenValid(req, res, next) {
   try {
     const { refreshToken } = req.body.data;
+    console.log("RT: ", refreshToken);
     if (refreshToken) {
-      await UserAuth.authorize(refreshToken);
+      const user_id = await UserAuth.authorize(refreshToken).user_id;
+      res.locals.user_id = user_id;
       return next();
     }
     return next({
@@ -193,6 +195,7 @@ async function isRefreshTokenValid(req, res, next) {
 
 async function isValidUserId(req, res, next) {
   const { user_id } = res.locals;
+  console.log("user_Id: ", user_id);
   const foundUser = await service.getUserById(user_id);
   if (foundUser) {
     res.locals.createdUser = foundUser.toObject();
@@ -233,7 +236,7 @@ module.exports = {
       console.log("Body: ", req.body);
       return next();
     },
-    // asyncErrorBoundary(isAccessTokenValid),
+    asyncErrorBoundary(isAccessTokenValid),
     asyncErrorBoundary(isRefreshTokenValid),
     asyncErrorBoundary(isValidUserId),
     asyncErrorBoundary(createToken),
