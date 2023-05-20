@@ -34,7 +34,6 @@ app.use("/favorites", favoriteRouter);
 app.use("/users", userRouter);
 
 app.set("trust proxy", 1);
-app.use("/api/", (req, res) => res.send(req.ip));
 
 app.use(notFound);
 app.use(errorHandler);
