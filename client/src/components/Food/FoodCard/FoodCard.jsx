@@ -36,7 +36,11 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
             {spicy && <p>🌶</p>}
           </div>
 
-          {description && <p className={styles.description}>{description}</p>}
+          {description && (
+            <p className={`${styles.description} hidden md:block pr-2`}>
+              {description}
+            </p>
+          )}
           <div>
             <p className="me-2 mb-0">
               ${basePrice && Number(basePrice).toFixed(2)}
@@ -49,7 +53,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
             <div className="relative">
               <img
                 src={imageUrl}
-                className="object-cover w-[14rem] object-center"
+                className="object-cover w-[14rem] object-center hidden sm:block"
                 alt={`${name} image`}
               />
               <QuantityButton
@@ -57,7 +61,7 @@ const FoodCard = ({ food, setCart, cart, setCurrentFood }) => {
                 cart={cart}
                 setCurrentFood={setCurrentFood}
                 food={food}
-                className="absolute top-3 right-3 drop-shadow-md"
+                className="absolute top-3 right-3 drop-shadow-md min-w-[4.8rem]"
               />
             </div>
           ) : (
