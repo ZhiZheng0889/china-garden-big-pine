@@ -104,6 +104,7 @@ function sendUserPayload(req, res, next) {
 async function getUserEmail(req, res, next) {
   const { email = "" } = req.body.data;
   const foundUser = await service.getUserByEmail(email);
+  console.log("found user: ", foundUser);
   if (foundUser) {
     res.locals.user = foundUser;
     res.locals.createdUser = foundUser;
@@ -119,6 +120,7 @@ async function validatePassword(req, res, next) {
   try {
     const { password } = req.body.data;
     const { password: foundPassword } = res.locals.user;
+    console.log("passwords: ", password, foundPassword);
     const isValidPassword = await bcrypt.compare(password, foundPassword);
     if (isValidPassword) {
       const user = res.locals.user;
