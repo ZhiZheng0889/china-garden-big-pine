@@ -7,7 +7,6 @@ import ProfileOrders from "../../components/Profile/ProfileOrders/ProfileOrders"
 const Orders = ({ user }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  console.log(user);
   if (isObjectEmpty(user)) {
     navigate("/");
   }

@@ -143,7 +143,6 @@ async function isAccessTokenValid(req, res, next) {
     const { access_token } = req.cookies;
     if (access_token) {
       const { user_id } = await UserAuth.authorize(access_token);
-      console.log("User ID from access token: ", user_id);
       res.locals.user_id = user_id;
       return next();
     }

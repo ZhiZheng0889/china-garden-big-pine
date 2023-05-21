@@ -107,7 +107,6 @@ const Signup = ({ setUser }) => {
           phoneNumber,
           isAdmin: false,
         };
-        console.log("PAYLOAD: ", payload);
         const response = await UserApi.signup(payload);
         if (response) {
           setUser(response);
