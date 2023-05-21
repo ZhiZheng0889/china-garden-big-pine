@@ -90,17 +90,17 @@ function sendSMSHandler(req, res, next) {
 async function verifyCaptcha(req, res, next) {
   try {
     const { token } = req.body.data;
+    console.log("TOKEN: ", token);
     const response = await fetch(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
       {
         method: "POST",
       }
     );
-    return res
-      .status(200)
-      .json({
-        data: { message: "Token successfully verified", data: response.data },
-      });
+    console.log("res: ", response);
+    return res.status(200).json({
+      data: { message: "Token successfully verified" },
+    });
   } catch (err) {
     return next({
       status: 500,

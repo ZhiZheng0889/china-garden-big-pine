@@ -40,6 +40,7 @@ const Signup = ({ setUser }) => {
   };
 
   const validatePassword = (password) => {
+    return true;
     const minLength = 8;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
@@ -87,7 +88,7 @@ const Signup = ({ setUser }) => {
     try {
       const token = captchaRef.current.getValue();
       if (!token) {
-        throw new Error("No captcha token provided");
+        throw new Error("Please confirm you're not a robot");
       }
       const validToken = await VerifyApi.verifyCaptchaToken(token);
       if (!validToken) {
@@ -105,7 +106,6 @@ const Signup = ({ setUser }) => {
           firstName,
           phoneNumber,
           isAdmin: false,
-          recaptchaResponse: recaptchaToken,
         };
         console.log("PAYLOAD: ", payload);
         const response = await UserApi.signup(payload);

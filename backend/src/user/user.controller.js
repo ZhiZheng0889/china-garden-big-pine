@@ -12,15 +12,8 @@ const VALID_PROPERTIES = [
   "password",
   "isAdmin",
   "firstName",
-  "recaptchaResponse",
 ];
-const REQUIRED_PROPERTIES = [
-  "email",
-  "firstName",
-  "phoneNumber",
-  "password",
-  "recaptchaResponse",
-];
+const REQUIRED_PROPERTIES = ["email", "firstName", "phoneNumber", "password"];
 const VALID_LOGIN_PROPERTIES = ["email", "password"];
 const REQUIRED_LOGIN_PROPERTIES = ["email", "password"];
 
@@ -105,7 +98,7 @@ function sendUserPayload(req, res, next) {
       expires: new Date(Date.now() + 8 * 36000000),
     })
     .status(200)
-    .json({ data: { ...user.toObject(), refreshToken } });
+    .json({ data: { ...user, refreshToken } });
 }
 
 async function getUserEmail(req, res, next) {
