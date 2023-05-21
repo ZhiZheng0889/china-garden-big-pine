@@ -8,8 +8,6 @@ const ProfileOrders = ({ user }) => {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
   const { _id: user_id = null } = user;
-  console.log(user.user);
-  console.log(user_id);
   useEffect(() => {
     setError(null);
     const abortController = new AbortController();

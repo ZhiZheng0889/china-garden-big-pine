@@ -22,7 +22,6 @@ const Home = ({ cart, setCart, isCheckoutOpen, category, setCategory }) => {
   }, [search]);
 
   useEffect(() => {
-    console.log(category);
     if (category) {
       setSearch("");
     }
