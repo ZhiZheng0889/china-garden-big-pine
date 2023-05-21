@@ -8,7 +8,6 @@ const SignedIn = ({ user, setUser, setError }) => {
   const toggleProfile = () => {
     setIsProfileOpen((curr) => !curr);
   };
-  console.log(isProfileOpen);
   return (
     <div className="relative">
       <ul className="flex items-center">

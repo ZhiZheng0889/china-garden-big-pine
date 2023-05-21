@@ -17,7 +17,6 @@ async function orderExist(req, res, next) {
 
 async function userExist(req, res, next) {
   const { user_id = null } = req.params;
-  console.log("id: ", user_id);
   if (user_id) {
     const foundUser = await service.getUser(user_id);
     if (foundUser) {

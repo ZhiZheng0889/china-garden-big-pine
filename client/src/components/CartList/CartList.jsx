@@ -12,7 +12,6 @@ const CartList = ({ cart }) => {
             selectedFoodOption,
             selectedFoodSize,
           } = cartItem;
-          console.log(cartItem);
           return (
             <li key={_id + index} className="flex border-b py-3 px-3">
               <div>

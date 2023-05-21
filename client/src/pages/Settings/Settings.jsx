@@ -5,7 +5,6 @@ import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import { useNavigate } from "react-router-dom";
 
 const Settings = ({ user, setUser }) => {
-  console.log(user);
   const navigate = useNavigate();
   if (isObjectEmpty(user)) {
     navigate("/");

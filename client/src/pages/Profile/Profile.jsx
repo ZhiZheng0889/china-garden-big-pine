@@ -15,7 +15,6 @@ const Profile = ({ user }) => {
   if (isObjectEmpty(user)) {
     navigate("/");
   }
-  console.log(user);
   const { firstName, _id: user_id } = user;
 
   return (

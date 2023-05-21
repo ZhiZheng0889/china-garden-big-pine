@@ -332,7 +332,6 @@ async function sendOrder(req, res, next) {
   try {
     const { order, cart } = res.locals;
     const response = await sendEmailToRestaurant(order, cart);
-    console.log("RES: ", response);
     return next();
   } catch (error) {
     // if sending the email fails
