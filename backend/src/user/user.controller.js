@@ -103,6 +103,7 @@ function sendUserPayload(req, res, next) {
 
 async function getUserEmail(req, res, next) {
   const { email = "" } = req.body.data;
+  console.log("data: ", req.body.data);
   const foundUser = await service.getUserByEmail(email);
   console.log("found user: ", foundUser);
   if (foundUser) {
