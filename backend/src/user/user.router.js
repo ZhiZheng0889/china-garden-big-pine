@@ -7,6 +7,7 @@ router
   .route("/login/token")
   .post(controller.loginWithToken)
   .all(methodNotAllowed);
+  
 router.route("/login").post(controller.login).all(methodNotAllowed);
 router.route("/").post(controller.register).all(methodNotAllowed);
 

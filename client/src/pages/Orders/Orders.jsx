@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { isObjectEmpty } from '../../utils/isObjectEmpty';
-import ErrorAlert from '../../errors/ErrorAlert';
-import Card from '../../components/Card/Card';
-import ProfileOrders from '../../components/Profile/ProfileOrders/ProfileOrders';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { isObjectEmpty } from "../../utils/isObjectEmpty";
+import ErrorAlert from "../../errors/ErrorAlert";
+import Card from "../../components/Card/Card";
+import ProfileOrders from "../../components/Profile/ProfileOrders/ProfileOrders";
 const Orders = ({ user }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   if (isObjectEmpty(user)) {
-    navigate('/');
+    navigate("/");
   }
   return (
     <main className="min-h-screen bg-slate-100 pt-6">

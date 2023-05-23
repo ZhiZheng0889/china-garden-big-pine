@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const app = require("./app");
 const DatabaseConfig = require("./db/config");
 const { NODE_ENV } = process.env;
-
 mongoose
   .connect(DatabaseConfig.getDatabaseUri(NODE_ENV))
   .then((ans) => {

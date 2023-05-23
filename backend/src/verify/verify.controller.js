@@ -22,7 +22,6 @@ async function verify(req, res, next) {
   try {
     const { request_id, code, user_id } = req.body.data;
     const response = await vonage.verify.check(request_id, code);
-    console.log(response);
     if (user_id) {
       const updatedUser = await service.verifyPhoneNumber(user_id);
       delete updatedUser.password;
@@ -35,7 +34,6 @@ async function verify(req, res, next) {
     }
     return res.status(200).json({ data: response });
   } catch (error) {
-    console.log(error);
     return next({ status: 404, message: err.error_text });
   }
 }
@@ -56,7 +54,6 @@ function send(req, res, next) {
         .json({ data: { request_id: response.request_id, response } });
     })
     .catch((err) => {
-      console.log(err);
       return next({ status: 404, message: err });
     });
 }
@@ -68,8 +65,6 @@ async function sendSMS(req, res, next) {
 
   try {
     const response = await vonage.sms.send({ to, from, text });
-    console.log("Message sent successfully");
-    console.log(response);
     res.status(200).json({ data: response });
   } catch (err) {
     console.error("There was an error sending the message.");
@@ -84,6 +79,26 @@ function sendSMSHandler(req, res, next) {
   } catch (error) {
     console.error(error);
     return next({ status: 400, message: error.message });
+  }
+}
+
+async function verifyCaptcha(req, res, next) {
+  try {
+    const { token } = req.body.data;
+    const response = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+      {
+        method: "POST",
+      }
+    );
+    return res.status(200).json({
+      data: { message: "Token successfully verified" },
+    });
+  } catch (err) {
+    return next({
+      status: 500,
+      message: "Error validating captcha",
+    });
   }
 }
 
@@ -123,5 +138,10 @@ module.exports = {
   verifySMS: [
     hasOnlyValidProperties(VALID_VERIFY_PROPERTIES),
     hasRequiredProperties(REQUIRED_VERIFY_PROPERTIES),
+  ],
+  verifyCaptcha: [
+    hasOnlyValidProperties(["token"]),
+    hasRequiredProperties(["token"]),
+    asyncErrorBoundary(verifyCaptcha),
   ],
 };

@@ -4,18 +4,20 @@ import Navbar from "./components/Navbar/Navbar";
 import { UserApi } from "./api/userApi";
 import { storage } from "./utils/Storage";
 import ErrorAlert from "./errors/ErrorAlert";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+
 function App() {
   const [user, setUser] = useState({});
   const [cart, setCart] = useState([]);
   const [error, setError] = useState(null);
   const [category, setCategory] = useState("appetizers");
+
   useEffect(() => {
     // check if anything is in storage for cart
     const foundCart = storage.local.get("cart");
     if (foundCart) {
       const parsedCart = JSON.parse(foundCart);
       if (Array.isArray(parsedCart) && parsedCart.length > 0) {
-        const parsedCart = JSON.parse(foundCart);
         parsedCart.food_id = Number(parsedCart.food_id);
         setCart(JSON.parse(foundCart));
       }
@@ -56,6 +58,7 @@ function App() {
   useEffect(() => {
     storage.local.set("cart", JSON.stringify(cart));
   }, [cart]);
+
   return (
     <>
       <header>

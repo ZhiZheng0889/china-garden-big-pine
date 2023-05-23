@@ -93,7 +93,8 @@ function sendUserPayload(req, res, next) {
   return res
     .cookie("access_token", accessToken, {
       httpOnly: true,
-      secure: false,
+      sameSite: "None",
+      secure: process.env.NODE_ENV !== "development",
       expires: new Date(Date.now() + 8 * 36000000),
     })
     .status(200)
@@ -102,7 +103,9 @@ function sendUserPayload(req, res, next) {
 
 async function getUserEmail(req, res, next) {
   const { email = "" } = req.body.data;
+  console.log("data: ", req.body.data);
   const foundUser = await service.getUserByEmail(email);
+  console.log("found user: ", foundUser);
   if (foundUser) {
     res.locals.user = foundUser;
     res.locals.createdUser = foundUser;
@@ -118,6 +121,7 @@ async function validatePassword(req, res, next) {
   try {
     const { password } = req.body.data;
     const { password: foundPassword } = res.locals.user;
+    console.log("passwords: ", password, foundPassword);
     const isValidPassword = await bcrypt.compare(password, foundPassword);
     if (isValidPassword) {
       const user = res.locals.user;
@@ -163,8 +167,10 @@ async function isAccessTokenValid(req, res, next) {
 async function isRefreshTokenValid(req, res, next) {
   try {
     const { refreshToken } = req.body.data;
+    console.log("RT: ", refreshToken);
     if (refreshToken) {
-      await UserAuth.authorize(refreshToken);
+      const user_id = await UserAuth.authorize(refreshToken).user_id;
+      res.locals.user_id = user_id;
       return next();
     }
     return next({
@@ -184,6 +190,7 @@ async function isRefreshTokenValid(req, res, next) {
 
 async function isValidUserId(req, res, next) {
   const { user_id } = res.locals;
+  console.log("user_Id: ", user_id);
   const foundUser = await service.getUserById(user_id);
   if (foundUser) {
     res.locals.createdUser = foundUser.toObject();
@@ -219,7 +226,12 @@ async function createUser(req, res, next) {
 
 module.exports = {
   loginWithToken: [
-    asyncErrorBoundary(isAccessTokenValid),
+    (req, res, next) => {
+      console.log("Cookies: ", req.cookies);
+      console.log("Body: ", req.body);
+      return next();
+    },
+    // asyncErrorBoundary(isAccessTokenValid),
     asyncErrorBoundary(isRefreshTokenValid),
     asyncErrorBoundary(isValidUserId),
     asyncErrorBoundary(createToken),
@@ -234,6 +246,10 @@ module.exports = {
     sendUserPayload,
   ],
   register: [
+    (req, res, next) => {
+      console.log("DATA: ", req.body.data);
+      return next();
+    },
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
     asyncErrorBoundary(isEmailAvailable),

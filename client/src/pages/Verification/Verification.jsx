@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
+// vonage.js
 import Vonage from '@vonage/server-sdk';
+
+export const vonage = new Vonage({
+  apiKey: process.env.VONAGE_KEY,
+  apiSecret: process.env.VONAGE_SECRET,
+});
+
+// Verify.js
+import React, { useState } from 'react';
+import { vonage } from './vonage';
 import { useNavigate } from 'react-router-dom';
 import ErrorAlert from '../../errors/ErrorAlert';
 import Card from '../../components/Card/Card';
@@ -15,10 +24,8 @@ const Verify = () => {
   const [buttonText, setButtonText] = useState('Send Code');
   const navigate = useNavigate();
 
-  const vonage = new Vonage({
-    apiKey: process.env.VONAGE_KEY,
-    apiSecret: process.env.VONAGE_SECRET,
-  });
+  // Add a new state variable for the request timestamps
+  const [requestTimestamps, setRequestTimestamps] = useState([]);
 
   const onPhoneNumberChange = ({ target }) => {
     setPhoneNumber(target.value);
@@ -30,6 +37,27 @@ const Verify = () => {
 
   const sendVerificationCode = async (event) => {
     event.preventDefault();
+  
+    // Filter out timestamps older than 24 hours and 1 minute
+    const validTimestampsDay = requestTimestamps.filter(
+      (timestamp) => Date.now() - timestamp < 24 * 60 * 60 * 1000
+    );
+    const validTimestampsMinute = requestTimestamps.filter(
+      (timestamp) => Date.now() - timestamp < 60 * 1000
+    );
+  
+    // Limit requests to 10 times per 24 hours
+    if (validTimestampsDay.length >= 10) {
+      setError('You can only make a request 10 times per day.');
+      return;
+    }
+  
+    // Limit requests to 1 time per minute
+    if (validTimestampsMinute.length >= 1) {
+      setError('You can only make a request once per minute.');
+      return;
+    }
+  
     setButtonText('Sending Code...');
     try {
       const response = await vonage.verify.request({
@@ -38,10 +66,12 @@ const Verify = () => {
       });
       setSession(response.request_id);
       setButtonText('Code Sent!');
+      // Save the timestamp of the current request
+      setRequestTimestamps([...validTimestampsDay, Date.now()]);
     } catch (error) {
       setError(error);
     }
-  };
+  };  
 
   const verifyCode = async (event) => {
     event.preventDefault();
@@ -79,30 +109,31 @@ const Verify = () => {
                 name="phone_number"
                 placeholder="Enter phone number"
                 label="Phone Number"
-              />
-              <button className="btn">{buttonText}</button>
-            </Form>
-          </>
-        ) : (
-          <>
-            <p className="text-center">Enter the verification code</p>
-            <h1 className="text-center text-2xl font-semibold">China Garden</h1>
-            <Form onSubmit={verifyCode}>
-              <Input
-                onChange={onCodeChange}
-                value={code}
-                type="number"
-                name="verification_code"
-                placeholder="Enter the code"
-                label="Verification Code"
-              />
-              <button className="btn">Verify</button>
-            </Form>
-          </>
-        )}
-      </Card>
-    </div>
-  );
-};
-
-export default Verify;
+                />
+                <button className="btn">{buttonText}</button>
+              </Form>
+            </>
+          ) : (
+            <>
+              <p className="text-center">Enter the verification code</p>
+              <h1 className="text-center text-2xl font-semibold">China Garden</h1>
+              <Form onSubmit={verifyCode}>
+                <Input
+                  onChange={onCodeChange}
+                  value={code}
+                  type="number"
+                  name="verification_code"
+                  placeholder="Enter the code"
+                  label="Verification Code"
+                />
+                <button className="btn">Verify</button>
+              </Form>
+            </>
+          )}
+        </Card>
+      </div>
+    );
+  };
+  
+  export default Verify;
+  

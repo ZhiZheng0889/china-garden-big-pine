@@ -6,8 +6,8 @@ const cors = require("cors");
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
 const { FRONT_END_URL } = process.env;
+console.log("env: ", process.env.NODE_ENV);
 const app = express();
-console.log(FRONT_END_URL);
 const corsOptions = {
   origin: FRONT_END_URL,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -32,6 +32,8 @@ app.use("/orders", orderRouter);
 app.use("/authentication", verifyRouter);
 app.use("/favorites", favoriteRouter);
 app.use("/users", userRouter);
+
+app.set("trust proxy", 1);
 
 app.use(notFound);
 app.use(errorHandler);

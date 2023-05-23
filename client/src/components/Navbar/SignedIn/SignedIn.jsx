@@ -1,40 +1,49 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { UserApi } from "../../../api/userApi";
-import { storage } from "../../../utils/Storage";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import NavbarProfile from "../NavbarProfile/NavbarProfile";
+
 const SignedIn = ({ user, setUser, setError }) => {
-  const navigate = useNavigate();
-  const logout = async () => {
-    setError(null);
-    try {
-      const abortController = new AbortController();
-      const response = await UserApi.logout(user.user_id, abortController);
-      if (response.status === 203) {
-        setUser({});
-        storage.local.remove("refreshToken");
-        navigate("/");
-      }
-    } catch (error) {
-      setError(error);
-    }
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const toggleProfile = () => {
+    setIsProfileOpen((curr) => !curr);
   };
   return (
-    <ul className="flex items-center">
-      <li className="px-3 py-2">
-        <Link to="/">Home</Link>
-      </li>
-      <li className="px-3 py-2">
-        <Link to="/profile/orders">Orders</Link>
-      </li>
-      <li className="px-3 py-2">
-        <button onClick={logout}>Logout</button>
-      </li>
-      <li className="px-3 py-2">
-        <Link to="/profile">
-          <i className="fa-light fa-circle-user fa-lg"></i>
-        </Link>
-      </li>
-    </ul>
+    <div className="relative">
+      <ul className="flex items-center">
+        <li className="px-3 py-2">
+          <Link
+            to="/"
+            className="focus:outline outline-2 outline-offset-2 outline-white"
+          >
+            Home
+          </Link>
+        </li>
+        <li className="px-3 py-2">
+          <Link
+            to="/profile/orders"
+            className="focus:outline outline-2 outline-offset-2 outline-white"
+          >
+            Orders
+          </Link>
+        </li>
+        <li>
+          <button
+            onClick={toggleProfile}
+            className="w-6 h-6 focus:outline outline-2 outline-offset-2 outline-white rounded-full"
+            id="profile-icon"
+          >
+            <i className="fa-solid fa-circle-user fa-lg" id="profile-icon"></i>
+          </button>
+        </li>
+      </ul>
+      <NavbarProfile
+        isOpen={isProfileOpen}
+        setIsOpen={setIsProfileOpen}
+        user={user}
+        setUser={setUser}
+      />
+    </div>
   );
 };
 

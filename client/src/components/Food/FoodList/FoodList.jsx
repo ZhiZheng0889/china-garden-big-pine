@@ -3,6 +3,7 @@ import { listFoods } from "../../../api/foodApi";
 import Loading from "../../Loading/Loading";
 import Modal from "../../Modal/Modal";
 import FoodCard from "../FoodCard/FoodCard";
+import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 
 const FoodList = ({ category, cart, setCart, error, setError, search }) => {
   const [foods, setFoods] = useState([]);
@@ -49,7 +50,7 @@ const FoodList = ({ category, cart, setCart, error, setError, search }) => {
       />
     );
   });
-
+  useDisableBodyScroll(currentFood);
   // Render loading or food
   return (
     <>

@@ -57,8 +57,6 @@ const mockFoodResponse = [
 ];
 
 let mockFetch = async (url) => {
-  console.log("FEURL: ", VITE_BASE_URL);
-  console.log("URL", url);
   await wait(70);
   return mockFoodResponse;
 };

@@ -5,13 +5,17 @@ function ErrorAlert({ error, classes, showClose, setError = () => {} }) {
     error &&
     error.message && (
       <div
-        className={`${styles.alert} ${classes} relative`}
+        className={`${
+          showClose ? "pl-3 pr-1 py-2" : "p-3"
+        } bg-red-200 border rounded border-red-700 text-red-700 ${
+          styles.alert
+        } ${classes} relative`}
         data-test-id="error-alert"
       >
         Error: {error.message}
         {showClose && (
           <button
-            className="absolute right-5 top-2/4 -translate-y-2/4"
+            className="absolute right-5 top-2/4 -translate-y-2/4 w-9 h-9 rounded hover:bg-red-300 actve:bg-red-400"
             onClick={() => setError(null)}
           >
             X

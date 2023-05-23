@@ -5,9 +5,10 @@ const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const DatabaseErrorHandler = require("../errors/DatabaseErrorHandler");
 const sendEmailToRestaurant = require("../sender/nodemailer");
 const MAX_ORDER_TOTAL = process.env.MAX_ORDER_TOTAL;
-if (!MAX_ORDER_TOTAL) {
-  throw new Error("Max order total is not defined");
-}
+
+// if (!MAX_ORDER_TOTAL) {
+//   throw new Error("Max order total is not defined");
+// }
 
 const PROPERTIES = ["cart", "user_id", "phoneNumber", "email"];
 const REQUIRED_PROPERTIES = ["cart", "phoneNumber"];
@@ -331,7 +332,6 @@ async function sendOrder(req, res, next) {
   try {
     const { order, cart } = res.locals;
     const response = await sendEmailToRestaurant(order, cart);
-    console.log("RES: ", response);
     return next();
   } catch (error) {
     // if sending the email fails

@@ -7,6 +7,16 @@ headers.append("Content-Type", "application/json");
 // create user
 // read user
 export class VerifyApi {
+  static async verifyCaptchaToken(token) {
+    const url = `${API_BASE_URL}/authentication/captcha/verify-token`;
+    const options = {
+      method: "POST",
+      body: JSON.stringify({ data: { token } }),
+      headers,
+    };
+    return await fetchJson(url, options, {});
+  }
+
   static async sendVerifyToPhoneNumber(phone_number) {
     const url = `${API_BASE_URL}/authentication/send`;
     const options = {
