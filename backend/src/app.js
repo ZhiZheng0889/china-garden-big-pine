@@ -33,8 +33,6 @@ app.use("/authentication", verifyRouter);
 app.use("/favorites", favoriteRouter);
 app.use("/users", userRouter);
 
-app.set("trust proxy", 1);
-
 app.use(notFound);
 app.use(errorHandler);
 
