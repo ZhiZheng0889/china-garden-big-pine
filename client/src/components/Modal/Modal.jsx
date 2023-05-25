@@ -60,7 +60,7 @@ const Modal = ({ food, setCart, cart, setFood }) => {
       };
       const itemToAdd = {
         food: formattedFood,
-        selectedFodSize: selectedSize,
+        selectedFoodSize: selectedSize,
         selectedFoodOption: selectedOption,
         specialRequest,
         quantity,
