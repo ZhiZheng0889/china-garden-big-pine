@@ -14,7 +14,6 @@ const MenuCanvas = ({
 }) => {
   const navigate = useNavigate();
   const isMenuListShowing = window.location.pathname.length <= 1;
-  console.log(window.location.pathname);
 
   const closeCanvas = () => {
     setIsBurgerOpen(false);
