@@ -6,10 +6,11 @@ const cors = require("cors");
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
 const { FRONT_END_URL } = process.env;
+const { FRONT_END_URLS } = process.env;
 console.log("env: ", process.env.NODE_ENV);
 const app = express();
 const corsOptions = {
-  origin: FRONT_END_URL,
+  origin: FRONT_END_URLS ? FRONT_END_URLS.split(",") : FRONT_END_URL,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   credentials: true,
