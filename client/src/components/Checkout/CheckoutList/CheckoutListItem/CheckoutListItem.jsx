@@ -23,8 +23,6 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
   const updateQuantity = (amount) => {
     Cart.updateQuantity(index, amount, cart, setCart);
   };
-  console.log(sizes, selectedFoodSize);
-  console.log(sizes[selectedFoodSize].quart);
   return (
     <li className="flex border-b py-3 px-3">
       <div>
@@ -32,10 +30,10 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
-        {selectedFoodOption && (
+        {(selectedFoodOption || selectedFoodOption === 0) && (
           <p>- {snakeToTitleCase(options[selectedFoodOption]?.option)}</p>
         )}
-        {selectedFoodSize && (
+        {(selectedFoodSize || selectedFoodSize === 0) && (
           <p>- {snakeToTitleCase(sizes[selectedFoodSize]?.size)}</p>
         )}
         {specialRequest && <p className="text-sm">"{specialRequest}"</p>}
