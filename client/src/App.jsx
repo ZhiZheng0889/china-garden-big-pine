@@ -4,8 +4,8 @@ import Navbar from "./components/Navbar/Navbar";
 import { UserApi } from "./api/userApi";
 import { storage } from "./utils/Storage";
 import ErrorAlert from "./errors/ErrorAlert";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-
+import BannerDevelopment from "./components/Banner/BannerDevelopment";
+const VITE_NODE_ENV = import.meta.env.VITE_NODE_ENV;
 function App() {
   const [user, setUser] = useState({});
   const [cart, setCart] = useState([]);
@@ -58,7 +58,6 @@ function App() {
   useEffect(() => {
     storage.local.set("cart", JSON.stringify(cart));
   }, [cart]);
-
   return (
     <>
       <header>
@@ -68,6 +67,9 @@ function App() {
           setError={setError}
           classes="rounded-none"
         />
+        {(VITE_NODE_ENV === "development" || VITE_NODE_ENV === "preview") && (
+          <BannerDevelopment />
+        )}
         <Navbar
           user={user}
           cart={cart}
