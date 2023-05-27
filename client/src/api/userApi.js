@@ -49,7 +49,7 @@ export class UserApi {
   }
 
   static async loginToken(refreshToken, controller) {
-    const url = `${API_BASE_URL}/users/login/token`;
+    const url = `${API_BASE_URL}/users/auth/login/token`;
     const options = {
       method: "POST",
       body: JSON.stringify({ data: { refreshToken } }),
