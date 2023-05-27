@@ -45,7 +45,7 @@ app.use("/authentication", verifyRouter);
 app.use("/favorites", favoriteRouter);
 
 app.use("/users/auth", authRouter);
-app.set("trust proxy", 2);
+app.set("trust proxy", 3);
 const limiter = rateLimit({
   windowsMs: parseInt(REQUEST_TIMEOUT),
   max: parseInt(MAX_REQUEST_LIMIT),
