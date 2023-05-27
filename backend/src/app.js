@@ -43,13 +43,14 @@ app.use("/foods", foodRouter);
 app.use("/orders", orderRouter);
 app.use("/authentication", verifyRouter);
 app.use("/favorites", favoriteRouter);
+
+app.use("/users/auth", authRouter);
+app.set("trust proxy", 2);
 const limiter = rateLimit({
   windowsMs: parseInt(REQUEST_TIMEOUT),
   max: parseInt(MAX_REQUEST_LIMIT),
 });
 
-app.use("/users/auth", authRouter);
-app.set("trust proxy", 1);
 app.get("/ip", (req, res) => res.send(req.ip));
 app.use(limiter);
 app.use("/users", userRouter);
