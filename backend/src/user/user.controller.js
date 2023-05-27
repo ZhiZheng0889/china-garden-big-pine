@@ -5,6 +5,8 @@ const { SALT } = process.env;
 const UserAuth = require("../auth/UserAuth");
 const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const hasRequiredProperties = require("../utils/hasRequiredProperties");
+const rateLimit = require("express-rate-limit");
+
 
 const VALID_PROPERTIES = [
   "email",
@@ -224,6 +226,16 @@ async function createUser(req, res, next) {
   }
 }
 
+const loginLimiter = rateLimit({
+  windowMs: 24 * 60 * 60 * 1000, // 24 hours or 1 day in milliseconds
+  max: 5, // limit each IP to 5 requests per windowMs
+  message: {
+    status: 429,
+    message: "Too many login attempts from this IP, please try again after 24 hours."
+  }
+});
+
+
 module.exports = {
   loginWithToken: [
     (req, res, next) => {
@@ -238,12 +250,13 @@ module.exports = {
     sendUserPayload,
   ],
   login: [
-    hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
-    hasRequiredProperties(REQUIRED_LOGIN_PROPERTIES),
-    asyncErrorBoundary(getUserEmail),
-    asyncErrorBoundary(validatePassword),
-    asyncErrorBoundary(createToken),
-    sendUserPayload,
+  loginLimiter,
+  hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
+  hasRequiredProperties(REQUIRED_LOGIN_PROPERTIES),
+  asyncErrorBoundary(getUserEmail),
+  asyncErrorBoundary(validatePassword),
+  asyncErrorBoundary(createToken),
+  sendUserPayload,
   ],
   register: [
     (req, res, next) => {
