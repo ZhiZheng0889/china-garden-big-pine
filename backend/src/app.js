@@ -49,6 +49,7 @@ const limiter = rateLimit({
 });
 
 app.use("/users/auth", authRouter);
+app.set("trust proxy", 1);
 app.use(limiter);
 app.use("/users", userRouter);
 
