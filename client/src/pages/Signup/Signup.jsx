@@ -86,14 +86,14 @@ const Signup = ({ setUser }) => {
     }
 
     try {
-      const token = captchaRef.current.getValue();
-      if (!token) {
-        throw new Error("Please confirm you're not a robot");
-      }
-      const validToken = await VerifyApi.verifyCaptchaToken(token);
-      if (!validToken) {
-        throw new Error("Invalid captcha Token");
-      }
+      // const token = captchaRef.current.getValue();
+      // if (!token) {
+      //   throw new Error("Please confirm you're not a robot");
+      // }
+      // const validToken = await VerifyApi.verifyCaptchaToken(token);
+      // if (!validToken) {
+      //   throw new Error("Invalid captcha Token");
+      // }
       if (password === confirmPassword) {
         const {
           email,
@@ -194,9 +194,9 @@ const Signup = ({ setUser }) => {
                 </button>
               </div>
             </div>
-            <div className="mb-[1.2rem]">
+            {/* <div className="mb-[1.2rem]">
               <ReCAPTCHA sitekey={captchaKey} ref={captchaRef} />
-            </div>
+            </div> */}
           </div>
         </Form>
       </Card>
