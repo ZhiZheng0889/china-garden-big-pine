@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+// Checkout.jsx
+import React from "react";
 import Card from "../Card/Card";
 import CheckoutList from "./CheckoutList/CheckoutList";
 import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
+import CheckoutCustomerComment from "./CheckoutCustomerComment/CheckoutCustomerComment"; // Import the new component
+
 const Checkout = ({ cart, setCart, hideButton, setIsCheckoutOpen }) => {
   return (
     <>
@@ -20,6 +23,7 @@ const Checkout = ({ cart, setCart, hideButton, setIsCheckoutOpen }) => {
             hideButton={hideButton}
             setIsCheckoutOpen={setIsCheckoutOpen}
           />
+          <CheckoutCustomerComment /> {/* Use the new component */}
         </div>
       )}
     </>
