@@ -77,7 +77,15 @@ const cartItemsToHtml = (cart) => {
           ${selectedFoodSize ? `<p> - ${sizes[selectedFoodSize]}</p>` : ``}
         </div>
         <div>
-          <p><b>Special Request:</b> ${specialRequest}</p>
+          ${
+            specialRequest ? (
+              <p>
+                <b>Special Request:</b> ${specialRequest}
+              </p>
+            ) : (
+              ``
+            )
+          }
         </div>
       </li>
     `;
