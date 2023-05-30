@@ -2,25 +2,113 @@
 <html>
   <head>
     <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #f1f5f9;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .card {
+        background-color: #fff;
+        color: #000;
+        max-width: 1200px;
+        margin-inline: auto;
+        border-radius: 0.25rem;
+        overflow: hidden;
+        border-style: solid;
+        border-color: #e5e7eb;
+        border-width: 1px;
+      }
+
+      .header {
+        background-color: #b91c1c;
+        color: #fff;
+        padding: 1.25rem;
+      }
+
+      .main {
+        padding: 1.25rem;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 0.75rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+
       h3 {
-        text-decoration: underline;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      h4 {
+        font-size: 1.2rem;
+      }
+
+      ul {
+        margin-left: 1rem;
+      }
+
+      .order-details {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .list-item {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .cart-item-header {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .cart {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .cart-item-list {
+        list-style-type: "-";
+      }
+
+      .cart-item-list li {
+        padding: 0.25rem;
       }
     </style>
   </head>
   <body>
-    <h1>New Order Received</h1>
-    <h3>Order Details</h3>
-    <ul>
-      <li><b>Order Id: </b> {{order_id}}</li>
-      <li><b>Phone Number: </b>{{phoneNumber}}</li>
-      <li><b>Email: </b>{{email}}</li>
-      <li><b>Name: </b>{{name}}</li>
-    </ul>
-    <h3>Order Items</h3>
-    <div>
-      <ul>
-        {{cartItems}}
-      </ul>
+    <div class="card">
+      <header class="header">
+        <h1>New Order Received</h1>
+      </header>
+      <div class="main">
+        <div class="container">
+          <h3>Order Details</h3>
+          <ul class="order-details">
+            <li><b>Order Id: </b> {{order_id}}</li>
+            <li><b>Phone Number: </b>{{phoneNumber}}</li>
+            <li><b>Email: </b>{{email}}</li>
+            <li><b>Name: </b>{{name}}</li>
+            <li><b>Pickup Time: </b>{{pickupTime}}</li>
+          </ul>
+        </div>
+        <div class="container">
+          <h3>Order Items</h3>
+          <ul class="cart">
+            {{cartItems}}
+          </ul>
+        </div>
+      </div>
     </div>
   </body>
 </html>

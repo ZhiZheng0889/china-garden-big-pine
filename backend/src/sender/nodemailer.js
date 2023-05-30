@@ -26,7 +26,13 @@ async function sendEmailToRestaurant(order, cart) {
       Items:
       ${cart.length}
     `;
-    const { _id: order_id, phoneNumber, email, name = "Anthony" } = order;
+    const {
+      _id: order_id,
+      phoneNumber = "None",
+      email = "None",
+      name = "None",
+      pickupTime = "Any",
+    } = order;
     const cartItems = cartItemsToHtml(cart);
     const htmlPath = path.join(__dirname, ".", "orderTemplate.html");
     const htmlTemplate = await fs.readFile(htmlPath, "utf-8");
@@ -35,7 +41,8 @@ async function sendEmailToRestaurant(order, cart) {
       .replace("{{phoneNumber}}", phoneNumber)
       .replace("{{email}}", email)
       .replace("{{name}}", name)
-      .replace("{{cartItems}}", cartItems);
+      .replace("{{cartItems}}", cartItems)
+      .replace("{{pickupTime}}", pickupTime);
     console.log("htmlContent: ", htmlContent);
     const mailOptionsSeller = {
       from: process.env.FROM_EMAIL,
@@ -64,30 +71,25 @@ const cartItemsToHtml = (cart) => {
       selectedFoodOption,
       selectedFoodSize,
     } = cartItem;
+
     const template = `
-      <li>
-        <div class="cart-item-container">
-          <h4>${name}</h4>
-          <p><b>Quantity:</b> ${quantity}</p>
-        </div>
-        <div>
-          ${
-            selectedFoodOption ? `<p> - ${options[selectedFoodOption]}</p>` : ``
-          }
-          ${selectedFoodSize ? `<p> - ${sizes[selectedFoodSize]}</p>` : ``}
-        </div>
-        <div>
-          ${
-            specialRequest ? (
-              <p>
-                <b>Special Request:</b> ${specialRequest}
-              </p>
-            ) : (
-              ``
-            )
-          }
-        </div>
-      </li>
+    <li class="cart-item">
+      <div class="cart-item-header">
+        <h4>${name}</h4>
+        <p><b>Quantity:</b> ${quantity}</p>
+      </div>
+      <ul class="cart-item-list">
+        ${selectedFoodOption ? `<li>${options[selectedFoodOption]}</li>` : ""}
+        ${selectedFoodSize ? `<li>${sizes[selectedFoodSize]}</li>` : ""}
+      </ul>
+      <div>
+        ${
+          specialRequest
+            ? `<p><b>Special Request:</b>${specialRequest}</p>`
+            : ""
+        }
+      </div>
+    </li>
     `;
     cartFormatted.push(template);
   });
