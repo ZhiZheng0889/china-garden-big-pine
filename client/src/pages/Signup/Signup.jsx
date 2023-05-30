@@ -6,13 +6,14 @@ import Card from "../../components/Card/Card";
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 import ReCAPTCHA from "react-google-recaptcha";
 import { VerifyApi } from "../../api/verifyApi";
+import PhoneInput from "../../components/Form/PhoneInput/PhoneInput";
 const captchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
     email: "",
     first_name: "",
-    phone_number: "",
   });
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
@@ -20,6 +21,7 @@ const Signup = ({ setUser }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [testPhoneNumber, setTestPhoneNumber] = useState("");
   const captchaRef = useRef(null);
 
   const onChange = ({ target }) => {
@@ -141,6 +143,16 @@ const Signup = ({ setUser }) => {
         >
           <div>
             <div className="flex flex-col mb-[1.2rem]">
+              <label htmlFor="phoneNumber" className="capitalize mb-2">
+                Phone Number
+              </label>
+              <PhoneInput
+                state={phoneNumber}
+                setState={setPhoneNumber}
+                id="phoneNumber"
+              />
+            </div>
+            <div className="flex flex-col mb-[1.2rem]">
               <label htmlFor="password" className="capitalize mb-2">
                 Password
               </label>
@@ -181,6 +193,7 @@ const Signup = ({ setUser }) => {
                   id="passwordConfirm"
                   className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
                 />
+
                 <button
                   id="showConfirmPassword"
                   onClick={() => setShowConfirmPassword((curr) => !curr)}
