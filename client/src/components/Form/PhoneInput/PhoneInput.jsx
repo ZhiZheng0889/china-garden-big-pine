@@ -22,7 +22,7 @@ const PhoneInput = ({ state, setState, id }) => {
   };
   return (
     <input
-      id="phoneNumber"
+      id={id}
       type="tel"
       value={state}
       onChange={changePhoneNumber}

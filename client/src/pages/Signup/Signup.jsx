@@ -97,11 +97,7 @@ const Signup = ({ setUser }) => {
       //   throw new Error("Invalid captcha Token");
       // }
       if (password === confirmPassword) {
-        const {
-          email,
-          first_name: firstName,
-          phone_number: phoneNumber,
-        } = signup;
+        const { email, first_name: firstName } = signup;
         const payload = {
           email,
           password,
