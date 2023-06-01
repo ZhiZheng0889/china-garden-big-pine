@@ -166,6 +166,7 @@ const Signup = ({ setUser }) => {
                   id="showPassword"
                   onClick={() => setShowPassword((curr) => !curr)}
                   className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
+                  type="button"
                 >
                   <i
                     className={`fa-solid text-neutral-600 ${
@@ -194,6 +195,7 @@ const Signup = ({ setUser }) => {
                   id="showConfirmPassword"
                   onClick={() => setShowConfirmPassword((curr) => !curr)}
                   className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
+                  type="button"
                 >
                   <i
                     className={`fa-solid text-neutral-600 ${
