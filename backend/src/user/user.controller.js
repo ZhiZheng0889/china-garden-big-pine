@@ -13,9 +13,9 @@ const VALID_PROPERTIES = [
   "isAdmin",
   "firstName",
 ];
-const REQUIRED_PROPERTIES = ["email", "firstName", "phoneNumber", "password"];
-const VALID_LOGIN_PROPERTIES = ["email", "password"];
-const REQUIRED_LOGIN_PROPERTIES = ["email", "password"];
+const REQUIRED_PROPERTIES = ["firstName", "phoneNumber", "password"];
+const VALID_LOGIN_PROPERTIES = ["phoneNumber", "password"];
+const REQUIRED_LOGIN_PROPERTIES = ["phoneNumber", "password"];
 
 /*
   check if email exist and if so return error
@@ -246,13 +246,8 @@ module.exports = {
     sendUserPayload,
   ],
   register: [
-    (req, res, next) => {
-      console.log("DATA: ", req.body.data);
-      return next();
-    },
     hasOnlyValidProperties(VALID_PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
-    asyncErrorBoundary(isEmailAvailable),
     asyncErrorBoundary(isPhoneNumberAvailable),
     asyncErrorBoundary(encryptPassword),
     asyncErrorBoundary(createUser),

@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* 
+  font-family: 'Lora', serif;
+  font-family: 'Source Sans Pro', sans-serif;
+*/
+
+body {
+  min-height: 100vh;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-header {
+  font-family: "Lora", serif;
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 500px) {
+  .modal {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    border-radius: 0.25rem;
+  }
+}
+
+@media screen and (min-width: 575px) {
+  .modal {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .custom-grid {
+    grid-template-columns: 1fr 3fr;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (min-width: 1280px) {
+  .custom-grid {
+    grid-template-columns: 1fr 3fr 2fr;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+}
