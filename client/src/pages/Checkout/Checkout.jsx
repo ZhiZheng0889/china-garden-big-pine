@@ -125,11 +125,15 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             <p>Estimated completion time</p>
             <p className="font-semibold text-xl">15-25 Minutes</p>
           </Card>
-          <Card classes="mb-4 flex flex-col items-center">
-            <div className="flex w-full">
+          <Card classes="mb-4 flex flex-col gap-3 items-center">
+            <div className="flex flex-col w-full">
               <h3 className="text-lg font-semibold text-left">
                 3. Confirm Order's Phone Number
               </h3>
+              <p>
+                We will send you an <b>One Time Password</b> to this mobile
+                number
+              </p>
             </div>
             <div className="w-full flex gap-2 items-end">
               <div className="flex flex-col flex-1">

@@ -13,32 +13,16 @@ const AuthenticationModal = ({
 }) => {
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
+  const [verifyText, setVerifyText] = useState("Verify");
 
   const handleCodeChange = ({ target: { value } }) => {
     setCode(value);
   };
 
-  const onSubmit = async (event) => {
-    try {
-      setError(null);
-      event.preventDefault();
-      const response = await VerifyApi.sendVerifyToPhoneNumber(
-        countryCode + phoneNumber
-      );
-      console.log(response);
-      if (response.request_id) {
-        setRequestId(response.request_id);
-      } else {
-        throw new Error("Error sending request");
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   const onVerifySubmit = async (event) => {
     try {
       setError(null);
+      setVerifyText("Loading");
       event.preventDefault();
       const response = await VerifyApi.verifyPhoneNumber(requestId, code);
       console.log(response);
@@ -49,6 +33,8 @@ const AuthenticationModal = ({
       }
     } catch (error) {
       setError(error.message);
+    } finally {
+      setVerifyText("Verify");
     }
   };
 
@@ -57,7 +43,7 @@ const AuthenticationModal = ({
       <>
         <div className="modalBackdrop" onClick={() => setRequestId(null)}></div>
         <article
-          className="modal w-11/12 md:max-w-2xl max-h-[95%] overflow-y-scroll bg-white border md:rounded"
+          className="modal w-11/12 md:max-w-xl max-h-[95%] overflow-y-scroll bg-white border md:rounded"
           id="foodModal"
           aria-labelledby="foodModalLabel"
           aria-hidden={requestId ? true : false}
@@ -82,12 +68,18 @@ const AuthenticationModal = ({
                 <h3 className="text-2xl font-semibold mb-2">
                   Verify Phone Number
                 </h3>
-                <p className="text-neutral-700 text-sm">
+                <p className="text-neutral-700">
                   Please enter the verification code sent to{" "}
-                  <b className="text-black">{phoneNumber}</b>
+                  <b className="text-black">{"(910)200-6686"}</b>
+                </p>
+                <p>
+                  Didn't get a code?{" "}
+                  <button className="text-red-600 font-semibold underline">
+                    Resend OTP
+                  </button>
                 </p>
               </div>
-              <form onClick={onVerifySubmit}>
+              <form onClick={onVerifySubmit} className="pb-3">
                 <Input
                   value={code}
                   onChange={handleCodeChange}
@@ -96,11 +88,13 @@ const AuthenticationModal = ({
                   name="code"
                   label=""
                 />
+
                 <button
                   type="submit"
                   className="w-full rounded text-center p-3 md:p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded focus:outline outline-2 outline-offset-2 outline-red-600 disabled:bg-red-800 disabled:cursor-not-allowed"
+                  disabled={verifyText !== "Verify"}
                 >
-                  Verify
+                  {verifyText}
                 </button>
               </form>
             </div>
