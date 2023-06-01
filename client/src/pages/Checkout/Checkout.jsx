@@ -16,6 +16,8 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isEditingPhoneNumber, setIsEditingPhoneNumber] = useState(true);
   const [orderButtonText, setOrderButtonText] = useState("Place Order");
+  const [requestId, setRequestId] = useState(null);
+  const [countryCode, setCountryCode] = useState("1");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,41 +25,38 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       setPhoneNumber(user.phoneNumber);
     }
   }, [user?.phoneNumber]);
+
   const checkVerification = async () => {
-    if (user && !isObjectEmpty(user) && user.phone_number_is_verified) {
-      submitOrder();
-    } else if (
-      user &&
-      !isObjectEmpty(user) &&
-      user.user_id &&
-      !user.phone_number_is_verified
-    ) {
-      try {
-        setError(null);
+    try {
+      setError(null);
+      if (!Validator.validatePhoneNumber(phoneNumber)) {
+        throw new Error(`Phone number: ${phoneNumber} is invalid`);
+      }
+      if (user && !isObjectEmpty(user) && user.isPhoneNumberVerified) {
+        await submitOrder();
+      } else {
         const response = await VerifyApi.sendVerifyToPhoneNumber(
-          user.phone_number
+          phoneNumber,
+          countryCode
         );
+        console.log(response);
         if (response.request_id) {
           setRequestId(response.request_id);
-          setIsVerifyModalOpen(true);
         } else {
-          throw new Error("Error sending request");
+          throw new Error("Error validating phone number");
         }
-      } catch (error) {
-        setError(error.message);
       }
-    } else {
-      setIsVerifyModalOpen(true);
+    } catch (error) {
+      setError(error);
     }
   };
+
   const submitOrder = async () => {
     try {
       setOrderButtonText("Loading...");
       setError(null);
       const { _id: user_id = null, email = null } = user;
-      if (!Validator.validatePhoneNumber(phoneNumber)) {
-        throw new Error(`Phone number: ${phoneNumber} is invalid`);
-      }
+
       if (Cart.getCartTotal(cart) > parseInt(VITE_MAX_ORDER_TOTAL)) {
         throw new Error(
           `Cart total exceeds the allowed max order total: $${VITE_MAX_ORDER_TOTAL}. Please call in the order.`
@@ -133,7 +132,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
               </h3>
             </div>
             <div className="w-full flex gap-2 items-end">
-              <div className="flex-1">
+              <div className="flex flex-col flex-1">
                 <label htmlFor="phoneNumber" className="capitalize mb-2">
                   Phone Number
                 </label>
@@ -152,13 +151,23 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             <button
               className="w-full rounded text-center p-3 md:p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded focus:outline outline-2 outline-offset-2 outline-red-600 disabled:bg-red-800 disabled:cursor-not-allowed"
               disabled={cart.length === 0 || orderButtonText === "Loading..."}
-              onClick={submitOrder}
+              onClick={checkVerification}
             >
               {orderButtonText}
             </button>
           </div>
         </section>
       </main>
+      {requestId && (
+        <AuthenticationModal
+          requestId={requestId}
+          setRequestId={setRequestId}
+          phoneNumber={phoneNumber}
+          submitOrder={submitOrder}
+          countryCode={countryCode}
+          setCountryCode={setCountryCode}
+        />
+      )}
     </>
   );
 };

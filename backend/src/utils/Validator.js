@@ -1,4 +1,4 @@
-export class Validator {
+class Validator {
   static validatePhoneNumber(phoneNumber) {
     const onlyNumbers = phoneNumber.replace(/\D/g, "");
     if (!onlyNumbers.length) {
@@ -10,3 +10,5 @@ export class Validator {
     return true;
   }
 }
+
+module.exports = Validator;

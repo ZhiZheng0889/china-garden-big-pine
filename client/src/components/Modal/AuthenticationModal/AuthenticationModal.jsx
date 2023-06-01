@@ -3,64 +3,16 @@ import { Link } from "react-router-dom";
 import { VerifyApi } from "../../../api/verifyApi";
 import { userContext } from "../../../context/UserContext";
 import ErrorAlert from "../../../errors/ErrorAlert";
+import Input from "../../Form/Input/Input";
 const AuthenticationModal = ({
-  isModalOpen,
-  setIsModalOpen,
-  user,
-  setUser,
   phoneNumber,
-  setPhoneNumber,
   submitOrder,
-  sentRequestId,
+  requestId,
+  setRequestId,
+  countryCode,
 }) => {
-  const [countryCode, setCountryCode] = useState("1");
-  const [requestId, setRequestId] = useState(null);
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   if (user?.user_id) {
-  //     (async () => {
-  //       try {
-  //         setError(null);
-  //         const response = await VerifyApi.sendVerifyToPhoneNumber(
-  //           user.phoneNumber
-  //         );
-  //         console.log(response);
-  //         if (response.request_id) {
-  //           setRequestId(response.request_id);
-  //         } else {
-  //           throw new Error("Error sending request");
-  //         }
-  //       } catch (error) {
-  //         setError(error.message);
-  //       }
-  //     })();
-  //   }
-  // }, [user]);
-
-  const handlePhoneChange = ({ target: { value } }) => {
-    if (!value.match(/[a-z]/i)) {
-      if (value.length <= 3) {
-        setPhoneNumber(value);
-      } else {
-        const tempValue = value;
-        if (value.length >= 4) {
-          console.log(tempValue.split(""));
-          tempValue.split("").splice(3, 0, "-").join("");
-          setPhoneNumber(tempValue);
-        }
-        if (value.length >= 7) {
-          tempValue.split("").splice(7, 0, "-").join("");
-          setPhoneNumber(tempValue);
-        }
-      }
-    }
-  };
-
-  const handleCountryChange = ({ target: { value } }) => {
-    setCountryCode(value);
-  };
 
   const handleCodeChange = ({ target: { value } }) => {
     setCode(value);
@@ -88,11 +40,7 @@ const AuthenticationModal = ({
     try {
       setError(null);
       event.preventDefault();
-      const response = await VerifyApi.verifyPhoneNumber(
-        sentRequestId ? sentRequestId : requestId,
-        code,
-        user?.user_id
-      );
+      const response = await VerifyApi.verifyPhoneNumber(requestId, code);
       console.log(response);
       if (response.status === "0") {
         submitOrder();
@@ -104,99 +52,59 @@ const AuthenticationModal = ({
     }
   };
 
-  // console.log(requestId);
-
   return (
-    isModalOpen && (
+    requestId && (
       <>
-        <div className="modalBackdrop"></div>
-        <article className="bg-white border fixed t-0 w-screen top-0 bottom-0 z-30 ease-out duration-300">
-          <ErrorAlert error={error} />
-          <header className="flex items-center p-2 border-b">
+        <div className="modalBackdrop" onClick={() => setRequestId(null)}></div>
+        <article
+          className="modal w-11/12 md:max-w-2xl max-h-[95%] overflow-y-scroll bg-white border md:rounded"
+          id="foodModal"
+          aria-labelledby="foodModalLabel"
+          aria-hidden={requestId ? true : false}
+        >
+          <header className="flex items-center p-3 border-b">
             <button
               type="button"
-              className="w-10 h-10 hover:bg-slate-100 rounded-full"
+              className="w-10 h-10 hover:bg-slate-100 rounded-full  focus:outline outline-2 outline-offset-2 outline-red-600"
               data-bs-dismiss="modal"
               aria-label="Close"
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => setRequestId(null)}
             >
-              <i className="fa-solid fa-chevron-left fa-lg"></i>
+              <i className="fa-solid fa-xmark fa-lg"></i>
             </button>
           </header>
-          {sentRequestId || requestId ? (
-            <section className="p-3">
-              <h2 className="text-xl font-semibold text-center">
-                Verification Code
-              </h2>
-              <p className="text-center max-w-4 mb-4">
-                Please enter the code sent to the phone number {phoneNumber}
-              </p>
-              <form className="flex flex-col gap-3" onSubmit={onVerifySubmit}>
-                <input
-                  type="text"
+          <section className="p-3">
+            <div className="py-2">
+              <ErrorAlert error={error} />
+            </div>
+            <div className="flex flex-col gap-3 items-center">
+              <div className="text-center">
+                <h3 className="text-2xl font-semibold mb-2">
+                  Verify Phone Number
+                </h3>
+                <p className="text-neutral-700 text-sm">
+                  Please enter the verification code sent to{" "}
+                  <b className="text-black">{phoneNumber}</b>
+                </p>
+              </div>
+              <form onClick={onVerifySubmit}>
+                <Input
                   value={code}
                   onChange={handleCodeChange}
-                  placeholder="Enter Verification Code"
-                  className="border rounded p-2 focus:outline outline-2 outline-offset-2 outline-red-600"
+                  placeholder="Enter OTP Code"
+                  type="text"
+                  name="code"
+                  label=""
                 />
-                <Link
-                  to="/"
-                  className="text-center text-red-600 font-semibold hover:bg-slate-100 p-2 rounded"
-                >
-                  Didn't receive a code?
-                </Link>
-                <Link
-                  to="/"
-                  className="text-center  hover:bg-slate-100 p-2 rounded"
-                >
-                  Text New Code
-                </Link>
                 <button
                   type="submit"
-                  className=" max-w-14 p-3 rounded bg-red-600 text-white disabled:bg-red-500 disabled:cursor-not-allowed"
+                  className="w-full rounded text-center p-3 md:p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded focus:outline outline-2 outline-offset-2 outline-red-600 disabled:bg-red-800 disabled:cursor-not-allowed"
                 >
                   Verify
                 </button>
               </form>
-            </section>
-          ) : (
-            <section className="p-3">
-              <h2 className="text-xl font-semibold text-center">
-                Lets Verify Your Phone Number
-              </h2>
-              <p className="text-center max-w-4 mb-4">
-                Please select your Country code & your Phone Number
-              </p>
-
-              <form className="flex flex-col gap-3" onSubmit={onSubmit}>
-                <div className="flex gap-3 justify-center">
-                  <select
-                    name="country-prefix"
-                    value={countryCode}
-                    onChange={handleCountryChange}
-                  >
-                    <option value="1">+1</option>
-                  </select>
-                  <input
-                    type="tel"
-                    className="border rounded p-2 focus:outline outline-2 outline-offset-2 outline-red-600"
-                    required
-                    placeholder="1234567890"
-                    value={phoneNumber}
-                    onChange={handlePhoneChange}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className=" max-w-14 p-3 rounded bg-red-600 text-white disabled:bg-red-500 disabled:cursor-not-allowed"
-                  disabled={phoneNumber.length === 0}
-                >
-                  Send
-                </button>
-              </form>
-            </section>
-          )}
+            </div>
+          </section>
         </article>
       </>
     )

@@ -146,6 +146,7 @@ const Signup = ({ setUser }) => {
                 state={phoneNumber}
                 setState={setPhoneNumber}
                 id="phoneNumber"
+                placeholder="Phone Number"
               />
             </div>
             <div className="flex flex-col mb-[1.2rem]">

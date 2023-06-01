@@ -1,6 +1,7 @@
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const hasRequiredProperties = require("../utils/hasRequiredProperties");
+const { formatPhoneNumber } = require("../utils/formatPhoneNumber");
 const service = require("./verify.service");
 const { Vonage } = require("@vonage/server-sdk");
 const { VONAGE_KEY, VONAGE_SECRET } = process.env;
@@ -16,8 +17,8 @@ const vonage = new Vonage(
 
 const VALID_VERIFY_PROPERTIES = ["request_id", "code", "user_id"];
 const REQUIRED_VERIFY_PROPERTIES = ["request_id", "code"];
-const VALID_SEND_PROPERTIES = ["phone_number"];
-const REQUIRED_SEND_PROPERTIES = ["phone_number"];
+const VALID_SEND_PROPERTIES = ["phoneNumber", "countryCode"];
+const REQUIRED_SEND_PROPERTIES = ["phoneNumber"];
 async function verify(req, res, next) {
   try {
     const { request_id, code, user_id } = req.body.data;
@@ -39,10 +40,10 @@ async function verify(req, res, next) {
 }
 
 function send(req, res, next) {
-  const { phone_number: number } = req.body.data;
+  const { phoneNumber, countryCode = "1" } = req.body.data;
   vonage.verify
     .start({
-      number,
+      number: formatPhoneNumber(phoneNumber, countryCode),
       brand: "China Garden",
     })
     .then((response) => {
@@ -104,9 +105,9 @@ async function verifyCaptcha(req, res, next) {
 
 // async function sendSMS(req, res, next) {
 //   try {
-//     const { phone_number } = req.body.data;
+//     const { phoneNumber } = req.body.data;
 //     const from = "China Garden";
-//     const to = phone_number;
+//     const to = phoneNumber;
 //     const text = `Your China Garden verification code: 1234. The code expires in 3 minutes.`;
 //     const response = await vonage.sms.send({ to, from, text });
 //     console.log("RES: ", response);
