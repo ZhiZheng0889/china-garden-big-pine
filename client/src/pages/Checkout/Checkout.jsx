@@ -8,47 +8,55 @@ import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import { OrderApi } from "../../api/orderApi";
 import { VerifyApi } from "../../api/verifyApi";
 import CheckoutComponent from "../../components/Checkout/Checkout";
+import PhoneInput from "../../components/Form/PhoneInput/PhoneInput";
+import { Validator } from "../../utils/Validator";
 const VITE_MAX_ORDER_TOTAL = import.meta.env.VITE_MAX_ORDER_TOTAL;
 const Checkout = ({ cart, setCart, className, user, setUser }) => {
-  const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const FLORIDA_TAX = 0.075;
-  const [requestId, setRequestId] = useState(null);
+  const [isEditingPhoneNumber, setIsEditingPhoneNumber] = useState(true);
   const [orderButtonText, setOrderButtonText] = useState("Place Order");
+  const [requestId, setRequestId] = useState(null);
+  const [countryCode, setCountryCode] = useState("1");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.phoneNumber) {
+      setPhoneNumber(user.phoneNumber);
+    }
+  }, [user?.phoneNumber]);
+
   const checkVerification = async () => {
-    if (user && !isObjectEmpty(user) && user.phone_number_is_verified) {
-      submitOrder();
-    } else if (
-      user &&
-      !isObjectEmpty(user) &&
-      user.user_id &&
-      !user.phone_number_is_verified
-    ) {
-      try {
-        setError(null);
+    try {
+      setError(null);
+      if (!Validator.validatePhoneNumber(phoneNumber)) {
+        throw new Error(`Phone number: ${phoneNumber} is invalid`);
+      }
+      if (user && !isObjectEmpty(user) && user.isPhoneNumberVerified) {
+        await submitOrder();
+      } else {
         const response = await VerifyApi.sendVerifyToPhoneNumber(
-          user.phone_number
+          phoneNumber,
+          countryCode
         );
+        console.log(response);
         if (response.request_id) {
           setRequestId(response.request_id);
-          setIsVerifyModalOpen(true);
         } else {
-          throw new Error("Error sending request");
+          throw new Error("Error validating phone number");
         }
-      } catch (error) {
-        setError(error.message);
       }
-    } else {
-      setIsVerifyModalOpen(true);
+    } catch (error) {
+      setError(error);
     }
   };
+
   const submitOrder = async () => {
     try {
       setOrderButtonText("Loading...");
       setError(null);
       const { _id: user_id = null, email = null } = user;
+
       if (Cart.getCartTotal(cart) > parseInt(VITE_MAX_ORDER_TOTAL)) {
         throw new Error(
           `Cart total exceeds the allowed max order total: $${VITE_MAX_ORDER_TOTAL}. Please call in the order.`
@@ -76,7 +84,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           food_size_id,
         };
       });
-      const phoneNumber = "19102006686";
       const order = {
         user_id,
         email,
@@ -118,27 +125,53 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
             <p>Estimated completion time</p>
             <p className="font-semibold text-xl">15-25 Minutes</p>
           </Card>
+          <Card classes="mb-4 flex flex-col gap-3 items-center">
+            <div className="flex flex-col w-full">
+              <h3 className="text-lg font-semibold text-left">
+                3. Confirm Order's Phone Number
+              </h3>
+              <p>
+                We will send you an <b>One Time Password</b> to this mobile
+                number
+              </p>
+            </div>
+            <div className="w-full flex gap-2 items-end">
+              <div className="flex flex-col flex-1">
+                <label htmlFor="phoneNumber" className="capitalize mb-2">
+                  Phone Number
+                </label>
+                <PhoneInput
+                  state={phoneNumber}
+                  setState={setPhoneNumber}
+                  id="phoneNumber"
+                />
+              </div>
+              {/* <button className="py-2 px-3 border rounded">
+                <i class="fa-solid fa-pen-to-square leading-3"></i>
+              </button> */}
+            </div>
+          </Card>
           <div className="px-2 sm:p-0">
             <button
               className="w-full rounded text-center p-3 md:p-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white sm:rounded focus:outline outline-2 outline-offset-2 outline-red-600 disabled:bg-red-800 disabled:cursor-not-allowed"
               disabled={cart.length === 0 || orderButtonText === "Loading..."}
-              onClick={submitOrder}
+              onClick={checkVerification}
             >
               {orderButtonText}
             </button>
           </div>
         </section>
       </main>
-      <AuthenticationModal
-        isModalOpen={isVerifyModalOpen}
-        setIsModalOpen={setIsVerifyModalOpen}
-        user={user}
-        setUser={setUser}
-        phoneNumber={phoneNumber}
-        setPhoneNumber={setPhoneNumber}
-        submitOrder={submitOrder}
-        sentRequestId={requestId}
-      />
+      {requestId && (
+        <AuthenticationModal
+          requestId={requestId}
+          setRequestId={setRequestId}
+          phoneNumber={phoneNumber}
+          submitOrder={submitOrder}
+          countryCode={countryCode}
+          setCountryCode={setCountryCode}
+        />
+      )}
     </>
   );
 };

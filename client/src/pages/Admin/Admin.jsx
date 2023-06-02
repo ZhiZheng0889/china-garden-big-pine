@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-=======
-import { Link } from "react-router-dom";
-// import { Button, Table } from "react-bootstrap";
-// import axios from "axios";
->>>>>>> a463304e1120e1f807ef30c691cf47a2bc999950
 import "./Admin.module.css";
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
-<<<<<<< HEAD
     axios
       .get("/check-user")
       .then((response) => {
@@ -25,7 +18,6 @@ function Home() {
       .catch((error) => {
         console.log(error);
       });
-=======
     // axios.get('/check-login-status')
     //   .then(response => {
     //     setLoggedIn(response.data.loggedIn);
@@ -33,44 +25,14 @@ function Home() {
     //   .catch(error => {
     //     console.log(error);
     //   });
->>>>>>> a463304e1120e1f807ef30c691cf47a2bc999950
   }, []);
 
   if (!isLoggedIn) {
-    history.push("/login");
+    navigate("/login");
   }
 
-<<<<<<< HEAD
   if (!isAdmin && isLoggedIn) {
-    history.push("/"); // assuming "/" is your homepage for non-admin users
-=======
-  //check user token
-  //if user token is not valid, redirect to login page
-  //if user token is valid, display admin page
-
-  useEffect(() => {
-    axios
-      .get("/check-user-token")
-      .then((response) => {
-        if (!response.data.valid) {
-          setLoggedIn(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  if (!loggedIn) {
-    return (
-      <div>
-        <h1>Admin Login</h1>
-        <Link to="/login">
-          <Button variant="primary">Login</Button>
-        </Link>
-      </div>
-    );
->>>>>>> a463304e1120e1f807ef30c691cf47a2bc999950
+    navigate("/"); // assuming "/" is your homepage for non-admin users
   }
 
   return (

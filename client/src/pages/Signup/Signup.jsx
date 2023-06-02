@@ -6,17 +6,18 @@ import Card from "../../components/Card/Card";
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 import ReCAPTCHA from "react-google-recaptcha";
 import { VerifyApi } from "../../api/verifyApi";
+<<<<<<< HEAD
 
 import './App.css'; // Import your css file here
 
+=======
+import PhoneInput from "../../components/Form/PhoneInput/PhoneInput";
+>>>>>>> 057187e08e1ffbfae39c2d2c72db02bbbe985a39
 const captchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const Signup = ({ setUser }) => {
-  const [signup, setSignup] = useState({
-    email: "",
-    first_name: "",
-    phone_number: "",
-  });
+  const [firstName, setFirstName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
@@ -24,22 +25,18 @@ const Signup = ({ setUser }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [testPhoneNumber, setTestPhoneNumber] = useState("");
   const captchaRef = useRef(null);
 
-  const onChange = ({ target }) => {
-    const { name, value } = target;
-    if (name === "password") {
-      setPassword(value);
-    } else {
-      setSignup({
-        ...signup,
-        [name]: value,
-      });
-    }
+  const changeFirstName = ({ target: { value } }) => {
+    setFirstName(value);
   };
 
-  const changeConfirmPassword = ({ target }) => {
-    const { value } = target;
+  const changePassword = ({ target: { value } }) => {
+    setPassword(value);
+  };
+
+  const changeConfirmPassword = ({ target: { value } }) => {
     setConfirmPassword(value);
   };
 
@@ -63,6 +60,7 @@ const Signup = ({ setUser }) => {
     return false;
   };
 
+<<<<<<< HEAD
   const footerText = (
     <p className="mt-2 text-center">
       Already have an account?{" "}
@@ -72,6 +70,8 @@ const Signup = ({ setUser }) => {
     </p>
   );
 
+=======
+>>>>>>> 057187e08e1ffbfae39c2d2c72db02bbbe985a39
   const onSubmit = async (event) => {
     setError(null);
     event.preventDefault();
@@ -87,20 +87,15 @@ const Signup = ({ setUser }) => {
     }
 
     try {
-      const token = captchaRef.current.getValue();
-      if (!token) {
-        throw new Error("Please confirm you're not a robot");
-      }
-      const validToken = await VerifyApi.verifyCaptchaToken(token);
-      if (!validToken) {
-        throw new Error("Invalid captcha Token");
-      }
+      // const token = captchaRef.current.getValue();
+      // if (!token) {
+      //   throw new Error("Please confirm you're not a robot");
+      // }
+      // const validToken = await VerifyApi.verifyCaptchaToken(token);
+      // if (!validToken) {
+      //   throw new Error("Invalid captcha Token");
+      // }
       if (password === confirmPassword) {
-        const {
-          email,
-          first_name: firstName,
-          phone_number: phoneNumber,
-        } = signup;
         const payload = {
           email,
           password,
@@ -131,73 +126,105 @@ const Signup = ({ setUser }) => {
         )}
         <p className="text-center">Welcome to</p>
         <h1 className="text-center text-2xl font-semibold">China Garden</h1>
-        <Form
-          data={signup}
-          onChange={onChange}
-          onSubmit={onSubmit}
-          footer={footerText}
-          submitText={buttonText}
-        >
-          <div>
-            <div className="flex flex-col mb-[1.2rem]">
-              <label htmlFor="password" className="capitalize mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  onChange={onChange}
-                  value={password}
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  placeholder="Password"
-                  id="password"
-                  className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
-                />
-                <button
-                  id="showPassword"
-                  onClick={() => setShowPassword((curr) => !curr)}
-                  className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
-                >
-                  <i
-                    className={`fa-solid text-neutral-600 ${
-                      showPassword ? "fa-eye" : "fa-eye-slash"
-                    }`}
-                  ></i>
-                </button>
-              </div>
-            </div>
-            <div className="flex flex-col mb-[1.2rem]">
-              <label htmlFor="passwordConfirm" className="capitalize mb-2">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <input
-                  onChange={changeConfirmPassword}
-                  value={confirmPassword}
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="passwordConfirm"
-                  placeholder="Confirm Password"
-                  id="passwordConfirm"
-                  className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
-                />
-                <button
-                  id="showConfirmPassword"
-                  onClick={() => setShowConfirmPassword((curr) => !curr)}
-                  className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
-                >
-                  <i
-                    className={`fa-solid text-neutral-600 ${
-                      showConfirmPassword ? "fa-eye" : "fa-eye-slash"
-                    }`}
-                  ></i>
-                </button>
-              </div>
-            </div>
-            <div className="mb-[1.2rem]">
-              <ReCAPTCHA sitekey={captchaKey} ref={captchaRef} />
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="phoneNumber" className="capitalize">
+              Phone Number
+            </label>
+            <PhoneInput
+              state={phoneNumber}
+              setState={setPhoneNumber}
+              id="phoneNumber"
+              placeholder="Phone Number"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="firstName" className="capitalize">
+              First Name
+            </label>
+            <input
+              onChange={changeFirstName}
+              type="text"
+              value={firstName}
+              name="firstName"
+              placeholder="First Name"
+              id="firstName"
+              className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="password" className="capitalize">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                onChange={changePassword}
+                value={password}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                id="password"
+                className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+              />
+              <button
+                id="showPassword"
+                onClick={() => setShowPassword((curr) => !curr)}
+                className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
+                type="button"
+              >
+                <i
+                  className={`fa-solid text-neutral-600 ${
+                    showPassword ? "fa-eye" : "fa-eye-slash"
+                  }`}
+                ></i>
+              </button>
             </div>
           </div>
-        </Form>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="passwordConfirm" className="capitalize">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <input
+                onChange={changeConfirmPassword}
+                value={confirmPassword}
+                type={showConfirmPassword ? "text" : "password"}
+                name="passwordConfirm"
+                placeholder="Confirm Password"
+                id="passwordConfirm"
+                className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+              />
+
+              <button
+                id="showConfirmPassword"
+                onClick={() => setShowConfirmPassword((curr) => !curr)}
+                className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
+                type="button"
+              >
+                <i
+                  className={`fa-solid text-neutral-600 ${
+                    showConfirmPassword ? "fa-eye" : "fa-eye-slash"
+                  }`}
+                ></i>
+              </button>
+            </div>
+          </div>
+          {/* <div className="mb-[1.2rem]">
+              <ReCAPTCHA sitekey={captchaKey} ref={captchaRef} />
+            </div> */}
+          <button
+            type="submit"
+            className={`w-full p-3 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800  focus:outline outline-2 outline-offset-2 outline-red-600`}
+          >
+            {buttonText}
+          </button>
+          <p className="mt-2 text-center">
+            Already have an account?{" "}
+            <Link to="/login" className="text-red-900">
+              Sign in here
+            </Link>
+          </p>
+        </form>
       </Card>
     </div>
   );

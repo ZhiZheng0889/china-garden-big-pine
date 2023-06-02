@@ -29,7 +29,7 @@ const Searchbar = ({ search, setSearch }) => {
         <i className="fa-solid fa-magnifying-glass fa-lg"></i>
       </button>
       <input
-        type="search"
+        type="text"
         placeholder="Search"
         className="w-full py-3 pl-4 pr-[2.7rem] border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
         value={keyword}

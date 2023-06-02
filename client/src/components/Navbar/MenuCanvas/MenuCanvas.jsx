@@ -13,6 +13,7 @@ const MenuCanvas = ({
   setUser,
 }) => {
   const navigate = useNavigate();
+  const isMenuListShowing = window.location.pathname.length <= 1;
 
   const closeCanvas = () => {
     setIsBurgerOpen(false);
@@ -117,12 +118,16 @@ const MenuCanvas = ({
                 </li>
               </ul>
             )}
-            <h4 className="px-5 py-3 font-semibold border-b">Categories</h4>
-            <SideNav
-              category={category}
-              setCategory={setCategory}
-              setIsBurgerOpen={setIsBurgerOpen}
-            />
+            {isMenuListShowing && (
+              <>
+                <h4 className="px-5 py-3 font-semibold border-b">Categories</h4>
+                <SideNav
+                  category={category}
+                  setCategory={setCategory}
+                  setIsBurgerOpen={setIsBurgerOpen}
+                />
+              </>
+            )}
           </div>
         </Card>
       </>

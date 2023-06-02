@@ -27,6 +27,11 @@ export async function fetchJson(
     }, timeout);
     const response = await fetch(url, options);
     clearTimeout(id);
+    if (response.status === 429) {
+      return Promise.reject({
+        message: "Too many requests, please try again later.",
+      });
+    }
     if (response.status === 204) {
       return null;
     }

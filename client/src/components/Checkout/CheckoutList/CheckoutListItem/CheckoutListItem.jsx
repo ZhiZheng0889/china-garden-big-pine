@@ -11,8 +11,8 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
     quantity,
     amount = null,
     food,
-    selectedOption,
-    selectedSize,
+    selectedFoodOption,
+    selectedFoodSize,
     specialRequest = "",
   } = item;
   const { name, description, options, sizes } = food;
@@ -30,13 +30,13 @@ const CheckoutListItem = ({ item, cart, setCart, index }) => {
           {name} {amount && `(${amount})`}
         </h4>
         <p className={styles.description}>{description}</p>
-        {selectedOption && (
-          <p>- {snakeToTitleCase(options[selectedOption]?.option)}</p>
+        {(selectedFoodOption || selectedFoodOption === 0) && (
+          <p>- {snakeToTitleCase(options[selectedFoodOption]?.option)}</p>
         )}
-        {selectedSize && (
-          <p>- {snakeToTitleCase(sizes[selectedSize].option)}</p>
+        {(selectedFoodSize || selectedFoodSize === 0) && (
+          <p>- {snakeToTitleCase(sizes[selectedFoodSize]?.size)}</p>
         )}
-        {specialRequest && <p className="specialRequest">"{specialRequest}"</p>}
+        {specialRequest && <p className="text-sm">"{specialRequest}"</p>}
         <p className={styles.cost}>
           ${Cart.getItemTotal(index, cart).toFixed(2)}
         </p>

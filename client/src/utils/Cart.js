@@ -84,10 +84,10 @@ export class Cart {
     let optionTotal = 0;
     let sizeTotal = 0;
     if (optionTotal) {
-      optionTotal = cartItem.food.options[cartItem.selectedOption];
+      optionTotal = cartItem.food.options[cartItem.selectedFoodOption];
     }
     if (sizeTotal) {
-      sizeTotal = cartItem.food.sizes[cartItem.selectedSize];
+      sizeTotal = cartItem.food.sizes[cartItem.selectedFoodSize];
     }
     const total =
       (cartItem.food.basePrice + optionTotal + sizeTotal) * cartItem.quantity;
