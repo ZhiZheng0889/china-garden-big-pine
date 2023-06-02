@@ -6,7 +6,11 @@ import Card from "../../components/Card/Card";
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 import ReCAPTCHA from "react-google-recaptcha";
 import { VerifyApi } from "../../api/verifyApi";
+
+import './App.css'; // Import your css file here
+
 const captchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
 const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState({
     email: "",
@@ -40,7 +44,6 @@ const Signup = ({ setUser }) => {
   };
 
   const validatePassword = (password) => {
-    return true;
     const minLength = 8;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
@@ -63,7 +66,7 @@ const Signup = ({ setUser }) => {
   const footerText = (
     <p className="mt-2 text-center">
       Already have an account?{" "}
-      <Link to="/login" className="text-red-900">
+      <Link to="/login" className="signin-link text-red-900">
         Sign in here
       </Link>
     </p>
@@ -74,9 +77,7 @@ const Signup = ({ setUser }) => {
     event.preventDefault();
     setButtonText("Loading...");
 
-    // Validate password
     if (!validatePassword(password)) {
-      // Changed from signup.password to password
       setError({
         message:
           "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.",
@@ -121,8 +122,6 @@ const Signup = ({ setUser }) => {
       setButtonText("Continue");
     }
   };
-
-  const signupWithSocials = () => {};
 
   return (
     <div className="bg-slate-100 flex justify-center h-screen py-2 md:py-6">
