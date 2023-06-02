@@ -1,6 +1,6 @@
 import React from "react";
 
-const FoodList = () => {
+const FoodList = ({ search, category }) => {
   return <div>FoodList</div>;
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 const FoodListCard = () => {
-  return <div>FoodListCard</div>;
+  return null;
 };
 
 export default FoodListCard;
