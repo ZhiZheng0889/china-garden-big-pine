@@ -6,13 +6,8 @@ import Card from "../../components/Card/Card";
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 import ReCAPTCHA from "react-google-recaptcha";
 import { VerifyApi } from "../../api/verifyApi";
-<<<<<<< HEAD
-
-import './App.css'; // Import your css file here
-
-=======
+import "./App.css"; // Import your css file here
 import PhoneInput from "../../components/Form/PhoneInput/PhoneInput";
->>>>>>> 057187e08e1ffbfae39c2d2c72db02bbbe985a39
 const captchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const Signup = ({ setUser }) => {
@@ -59,8 +54,6 @@ const Signup = ({ setUser }) => {
 
     return false;
   };
-
-<<<<<<< HEAD
   const footerText = (
     <p className="mt-2 text-center">
       Already have an account?{" "}
@@ -70,8 +63,6 @@ const Signup = ({ setUser }) => {
     </p>
   );
 
-=======
->>>>>>> 057187e08e1ffbfae39c2d2c72db02bbbe985a39
   const onSubmit = async (event) => {
     setError(null);
     event.preventDefault();
