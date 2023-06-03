@@ -29,7 +29,7 @@ const Home = () => {
           <FoodNav category={category} setCategory={setCategory} />
         </Card>
 
-        <section className="flex flex-col gap-6">
+        <section className="flex flex-col gap-3">
           <FoodSearch search={search} setSearch={setSearch} />
           <div>
             <FoodList search={search} category={category} />
