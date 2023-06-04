@@ -31,13 +31,22 @@ const AuthenticationModal = ({
       } else {
         throw new Error("Error Verifying Phone Number");
       }
-    } catch (error) {
-      setError(error.message);
+    } catch (err) {
+      setError(err.message);
     } finally {
       setVerifyText("Verify");
     }
   };
 
+  const resendNewOTP = async (event) => {
+    try {
+    } catch (err) {
+      setError(err);
+    } finally {
+      setVerifyText("Verify");
+    }
+  };
+  console.log("REQUEST ID: ", requestId);
   return (
     requestId && (
       <>
@@ -75,7 +84,7 @@ const AuthenticationModal = ({
                 <p>
                   Didn't get a code?{" "}
                   <button className="text-red-600 font-semibold underline">
-                    Resend OTP
+                    Resend One Time Code
                   </button>
                 </p>
               </div>
@@ -106,83 +115,3 @@ const AuthenticationModal = ({
 };
 
 export default AuthenticationModal;
-
-// <>
-//         <div className="modalBackdrop"></div>
-//         <article className="bg-white border rounded modal">
-//           <ErrorAlert error={error} />
-//           <header className="flex items-center p-3 border-b">
-//             <button
-//               type="button"
-//               className="w-10 h-10 hover:bg-slate-100 rounded-full"
-//               data-bs-dismiss="modal"
-//               aria-label="Close"
-//               onClick={() => setIsModalOpen(false)}
-//             >
-//               <i className="fa-regular fa-xmark fa-2x"></i>
-//             </button>
-//           </header>
-//           {sentRequestId || requestId ? (
-//             <section className="p-3">
-//               <h2 className="text-xl font-semibold text-center">
-//                 Verification Code
-//               </h2>
-//               <p className="text-center max-w-4 mb-4">
-//                 Please enter the code sent to {phoneNumber}
-//               </p>
-//               <form className="flex flex-col gap-3" onSubmit={onVerifySubmit}>
-//                 <input
-//                   type="text"
-//                   value={code}
-//                   onChange={handleCodeChange}
-//                   placeholder="Enter Verification Code"
-//                 />
-
-//                 <button
-//                   type="submit"
-//                   className=" max-w-14 p-3 rounded bg-red-600 text-white disabled:bg-red-500 disabled:cursor-not-allowed"
-//                 >
-//                   Verify
-//                 </button>
-//               </form>
-//             </section>
-//           ) : (
-//             <section className="p-3">
-//               <h2 className="text-xl font-semibold text-center">
-//                 Lets Verify Your Phone Number
-//               </h2>
-//               <p className="text-center max-w-4 mb-4">
-//                 Please select your Country code & your Phone Number
-//               </p>
-
-//               <form className="flex flex-col gap-3" onSubmit={onSubmit}>
-//                 <div className="flex gap-3 justify-center">
-//                   <select
-//                     name="country-prefix"
-//                     value={countryCode}
-//                     onChange={handleCountryChange}
-//                   >
-//                     <option value="1">+1</option>
-//                   </select>
-//                   <input
-//                     type="tel"
-//                     className="border rounded p-1"
-//                     required
-//                     placeholder="1234567890"
-//                     value={phoneNumber}
-//                     onChange={handlePhoneChange}
-//                   />
-//                 </div>
-
-//                 <button
-//                   type="submit"
-//                   className=" max-w-14 p-3 rounded bg-red-600 text-white disabled:bg-red-500 disabled:cursor-not-allowed"
-//                   disabled={phoneNumber.length === 0}
-//                 >
-//                   Send
-//                 </button>
-//               </form>
-//             </section>
-//           )}
-//         </article>
-//       </>
