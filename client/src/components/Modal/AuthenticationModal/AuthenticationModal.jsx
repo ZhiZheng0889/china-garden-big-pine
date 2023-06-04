@@ -14,6 +14,7 @@ const AuthenticationModal = ({
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
   const [verifyText, setVerifyText] = useState("Verify");
+  const [newCodeSent, setNewCodeSent] = useState(false);
 
   const handleCodeChange = ({ target: { value } }) => {
     setCode(value);
@@ -40,6 +41,14 @@ const AuthenticationModal = ({
 
   const resendNewOTP = async (event) => {
     try {
+      setError(null);
+      setNewCodeSent(false);
+      setVerifyText("Loading");
+      event.preventDefault();
+      const response = await VerifyApi.resendOTP(phoneNumber);
+      setNewCodeSent(true);
+      setRequestId(response.request_id);
+      console.log(response);
     } catch (err) {
       setError(err);
     } finally {
@@ -69,9 +78,22 @@ const AuthenticationModal = ({
             </button>
           </header>
           <section className="p-3">
-            <div className="py-2">
-              <ErrorAlert error={error} />
-            </div>
+            {error && error.message && (
+              <div className="py-2">
+                <ErrorAlert error={error} />
+              </div>
+            )}
+            {newCodeSent && (
+              <div className="mb-1 p-3 bg-emerald-200 border rounded border-emerald-700 text-emerald-700 flex items-center gap-3 relative">
+                <p>New code can be requested after 5 minutes</p>
+                <button
+                  className="absolute right-2 top-2/4 -translate-y-2/4 w-9 h-9 rounded hover:bg-emerald-300 actve:bg-emerald-400"
+                  onClick={() => setNewCodeSent(false)}
+                >
+                  X
+                </button>
+              </div>
+            )}
             <div className="flex flex-col gap-3 items-center">
               <div className="text-center">
                 <h3 className="text-2xl font-semibold mb-2">
@@ -83,7 +105,10 @@ const AuthenticationModal = ({
                 </p>
                 <p>
                   Didn't get a code?{" "}
-                  <button className="text-red-600 font-semibold underline">
+                  <button
+                    className="text-red-600 font-semibold underline"
+                    onClick={resendNewOTP}
+                  >
                     Resend One Time Code
                   </button>
                 </p>

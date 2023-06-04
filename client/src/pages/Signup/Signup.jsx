@@ -68,14 +68,14 @@ const Signup = ({ setUser }) => {
     event.preventDefault();
     setButtonText("Loading...");
 
-    if (!validatePassword(password)) {
-      setError({
-        message:
-          "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.",
-      });
-      setButtonText("Continue");
-      return;
-    }
+    // if (!validatePassword(password)) {
+    //   setError({
+    //     message:
+    //       "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.",
+    //   });
+    //   setButtonText("Continue");
+    //   return;
+    // }
 
     try {
       // const token = captchaRef.current.getValue();
@@ -88,7 +88,6 @@ const Signup = ({ setUser }) => {
       // }
       if (password === confirmPassword) {
         const payload = {
-          email,
           password,
           firstName,
           phoneNumber,

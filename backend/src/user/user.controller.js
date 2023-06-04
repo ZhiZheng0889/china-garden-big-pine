@@ -117,6 +117,20 @@ async function getUserEmail(req, res, next) {
   });
 }
 
+async function getUserFromPhoneNumber(req, res, next) {
+  const { phoneNumber = "" } = req.body.data;
+  const foundUser = await service.getUserByPhoneNumber(phoneNumber);
+  if (foundUser) {
+    res.locals.user = foundUser;
+    res.locals.createdUser = foundUser;
+    return next();
+  }
+  return next({
+    status: 404,
+    message: "Cannot find phone number or password is incorrect",
+  });
+}
+
 async function validatePassword(req, res, next) {
   try {
     const { password } = req.body.data;
@@ -175,7 +189,7 @@ async function isRefreshTokenValid(req, res, next) {
     }
     return next({
       status: 400,
-      message: "Access token has not been provided",
+      message: "Refresh token has not been provided",
     });
   } catch (error) {
     if (error.name === "TokenExpiredError") {
@@ -224,14 +238,36 @@ async function createUser(req, res, next) {
   }
 }
 
+function hasNoEmptyFields(req, res, next) {
+  const { fields } = req.body.data;
+}
+
+async function editFields(req, res, next) {
+  try {
+    const {
+      data: { fields },
+    } = req.body;
+    const { user } = res.locals;
+    const { _id } = user;
+    const updatedUser = {
+      ...user,
+      ...fields,
+    };
+    const updatedUserResponse = await service.updateUser({ _id }, updatedUser);
+    const userObject = updatedUserResponse.toObject();
+    delete userObject.password;
+    console.log("UO: ", userObject);
+    res.status(200).json({ data: userObject });
+  } catch (error) {
+    return next({
+      status: 500,
+      message: error.message,
+    });
+  }
+}
+
 module.exports = {
   loginWithToken: [
-    (req, res, next) => {
-      console.log("Cookies: ", req.cookies);
-      console.log("Body: ", req.body);
-      return next();
-    },
-    // asyncErrorBoundary(isAccessTokenValid),
     asyncErrorBoundary(isRefreshTokenValid),
     asyncErrorBoundary(isValidUserId),
     asyncErrorBoundary(createToken),
@@ -240,7 +276,7 @@ module.exports = {
   login: [
     hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
     hasRequiredProperties(REQUIRED_LOGIN_PROPERTIES),
-    asyncErrorBoundary(getUserEmail),
+    asyncErrorBoundary(getUserFromPhoneNumber),
     asyncErrorBoundary(validatePassword),
     asyncErrorBoundary(createToken),
     sendUserPayload,
@@ -253,5 +289,11 @@ module.exports = {
     asyncErrorBoundary(createUser),
     asyncErrorBoundary(createToken),
     sendUserPayload,
+  ],
+  editAccount: [
+    asyncErrorBoundary(isRefreshTokenValid),
+    asyncErrorBoundary(isValidUserId),
+    hasNoEmptyFields,
+    asyncErrorBoundary(editFields),
   ],
 };

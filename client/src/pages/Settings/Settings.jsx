@@ -1,41 +1,127 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
-import { userContext } from "../../context/UserContext";
+import ErrorAlert from "../../errors/ErrorAlert";
 import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import { useNavigate } from "react-router-dom";
-
+import { UserApi } from "../../api/userApi";
+import { storage } from "../../utils/Storage";
 const Settings = ({ user, setUser }) => {
+  console.log(user);
   const navigate = useNavigate();
   if (isObjectEmpty(user)) {
     navigate("/");
   }
   const [isEditingFirstName, setIsEditingFirstName] = useState(false);
+  const [loadingChanges, setLoadingChanges] = useState(false);
+  const [error, setError] = useState(null);
+  const [firstName, setFirstName] = useState("");
+  let abortController = null;
+  const editField = (event) => {
+    event.preventDefault();
+    setIsEditingFirstName(true);
+  };
+
+  const cancelEdit = (event) => {
+    event.preventDefault();
+    setIsEditingFirstName(false);
+    if (abortController) {
+      abortController.abort();
+    }
+  };
+
+  useEffect(() => {
+    if (user?.firstName) {
+      setFirstName(user.firstName ?? "");
+    }
+  }, [user]);
+
+  const saveChanges = async (event) => {
+    try {
+      event.preventDefault();
+      setLoadingChanges(false);
+      console.log("EDITING");
+      abortController = new AbortController();
+      const refreshToken = storage.local.get("refreshToken");
+      console.log("RT: ", refreshToken);
+      const response = await UserApi.updateUser({
+        fields: { firstName },
+        refreshToken,
+      });
+      setUser(response);
+      setIsEditingFirstName(false);
+    } catch (err) {
+      setError(null);
+    } finally {
+      setLoadingChanges(false);
+    }
+  };
+
   return (
     <>
       <main className="min-h-screen bg-slate-100 py-6">
         <section className="mx-auto max-w-2xl flex-flex-col gap-4">
           <Card padding="p-0">
             <header className="p-3 border-b">
-              <h3 className="font-semibold text-xl">Settings</h3>
+              <h2 className="font-semibold text-2xl">Settings</h2>
             </header>
-            <form className="p-3 flex flex-col gap-3">
-              {isEditingFirstName ? (
-                <div className="flex">
-                  <p></p>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="firstName">First Name</label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    className="p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
-                    value={user.firstName}
-                    placeholder="First Name..."
-                  />
-                </div>
-              )}
-            </form>
+            <ErrorAlert error={error} setError={setError} />
+            <div>
+              <div className="p-3">
+                <h3 className="font-semibold text-xl">Profile</h3>
+              </div>
+
+              <form className="px-3 flex flex-col gap-3">
+                {isEditingFirstName ? (
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      className="p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+                      value={firstName}
+                      onChange={({ target: { value } }) => setFirstName(value)}
+                      placeholder="First Name..."
+                    />
+                  </div>
+                ) : (
+                  <div className="flex gap-3 items-center">
+                    <p className="flex-1 border-b p-2">{user.firstName}</p>
+                    <button
+                      className="border rounded w-10 h-10 flex items-center justify-center duration-200 ease-out hover:bg-neutral-100 active:bg-neutral-200"
+                      data-field="firstName"
+                      onClick={editField}
+                    >
+                      <i className="fa-solid fa-pen-to-square"></i>
+                    </button>
+                  </div>
+                )}
+                {isEditingFirstName && (
+                  <div className="flex gap-3 items-center">
+                    <button
+                      className="px-3 py-2 rounded w-24 hover:bg-neutral-100 active:bg-neutral-200 duration-200 ease-out"
+                      onClick={cancelEdit}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="px-3 py-2 rounded bg-red-600 text-white w-24 hover:bg-red-700 active:bg-red-800 duration-200 ease-out disabled:cursor-not-allowed disabled:bg-red-400"
+                      disabled={loadingChanges}
+                      onClick={saveChanges}
+                    >
+                      {loadingChanges ? "Loading" : "Save"}
+                    </button>
+                  </div>
+                )}
+              </form>
+            </div>
+            <div className="p-3">
+              <h3 className="font-semibold text-xl">Account</h3>
+            </div>
+            <div className="pl-3 pb-3 pr-3">
+              <button className="px-3 py-2 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800 duration-200 ease-out">
+                Reset Password
+              </button>
+            </div>
           </Card>
         </section>
       </main>

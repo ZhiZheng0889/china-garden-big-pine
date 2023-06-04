@@ -45,7 +45,7 @@ function send(req, res, next) {
     .start({
       number: formatPhoneNumber(phoneNumber, countryCode),
       brand: "China Garden",
-      workflow_id: 6 // use SMS only
+      workflow_id: 6, // use SMS only
     })
     .then((response) => {
       if (response.status === "15") {
@@ -59,30 +59,6 @@ function send(req, res, next) {
       return next({ status: 404, message: err });
     });
 }
-
-// async function sendSMS(req, res, next) {
-//   const from = "12013508387";
-//   const to = "17275454718";
-//   const text = "A text message sent using the Vonage SMS API";
-
-//   try {
-//     const response = await vonage.sms.send({ to, from, text });
-//     res.status(200).json({ data: response });
-//   } catch (err) {
-//     console.error("There was an error sending the message.");
-//     console.error(err);
-//     return next({ status: 400, message: err.message });
-//   }
-// }
-
-// function sendSMSHandler(req, res, next) {
-//   try {
-//     sendSMS(req, res, next);
-//   } catch (error) {
-//     console.error(error);
-//     return next({ status: 400, message: error.message });
-//   }
-// }
 
 async function verifyCaptcha(req, res, next) {
   try {
@@ -104,20 +80,26 @@ async function verifyCaptcha(req, res, next) {
   }
 }
 
-// async function sendSMS(req, res, next) {
-//   try {
-//     const { phoneNumber } = req.body.data;
-//     const from = "China Garden";
-//     const to = phoneNumber;
-//     const text = `Your China Garden verification code: 1234. The code expires in 3 minutes.`;
-//     const response = await vonage.sms.send({ to, from, text });
-//     console.log("RES: ", response);
-//     res.status(200).json({ data: response });
-//   } catch (error) {
-//     console.error(error);
-//     return next({ status: 400, message: error.message });
-//   }
-// }
+async function resend(req, res, next) {
+  const { phoneNumber, countryCode = "1" } = req.body.data;
+  vonage.verify
+    .start({
+      number: formatPhoneNumber(phoneNumber, countryCode),
+      brand: "China Garden",
+      workflow_id: 6, // use SMS only
+    })
+    .then((response) => {
+      if (response.status === "15") {
+        return next({ status: 400, message: response.error_text });
+      }
+      return res
+        .status(200)
+        .json({ data: { request_id: response.request_id, response } });
+    })
+    .catch((err) => {
+      return next({ status: 404, message: err });
+    });
+}
 
 module.exports = {
   verify: [
@@ -130,16 +112,10 @@ module.exports = {
     hasRequiredProperties(REQUIRED_SEND_PROPERTIES),
     asyncErrorBoundary(send),
   ],
-
-  sendSMS: [
+  resend: [
     hasOnlyValidProperties(VALID_SEND_PROPERTIES),
     hasRequiredProperties(REQUIRED_SEND_PROPERTIES),
-    // asyncErrorBoundary(sendSMS),
-  ],
-
-  verifySMS: [
-    hasOnlyValidProperties(VALID_VERIFY_PROPERTIES),
-    hasRequiredProperties(REQUIRED_VERIFY_PROPERTIES),
+    asyncErrorBoundary(resend),
   ],
   verifyCaptcha: [
     hasOnlyValidProperties(["token"]),

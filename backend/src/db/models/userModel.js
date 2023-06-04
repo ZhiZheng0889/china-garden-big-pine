@@ -4,7 +4,7 @@ const { SALT } = process.env;
 
 const UserSchema = new mongoose.Schema(
   {
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: false, unique: true },
     firstName: { type: String, required: true },
     lastName: { type: String },
     isAdmin: { type: Boolean },

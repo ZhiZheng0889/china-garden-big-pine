@@ -6,10 +6,9 @@ router
   .route("/captcha/verify-token")
   .post(controller.verifyCaptcha)
   .all(methodNotAllowed);
-router.route("/sms/send").post(controller.sendSMS).all(methodNotAllowed);
-router.route("/sms/verify").post(controller.verifySMS).all(methodNotAllowed);
 
 router.route("/verify").post(controller.verify).all(methodNotAllowed);
 router.route("/send").post(controller.send).all(methodNotAllowed);
+router.route("/resend").post(controller.resend).all(methodNotAllowed);
 
 module.exports = router;

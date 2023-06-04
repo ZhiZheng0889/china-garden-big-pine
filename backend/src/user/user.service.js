@@ -28,6 +28,10 @@ function getUserByPhoneNumber(phoneNumber) {
   return User.findOne({ phoneNumber });
 }
 
+function updateUser(filter, updatedUser) {
+  return User.findOneAndUpdate(filter, updatedUser);
+}
+
 // function readFromPhoneNumber(phone_number) {
 //   return knex(TABLE).select("*").where({ phone_number }).first();
 // }
@@ -56,4 +60,5 @@ module.exports = {
   destroy,
   getUserByEmail,
   getUserByPhoneNumber,
+  updateUser,
 };
