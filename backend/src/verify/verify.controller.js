@@ -23,8 +23,19 @@ async function verify(req, res, next) {
   try {
     const { request_id, code, user_id } = req.body.data;
     const response = await vonage.verify.check(request_id, code);
-    if (response.status) {
-      throw new Error(response.error_text);
+    console.log("response: ", response);
+    if (response.status === "6") {
+      return next({
+        status: 400,
+        message:
+          "Phone Number Already Verified. Please exit modal and try again.",
+      });
+    }
+    if (response.error_text) {
+      return next({
+        status: 400,
+        message: response.error_text,
+      });
     }
     if (user_id) {
       const foundUser = await service.getUserById(user_id);
@@ -43,12 +54,20 @@ async function verify(req, res, next) {
     }
     return res.status(200).json({ data: response });
   } catch (err) {
-    return next({ status: 404, message: err.error_text });
+    if (err.error_text) {
+      return next({ status: 404, message: err.error_text });
+    }
+    return next({
+      status: 400,
+      message: "Error authenticating phone number.",
+    });
   }
 }
 
 function send(req, res, next) {
   const { phoneNumber, countryCode = "1" } = req.body.data;
+  console.log("tel: ", phoneNumber, "cc: ", countryCode);
+  console.log(formatPhoneNumber(phoneNumber, countryCode));
   vonage.verify
     .start({
       number: formatPhoneNumber(phoneNumber, countryCode),
@@ -56,6 +75,7 @@ function send(req, res, next) {
       workflow_id: 6, // use SMS only
     })
     .then((response) => {
+      console.log(response);
       if (response.status === "15") {
         return next({ status: 400, message: response.error_text });
       }

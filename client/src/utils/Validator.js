@@ -1,6 +1,6 @@
 export class Validator {
   static validatePhoneNumber(phoneNumber) {
-    const onlyNumbers = phoneNumber.replace(/\D/g, "");
+    const onlyNumbers = phoneNumber.trim().replace(/\D/g, "");
     if (!onlyNumbers.length) {
       return false;
     }
