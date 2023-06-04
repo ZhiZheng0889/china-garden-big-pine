@@ -41,7 +41,7 @@ async function sendEmailToRestaurant(order, cart) {
       .replace("{{phoneNumber}}", phoneNumber)
       .replace("{{email}}", email)
       .replace("{{name}}", name)
-      .replace("{{cartItems}}", cartItems)
+      .replace("{{cartItems}}", cartItems.join(""))
       .replace("{{pickupTime}}", pickupTime);
     console.log("htmlContent: ", htmlContent);
     const mailOptionsSeller = {
@@ -89,11 +89,9 @@ const cartItemsToHtml = (cart) => {
             : ""
         }
       </div>
-    </li>
-    `;
+    </li>`;
     cartFormatted.push(template);
   });
-  console.log(cartFormatted);
   return cartFormatted;
 };
 
