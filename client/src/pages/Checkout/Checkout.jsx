@@ -42,7 +42,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           phoneNumber,
           countryCode
         );
-        console.log(response);
         if (response.request_id) {
           setRequestId(response.request_id);
         } else {
@@ -173,6 +172,8 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           submitOrder={submitOrder}
           countryCode={countryCode}
           setCountryCode={setCountryCode}
+          user={user}
+          setUser={setUser}
         />
       )}
     </>

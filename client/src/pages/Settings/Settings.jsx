@@ -136,16 +136,16 @@ const Settings = ({ user, setUser }) => {
             <div className="pl-3 pb-3 pr-3">
               <div className="flex items-center">
                 {user.isPhoneNumberVerified ? (
-                  <div className="flex items-center py-3 gap-1">
+                  <div className="flex items-center pb-3 gap-1">
                     <p>
                       Your Phone number is verified{" "}
-                      <span>
+                      <span className="text-emerald-700">
                         <i className="fa-solid fa-circle-check"></i>
                       </span>
                     </p>
                   </div>
                 ) : (
-                  <div className="flex items-center py-3">
+                  <div className="flex items-center pb-3">
                     <p>
                       Verify your phone number{" "}
                       <button className="text-red-700 underline underline-offset-3">

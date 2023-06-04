@@ -24,17 +24,22 @@ async function verify(req, res, next) {
     const { request_id, code, user_id } = req.body.data;
     const response = await vonage.verify.check(request_id, code);
     if (user_id) {
-      const updatedUser = await service.verifyPhoneNumber(user_id);
-      delete updatedUser.password;
-      return res.status(200).json({
-        data: {
-          updatedUser,
-          response,
-        },
-      });
+      const foundUser = await service.getUserById(user_id);
+      if (!foundUser.isPhoneNumberVerified) {
+        foundUser.isPhoneNumberVerified = true;
+        const updatedUser = await service.verifyPhoneNumber(user_id, foundUser);
+        const formattedUser = updatedUser.toObject();
+        delete formattedUser.password;
+        return res.status(200).json({
+          data: {
+            user: formattedUser,
+            response,
+          },
+        });
+      }
     }
     return res.status(200).json({ data: response });
-  } catch (error) {
+  } catch (err) {
     return next({ status: 404, message: err.error_text });
   }
 }

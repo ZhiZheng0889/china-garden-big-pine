@@ -10,6 +10,8 @@ const AuthenticationModal = ({
   requestId,
   setRequestId,
   countryCode,
+  user,
+  setUser,
 }) => {
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
@@ -25,8 +27,15 @@ const AuthenticationModal = ({
       setError(null);
       setVerifyText("Loading");
       event.preventDefault();
-      const response = await VerifyApi.verifyPhoneNumber(requestId, code);
+      const response = await VerifyApi.verifyPhoneNumber(
+        requestId,
+        code,
+        !user?.isPhoneNumberVerified ? user?._id : null
+      );
       console.log(response);
+      if (response.user) {
+        setUser(response.user);
+      }
       if (response.status === "0") {
         submitOrder();
       } else {

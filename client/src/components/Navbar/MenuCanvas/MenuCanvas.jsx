@@ -73,6 +73,27 @@ const MenuCanvas = ({
                     Orders
                   </Link>
                 </li>
+
+                <li>
+                  <Link
+                    to="/settings"
+                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
+                    onClick={() => setIsBurgerOpen(false)}
+                    autoFocus={true}
+                  >
+                    Settings
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/profile/orders"
+                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
+                    onClick={() => setIsBurgerOpen(false)}
+                    autoFocus={true}
+                  >
+                    Orders
+                  </Link>
+                </li>
                 <li>
                   <button
                     className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
