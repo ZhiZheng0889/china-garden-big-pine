@@ -45,6 +45,7 @@ function send(req, res, next) {
     .start({
       number: formatPhoneNumber(phoneNumber, countryCode),
       brand: "China Garden",
+      workflow_id: 6 // use SMS only
     })
     .then((response) => {
       if (response.status === "15") {
