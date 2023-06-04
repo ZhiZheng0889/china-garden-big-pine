@@ -59,6 +59,8 @@ const Settings = ({ user, setUser }) => {
     }
   };
 
+  const resetPassword = () => {};
+
   return (
     <>
       <main className="min-h-screen bg-slate-100 py-6">
@@ -78,30 +80,37 @@ const Settings = ({ user, setUser }) => {
               </div>
 
               <form className="px-3 flex flex-col gap-3">
-                {isEditingFirstName ? (
-                  <div className="flex flex-col gap-1">
-                    <label htmlFor="firstName">First Name</label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      className="p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
-                      value={firstName}
-                      onChange={({ target: { value } }) => setFirstName(value)}
-                      placeholder="First Name..."
-                    />
-                  </div>
-                ) : (
-                  <div className="flex gap-3 items-center">
-                    <p className="flex-1 border-b p-2">{user.firstName}</p>
-                    <button
-                      className="border rounded w-10 h-10 flex items-center justify-center duration-200 ease-out hover:bg-neutral-100 active:bg-neutral-200"
-                      data-field="firstName"
-                      onClick={editField}
-                    >
-                      <i className="fa-solid fa-pen-to-square"></i>
-                    </button>
-                  </div>
-                )}
+                <div>
+                  <label htmlFor="firstName" className="mb-1">
+                    First Name
+                  </label>
+                  {isEditingFirstName ? (
+                    <div className="flex flex-col gap-1">
+                      <input
+                        type="text"
+                        id="firstName"
+                        className="p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+                        value={firstName}
+                        onChange={({ target: { value } }) =>
+                          setFirstName(value)
+                        }
+                        placeholder="First Name..."
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex gap-3 items-center">
+                      <p className="flex-1 border-b p-2">{user.firstName}</p>
+                      <button
+                        className="border rounded w-10 h-10 flex items-center justify-center duration-200 ease-out hover:bg-neutral-100 active:bg-neutral-200"
+                        data-field="firstName"
+                        onClick={editField}
+                      >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </button>
+                    </div>
+                  )}
+                </div>
+
                 {isEditingFirstName && (
                   <div className="flex gap-3 items-center">
                     <button
@@ -125,7 +134,31 @@ const Settings = ({ user, setUser }) => {
               <h3 className="font-semibold text-xl">Account</h3>
             </div>
             <div className="pl-3 pb-3 pr-3">
-              <button className="px-3 py-2 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800 duration-200 ease-out">
+              <div className="flex items-center">
+                {user.isPhoneNumberVerified ? (
+                  <div className="flex items-center py-3 gap-1">
+                    <p>
+                      Your Phone number is verified{" "}
+                      <span>
+                        <i className="fa-solid fa-circle-check"></i>
+                      </span>
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex items-center py-3">
+                    <p>
+                      Verify your phone number{" "}
+                      <button className="text-red-700 underline underline-offset-3">
+                        Here
+                      </button>
+                    </p>{" "}
+                  </div>
+                )}
+              </div>
+              <button
+                className="px-3 py-2 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800 duration-200 ease-out"
+                onClick={resetPassword}
+              >
                 Reset Password
               </button>
             </div>
