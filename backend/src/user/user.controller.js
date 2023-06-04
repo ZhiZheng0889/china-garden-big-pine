@@ -240,6 +240,20 @@ async function createUser(req, res, next) {
 
 function hasNoEmptyFields(req, res, next) {
   const { fields } = req.body.data;
+  const invalidFields = Object.keys(fields).reduce((acc, field) => {
+    if (!fields[field] || typeof fields[field] !== "string") {
+      acc.push(field);
+    }
+    return acc;
+  }, []);
+
+  if (invalidFields.length) {
+    return next({
+      status: 400,
+      message: `These fields cannot be empty: ${invalidFields.join(", ")}`,
+    });
+  }
+  return next();
 }
 
 async function editFields(req, res, next) {
@@ -253,6 +267,7 @@ async function editFields(req, res, next) {
       ...user,
       ...fields,
     };
+    console.log("updated User: ", updatedUser);
     const updatedUserResponse = await service.updateUser({ _id }, updatedUser);
     const userObject = updatedUserResponse.toObject();
     delete userObject.password;

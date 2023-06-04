@@ -5,6 +5,7 @@ import { UserApi } from "./api/userApi";
 import { storage } from "./utils/Storage";
 import ErrorAlert from "./errors/ErrorAlert";
 import BannerDevelopment from "./components/Banner/BannerDevelopment";
+import BannerPhoneNumber from "./components/Banner/BannerPhoneNumber";
 const VITE_NODE_ENV = import.meta.env.VITE_NODE_ENV;
 function App() {
   const [user, setUser] = useState({});
@@ -68,7 +69,10 @@ function App() {
           classes="rounded-none"
         />
         {(VITE_NODE_ENV === "development" || VITE_NODE_ENV === "preview") && (
-          <BannerDevelopment />
+          <>
+            <BannerDevelopment />
+            <BannerPhoneNumber />
+          </>
         )}
         <Navbar
           user={user}

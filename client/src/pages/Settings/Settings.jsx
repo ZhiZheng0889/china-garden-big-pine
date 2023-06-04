@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { UserApi } from "../../api/userApi";
 import { storage } from "../../utils/Storage";
 const Settings = ({ user, setUser }) => {
-  console.log(user);
+  console.log("user: ", user);
   const navigate = useNavigate();
   if (isObjectEmpty(user)) {
     navigate("/");
@@ -38,6 +38,7 @@ const Settings = ({ user, setUser }) => {
   const saveChanges = async (event) => {
     try {
       event.preventDefault();
+      setError(null);
       setLoadingChanges(false);
       console.log("EDITING");
       abortController = new AbortController();
@@ -47,10 +48,12 @@ const Settings = ({ user, setUser }) => {
         fields: { firstName },
         refreshToken,
       });
+      console.log("res: ", response);
       setUser(response);
+      setFirstName(response.firstName);
       setIsEditingFirstName(false);
     } catch (err) {
-      setError(null);
+      setError(err);
     } finally {
       setLoadingChanges(false);
     }
@@ -64,7 +67,11 @@ const Settings = ({ user, setUser }) => {
             <header className="p-3 border-b">
               <h2 className="font-semibold text-2xl">Settings</h2>
             </header>
-            <ErrorAlert error={error} setError={setError} />
+            {error && error.message && (
+              <div className="p-3">
+                <ErrorAlert error={error} setError={setError} />
+              </div>
+            )}
             <div>
               <div className="p-3">
                 <h3 className="font-semibold text-xl">Profile</h3>

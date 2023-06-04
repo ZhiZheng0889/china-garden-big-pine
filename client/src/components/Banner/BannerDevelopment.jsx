@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 
-type Props = {};
-
-const BannerDevelopment = (props: Props) => {
+const BannerDevelopment = (props) => {
   const [isClosed, setIsClosed] = useState(false);
   return (
     !isClosed && (
-      <div className="bg-red-900 text-white flex flex-col items-center relative p-1">
+      <div className="bg-black text-white flex flex-col items-center relative p-1">
         <h4 className="font-semibold">Development/Preview Mode</h4>
         <p className="text-sm">All records are temporarily saved.</p>
         <button

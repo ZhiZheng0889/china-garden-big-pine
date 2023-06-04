@@ -29,7 +29,7 @@ function getUserByPhoneNumber(phoneNumber) {
 }
 
 function updateUser(filter, updatedUser) {
-  return User.findOneAndUpdate(filter, updatedUser);
+  return User.findOneAndUpdate(filter, updatedUser, { new: true });
 }
 
 // function readFromPhoneNumber(phone_number) {
