@@ -14,7 +14,9 @@ const VITE_MAX_ORDER_TOTAL = import.meta.env.VITE_MAX_ORDER_TOTAL;
 const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isEditingPhoneNumber, setIsEditingPhoneNumber] = useState(true);
+  const [isEditingPhoneNumber, setIsEditingPhoneNumber] = useState(
+    user?.isPhoneNumberVerified ? false : true
+  );
   const [orderButtonText, setOrderButtonText] = useState("Place Order");
   const [requestId, setRequestId] = useState(null);
   const [countryCode, setCountryCode] = useState("1");
@@ -51,6 +53,21 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     } catch (error) {
       setError(error);
     }
+  };
+
+  const editPhoneNumber = (event) => {
+    event.preventDefault();
+    setIsEditingPhoneNumber(true);
+  };
+
+  const cancelEdit = (event) => {
+    event.preventDefault();
+    setIsEditingPhoneNumber(false);
+  };
+
+  const saveChanges = (event) => {
+    event.preventDefault();
+    setIsEditingPhoneNumber(false);
   };
 
   const submitOrder = async () => {
@@ -142,15 +159,43 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
                 <label htmlFor="phoneNumber" className="capitalize mb-2">
                   Phone Number
                 </label>
-                <PhoneInput
-                  state={phoneNumber}
-                  setState={setPhoneNumber}
-                  id="phoneNumber"
-                />
+                {isEditingPhoneNumber ? (
+                  <div className="flex flex-col gap-3">
+                    <PhoneInput
+                      state={phoneNumber}
+                      setState={setPhoneNumber}
+                      id="phoneNumber"
+                    />
+                    <div className="flex gap-3 items-center">
+                      <button
+                        className="px-3 py-2 rounded w-24 hover:bg-neutral-100 active:bg-neutral-200 duration-200 ease-out"
+                        onClick={cancelEdit}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="px-3 py-2 rounded bg-red-600 text-white w-24 hover:bg-red-700 active:bg-red-800 duration-200 ease-out disabled:cursor-not-allowed disabled:bg-red-400"
+                        onClick={saveChanges}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex gap-3 items-center">
+                      <p className="flex-1 border-b p-2">{phoneNumber}</p>
+                      <button
+                        className="border rounded w-10 h-10 flex items-center justify-center duration-200 ease-out hover:bg-neutral-100 active:bg-neutral-200"
+                        data-field="firstName"
+                        onClick={editPhoneNumber}
+                      >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
-              {/* <button className="py-2 px-3 border rounded">
-                <i class="fa-solid fa-pen-to-square leading-3"></i>
-              </button> */}
             </div>
           </Card>
           <div className="px-2 sm:p-0">
