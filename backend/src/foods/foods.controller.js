@@ -1,18 +1,14 @@
 const service = require("./foods.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 function checkQueryParams(req, res, next) {
-  /*
-   * update so that if there is a search query in the url to save the search to res.locals.search
-   */
-  const { category = "" } = req.query;
+  const { category = "", search = "" } = req.query;
   if (category) {
     res.locals.category = category;
   }
-  const { search = "" } = req.query;
   if (search) {
     res.locals.search = search;
   }
-  next();
+  return next();
 }
 /*
  * List foods based on if there is a query parameter or not.

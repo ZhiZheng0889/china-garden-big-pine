@@ -6,10 +6,8 @@ import Card from "../../components/Card/Card";
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
 import ReCAPTCHA from "react-google-recaptcha";
 import { VerifyApi } from "../../api/verifyApi";
-
-import './App.css'; // Import your css file here
+import "./App.css"; // Import your css file here
 import PhoneInput from "../../components/Form/PhoneInput/PhoneInput";
-
 const captchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const Signup = ({ setUser }) => {
@@ -56,7 +54,6 @@ const Signup = ({ setUser }) => {
 
     return false;
   };
-
   const footerText = (
     <p className="mt-2 text-center">
       Already have an account?{" "}

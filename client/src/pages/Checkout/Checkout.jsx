@@ -30,6 +30,9 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
     try {
       setError(null);
       if (!Validator.validatePhoneNumber(phoneNumber)) {
+        if (!phoneNumber) {
+          throw new Error(`A phone number is required.`);
+        }
         throw new Error(`Phone number: ${phoneNumber} is invalid`);
       }
       if (user && !isObjectEmpty(user) && user.isPhoneNumberVerified) {

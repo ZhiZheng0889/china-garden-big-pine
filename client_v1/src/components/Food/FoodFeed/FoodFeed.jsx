@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Food from "../../../api/Food";
 
-const FoodFeed = ({ error, setError }) => {
+const FoodFeed = ({ error, setError, category, search }) => {
   const [foods, setFoods] = useState([]);
   const [isLoadingFood, setIsLoadingFood] = useState(false);
   const [page, setPage] = useState(1);

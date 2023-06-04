@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FoodHeader from "../FoodHeader/FoodHeader";
 import Card from "../../Card/Card";
-import FoodFeed from "../../../../../client/src/components/Food/FoodFeed/FoodFeed";
+import FoodFeed from "../FoodFeed/FoodFeed";
 
 const FoodList = ({ search, category }) => {
   const [error, setError] = useState(null);
@@ -9,7 +9,12 @@ const FoodList = ({ search, category }) => {
   return (
     <Card padding="p-0">
       <FoodHeader />
-      <FoodFeed error={error} setError={setError} />
+      <FoodFeed
+        error={error}
+        setError={setError}
+        category={category}
+        search={search}
+      />
     </Card>
   );
 };
