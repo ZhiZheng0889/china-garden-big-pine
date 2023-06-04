@@ -208,7 +208,9 @@ async function isValidUserId(req, res, next) {
   const foundUser = await service.getUserById(user_id);
   if (foundUser) {
     res.locals.createdUser = foundUser.toObject();
-    res.locals.user = foundUser.toObject();
+    const user = foundUser.toObject();
+    delete user.password;
+    res.locals.user = user;
     return next();
   }
   return next({

@@ -12,6 +12,7 @@ const AuthenticationModal = ({
   countryCode,
   user,
   setUser,
+  isDiffFromUserNumber = false,
 }) => {
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
@@ -27,10 +28,16 @@ const AuthenticationModal = ({
       setError(null);
       setVerifyText("Loading");
       event.preventDefault();
+      let user_id = null;
+      if (!user?.isPhoneNumberVerified) {
+        if (!isDiffFromUserNumber) {
+          user_id = user._id;
+        }
+      }
       const response = await VerifyApi.verifyPhoneNumber(
         requestId,
         code,
-        !user?.isPhoneNumberVerified ? user?._id : null
+        user_id
       );
       console.log(response);
       if (response.user) {

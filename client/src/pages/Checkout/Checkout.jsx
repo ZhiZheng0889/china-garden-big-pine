@@ -17,6 +17,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [isEditingPhoneNumber, setIsEditingPhoneNumber] = useState(
     user?.isPhoneNumberVerified ? false : true
   );
+  const [isDiffFromUserNumber, setIsDiffFromUserNumber] = useState(false);
   const [orderButtonText, setOrderButtonText] = useState("Place Order");
   const [requestId, setRequestId] = useState(null);
   const [countryCode, setCountryCode] = useState("1");
@@ -37,7 +38,12 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         }
         throw new Error(`Phone number: ${phoneNumber} is invalid`);
       }
-      if (user && !isObjectEmpty(user) && user.isPhoneNumberVerified) {
+      if (
+        user &&
+        !isObjectEmpty(user) &&
+        user.isPhoneNumberVerified &&
+        !isDiffFromUserNumber
+      ) {
         await submitOrder();
       } else {
         const response = await VerifyApi.sendVerifyToPhoneNumber(
@@ -58,6 +64,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const editPhoneNumber = (event) => {
     event.preventDefault();
     setIsEditingPhoneNumber(true);
+    setIsDiffFromUserNumber(true);
   };
 
   const cancelEdit = (event) => {
@@ -121,6 +128,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       setOrderButtonText("Place Order");
     }
   };
+  console.log("USER: ", user);
   return (
     <>
       <main className={`bg-slate-100 min-h-screen py-6 ${className}`}>
@@ -219,6 +227,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           setCountryCode={setCountryCode}
           user={user}
           setUser={setUser}
+          isDiffFromUserNumber={isDiffFromUserNumber}
         />
       )}
     </>
