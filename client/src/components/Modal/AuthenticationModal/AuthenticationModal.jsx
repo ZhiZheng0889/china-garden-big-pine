@@ -40,13 +40,19 @@ const AuthenticationModal = ({
         user_id
       );
       console.log(response);
-      if (response.user) {
-        setUser(response.user);
-      }
       if (response.status === "0") {
         submitOrder();
       } else {
         throw new Error("Error Verifying Phone Number");
+      }
+      if (response.status === "6") {
+        console.log("in here");
+        throw new Error(
+          "Phone Number Already Verified. Please exit modal and try again."
+        );
+      }
+      if (response.user) {
+        setUser(response.user);
       }
     } catch (err) {
       setError(err.message);

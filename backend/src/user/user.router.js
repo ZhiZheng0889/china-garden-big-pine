@@ -11,6 +11,10 @@ authRouter
 
 router.route("/login").post(controller.login).all(methodNotAllowed);
 router.route("/edit").put(controller.editAccount).all(methodNotAllowed);
+router
+  .route("/change-password")
+  .put(controller.changePassword)
+  .all(methodNotAllowed);
 router.route("/").post(controller.register).all(methodNotAllowed);
 
 module.exports = {

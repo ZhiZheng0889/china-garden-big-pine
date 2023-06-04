@@ -117,12 +117,32 @@ async function getUserEmail(req, res, next) {
   });
 }
 
+async function getUserFromId(req, res, next) {
+  const { user_id = "" } = req.body.data;
+  const foundUser = await service.getUserById(user_id);
+  if (foundUser) {
+    res.locals.createdUser = foundUser.toObject();
+    const user = foundUser.toObject();
+    res.locals.userWithPassword = { ...user };
+    delete user.password;
+    res.locals.user = user;
+    return next();
+  }
+  return next({
+    status: 404,
+    message: "Cannot find user id",
+  });
+}
+
 async function getUserFromPhoneNumber(req, res, next) {
   const { phoneNumber = "" } = req.body.data;
   const foundUser = await service.getUserByPhoneNumber(phoneNumber);
   if (foundUser) {
-    res.locals.user = foundUser;
-    res.locals.createdUser = foundUser;
+    res.locals.createdUser = foundUser.toObject();
+    const user = foundUser.toObject();
+    res.locals.userWithPassword = { ...user };
+    delete user.password;
+    res.locals.user = user;
     return next();
   }
   return next({
@@ -134,12 +154,10 @@ async function getUserFromPhoneNumber(req, res, next) {
 async function validatePassword(req, res, next) {
   try {
     const { password } = req.body.data;
-    const { password: foundPassword } = res.locals.user;
-    console.log("passwords: ", password, foundPassword);
+    const { password: foundPassword } = res.locals.userWithPassword;
     const isValidPassword = await bcrypt.compare(password, foundPassword);
     if (isValidPassword) {
       const user = res.locals.user;
-      user.password = undefined;
       res.locals.user = user;
       return next();
     }
@@ -283,6 +301,23 @@ async function editFields(req, res, next) {
   }
 }
 
+async function changePasswords(req, res, next) {
+  try {
+    const { user, password } = res.locals;
+    const updatedUser = { ...user, password };
+    const updatedUserResponse = await service.updateUser(
+      { _id: user._id },
+      updatedUser
+    );
+    res.status(200).json({ data: "User password successfully changed" });
+  } catch (error) {
+    return next({
+      status: 500,
+      message: error.message,
+    });
+  }
+}
+
 module.exports = {
   loginWithToken: [
     asyncErrorBoundary(isRefreshTokenValid),
@@ -312,5 +347,12 @@ module.exports = {
     asyncErrorBoundary(isValidUserId),
     hasNoEmptyFields,
     asyncErrorBoundary(editFields),
+  ],
+  changePassword: [
+    hasOnlyValidProperties(["password", "user_id"]),
+    hasRequiredProperties(["password", "user_id"]),
+    asyncErrorBoundary(getUserFromId),
+    asyncErrorBoundary(encryptPassword),
+    asyncErrorBoundary(changePasswords),
   ],
 };

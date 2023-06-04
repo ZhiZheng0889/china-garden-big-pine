@@ -23,6 +23,9 @@ async function verify(req, res, next) {
   try {
     const { request_id, code, user_id } = req.body.data;
     const response = await vonage.verify.check(request_id, code);
+    if (response.status) {
+      throw new Error(response.error_text);
+    }
     if (user_id) {
       const foundUser = await service.getUserById(user_id);
       if (!foundUser.isPhoneNumberVerified) {

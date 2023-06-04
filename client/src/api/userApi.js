@@ -69,4 +69,15 @@ export class UserApi {
     };
     return await fetchJson(url, options, {}, controller);
   }
+
+  static async changePassword(data) {
+    const url = `${API_BASE_URL}/users/change-password`;
+    const options = {
+      method: "PUT",
+      body: JSON.stringify({ data }),
+      headers,
+      credentials: "include",
+    };
+    return await fetchJson(url, options, {});
+  }
 }
