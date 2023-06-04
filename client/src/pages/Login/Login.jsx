@@ -5,37 +5,28 @@ import { UserApi } from "../../api/userApi";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
 import Card from "../../components/Card/Card";
+import PhoneInput from "../../components/Form/PhoneInput/PhoneInput";
 import { storage } from "../../utils/Storage";
 
 const Login = ({ setUser }) => {
-  const [login, setLogin] = useState({
-    email: "",
-    password: "",
-  });
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [buttonText, setButtonText] = useState("Login");
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
-  const onChange = ({ target }) => {
-    const { name, value } = target;
-    setLogin({
-      ...login,
-      [name]: value,
-    });
+
+  const changePassword = ({ target: { value } }) => {
+    setPassword(value);
   };
-  const footerText = (
-    <p className="mt-2 text-center">
-      Don't have an account?{" "}
-      <Link to="/signup" className="text-red-900">
-        Sign up here
-      </Link>
-    </p>
-  );
+
   const onSubmit = async (event) => {
     setError(null);
     event.preventDefault();
     setButtonText("Loading...");
     try {
-      const response = await UserApi.login(login);
+      const response = await UserApi.login({ phoneNumber, password });
       if (response) {
         storage.local.set("refreshToken", response.refreshToken);
         delete response.refreshToken;
@@ -54,13 +45,60 @@ const Login = ({ setUser }) => {
         {error && <ErrorAlert error={error} classes="mb-2" />}
         <p className="text-center">Welcome back to</p>
         <h1 className="text-center text-2xl font-semibold">China Garden</h1>
-        <Form
-          data={login}
-          onChange={onChange}
-          onSubmit={onSubmit}
-          footer={footerText}
-          submitText={buttonText}
-        />
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="phoneNumber" className="capitalize">
+              Phone Number
+            </label>
+            <PhoneInput
+              state={phoneNumber}
+              setState={setPhoneNumber}
+              id="phoneNumber"
+              placeholder="Phone Number"
+              name="phoneNumber"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="password" className="capitalize">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                onChange={changePassword}
+                value={password}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                id="password"
+                className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+              />
+              <button
+                id="showPassword"
+                onClick={() => setShowPassword((curr) => !curr)}
+                className="absolute top-1/2 -translate-y-1/2 right-1 p-2"
+                type="button"
+              >
+                <i
+                  className={`fa-solid text-neutral-600 ${
+                    showPassword ? "fa-eye" : "fa-eye-slash"
+                  }`}
+                ></i>
+              </button>
+            </div>
+          </div>
+          <button
+            type="submit"
+            className={`w-full p-3 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800  focus:outline outline-2 outline-offset-2 outline-red-600`}
+          >
+            {buttonText}
+          </button>
+          <p className="mt-2 text-center">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-red-900">
+              Sign up here
+            </Link>
+          </p>
+        </form>
       </Card>
     </div>
   );

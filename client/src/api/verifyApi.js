@@ -37,21 +37,11 @@ export class VerifyApi {
     return await fetchJson(url, options, {});
   }
 
-  static async sendSMSPhoneNumber(phone_number) {
-    const url = `${API_BASE_URL}/authentication/sms/send`;
+  static async resendOTP(phoneNumber, countryCode) {
+    const url = `${API_BASE_URL}/authentication/resend`;
     const options = {
       method: "POST",
-      body: JSON.stringify({ data: { phone_number } }),
-      headers,
-    };
-    return await fetchJson(url, options, {});
-  }
-
-  static async verifySMSPhoneNumber(request_id, code, user_id = null) {
-    const url = `${API_BASE_URL}/authentication/sms/verify`;
-    const options = {
-      method: "POST",
-      body: JSON.stringify({ data: { request_id, code, user_id } }),
+      body: JSON.stringify({ data: { phoneNumber, countryCode } }),
       headers,
     };
     return await fetchJson(url, options, {});

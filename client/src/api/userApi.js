@@ -58,4 +58,15 @@ export class UserApi {
     };
     return await fetchJson(url, options, {}, controller);
   }
+
+  static async updateUser(data, controller) {
+    const url = `${API_BASE_URL}/users/edit`;
+    const options = {
+      method: "PUT",
+      body: JSON.stringify({ data }),
+      headers,
+      credentials: "include",
+    };
+    return await fetchJson(url, options, {}, controller);
+  }
 }

@@ -16,7 +16,13 @@ const formatPhoneNumber = (value) => {
   )}-${phoneNumber.slice(6, 10)}`;
 };
 
-const PhoneInput = ({ state, setState, id, placeholder = "Phone Number" }) => {
+const PhoneInput = ({
+  state,
+  name = "phoneNumber",
+  setState,
+  id,
+  placeholder = "Phone Number",
+}) => {
   const changePhoneNumber = ({ target: { value } }) => {
     setState(formatPhoneNumber(value));
   };
@@ -27,6 +33,7 @@ const PhoneInput = ({ state, setState, id, placeholder = "Phone Number" }) => {
       value={state}
       onChange={changePhoneNumber}
       placeholder={placeholder}
+      name={name}
       className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
     />
   );
