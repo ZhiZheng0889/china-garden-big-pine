@@ -389,34 +389,6 @@ describe("03 - List, Read, Create, Update, and Delete orders", () => {
         expect(response.body.error).to.contain("specialRequest");
       });
 
-      // test("Should return 400 error if cart item selectedFoodOption is not a number", async () => {
-      //   const data = {
-      //     phoneNumber: "555-555-5555",
-      //     cart: [{ food_id: 1, quantity: 1, selectedFoodOption: "notANumber" }],
-      //   };
-      //   const response = await request(app)
-      //     .post("/orders")
-      //     .set("Accept", "application/json")
-      //     .send({ data });
-
-      //   expect(response.status).to.equal(400);
-      //   expect(response.body.error).to.contain("selectedFoodOption");
-      // });
-
-      // test("Should return 400 error if cart item selectedFoodSize is not a number", async () => {
-      //   const data = {
-      //     phoneNumber: "555-555-5555",
-      //     cart: [{ food_id: 1, quantity: 1, selectedFoodSize: "notANumber" }],
-      //   };
-      //   const response = await request(app)
-      //     .post("/orders")
-      //     .set("Accept", "application/json")
-      //     .send({ data });
-
-      //   expect(response.status).to.equal(400);
-      //   expect(response.body.error).to.contain("selectedFoodSize");
-      // });
-
       test("Should return 400 error if cart item does not have a valid property", async () => {
         const data = {
           phoneNumber: "19998887777",
