@@ -67,7 +67,7 @@ async function verify(req, res, next) {
 function send(req, res, next) {
   const { phoneNumber, countryCode = "1" } = req.body.data;
   console.log("tel: ", phoneNumber, "cc: ", countryCode);
-  console.log(formatPhoneNumber(phoneNumber, countryCode));
+  console.log("formatted: ", formatPhoneNumber(phoneNumber, countryCode));
   vonage.verify
     .start({
       number: formatPhoneNumber(phoneNumber, countryCode),

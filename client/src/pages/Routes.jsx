@@ -12,6 +12,7 @@ import Order from "./Order/Order";
 import Orders from "./Orders/Orders";
 import FoodOptions from "./Admin/FoodOptions";
 import Settings from "./Settings/Settings";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
 
 const PageRoutes = ({
   cart,
@@ -57,6 +58,10 @@ const PageRoutes = ({
       {/* <Route path="/admin" element={<Admin user={{}} />}>
         <Route path="/admin/food-options" element={<FoodOptions />} />
       </Route> */}
+      <Route
+        path="/login/forgot-password"
+        element={<ForgotPassword user={user} setUser={setUser} />}
+      />
       <Route path="/login" element={<Login setUser={setUser} />} />
       <Route path="/signup" element={<Signup setUser={setUser} />} />
       <Route
