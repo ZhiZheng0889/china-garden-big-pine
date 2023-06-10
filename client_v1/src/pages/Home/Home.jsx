@@ -5,6 +5,7 @@ import Card from "../../components/Card/Card";
 import FoodSearch from "../../components/Food/FoodSearch/FoodSearch";
 import FoodList from "../../components/Food/FoodList/FoodList";
 import Footer from "../../components/Footer/Footer";
+import Food from "../../components/Food/Food";
 
 const Home = () => {
   const [category, setCategory] = useState("all");
@@ -32,7 +33,7 @@ const Home = () => {
         <section className="flex flex-col gap-3">
           <FoodSearch search={search} setSearch={setSearch} />
           <div>
-            <FoodList search={search} category={category} />
+            <Food search={search} category={category} />
             <Footer />
           </div>
         </section>
