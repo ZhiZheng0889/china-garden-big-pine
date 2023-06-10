@@ -27,12 +27,12 @@ const ForgotPassword = ({ user, setUser }) => {
             <ErrorAlert error={error} setError={setError} />
           </div>
         )}
-        <div>
+        <div className="mb-3">
           <h1 className="text-center text-2xl font-semibold">China Garden</h1>
           <p className="text-center">Recover your account</p>
         </div>
 
-        <form className="flex flex-col gap-4 py-3">
+        <form className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <labe htmlFor="phoneNumber" className="capitalize">
               Enter your phone number
