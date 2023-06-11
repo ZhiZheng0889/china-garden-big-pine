@@ -7,7 +7,7 @@ import Api from "./Api";
  * @returns {{}[]} list of foods
  */
 const get = async (params, controller) => {
-  const foods = await Api.get(`/foods`, {
+  const foods = await Api.get(`/v1/foods`, {
     params,
     signal: controller.signal,
   });

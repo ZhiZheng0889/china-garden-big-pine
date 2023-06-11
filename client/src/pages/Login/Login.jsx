@@ -86,6 +86,15 @@ const Login = ({ setUser }) => {
               </button>
             </div>
           </div>
+          <p>
+            Forgot your password?{" "}
+            <Link
+              to="/login/forgot-password"
+              className="text-red-700 underline underline-offset-3"
+            >
+              Click here
+            </Link>
+          </p>
           <button
             type="submit"
             className={`w-full p-3 rounded bg-red-600 text-white hover:bg-red-700 active:bg-red-800  focus:outline outline-2 outline-offset-2 outline-red-600`}
