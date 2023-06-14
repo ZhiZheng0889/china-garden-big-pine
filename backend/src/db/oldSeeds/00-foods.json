@@ -9,7 +9,7 @@
   },
   {
     "name": "Steamed Chicken With Broccoli",
-    "base_price": 12.25,
+    "base_price": 13.25,
     "category": "diet_dishes",
     "description": null,
     "spicy": false,
@@ -96,7 +96,7 @@
     "available": true
   },
   {
-    "name": "Fried Noodles",
+    "name": "Fried(Crispy) Noodles",
     "base_price": 1.25,
     "category": "side_orders",
     "description": null,
@@ -104,7 +104,7 @@
     "available": true
   },
   {
-    "name": "Hal Pint of Mustard",
+    "name": "Half Pint of Mustard",
     "base_price": 1.75,
     "category": "side_orders",
     "description": null,
@@ -144,14 +144,6 @@
     "available": true
   },
   {
-    "name": "Spring Rolls(2)",
-    "base_price": 4.75,
-    "category": "appetizers",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
     "name": "Vegetable Spring Rolls(2)",
     "base_price": 4.75,
     "category": "appetizers",
@@ -168,16 +160,8 @@
     "available": true
   },
   {
-    "name": "Shrimp Toast",
-    "base_price": 5.75,
-    "category": "appetizers",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
     "name": "BBQ Spare Ribs",
-    "base_price": 10.95,
+    "base_price": 10.25,
     "category": "appetizers",
     "description": null,
     "spicy": false,
@@ -352,7 +336,7 @@
     "available": true
   },
   {
-    "name": "Chicken Rice",
+    "name": "Chicken Rice Soup",
     "base_price": 3.25,
     "category": "soup",
     "description": null,
@@ -360,7 +344,7 @@
     "available": true
   },
   {
-    "name": "Chicken Noodles",
+    "name": "Chicken Noodles Soup",
     "base_price": 3.25,
     "category": "soup",
     "description": null,
@@ -545,7 +529,7 @@
   },
   {
     "name": "China Garden Chow Mein",
-    "base_price": 9.25,
+    "base_price": 15.95,
     "category": "chow_mein",
     "description": null,
     "spicy": false,
@@ -601,7 +585,7 @@
   },
   {
     "name": "Chicken Chop Suey",
-    "base_price": 7.25,
+    "base_price": 7.75,
     "category": "chop_suey",
     "description": "With White Rice",
     "spicy": false,
@@ -609,23 +593,7 @@
   },
   {
     "name": "Roast Pork Chop Suey",
-    "base_price": 7.25,
-    "category": "chop_suey",
-    "description": "With White Rice",
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Shrimp Chop Suey",
-    "base_price": 8.25,
-    "category": "chop_suey",
-    "description": "With White Rice",
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Beef Chop Suey",
-    "base_price": 8.25,
+    "base_price": 7.75,
     "category": "chop_suey",
     "description": "With White Rice",
     "spicy": false,
@@ -633,7 +601,23 @@
   },
   {
     "name": "Vegetables Chop Suey",
-    "base_price": 7.25,
+    "base_price": 7.75,
+    "category": "chop_suey",
+    "description": "With White Rice",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Shrimp Chop Suey",
+    "base_price": 8.75,
+    "category": "chop_suey",
+    "description": "With White Rice",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Beef Chop Suey",
+    "base_price": 8.75,
     "category": "chop_suey",
     "description": "With White Rice",
     "spicy": false,
@@ -641,7 +625,7 @@
   },
   {
     "name": "Seafood Chop Suey",
-    "base_price": 16.25,
+    "base_price": 17.25,
     "category": "chop_suey",
     "description": "With White Rice",
     "spicy": false,
@@ -800,7 +784,7 @@
     "available": true
   },
   {
-    "name": "lemon Chicken",
+    "name": "Lemon Chicken",
     "base_price": 14.95,
     "category": "chicken",
     "description": "With White Rice",
@@ -889,7 +873,7 @@
   },
   {
     "name": "Beef with Mushroom",
-    "base_price": 15.45,
+    "base_price": 14.95,
     "category": "beef",
     "description": "With White Rice",
     "spicy": false,
@@ -905,7 +889,7 @@
   },
   {
     "name": "Beef with Oyster Sauce",
-    "base_price": 14.95,
+    "base_price": 15.45,
     "category": "beef",
     "description": "With White Rice",
     "spicy": false,
@@ -938,6 +922,14 @@
   {
     "name": "Mongolian Beef",
     "base_price": 15.45,
+    "category": "beef",
+    "description": "With White Rice",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Beef",
+    "base_price": 16.45,
     "category": "beef",
     "description": "With White Rice",
     "spicy": true,
@@ -1296,6 +1288,14 @@
     "available": true
   },
   {
+    "name": "Lunch Chicken Lo Mein",
+    "base_price": 9.25,
+    "category": "lunch",
+    "description": "With Pork Fried Rice and Egg Roll",
+    "spicy": false,
+    "available": true
+  },
+  {
     "name": "Lunch Chicken with Almond",
     "base_price": 9.25,
     "category": "lunch",
@@ -1401,7 +1401,7 @@
   },
   {
     "name": "Lunch Sesame Chicken",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": false,
@@ -1409,7 +1409,7 @@
   },
   {
     "name": "Lunch General Tso's Chicken",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": true,
@@ -1417,7 +1417,7 @@
   },
   {
     "name": "Lunch Hunan Chicken",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": true,
@@ -1425,7 +1425,7 @@
   },
   {
     "name": "Lunch hunan Beef",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": true,
@@ -1433,7 +1433,7 @@
   },
   {
     "name": "Lunch Szechuan Chicken",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": true,
@@ -1441,7 +1441,7 @@
   },
   {
     "name": "Lunch Szechuan Beef",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": true,
@@ -1449,7 +1449,7 @@
   },
   {
     "name": "Lunch Shrimp with Cashew Nuts",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": false,
@@ -1457,7 +1457,7 @@
   },
   {
     "name": "Lunch Kung Pao Chicken",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": true,
@@ -1465,7 +1465,7 @@
   },
   {
     "name": "Lunch Shrimp Lo Mein",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": false,
@@ -1473,7 +1473,7 @@
   },
   {
     "name": "Lunch Shrimp Chop Suey",
-    "base_price": 9.99,
+    "base_price": 9.95,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
     "spicy": false,
