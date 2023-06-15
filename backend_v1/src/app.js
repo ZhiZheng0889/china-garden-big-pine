@@ -11,6 +11,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
 
+app.use("/foods", require("./foods/foods.router"));
+
 app.use(notFound);
 app.use(errorHandler);
 

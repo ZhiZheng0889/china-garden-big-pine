@@ -19,5 +19,5 @@ async function getSearchedFoods(req, res, next) {
 
 module.exports = {
   list: [asyncErrorBoundary(getAllFoods)],
-  search: [asyncErrorBoundary(getSearchedFoods)],
+  getBySearch: [asyncErrorBoundary(getSearchedFoods)],
 };
