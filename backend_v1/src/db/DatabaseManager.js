@@ -12,9 +12,8 @@ const disconnect = () => {
   return mongoose.connection.close();
 };
 
-const seed = async (env, model, data) => {
+const seed = async (model, data) => {
   try {
-    await connect(DatabaseConfig.getDatabaseUri(env));
     await model.create(data);
     console.log("Data successfully injected!");
   } catch (error) {
@@ -22,9 +21,8 @@ const seed = async (env, model, data) => {
   }
 };
 
-const reap = async (env, model) => {
+const reap = async (model) => {
   try {
-    await connect(env);
     await model.deleteMany();
     console.log("Data successfully deleted!");
   } catch (error) {

@@ -1,23 +1,14 @@
 const service = require("./foods.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
-const { PAGINATION } = process.env;
+const PAGINATION = parseInt(process.env.PAGINATION);
 
 async function getAllFoods(req, res, next) {
-  const { category = "", page = 1 } = req.query;
+  const { category = "" } = req.query;
+  const page = parseInt(req.query.page ?? 1);
   const results = category
-    ? await service.getByCategory(
-        category,
-        parseInt(page),
-        parseInt(PAGINATION)
-      )
-    : await service.getAll(category, parseInt(page), parseInt(PAGINATION));
-  console.log("RESULTS: ", results);
-  if (category && !results.length) {
-    return next({
-      status: 404,
-      message: `Category: "${category}" does not exist`,
-    });
-  }
+    ? await service.getByCategory(category, page, PAGINATION)
+    : await service.getAll(category, page, PAGINATION);
+  console.log({ results, page, pagination: PAGINATION });
   res.status(200).json({ results, page, pagination: PAGINATION });
 }
 

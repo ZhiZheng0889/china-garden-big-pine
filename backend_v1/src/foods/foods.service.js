@@ -20,6 +20,11 @@ function getBySearch(text, page, pagination) {
 }
 
 function getByCategory(category, page, pagination) {
+  if (category === "all") {
+    return Food.find()
+      .skip((parseInt(page) - 1) * parseInt(pagination))
+      .limit(parseInt(pagination));
+  }
   const includeUnderScoreText = category
     .toLowerCase()
     .trim()

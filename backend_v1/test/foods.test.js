@@ -4,13 +4,53 @@ const app = require("../src/app");
 const DatabaseManger = require("../src/db/DatabaseManager");
 const DatbaseConfig = require("../src/db/DatabaseConfig");
 const DatabaseConfig = require("../src/db/DatabaseConfig");
+const Food = require("../src/db/models/foodModel");
 require("dotenv").config();
 
-beforeEach(async () => {
+const foodData = [
+  {
+    name: "Steamed Mixed Vegetables",
+    basePrice: 12.25,
+    category: "diet_dishes",
+    description: null,
+    spicy: false,
+    available: true,
+  },
+  {
+    name: "Spring Rolls(2)",
+    basePrice: 4.75,
+    category: "appetizers",
+    description: null,
+    spicy: false,
+    available: true,
+  },
+  {
+    name: "Vegetable Spring Rolls(2)",
+    basePrice: 4.75,
+    category: "appetizers",
+    description: null,
+    spicy: false,
+    available: true,
+  },
+  {
+    name: "Beef with Garlic Sauce",
+    basePrice: 14.95,
+    category: "beef",
+    description: "With White Rice",
+    spicy: true,
+    available: true,
+    imageUrl: "https://imgur.com/8ebSQeR.jpg",
+  },
+];
+
+beforeAll(async () => {
   await DatabaseManger.connect(DatabaseConfig.getDatabaseUri("test"));
+  await DatabaseManger.reap(Food);
+  await DatabaseManger.seed(Food, foodData);
 });
 
-afterEach(async () => {
+afterAll(async () => {
+  await DatabaseManger.reap(Food);
   await DatabaseManger.disconnect();
 });
 
@@ -20,8 +60,10 @@ describe("Pagination", () => {
       .get("/foods?category=all")
       .set("Accept", "application.json");
 
-    expect(response.results).toBeDefined();
-    expect(response.results.length).toBeGreaterThan(0);
+    console.log(response.body);
+
+    expect(response.body.results).toBeDefined();
+    expect(response.body.results.length).toBeGreaterThan(0);
   });
 
   test("Should return an object with page as the page number", async () => {
@@ -29,8 +71,8 @@ describe("Pagination", () => {
       .get("/foods?category=all")
       .set("Accept", "application.json");
 
-    expect(response.page).toBeDefined();
-    expect(response.page).toBe(1);
+    expect(response.body.page).toBeDefined();
+    expect(response.body.page).toBe(1);
   });
 
   test("Should return the first page if the page number isn't provided", async () => {
@@ -38,8 +80,8 @@ describe("Pagination", () => {
       .get("/foods?category=all")
       .set("Accept", "application.json");
 
-    expect(response.page).toBeDefined();
-    expect(response.page).toBe(1);
+    expect(response.body.page).toBeDefined();
+    expect(response.body.page).toBe(1);
   });
 });
 
@@ -49,8 +91,8 @@ describe("List", () => {
       .get("/foods?category=all")
       .set("Accept", "application.json");
 
-    expect(response.results).toBeDefined();
-    expect(response.results.length).toBeGreaterThan(0);
+    expect(response.body.results).toBeDefined();
+    expect(response.body.results.length).toBeGreaterThan(0);
   });
 
   test("Should return foods with no category", async () => {
@@ -58,8 +100,8 @@ describe("List", () => {
       .get("/foods")
       .set("Accept", "application.json");
 
-    expect(response.results).toBeDefined();
-    expect(response.results.length).toBeGreaterThan(0);
+    expect(response.body.results).toBeDefined();
+    expect(response.body.results.length).toBeGreaterThan(0);
   });
 
   test("Should return all the appetizers with the appetizers category", async () => {
@@ -67,8 +109,8 @@ describe("List", () => {
       .get("/foods?category=appetizers")
       .set("Accept", "application.json");
 
-    expect(response.results).toBeDefined();
-    const invalidCategories = response.results.filter(
+    expect(response.body.results).toBeDefined();
+    const invalidCategories = response.body.results.filter(
       (food) => food.category !== "appetizers"
     );
     expect(invalidCategories.length).toBe(0);
