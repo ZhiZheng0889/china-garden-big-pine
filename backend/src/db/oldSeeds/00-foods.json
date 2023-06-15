@@ -955,7 +955,7 @@
     "name": "Happy Family",
     "base_price": 17.95,
     "category": "chef_special",
-    "description": "With White Rice",
+    "description": "",
     "spicy": false,
     "available": true
   },
@@ -963,7 +963,7 @@
     "name": "Vegetable with Fried Tofu",
     "base_price": 13.95,
     "category": "chef_special",
-    "description": "With White Rice",
+    "description": "",
     "spicy": true,
     "available": true
   },
@@ -971,7 +971,7 @@
     "name": "Eggplant with Garlic Sauce",
     "base_price": 13.95,
     "category": "chef_special",
-    "description": "With White Rice",
+    "description": "",
     "spicy": true,
     "available": true
   },
@@ -979,7 +979,7 @@
     "name": "Szechuan Vegetable",
     "base_price": 12.95,
     "category": "chef_special",
-    "description": "With White Rice",
+    "description": "",
     "spicy": true,
     "available": true
   },
@@ -987,23 +987,31 @@
     "name": "Four Seasons",
     "base_price": 17.75,
     "category": "chef_special",
-    "description": "With White Rice",
-    "spicy": true,
+    "description": "",
+    "spicy": false,
     "available": true
   },
   {
     "name": "Chicken & Shrimp in Hunan Style",
     "base_price": 16.75,
     "category": "chef_special",
-    "description": "With White Rice",
+    "description": "",
     "spicy": true,
     "available": true
   },
   {
-    "name": "Vegetable Delight with Tofu",
+    "name": "Vegetable Delight with Steam Tofu",
     "base_price": 13.75,
     "category": "chef_special",
-    "description": "With White Rice",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Vegetable Delight with Fried Tofu",
+    "base_price": 13.75,
+    "category": "chef_special",
+    "description": "",
     "spicy": false,
     "available": true
   },
@@ -1011,7 +1019,63 @@
     "name": "Broccoli with Garlic Sauce",
     "base_price": 13.45,
     "category": "chef_special",
-    "description": "With White Rice",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "General Tso's Fried Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "General Tso's Steam Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Sesame Fried Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Sesame Steam Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Fried Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Steam Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Mo Po Tofu",
+    "base_price": 16.45,
+    "category": "chef_special",
+    "description": "",
     "spicy": true,
     "available": true
   },
@@ -1108,6 +1172,30 @@
     "base_price": 15.75,
     "category": "seafood",
     "description": "With White Rice",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "General Tso's Shrimp",
+    "base_price": 18.75,
+    "category": "seafood",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Sesame Shrimp",
+    "base_price": 18.75,
+    "category": "seafood",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Shrimp",
+    "base_price": 18.75,
+    "category": "seafood",
+    "description": "",
     "spicy": true,
     "available": true
   },
@@ -1220,6 +1308,166 @@
     "base_price": 13.25,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Chicken Lo Mein",
+    "base_price": 12.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Shrimp Lo Mein",
+    "base_price": 13.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Chicken Egg Foo Young",
+    "base_price": 11.75,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Shrimp Egg Foo Young",
+    "base_price": 13.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Boneless Rib",
+    "base_price": 13.95,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Chicken Wing",
+    "base_price": 12.95,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Shrimp w. Broccoli",
+    "base_price": 14.75,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Sesame Chicken",
+    "base_price": 13.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Honey Chicken",
+    "base_price": 12.95,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Hunan Chicken",
+    "base_price": 13.25,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo General Tso's Shrimp",
+    "base_price": 17.75,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Orange Chicken",
+    "base_price": 13.75,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Sweet & Sour Shrimp",
+    "base_price": 16.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Sichuan Chicken",
+    "base_price": 13.45,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Beef Lo Mein",
+    "base_price": 13.45,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Sichuan Beef",
+    "base_price": 13.75,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Vegetable Lo Mein",
+    "base_price": 12.45,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Chicken W. Garlic Sauce",
+    "base_price": 13.25,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Pork Lo Mein",
+    "base_price": 12.45,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Beef W. Garlic Sauce",
+    "base_price": 13.95,
+    "category": "combo",
+    "description": "",
     "spicy": true,
     "available": true
   },
