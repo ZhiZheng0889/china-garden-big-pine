@@ -1,4 +1,5 @@
 const getDatabaseUri = (NODE_ENV) => {
+  console.log(NODE_ENV);
   const databaseType =
     NODE_ENV === "test" ? "DATABASE_URL_TEST" : "DATABASE_URL";
   return process.env[databaseType];

@@ -7,7 +7,9 @@
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000 --verbose",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll --verbose",
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "seed:foods": "node src/db/dataProvider.js --import development foods",
+    "seed:foods:test": "node src/db/dataProvider.js --import test foods"
   },
   "keywords": [],
   "author": "",

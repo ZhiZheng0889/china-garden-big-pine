@@ -11,6 +11,7 @@ async function getAllFoods(req, res, next) {
         parseInt(PAGINATION)
       )
     : await service.getAll(category, parseInt(page), parseInt(PAGINATION));
+  console.log("RESULTS: ", results);
   if (category && !results.length) {
     return next({
       status: 404,

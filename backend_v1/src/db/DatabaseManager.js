@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-
+const DatabaseConfig = require("./DatabaseConfig");
 const connect = (dbUri) => {
+  console.log(dbUri);
   if (!dbUri) {
     throw new Error(`Database uri provided: "${dbUri}" is no a valid uri`);
   }
@@ -13,7 +14,7 @@ const disconnect = () => {
 
 const seed = async (env, model, data) => {
   try {
-    await this.connect(env);
+    await connect(DatabaseConfig.getDatabaseUri(env));
     await model.create(data);
     console.log("Data successfully injected!");
   } catch (error) {
@@ -23,7 +24,7 @@ const seed = async (env, model, data) => {
 
 const reap = async (env, model) => {
   try {
-    this.connect(env);
+    await connect(env);
     await model.deleteMany();
     console.log("Data successfully deleted!");
   } catch (error) {
