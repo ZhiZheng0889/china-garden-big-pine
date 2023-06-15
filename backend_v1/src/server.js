@@ -1,10 +1,10 @@
 const { PORT = 5000, NODE_ENV } = process.env;
 const mongoose = require("mongoose");
 const app = require("./app");
-const DatabaseConfig = require("./db/config");
+const DatabaseConfig = require("./db/DatabaseConfig");
+const DatabaseManager = require("./db/DatabaseManager");
 
-mongoose
-  .connect(DatabaseConfig.getDatabaseUri(NODE_ENV))
+DatabaseManager.connect(DatabaseConfig.getDatabaseUri(NODE_ENV))
   .then((ans) => {
     console.log("DB connection is successful 🚀");
     app.listen(PORT, listener);
