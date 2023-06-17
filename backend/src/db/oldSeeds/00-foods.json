@@ -1372,7 +1372,7 @@
     "base_price": 13.25,
     "category": "combo",
     "description": "",
-    "spicy": false,
+    "spicy": true,
     "available": true
   },
   {
@@ -1404,7 +1404,7 @@
     "base_price": 13.75,
     "category": "combo",
     "description": "",
-    "spicy": false,
+    "spicy": true,
     "available": true
   },
   {
