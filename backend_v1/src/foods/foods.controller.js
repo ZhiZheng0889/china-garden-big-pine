@@ -13,7 +13,8 @@ async function getAllFoods(req, res, next) {
 }
 
 async function getSearchedFoods(req, res, next) {
-  const { search = "", page = 1 } = req.query;
+  const { page = 1 } = req.query;
+  const { search = "" } = req.body.data; 
   const results = await service.getBySearch(search, page, PAGINATION);
   if (search && !results.length) {
     return next({
