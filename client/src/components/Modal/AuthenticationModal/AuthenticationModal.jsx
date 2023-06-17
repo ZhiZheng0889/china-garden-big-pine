@@ -55,13 +55,12 @@ const AuthenticationModal = ({
         setUser(response.user);
       }
     } catch (err) {
-      console.log("ERRRRRRRRRRRRR: ", err);
       setError(err);
     } finally {
       setVerifyText("Verify");
     }
   };
-  console.log("=======>", error);
+
   const resendNewOTP = async (event) => {
     try {
       setError(null);
@@ -78,7 +77,7 @@ const AuthenticationModal = ({
       setVerifyText("Verify");
     }
   };
-  console.log("REQUEST ID: ", requestId);
+
   return (
     requestId && (
       <>
