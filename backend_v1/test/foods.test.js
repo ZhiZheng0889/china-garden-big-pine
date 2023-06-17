@@ -117,4 +117,27 @@ describe("List", () => {
   });
 });
 
-describe("Search", () => {});
+describe("Search", () => {
+  test("Should return food that has the query in the name", async () => {
+    const data = {
+      search: "Spring",
+    };
+    const response = await request(app)
+      .post("/foods/search")
+      .set("Accept", "application.json")
+      .send({ data });
+
+    expect(response.body.results).toBeDefined();
+    expect(response.body.results.length).toEqual(2);
+    const invalidFoods = response.body.results.filter((food) => {
+      return !food.toLowerCase().includes(search.toLowerCase());
+    });
+    expect(invalidFoods.length).toEqual(0);
+  });
+
+  test("Should return food and be case insensitive", async () => {});
+
+  test("Should return food and trim the query of spaces on the end", async () => {});
+
+  test("Should return food that uses the query in the category", async () => {});
+});
