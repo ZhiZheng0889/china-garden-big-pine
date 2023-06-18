@@ -1,38 +1,36 @@
 const Food = require("../db/models/foodModel");
+const Pagination = require("../utils/Pagination");
 
-function getAll(page, pagination) {
-  return Food.find()
-    .skip((parseInt(page) - 1) * parseInt(pagination))
-    .limit(parseInt(pagination));
+function getAll(page) {
+  return Pagination.pageable(Food, {}, page);
 }
 
-function getBySearch(text, page, pagination) {
+function getBySearch(text, page) {
   const includeUnderScoreText = text.trim().split(" ").join("_");
-  return Food.find({
-    $or: [
-      { name: { $regex: text, $options: "i" } },
-      { category: { $regex: text, $options: "i" } },
-      { name: { $regex: includeUnderScoreText, $options: "i" } },
-    ],
-  })
-    .skip((parseInt(page) - 1) * parseInt(pagination))
-    .limit(parseInt(pagination));
+  return Pagination.pageable(
+    Food,
+    {
+      $or: [
+        { name: { $regex: text, $options: "i" } },
+        { category: { $regex: text, $options: "i" } },
+        { name: { $regex: includeUnderScoreText, $options: "i" } },
+      ],
+    },
+    page
+  );
 }
 
-function getByCategory(category, page, pagination) {
+function getByCategory(category, page) {
+  console.log("cat: ", category);
   if (category === "all") {
-    return Food.find()
-      .skip((parseInt(page) - 1) * parseInt(pagination))
-      .limit(parseInt(pagination));
+    return Pagination.pageable(Food, {}, page);
   }
   const includeUnderScoreText = category
     .toLowerCase()
     .trim()
     .split(" ")
     .join("_");
-  return Food.find({ category: includeUnderScoreText })
-    .skip((parseInt(page) - 1) * parseInt(pagination))
-    .limit(parseInt(pagination));
+  return Pagination.pageable(Food, { category: includeUnderScoreText }, page);
 }
 
 module.exports = {

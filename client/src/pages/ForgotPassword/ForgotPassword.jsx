@@ -7,15 +7,23 @@ import { Validator } from "../../utils/Validator";
 const ForgotPassword = ({ user, setUser }) => {
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [countryCode, setCountryCode] = useState("");
   const navigate = useNavigate();
   const cancel = (event) => {
     event.preventDefault();
     navigate(-1);
   };
 
-  const search = (event) => {
+  const search = async (event) => {
     event.preventDefault();
     if (Validator.validatePhoneNumber(phoneNumber)) {
+      const response = await VerifyAPi.sendVerifyToPhoneNumber(
+        phoneNumber,
+        countryCode
+      );
+      if (response.request_id) {
+        setRequestId(response.request_id);
+      }
     }
   };
 
@@ -44,7 +52,7 @@ const ForgotPassword = ({ user, setUser }) => {
               placeholder="Phone Number"
               name="phoneNumber"
             />
-            <div className="flex gap-3 items-center justify-end">
+            <div className="flex gap-3 items-center justify-start">
               <button
                 className="px-3 py-2 rounded w-24 hover:bg-neutral-100 active:bg-neutral-200 duration-200 ease-out"
                 onClick={cancel}

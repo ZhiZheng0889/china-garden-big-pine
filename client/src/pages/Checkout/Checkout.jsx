@@ -236,7 +236,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           requestId={requestId}
           setRequestId={setRequestId}
           phoneNumber={phoneNumber}
-          submitOrder={submitOrder}
+          submit={submitOrder}
           countryCode={countryCode}
           setCountryCode={setCountryCode}
           user={user}

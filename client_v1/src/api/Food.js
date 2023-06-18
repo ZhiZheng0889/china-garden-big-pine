@@ -15,7 +15,7 @@ const get = async (params, controller) => {
 };
 
 const getFoodByCategory = async (category, page) => {
-  const foods = await Api.get(`/foods?category=${category}?page=${page}`);
+  const foods = await Api.get(`/foods?category=${category}&page=${page}`);
   return foods ?? { results: [], page };
 };
 

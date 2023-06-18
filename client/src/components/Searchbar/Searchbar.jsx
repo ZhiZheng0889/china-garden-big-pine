@@ -16,24 +16,24 @@ const Searchbar = ({ search, setSearch }) => {
   };
 
   const clearInput = () => {
-    setKeyword('');
+    setKeyword("");
   };
 
   return (
     <form className="relative" onSubmit={submitHandler}>
       <button
-        className="w-10 h-10 hover:bg-neutral-100 active:bg-neutral-200 ease-out duration-200 rounded absolute top-2/4 right-[4%] -translate-y-2/4 focus:outline outline-2 outline-offset-2 outline-red-600  "
+        className="w-10 h-10 hover:bg-neutral-100 active:bg-neutral-200 ease-out duration-200 rounded absolute top-2/4 right-[1%] -translate-y-2/4 focus:outline outline-2 outline-offset-2 outline-red-600  "
         type="submit"
       >
         <i className="fa-solid fa-magnifying-glass fa-lg"></i>
       </button>
-      <button
+      {/* <button
         onClick={clearInput}
         className="w-10 h-10 hover:bg-neutral-100 active:bg-neutral-200 ease-out duration-200 rounded absolute top-2/4 right-[2%] -translate-y-2/4 focus:outline outline-2 outline-offset-2 outline-red-600  "
         type="button"
       >
         <i className="fa-solid fa-times fa-lg"></i>
-      </button>
+      </button> */}
       <input
         type="text"
         placeholder="Search"

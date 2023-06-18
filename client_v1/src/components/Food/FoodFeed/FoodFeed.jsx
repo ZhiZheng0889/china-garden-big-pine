@@ -5,9 +5,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 const FoodFeed = ({ error, setError, category, search }) => {
   const [response, setResponse] = useState({});
-  const getFood = () => {
+  const [page, setPage] = useState(1);
+  const getFood = async () => {
     if (search) {
+      const response = await Food.getFoodBySearch(search, page);
+      console.log("res: ", response);
     } else {
+      const response = await Food.getFoodByCategory((category = "all"), page);
+      console.log("res: ", response);
     }
   };
 
