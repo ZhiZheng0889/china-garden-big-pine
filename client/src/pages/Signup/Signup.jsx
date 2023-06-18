@@ -43,7 +43,7 @@ const Signup = ({ setUser }) => {
       setError(null);
       if (!Validator.validatePhoneNumber(phoneNumber)) {
         if (!phoneNumber) {
-          throw new ERror("A phone number is required.");
+          throw new Error("A phone number is required.");
         }
         throw new Error(`Phone number: ${phoneNumber} is invalid`);
       }
@@ -175,9 +175,8 @@ const Signup = ({ setUser }) => {
                   type="button"
                 >
                   <i
-                    className={`fa-solid text-neutral-600 ${
-                      showPassword ? "fa-eye" : "fa-eye-slash"
-                    }`}
+                    className={`fa-solid text-neutral-600 ${showPassword ? "fa-eye" : "fa-eye-slash"
+                      }`}
                   ></i>
                 </button>
               </div>
@@ -204,9 +203,8 @@ const Signup = ({ setUser }) => {
                   type="button"
                 >
                   <i
-                    className={`fa-solid text-neutral-600 ${
-                      showConfirmPassword ? "fa-eye" : "fa-eye-slash"
-                    }`}
+                    className={`fa-solid text-neutral-600 ${showConfirmPassword ? "fa-eye" : "fa-eye-slash"
+                      }`}
                   ></i>
                 </button>
               </div>
