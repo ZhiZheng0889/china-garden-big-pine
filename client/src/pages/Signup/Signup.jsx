@@ -52,7 +52,7 @@ const Signup = ({ setUser }) => {
         countryCode
       )
     }
-  }
+  };
 
   const validatePassword = (password) => {
     const minLength = 8;
