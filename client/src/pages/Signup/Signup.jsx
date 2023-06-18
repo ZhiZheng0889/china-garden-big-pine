@@ -50,7 +50,16 @@ const Signup = ({ setUser }) => {
       const response = await VerifyApi.verifyPhoneNumberOnSignup(
         phoneNumber,
         countryCode
-      )
+      );
+      if (response.success) {
+        // If successful, then do something.
+        setRequestId(response.data.requestId);
+      } else {
+        // If not successful, handle error.
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      setError(error.message);
     }
   };
 
