@@ -6,7 +6,7 @@ import ErrorAlert from "../../../errors/ErrorAlert";
 import Input from "../../Form/Input/Input";
 const AuthenticationModal = ({
   phoneNumber,
-  submitOrder,
+  submit,
   requestId,
   setRequestId,
   countryCode,
@@ -41,7 +41,7 @@ const AuthenticationModal = ({
       );
       console.log(response);
       if (response.status === "0") {
-        submitOrder();
+        submit();
       } else {
         throw new Error("Error Verifying Phone Number");
       }
@@ -55,13 +55,12 @@ const AuthenticationModal = ({
         setUser(response.user);
       }
     } catch (err) {
-      console.log("ERRRRRRRRRRRRR: ", err);
       setError(err);
     } finally {
       setVerifyText("Verify");
     }
   };
-  console.log("=======>", error);
+
   const resendNewOTP = async (event) => {
     try {
       setError(null);
@@ -78,7 +77,7 @@ const AuthenticationModal = ({
       setVerifyText("Verify");
     }
   };
-  console.log("REQUEST ID: ", requestId);
+
   return (
     requestId && (
       <>

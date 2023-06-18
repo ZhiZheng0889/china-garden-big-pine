@@ -101,7 +101,7 @@ const Login = ({ setUser }) => {
           >
             {buttonText}
           </button>
-          <p className="mt-2 text-center">
+          <p className="text-center">
             Don't have an account?{" "}
             <Link to="/signup" className="text-red-900">
               Sign up here

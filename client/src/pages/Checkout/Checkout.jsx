@@ -10,6 +10,7 @@ import { VerifyApi } from "../../api/verifyApi";
 import CheckoutComponent from "../../components/Checkout/Checkout";
 import PhoneInput from "../../components/Form/PhoneInput/PhoneInput";
 import { Validator } from "../../utils/Validator";
+import SkipVerificationModal from "../../components/Modal/SkipVerificationModal/SkipVerificationModal";
 const VITE_MAX_ORDER_TOTAL = import.meta.env.VITE_MAX_ORDER_TOTAL;
 const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [error, setError] = useState(null);
@@ -21,6 +22,8 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [orderButtonText, setOrderButtonText] = useState("Place Order");
   const [requestId, setRequestId] = useState(null);
   const [countryCode, setCountryCode] = useState("1");
+  const [skipPhoneVerification, setSkipPhoneVerification] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +35,7 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const checkVerification = async () => {
     try {
       setError(null);
+      setSkipPhoneVerification(false);
       if (!Validator.validatePhoneNumber(phoneNumber)) {
         if (!phoneNumber) {
           throw new Error(`A phone number is required.`);
@@ -57,6 +61,11 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
         }
       }
     } catch (error) {
+      if (
+        error.message === "The destination number is not in a supported network"
+      ) {
+        setSkipPhoneVerification(true);
+      }
       setError(error);
     }
   };
@@ -128,7 +137,6 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
       setOrderButtonText("Place Order");
     }
   };
-  console.log("USER: ", user);
   return (
     <>
       <main className={`bg-slate-100 min-h-screen py-6 ${className}`}>
@@ -217,12 +225,18 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
           </div>
         </section>
       </main>
+      {skipPhoneVerification && (
+        <SkipVerificationModal
+          isOpen={skipPhoneVerification}
+          setIsOpen={setSkipPhoneVerification}
+        />
+      )}
       {requestId && (
         <AuthenticationModal
           requestId={requestId}
           setRequestId={setRequestId}
           phoneNumber={phoneNumber}
-          submitOrder={submitOrder}
+          submit={submitOrder}
           countryCode={countryCode}
           setCountryCode={setCountryCode}
           user={user}

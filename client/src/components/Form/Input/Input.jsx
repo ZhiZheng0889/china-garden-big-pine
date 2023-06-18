@@ -12,6 +12,9 @@ const Input = ({
   title,
   pattern,
 }) => {
+  const preventPropagation = (event) => {
+    event.stopPropagation();
+  };
   const formattedLabel =
     label.indexOf("_") > -1 ? snakeToTitleCase(label) : label;
   const formattedPlaceholder =
@@ -24,6 +27,7 @@ const Input = ({
       <input
         id={label}
         onChange={onChange}
+        onClick={preventPropagation}
         value={value}
         type={type}
         name={name}
