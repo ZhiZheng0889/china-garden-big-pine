@@ -41,12 +41,12 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use(cors(corsOptions));
+app.use("/hours", hoursRouter);
 app.use("/v1/foods", foodsV1Router);
 app.use("/foods", foodRouter);
 app.use("/orders", orderRouter);
 app.use("/authentication", verifyRouter);
 app.use("/favorites", favoriteRouter);
-app.use("/hours", hoursRouter);
 
 app.use("/users/auth", authRouter);
 app.set("trust proxy", 3);
