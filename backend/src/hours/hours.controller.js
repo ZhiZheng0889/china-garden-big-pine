@@ -1,7 +1,7 @@
 const service = require("./hours.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+const dayjs = require("dayjs");
 
-// Get operation hours
 async function getOperationHours(req, res, next) {
   const hours = await service.getOperationHours();
   if (!hours) {
@@ -15,12 +15,12 @@ async function getOperationHours(req, res, next) {
 
 async function getDailyOperationHours(req, res, next) {
   try {
-    const { date } = req.query;
+    const { date } = req.params;
     const foundClosedHours = await service.getClosedHours(date);
     if (foundClosedHours) {
       res.status(204).json({ data: { open: "", close: "" } });
     } else {
-      const dayOfWeek = dayjs(new Date(date)).format("dddd").toLowerCase();
+      const dayOfWeek = dayjs(date).format("dddd").toLowerCase();
       if (!dayOfWeek) {
         return next({
           status: 400,

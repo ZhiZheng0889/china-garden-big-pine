@@ -12,7 +12,7 @@ async function getOperationHours() {
 }
 
 function getClosedHours(date) {
-  return Closed.find({ date }).exec();
+  return Closed.findOne({ date }).exec();
 }
 
 module.exports = {
