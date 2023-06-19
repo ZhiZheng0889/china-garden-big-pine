@@ -43,16 +43,25 @@ const Signup = ({ setUser }) => {
       setError(null);
       if (!Validator.validatePhoneNumber(phoneNumber)) {
         if (!phoneNumber) {
-          throw new ERror("A phone number is required.");
+          throw new Error("A phone number is required.");
         }
         throw new Error(`Phone number: ${phoneNumber} is invalid`);
       }
       const response = await VerifyApi.verifyPhoneNumberOnSignup(
         phoneNumber,
         countryCode
-      )
+      );
+      if (response.success) {
+        // If successful, then do something.
+        setRequestId(response.data.requestId);
+      } else {
+        // If not successful, handle error.
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      setError(error.message);
     }
-  }
+  };
 
   const validatePassword = (password) => {
     const minLength = 8;
@@ -175,9 +184,8 @@ const Signup = ({ setUser }) => {
                   type="button"
                 >
                   <i
-                    className={`fa-solid text-neutral-600 ${
-                      showPassword ? "fa-eye" : "fa-eye-slash"
-                    }`}
+                    className={`fa-solid text-neutral-600 ${showPassword ? "fa-eye" : "fa-eye-slash"
+                      }`}
                   ></i>
                 </button>
               </div>
@@ -204,9 +212,8 @@ const Signup = ({ setUser }) => {
                   type="button"
                 >
                   <i
-                    className={`fa-solid text-neutral-600 ${
-                      showConfirmPassword ? "fa-eye" : "fa-eye-slash"
-                    }`}
+                    className={`fa-solid text-neutral-600 ${showConfirmPassword ? "fa-eye" : "fa-eye-slash"
+                      }`}
                   ></i>
                 </button>
               </div>

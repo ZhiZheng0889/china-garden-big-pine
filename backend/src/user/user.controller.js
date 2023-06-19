@@ -318,6 +318,35 @@ async function changePasswords(req, res, next) {
   }
 }
 
+let failedAttempts = {};
+
+async function limitFailedLoginAttempts(req, res, next) {
+  const { phoneNumber } = req.body.data;
+
+  // reset counter each day
+  const currentDate = new Date().getDate();
+  if (failedAttempts[phoneNumber]?.date !== currentDate) {
+    failedAttempts[phoneNumber] = { count: 0, date: currentDate };
+  }
+
+  // limit number of attempts
+  if (failedAttempts[phoneNumber]?.count >= 5) {
+    return next({
+      status: 429,
+      message: "You've reached your daily limit for login attempts.",
+    });
+  }
+
+  // if login fails, increment the counter
+  const foundUser = await service.getUserByPhoneNumber(phoneNumber);
+  if (!foundUser) {
+    failedAttempts[phoneNumber].count++;
+  }
+
+  next();
+}
+
+
 module.exports = {
   loginWithToken: [
     asyncErrorBoundary(isRefreshTokenValid),
@@ -326,6 +355,7 @@ module.exports = {
     sendUserPayload,
   ],
   login: [
+    limitFailedLoginAttempts,
     hasOnlyValidProperties(VALID_LOGIN_PROPERTIES),
     hasRequiredProperties(REQUIRED_LOGIN_PROPERTIES),
     asyncErrorBoundary(getUserFromPhoneNumber),
