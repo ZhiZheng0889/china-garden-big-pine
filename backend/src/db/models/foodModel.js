@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
+const AutoIncrementFactory = require('mongoose-sequence');
+
+const connection = mongoose.createConnection("mongodb://localhost/test");
+const AutoIncrement = AutoIncrementFactory(connection);
 
 const FoodSchema = new mongoose.Schema(
   {
+    food_id: { type: Number },
     name: { type: String, required: [true, "A food requires a name"] },
     basePrice: {
       type: Number,
@@ -37,6 +42,8 @@ const FoodSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Food = mongoose.model("Food", FoodSchema);
+FoodSchema.plugin(AutoIncrement, { inc_field: 'food_id' });
+
+const Food = connection.model('Food', FoodSchema);
 
 module.exports = Food;

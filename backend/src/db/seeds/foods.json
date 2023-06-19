@@ -166,7 +166,7 @@
     "description": null,
     "spicy": false,
     "available": true,
-    "imageUrl": "https://imgur.com/ro74dUZ.jpg"
+    "imageUrl": "https://i.imgur.com/dJDs92D.png"
   },
   {
     "name": "BBQ Spare Ribs",
@@ -520,7 +520,7 @@
     "description": null,
     "spicy": false,
     "available": true,
-    "imageUrl": "https://imgur.com/q5x5lUm.jpg"
+    "imageUrl": "https://i.imgur.com/3H01L9B.png"
   },
   {
     "name": "Roast Pork Lo Mein",
@@ -624,7 +624,8 @@
     "category": "lo_mein_or_chow_mei_fun",
     "description": null,
     "spicy": false,
-    "available": true
+    "available": true,
+    "imageUrl": "https://i.imgur.com/ymrxukA.png"
   },
   {
     "name": "China Garden Chow Mei Fun",
@@ -887,7 +888,7 @@
     "description": "With White Rice",
     "spicy": true,
     "available": true,
-    "imageUrl": "https://imgur.com/cjPuAWq.jpg"
+    "imageUrl": "https://i.imgur.com/oEH2aQE.png"
   },
   {
     "name": "Chicken with Garlic Sauce",
@@ -929,7 +930,7 @@
     "description": "With White Rice",
     "spicy": false,
     "available": true,
-    "imageUrl": "https://imgur.com/jkyXw64.jpg"
+    "imageUrl": "https://i.imgur.com/H3jOVVk.png"
   },
   {
     "name": "Chicken with Snow Peas",
@@ -1103,7 +1104,7 @@
     "description": "With White Rice",
     "spicy": true,
     "available": true,
-    "imageUrl": "https://imgur.com/GhEFjvx.jpg"
+    "imageUrl": "https://imgur.com/LRskpVN"
   },
   {
     "name": "Mongolian Beef",
@@ -1642,7 +1643,7 @@
     "available": true
   },
   {
-    "name": "Combo Vegetable Lo Mein",
+    "name": "Combo Vegetables Lo Mein",
     "basePrice": 12.45,
     "category": "combo",
     "description": "",
