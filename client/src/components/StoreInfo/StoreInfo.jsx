@@ -25,7 +25,7 @@ const FoodHeader = () => {
     <header className="p-3 border-b">
       <h2 className="font-semibold">China Garden</h2>
       <p>Big Pine Shopping</p>
-      {typeof storeIsOpen !== "null" ? (
+      {typeof storeIsOpen == "boolean" ? (
         storeIsOpen ? (
           <p className="text-green-700">We Are Open</p>
         ) : (
