@@ -1,15 +1,21 @@
-const fs = require('fs').promises;
+const fs = require("fs").promises;
 const Closed = require("../db/models/closedModel");
+const path = require("path");
 
-function getOperationHours() {
-    return JSON.parse(fs.readFile(path.resolve(__dirname, './src/db/data/hours.json'), 'utf-8'));
+async function getOperationHours() {
+  const hours = await fs.readFile(
+    path.resolve(__dirname, "../db/data/hours.json"),
+    "utf-8"
+  );
+  console.log("hours: ", hours);
+  return JSON.parse(hours);
 }
 
 function getClosedHours(date) {
-    return Closed.find({ date }).exec();
+  return Closed.find({ date }).exec();
 }
 
 module.exports = {
-    getOperationHours,
-    getClosedHours
-}
+  getOperationHours,
+  getClosedHours,
+};
