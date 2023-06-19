@@ -176,8 +176,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "small", "upcharge": 0 },
-      { "size": "large", "upcharge": 8 }
+      {
+        "size": "small",
+        "upcharge": 0
+      },
+      {
+        "size": "large",
+        "upcharge": 8
+      }
     ],
     "imageUrl": "https://imgur.com/Zt4mWE3.jpg"
   },
@@ -189,8 +195,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "small", "upcharge": 0 },
-      { "size": "large", "upcharge": 7.7 }
+      {
+        "size": "small",
+        "upcharge": 0
+      },
+      {
+        "size": "large",
+        "upcharge": 7.7
+      }
     ],
     "imageUrl": "https://imgur.com/89uBSxk.jpg"
   },
@@ -276,8 +288,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 1.8 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 1.8
+      }
     ]
   },
   {
@@ -288,8 +306,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 4.8 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 4.8
+      }
     ],
     "imageUrl": "https://imgur.com/yk6TsDa.jpg"
   },
@@ -301,8 +325,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 4.8 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 4.8
+      }
     ]
   },
   {
@@ -313,8 +343,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 4.8 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 4.8
+      }
     ],
     "imageUrl": "https://imgur.com/UZqyOfy.jpg"
   },
@@ -326,8 +362,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 5 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 5
+      }
     ],
     "imageUrl": "https://imgur.com/yuuZbgh.jpg"
   },
@@ -339,8 +381,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 5.2 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 5.2
+      }
     ]
   },
   {
@@ -351,8 +399,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 5 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 5
+      }
     ],
     "imageUrl": "https://imgur.com/fj7aPEs.jpg"
   },
@@ -364,8 +418,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 7.2 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 7.2
+      }
     ]
   },
   {
@@ -376,8 +436,14 @@
     "spicy": false,
     "available": true,
     "sizes": [
-      { "size": "pint", "upcharge": 0 },
-      { "size": "quart", "upcharge": 6.7 }
+      {
+        "size": "pint",
+        "upcharge": 0
+      },
+      {
+        "size": "quart",
+        "upcharge": 6.7
+      }
     ],
     "imageUrl": "https://imgur.com/CaWfJKr.jpg"
   },
@@ -405,8 +471,14 @@
     "spicy": false,
     "available": true,
     "options": [
-      { "option": "rice", "upcharge": 0 },
-      { "option": "noodles", "upcharge": 0 }
+      {
+        "option": "rice",
+        "upcharge": 0
+      },
+      {
+        "option": "noodles",
+        "upcharge": 0
+      }
     ]
   },
   {
@@ -476,7 +548,6 @@
     "available": true,
     "imageUrl": "https://i.imgur.com/KvkxN9H.jpg"
   },
-
   {
     "name": "Beef Lo Mein",
     "basePrice": 13.75,
@@ -1077,15 +1148,6 @@
     "available": true
   },
   {
-    "name": "General Tso's Tofu",
-    "basePrice": 13.95,
-    "category": "chef_special",
-    "description": "With White Rice",
-    "spicy": true,
-    "available": true,
-    "imageUrl": "https://imgur.com/xTk2Apq.jpg"
-  },
-  {
     "name": "Eggplant with Garlic Sauce",
     "basePrice": 13.95,
     "category": "chef_special",
@@ -1130,6 +1192,63 @@
     "basePrice": 13.45,
     "category": "chef_special",
     "description": "With White Rice",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "General Tso's Fried Tofu",
+    "basePrice": 13.95,
+    "category": "chef_special",
+    "description": "With White Rice",
+    "spicy": true,
+    "available": true,
+    "imageUrl": "https://imgur.com/xTk2Apq.jpg"
+  },
+  {
+    "name": "General Tso's Steam Tofu",
+    "basePrice": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Sesame Fried Tofu",
+    "basePrice": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Sesame Steam Tofu",
+    "basePrice": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Fried Tofu",
+    "basePrice": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Steam Tofu",
+    "basePrice": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Mo Po Tofu",
+    "basePrice": 16.45,
+    "category": "chef_special",
+    "description": "",
     "spicy": true,
     "available": true
   },
@@ -1250,6 +1369,30 @@
     "available": true
   },
   {
+    "name": "General Tso's Shrimp",
+    "basePrice": 18.75,
+    "category": "seafood",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Sesame Shrimp",
+    "basePrice": 18.75,
+    "category": "seafood",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Shrimp",
+    "basePrice": 18.75,
+    "category": "seafood",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
     "name": "Combo Chicken Chow Mein",
     "basePrice": 11.75,
     "category": "combo",
@@ -1361,6 +1504,71 @@
     "imageUrl": "https://imgur.com/ypNiudN.jpg"
   },
   {
+    "name": "Combo Kung Pao Chicken",
+    "basePrice": 13.25,
+    "category": "combo",
+    "description": "With Pork Fried Rice and Egg Roll",
+    "spicy": true,
+    "available": true,
+    "imageUrl": "https://imgur.com/9iDxKqN"
+  },
+  {
+    "name": "Combo Chicken Lo Mein",
+    "basePrice": 12.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Shrimp Lo Mein",
+    "basePrice": 13.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Chicken Egg Foo Young",
+    "basePrice": 11.75,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Shrimp Egg Foo Young",
+    "basePrice": 13.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Boneless Rib",
+    "basePrice": 13.95,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Chicken Wing",
+    "basePrice": 12.95,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Shrimp w. Broccoli",
+    "basePrice": 14.75,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
     "name": "Combo Sesame Chicken",
     "basePrice": 13.25,
     "category": "combo",
@@ -1370,13 +1578,100 @@
     "imageUrl": "https://imgur.com/Fozqqoh.jpg"
   },
   {
-    "name": "Combo Kung Pao Chicken",
+    "name": "Combo Honey Chicken",
+    "basePrice": 12.95,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Hunan Chicken",
     "basePrice": 13.25,
     "category": "combo",
-    "description": "With Pork Fried Rice and Egg Roll",
+    "description": "",
     "spicy": true,
-    "available": true,
-    "imageUrl": "https://imgur.com/9iDxKqN"
+    "available": true
+  },
+  {
+    "name": "Combo General Tso's Shrimp",
+    "basePrice": 17.75,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Orange Chicken",
+    "basePrice": 13.75,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Sweet & Sour Shrimp",
+    "basePrice": 16.25,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Sichuan Chicken",
+    "basePrice": 13.45,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Beef Lo Mein",
+    "basePrice": 13.45,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Sichuan Beef",
+    "basePrice": 13.75,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Vegetable Lo Mein",
+    "basePrice": 12.45,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Chicken W. Garlic Sauce",
+    "basePrice": 13.25,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Combo Pork Lo Mein",
+    "basePrice": 12.45,
+    "category": "combo",
+    "description": "",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Combo Beef W. Garlic Sauce",
+    "basePrice": 13.95,
+    "category": "combo",
+    "description": "",
+    "spicy": true,
+    "available": true
   },
   {
     "name": "Lunch Vegetable Delight",
