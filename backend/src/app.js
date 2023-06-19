@@ -36,6 +36,7 @@ const { authRouter } = require("./user/user.router");
 const verifyRouter = require("./verify/verify.router");
 const favoriteRouter = require("./favorites/favorites.router");
 const foodsV1Router = require("./foods_v1/foods.router");
+const hoursRouter = require("./hours/hours.router");
 app.use(cookieParser());
 app.use(express.json());
 
@@ -45,6 +46,7 @@ app.use("/foods", foodRouter);
 app.use("/orders", orderRouter);
 app.use("/authentication", verifyRouter);
 app.use("/favorites", favoriteRouter);
+app.use("/hours", hoursRouter);
 
 app.use("/users/auth", authRouter);
 app.set("trust proxy", 3);

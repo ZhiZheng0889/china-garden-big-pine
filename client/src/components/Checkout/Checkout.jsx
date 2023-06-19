@@ -3,23 +3,40 @@ import Card from "../Card/Card";
 import CheckoutList from "./CheckoutList/CheckoutList";
 import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
 
+// Replace this function with the actual implementation to fetch operation data
+const fetchOperationData = () => {
+  // Implement fetching operation data here
+};
+
 const Checkout = ({ cart, setCart, hideButton, setIsCheckoutOpen }) => {
+  const [operationData, setOperationData] = useState(null);
   const [isBusinessOpen, setIsBusinessOpen] = useState(true);
 
   useEffect(() => {
-    let currentTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
-    let currentHour = new Date(currentTime).getHours();
-    let currentDay = new Date(currentTime).getDay();
-    let businessStartHour = 11; // Start hour of your business
-    let businessEndHour = 21.5; // End hour of your business, 9:30 PM is 21.5 in 24 hour format
-    let closedDay = 0; // Sunday
-
-    if (currentHour < businessStartHour || currentHour >= businessEndHour || currentDay === closedDay) {
-      setIsBusinessOpen(false);
-    } else {
-      setIsBusinessOpen(true);
-    }
+    // fetchOperationData()
+    //   .then(data => setOperationData(data))
+    //   .catch(error => console.error(error));
   }, []);
+
+  useEffect(() => {
+    if (operationData) {
+      let currentTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+      let currentHour = new Date(currentTime).getHours();
+      let currentDay = new Date(currentTime).getDay();
+      let currentDate = new Date(currentTime).toISOString().split("T")[0];
+      let businessStartHour = operationData.startHour;
+      let businessEndHour = operationData.endHour;
+      let closedDays = operationData.closedDays;
+      let holidays = operationData.holidays;
+      let isDevMode = operationData.isDevMode;
+
+      if (isDevMode || (currentHour >= businessStartHour && currentHour < businessEndHour && !closedDays.includes(currentDay) && !holidays.includes(currentDate))) {
+        setIsBusinessOpen(true);
+      } else {
+        setIsBusinessOpen(false);
+      }
+    }
+  }, [operationData]);
 
   return (
     <>
