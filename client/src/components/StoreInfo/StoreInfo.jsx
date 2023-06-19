@@ -5,7 +5,7 @@ import { isOpen } from "../../utils/isOpen";
 
 const FoodHeader = () => {
   const [storeHours, setStoreHours] = useState(null);
-
+  let storeIsOpen = null;
   useEffect(() => {
     (async () => {
       const currentTime = new Date().toLocaleString("en-US", {
@@ -16,14 +16,24 @@ const FoodHeader = () => {
       setStoreHours(foundHours);
     })();
   }, []);
-
+  if (storeHours) {
+    storeIsOpen = isOpen(storeHours);
+    console.log(isOpen(storeHours));
+  }
   console.log("STORE HOURS: ", storeHours);
   return (
     <header className="p-3 border-b">
       <h2 className="font-semibold">China Garden</h2>
       <p>Big Pine Shopping</p>
-      <p>Open Six Days a week</p>
-      {storeHours && isOpen(storeHours)}
+      {typeof storeIsOpen !== "null" ? (
+        storeIsOpen ? (
+          <p className="text-green-700">We Are Open</p>
+        ) : (
+          <p className="text-red-700">We Are Closed</p>
+        )
+      ) : (
+        <p></p>
+      )}
       {/* {!isRestaurantOpen && <p className="text-danger">The restaurant is currently closed. We are open Monday to Saturday, from 11:00 AM to 9:30 PM (Florida time).</p>} */}
     </header>
   );
