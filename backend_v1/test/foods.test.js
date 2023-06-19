@@ -2,7 +2,6 @@ const { PAGE_SIZE } = process.env;
 const request = require("supertest");
 const app = require("../src/app");
 const DatabaseManger = require("../src/db/DatabaseManager");
-const DatbaseConfig = require("../src/db/DatabaseConfig");
 const DatabaseConfig = require("../src/db/DatabaseConfig");
 const Food = require("../src/db/models/foodModel");
 require("dotenv").config();
