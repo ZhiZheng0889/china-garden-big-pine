@@ -55,7 +55,7 @@ async function isValidUser_id(req, res, next) {
 }
 
 async function isStoreOpen(req, res, next) {
-  if (NODE_ENV === "preview") {
+  if (NODE_ENV === "development") {
     return next();
   }
   const currentDate = dayjs(new Date()).format("YYYY-MM-DD");
