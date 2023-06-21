@@ -57,15 +57,18 @@ const Signup = ({ setUser }) => {
         phoneNumber,
         countryCode
       );
+      console.log(response);
       if (response.request_id) {
         setRequestId(response.request_id);
       } else {
         throw new Error("Error validating phone number");
       }
     } catch (error) {
-      setError(error.message);
+      setError(error);
     }
   };
+
+  console.log(error);
 
   const validatePassword = (password) => {
     const minLength = 8;
