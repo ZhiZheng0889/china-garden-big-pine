@@ -15,7 +15,7 @@ const FoodCard = ({ food }) => {
   return (
     <>
       <article
-        className={`food-item p-0 h-[50rem] overflow-y-hidden flex justify-between`}
+        className={`food-item p-0 h-32 border-b overflow-y-hidden flex justify-between`}
         data-testid="food-card"
       >
         <div className="details pl-3 pt-3 pb-3">

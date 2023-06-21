@@ -44,7 +44,7 @@ async function verify(req, res, next) {
         const updatedUser = await service.verifyPhoneNumber(user_id, foundUser);
         const formattedUser = updatedUser.toObject();
         delete formattedUser.password;
-        return res.status(200).json({
+        res.locals.payload = res.status(200).json({
           data: {
             user: formattedUser,
             response,

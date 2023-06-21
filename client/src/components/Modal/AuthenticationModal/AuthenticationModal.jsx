@@ -10,9 +10,10 @@ const AuthenticationModal = ({
   requestId,
   setRequestId,
   countryCode,
-  user,
+  user = {},
   setUser,
   isDiffFromUserNumber = false,
+  setIsVerified,
 }) => {
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
@@ -29,6 +30,7 @@ const AuthenticationModal = ({
       setVerifyText("Loading");
       event.preventDefault();
       let user_id = null;
+      console.log("HERe");
       if (!user?.isPhoneNumberVerified) {
         if (!isDiffFromUserNumber) {
           user_id = user._id;
@@ -42,6 +44,10 @@ const AuthenticationModal = ({
       console.log(response);
       if (response.status === "0") {
         submit();
+        if (typeof setIsVerified == "function") {
+          setIsVerified(true);
+          setRequestId(null);
+        }
       } else {
         throw new Error("Error Verifying Phone Number");
       }
@@ -77,7 +83,7 @@ const AuthenticationModal = ({
       setVerifyText("Verify");
     }
   };
-
+  console.log("HERE");
   return (
     requestId && (
       <>
@@ -123,7 +129,7 @@ const AuthenticationModal = ({
                 </h3>
                 <p className="text-neutral-700">
                   Please enter the verification code sent to{" "}
-                  <b className="text-black">{"(910)200-6686"}</b>
+                  <b className="text-black">{phoneNumber}</b>
                 </p>
                 <p>
                   Didn't get a code?{" "}

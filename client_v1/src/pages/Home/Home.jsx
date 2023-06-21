@@ -35,23 +35,6 @@ const Home = () => {
           <div>
             <Food search={search} category={category} />
             <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
-            <Footer />
           </div>
         </section>
         <section></section>
