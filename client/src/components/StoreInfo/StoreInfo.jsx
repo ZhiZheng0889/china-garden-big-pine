@@ -18,7 +18,7 @@ const FoodHeader = () => {
   }, []);
   if (storeHours) {
     storeIsOpen = isOpen(storeHours);
-    if (import.meta.env.VITE_NODE_ENV === "development") {
+    if (import.meta.env.VITE_NODE_ENV === "preview") {
       storeIsOpen = true;
     }
   }
