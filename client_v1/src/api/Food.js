@@ -20,7 +20,7 @@ const getFoodByCategory = async (category, page) => {
 };
 
 const getFoodBySearch = async (search, page) => {
-  const foods = await Api.get(`/foods/search?page=${page}`, {
+  const foods = await Api.post(`/foods/search?page=${page}`, {
     search,
   });
   return foods ?? { results: [], page };
