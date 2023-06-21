@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import Card from "../Card/Card";
 import CheckoutList from "./CheckoutList/CheckoutList";
 import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
-
+import dayjs from "dayjs";
+import { HoursApi } from "../../api/hoursApi";
+import { isOpen } from "../../utils/isOpen";
 // Replace this function with the actual implementation to fetch operation data
 const fetchOperationData = () => {
   // Implement fetching operation data here
@@ -23,6 +25,9 @@ const Checkout = ({ cart, setCart, hideButton, setIsCheckoutOpen }) => {
   }, []);
   if (storeHours) {
     storeIsOpen = isOpen(storeHours);
+    if (import.meta.env.VITE_NODE_ENV === "development") {
+      storeIsOpen = true;
+    }
   }
 
   return (

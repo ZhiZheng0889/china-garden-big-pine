@@ -18,6 +18,9 @@ const FoodHeader = () => {
   }, []);
   if (storeHours) {
     storeIsOpen = isOpen(storeHours);
+    if (import.meta.env.VITE_NODE_ENV === "development") {
+      storeIsOpen = true;
+    }
   }
   return (
     <header className="p-3 border-b">
