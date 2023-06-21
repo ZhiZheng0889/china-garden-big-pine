@@ -5,11 +5,9 @@ const PAGINATION = parseInt(process.env.PAGINATION);
 async function getAllFoods(req, res, next) {
   const { category = "" } = req.query;
   const page = parseInt(req.query.page ?? 1);
-  console.log("HERE");
   const results = category
     ? await service.getByCategory(category, page)
     : await service.getAll(category, page);
-  console.log("RESULTS: ", results);
   res.status(200).json(results);
 }
 

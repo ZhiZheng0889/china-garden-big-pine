@@ -5,18 +5,26 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 const FoodFeed = ({ error, setError, category, search }) => {
   const [foods, setFoods] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getFood = async () => {
+  const getFood = async (isStart) => {
     try {
       setIsLoading(true);
       setError(null);
       if (search) {
-        const response = await Food.getFoodBySearch(search, page);
+        const response = await Food.getFoodBySearch(
+          search,
+          isStart ? 1 : page + 1
+        );
+        return response.data;
       } else {
-        const response = await Food.getFoodByCategory(category ?? "all", page);
+        const response = await Food.getFoodByCategory(
+          category,
+          isStart ? 1 : page + 1
+        );
+        return response.data;
       }
     } catch (error) {
       setError(error);
@@ -25,16 +33,46 @@ const FoodFeed = ({ error, setError, category, search }) => {
     }
   };
 
+  const loadMoreFood = async () => {
+    try {
+      const response = await getFood();
+      setFoods((curr) => [...curr, ...response?.results]);
+      setPage((curr) => response?.page ?? curr + 1);
+      if (response?.page >= response?.totalPage) {
+        setIsEnd(true);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   useEffect(() => {
-    getFood();
+    (async () => {
+      try {
+        const response = await getFood(true);
+        setFoods(response?.results ?? []);
+        setPage(response?.page ?? 1);
+        setIsEnd(false);
+      } catch (error) {
+        setError(error);
+      }
+    })();
   }, [category, search]);
 
   console.log(isEnd);
 
   return (
     <div>
-      {error && <p className="p-3">Error: {error.message}</p>}
-      {!isEnd && <button>Load More</button>}
+      <InfiniteScroll
+        dataLength={foods.length ?? 0}
+        next={loadMoreFood}
+        hasMore={!isEnd}
+        loader={<p className="p-3 font-semibold">Loading...</p>}
+        endMessage={<p className="p-3 font-semibold">No more food available</p>}
+      >
+        <FoodList foods={foods ?? []} />
+      </InfiniteScroll>
+      {error && <p>Error: {error.message}</p>}
     </div>
   );
 };

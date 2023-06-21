@@ -21,7 +21,6 @@ function getBySearch(text, page) {
 }
 
 function getByCategory(category, page) {
-  console.log("cat: ", category);
   if (category === "all") {
     return Pagination.pageable(Food, {}, page);
   }
