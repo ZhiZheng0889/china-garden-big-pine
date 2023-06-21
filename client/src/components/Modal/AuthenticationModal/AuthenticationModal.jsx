@@ -6,13 +6,14 @@ import ErrorAlert from "../../../errors/ErrorAlert";
 import Input from "../../Form/Input/Input";
 const AuthenticationModal = ({
   phoneNumber,
-  submitOrder,
+  submit,
   requestId,
   setRequestId,
   countryCode,
-  user,
+  user = {},
   setUser,
   isDiffFromUserNumber = false,
+  setIsVerified,
 }) => {
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
@@ -39,14 +40,16 @@ const AuthenticationModal = ({
         code,
         user_id
       );
-      console.log(response);
       if (response.status === "0") {
-        submitOrder();
+        submit();
+        if (typeof setIsVerified == "function") {
+          setIsVerified(true);
+        }
+        setRequestId(null);
       } else {
         throw new Error("Error Verifying Phone Number");
       }
       if (response.status === "6") {
-        console.log("in here");
         throw new Error(
           "Phone Number Already Verified. Please exit modal and try again."
         );
@@ -70,14 +73,12 @@ const AuthenticationModal = ({
       const response = await VerifyApi.resendOTP(phoneNumber);
       setNewCodeSent(true);
       setRequestId(response.request_id);
-      console.log(response);
     } catch (err) {
       setError(err);
     } finally {
       setVerifyText("Verify");
     }
   };
-
   return (
     requestId && (
       <>
@@ -123,7 +124,7 @@ const AuthenticationModal = ({
                 </h3>
                 <p className="text-neutral-700">
                   Please enter the verification code sent to{" "}
-                  <b className="text-black">{"(910)200-6686"}</b>
+                  <b className="text-black">{phoneNumber}</b>
                 </p>
                 <p>
                   Didn't get a code?{" "}

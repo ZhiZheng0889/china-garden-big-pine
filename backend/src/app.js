@@ -36,10 +36,12 @@ const { authRouter } = require("./user/user.router");
 const verifyRouter = require("./verify/verify.router");
 const favoriteRouter = require("./favorites/favorites.router");
 const foodsV1Router = require("./foods_v1/foods.router");
+const hoursRouter = require("./hours/hours.router");
 app.use(cookieParser());
 app.use(express.json());
 
 app.use(cors(corsOptions));
+app.use("/hours", hoursRouter);
 app.use("/v1/foods", foodsV1Router);
 app.use("/foods", foodRouter);
 app.use("/orders", orderRouter);

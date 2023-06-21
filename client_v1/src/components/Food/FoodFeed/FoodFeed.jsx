@@ -4,25 +4,37 @@ import FoodList from "../FoodList/FoodList";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const FoodFeed = ({ error, setError, category, search }) => {
-  const [response, setResponse] = useState({});
-  const getFood = () => {
-    if (search) {
-    } else {
+  const [foods, setFoods] = useState([]);
+  const [page, setPage] = useState(1);
+  const [isEnd, setIsEnd] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getFood = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      if (search) {
+        const response = await Food.getFoodBySearch(search, page);
+      } else {
+        const response = await Food.getFoodByCategory(category ?? "all", page);
+      }
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    getFood();
+  }, [category, search]);
+
+  console.log(isEnd);
+
   return (
     <div>
-      <InfiniteScroll
-        dataLength={response.results?.length ?? 0}
-        next={getFood}
-        hasMore={true}
-        loader={<p className="p-3">Loading...</p>}
-        endMessage={<p>No more food available</p>}
-      >
-        <FoodList foods={response?.results ?? []} />
-      </InfiniteScroll>
-      {error && <p>Error: {error.message}</p>}
+      {error && <p className="p-3">Error: {error.message}</p>}
+      {!isEnd && <button>Load More</button>}
     </div>
   );
 };

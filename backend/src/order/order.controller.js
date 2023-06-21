@@ -4,7 +4,10 @@ const hasRequiredProperties = require("../utils/hasRequiredProperties");
 const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const DatabaseErrorHandler = require("../errors/DatabaseErrorHandler");
 const sendEmailToRestaurant = require("../sender/nodemailer");
+const dayjs = require("dayjs");
+const isOpen = require("../utils/isOpen");
 const MAX_ORDER_TOTAL = process.env.MAX_ORDER_TOTAL;
+const NODE_ENV = process.env.NODE_ENV;
 
 // if (!MAX_ORDER_TOTAL) {
 //   throw new Error("Max order total is not defined");
@@ -51,35 +54,41 @@ async function isValidUser_id(req, res, next) {
   return next();
 }
 
-// function isValidEmail(req, res, next) {
-//   const { email = null } = req.body.data;
-//   if (email) {
-//     const { email: foundEmail } = res.locals.user;
-//     if (email === foundEmail) {
-//       return next();
-//     }
-//     return next({
-//       status: 404,
-//       message: 'Email is not valid.',
-//     });
-//   }
-//   return next();
-// }
-
-// function isValidPhoneNumber(req, res, next) {
-//   const { phone_number = '' } = req.body.data;
-//   if (phone_number) {
-//     const { phone_number: foundPhone_number = null } = res.locals.user;
-//     if (phone_number && phone_number !== foundPhone_number) {
-//       return next({
-//         status: 404,
-//         message: 'Not valid phone number.',
-//       });
-//     }
-//     return next();
-//   }
-//   return next();
-// }
+async function isStoreOpen(req, res, next) {
+  if (NODE_ENV === "development") {
+    return next();
+  }
+  const currentDate = dayjs(new Date()).format("YYYY-MM-DD");
+  const foundClosedHours = await service.getClosedHours(currentDate);
+  if (foundClosedHours) {
+    return next({
+      status: 400,
+      message: "Sorry, the store is currently closed",
+    });
+  }
+  const dayOfWeek = dayjs(new Date()).format("dddd").toLowerCase();
+  if (!dayOfWeek) {
+    return next({
+      status: 500,
+      message: "Error creating the day of the week",
+    });
+  }
+  const operationHours = await service.getOperationHours();
+  if (!operationHours) {
+    return next({
+      status: 500,
+      message: "Error getting operation hours",
+    });
+  }
+  const isStoreOpen = isOpen(operationHours[dayOfWeek]);
+  if (isStoreOpen) {
+    return next();
+  }
+  return next({
+    status: 400,
+    message: "Sorry, the store is currently closed",
+  });
+}
 
 function cartHasValidProperties(req, res, next) {
   const { cart = [] } = req.body.data;
@@ -368,6 +377,7 @@ module.exports = {
   create: [
     hasOnlyValidProperties(PROPERTIES),
     hasRequiredProperties(REQUIRED_PROPERTIES),
+    asyncErrorBoundary(isStoreOpen),
     asyncErrorBoundary(isValidUser_id),
     cartHasValidProperties,
     cartHasRequiredProperties,

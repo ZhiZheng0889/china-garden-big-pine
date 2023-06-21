@@ -1,6 +1,9 @@
 const Food = require("../db/models/foodModel");
 const Order = require("../db/models/orderModel");
 const User = require("../db/models/userModel");
+const fs = require("fs").promises;
+const Closed = require("../db/models/closedModel");
+const path = require("path");
 /*
  * List orders in descending order
  * @returns Promise<Orders[]>
@@ -106,6 +109,19 @@ async function deleteOrder(order_id) {
   return await OrderModel.findByIdAndDelete(order_id).exec();
 }
 
+function getClosedHours(date) {
+  return Closed.findOne({ date }).exec();
+}
+
+async function getOperationHours() {
+  const hours = await fs.readFile(
+    path.resolve(__dirname, "../db/data/hours.json"),
+    "utf-8"
+  );
+  console.log("hours: ", hours);
+  return JSON.parse(hours);
+}
+
 module.exports = {
   list,
   read,
@@ -120,4 +136,6 @@ module.exports = {
   listOrdersByUserId,
   listFoodsWithFoodIds,
   deleteOrder,
+  getClosedHours,
+  getOperationHours,
 };

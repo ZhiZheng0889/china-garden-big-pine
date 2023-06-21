@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+// const AutoIncrementFactory = require("mongoose-sequence");
+
+// const connection = mongoose.createConnection("mongodb://localhost/test");
+// const AutoIncrement = AutoIncrementFactory(connection);
+
 const FoodSchema = new mongoose.Schema(
   {
     name: { type: String, required: [true, "A food requires a name"] },
@@ -36,6 +41,8 @@ const FoodSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// FoodSchema.plugin(AutoIncrement, { inc_field: "food_id" });
 
 const Food = mongoose.model("Food", FoodSchema);
 

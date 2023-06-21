@@ -15,9 +15,7 @@ function Home() {
         setIsLoggedIn(response.data.loggedIn);
         setIsAdmin(response.data.isAdmin);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
     // axios.get('/check-login-status')
     //   .then(response => {
     //     setLoggedIn(response.data.loggedIn);

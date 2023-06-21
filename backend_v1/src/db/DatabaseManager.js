@@ -14,6 +14,7 @@ const disconnect = () => {
 
 const seed = async (model, data) => {
   try {
+    console.log(data);
     await model.create(data);
     console.log("Data successfully injected!");
   } catch (error) {

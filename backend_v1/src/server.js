@@ -1,5 +1,4 @@
 const { PORT = 5000, NODE_ENV } = process.env;
-const mongoose = require("mongoose");
 const app = require("./app");
 const DatabaseConfig = require("./db/DatabaseConfig");
 const DatabaseManager = require("./db/DatabaseManager");

@@ -1080,6 +1080,62 @@
     "available": true
   },
   {
+    "name": "General Tso's Fried Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "General Tso's Steam Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Sesame Fried Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Sesame Steam Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Fried Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Orange Steam Tofu",
+    "base_price": 14.95,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
+    "name": "Mo Po Tofu",
+    "base_price": 16.45,
+    "category": "chef_special",
+    "description": "",
+    "spicy": true,
+    "available": true
+  },
+  {
     "name": "Shrimp with Chinese Vegetable",
     "base_price": 15.75,
     "category": "seafood",
