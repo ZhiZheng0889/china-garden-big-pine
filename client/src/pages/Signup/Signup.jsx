@@ -57,7 +57,6 @@ const Signup = ({ setUser }) => {
         phoneNumber,
         countryCode
       );
-      console.log("RESPONSE: ", response);
       if (response.request_id) {
         setRequestId(response.request_id);
       } else {
@@ -131,8 +130,6 @@ const Signup = ({ setUser }) => {
       setButtonText("Continue");
     }
   };
-
-  console.log(isVerified);
 
   return (
     <>

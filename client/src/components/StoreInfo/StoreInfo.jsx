@@ -18,9 +18,7 @@ const FoodHeader = () => {
   }, []);
   if (storeHours) {
     storeIsOpen = isOpen(storeHours);
-    console.log(isOpen(storeHours));
   }
-  console.log("STORE HOURS: ", storeHours);
   return (
     <header className="p-3 border-b">
       <h2 className="font-semibold">China Garden</h2>

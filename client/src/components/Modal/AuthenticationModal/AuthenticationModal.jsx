@@ -30,7 +30,6 @@ const AuthenticationModal = ({
       setVerifyText("Loading");
       event.preventDefault();
       let user_id = null;
-      console.log("HERe");
       if (!user?.isPhoneNumberVerified) {
         if (!isDiffFromUserNumber) {
           user_id = user._id;
@@ -41,7 +40,6 @@ const AuthenticationModal = ({
         code,
         user_id
       );
-      console.log(response);
       if (response.status === "0") {
         submit();
         if (typeof setIsVerified == "function") {
@@ -52,7 +50,6 @@ const AuthenticationModal = ({
         throw new Error("Error Verifying Phone Number");
       }
       if (response.status === "6") {
-        console.log("in here");
         throw new Error(
           "Phone Number Already Verified. Please exit modal and try again."
         );
@@ -76,14 +73,12 @@ const AuthenticationModal = ({
       const response = await VerifyApi.resendOTP(phoneNumber);
       setNewCodeSent(true);
       setRequestId(response.request_id);
-      console.log(response);
     } catch (err) {
       setError(err);
     } finally {
       setVerifyText("Verify");
     }
   };
-  console.log("HERE");
   return (
     requestId && (
       <>

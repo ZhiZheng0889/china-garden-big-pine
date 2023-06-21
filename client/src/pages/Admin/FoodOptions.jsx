@@ -30,9 +30,7 @@ function FoodOptions() {
       .then((response) => {
         setFood(response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   if (!loggedIn) {
@@ -57,9 +55,7 @@ function FoodOptions() {
       .then((response) => {
         setFood(response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   //display edit food price form
