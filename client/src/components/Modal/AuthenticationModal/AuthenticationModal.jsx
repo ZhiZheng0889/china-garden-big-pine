@@ -44,8 +44,8 @@ const AuthenticationModal = ({
         submit();
         if (typeof setIsVerified == "function") {
           setIsVerified(true);
-          setRequestId(null);
         }
+        setRequestId(null);
       } else {
         throw new Error("Error Verifying Phone Number");
       }
