@@ -1,6 +1,5 @@
 import React from "react";
 function ErrorAlert({ error, className, showClose, setError = () => {} }) {
-  console.log("ERROR: ", error);
   return (
     error &&
     error.message && (

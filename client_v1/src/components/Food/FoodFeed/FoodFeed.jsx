@@ -14,7 +14,6 @@ const FoodFeed = ({ error, setError, category, search }) => {
     try {
       setIsLoading(true);
       setError(null);
-      console.log("search: ", search);
       if (search) {
         const response = await Food.getFoodBySearch(
           search,
@@ -38,7 +37,6 @@ const FoodFeed = ({ error, setError, category, search }) => {
   const loadMoreFood = async () => {
     try {
       const response = await getFood();
-      console.log("=============02039j20>", response);
       if (response?.results) {
         setFoods((curr) => [...curr, ...response?.results]);
       }
@@ -66,9 +64,6 @@ const FoodFeed = ({ error, setError, category, search }) => {
       }
     })();
   }, [category, search]);
-
-  console.log("=-=========>", isEnd);
-
   return (
     <div>
       <InfiniteScroll
