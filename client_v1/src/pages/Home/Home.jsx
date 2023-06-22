@@ -6,6 +6,7 @@ import FoodSearch from "../../components/Food/FoodSearch/FoodSearch";
 import FoodList from "../../components/Food/FoodList/FoodList";
 import Footer from "../../components/Footer/Footer";
 import Food from "../../components/Food/Food";
+import Checkout from "../../components/Checkout/Checkout";
 
 const Home = () => {
   const [category, setCategory] = useState("all");
@@ -37,7 +38,9 @@ const Home = () => {
             <Footer />
           </div>
         </section>
-        <section></section>
+        <section>
+          <Checkout />
+        </section>
       </Container>
     </main>
   );

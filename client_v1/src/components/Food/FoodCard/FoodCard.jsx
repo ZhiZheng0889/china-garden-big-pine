@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
+import { selectFood } from "../../../slices/selectedFoodSlice";
+
+import ButtonWhitePill from "../../Button/ButtonWhitePill/ButtonWhitePill";
 const FoodCard = ({ food }) => {
   const {
     _id,
@@ -12,6 +16,12 @@ const FoodCard = ({ food }) => {
     amount = null,
     imageUrl = null,
   } = food;
+
+  const dispatch = useDispatch();
+
+  const chooseFood = () => {
+    dispatch(selectFood(food));
+  };
   return (
     <>
       <article
@@ -19,19 +29,26 @@ const FoodCard = ({ food }) => {
         data-testid="food-card"
       >
         <div className="details pl-3 pt-3 pb-3">
-          <div>
-            <h5>
-              {name}
-              {amount && (
-                <span className=" ms-2 text-muted text-thin">({amount})</span>
-              )}
-            </h5>
-            {spicy && <p>🌶</p>}
+          <div className="flex flex-col gap-0">
+            <div className="flex gap-1 items-center">
+              <h5 className="text-lg font-semibold">
+                {name}
+                {amount && (
+                  <span className=" ms-2 text-muted text-thin">({amount})</span>
+                )}
+              </h5>
+              {spicy && <p className="text-red-800 text-xl">🌶</p>}
+            </div>
+
+            {description && (
+              <p
+                className={`hidden md:block pr-2 text-gray-600  -translate-y-1`}
+              >
+                {description}
+              </p>
+            )}
           </div>
 
-          {description && (
-            <p className={`hidden md:block pr-2`}>{description}</p>
-          )}
           <div>
             <p className="me-2 mb-0">
               ${basePrice && Number(basePrice).toFixed(2)}
@@ -44,8 +61,13 @@ const FoodCard = ({ food }) => {
             <img
               src={imageUrl}
               className="object-cover w-[14rem] object-center hidden sm:block"
-              alt={`${name} image`}
             />
+            <ButtonWhitePill
+              className="absolute top-3 right-3"
+              onClick={chooseFood}
+            >
+              <i className="fa-solid fa-plus me-1"></i> Add
+            </ButtonWhitePill>
           </div>
         </div>
       </article>

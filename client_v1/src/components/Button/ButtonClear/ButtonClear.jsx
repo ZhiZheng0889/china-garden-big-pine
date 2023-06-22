@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../Button";
 
-const ButtonWhite = ({
+const ButtonClear = ({
   link = "",
   onClick,
   children,
@@ -9,12 +9,13 @@ const ButtonWhite = ({
   role = "button",
   width = "min-w-[4rem]",
 }) => {
+  console.log(children);
   return (
     <Button
       link={link}
       onClick={onClick}
       role={role}
-      className={`bg-white hover:bg-gray-100 active:bg-gray-200 ${width} duration-200 ease-out${
+      className={`bg-inherit hover:bg-gray-100 active:bg-gray-200 ${width} duration-200 ease-out${
         className && " " + className
       }`}
     >
@@ -23,4 +24,4 @@ const ButtonWhite = ({
   );
 };
 
-export default ButtonWhite;
+export default ButtonClear;
