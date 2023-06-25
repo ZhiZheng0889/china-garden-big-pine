@@ -32,7 +32,7 @@ const SideNav = ({ className, category, setCategory, setIsBurgerOpen }) => {
     "lunch",
   ];
   return (
-    <ul>
+    <ul className="overflow-hidden">
       {categories.map((cat) => {
         return (
           <li key={cat} onClick={changeCategory} id={cat}>

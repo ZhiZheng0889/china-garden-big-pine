@@ -32,17 +32,13 @@ function App() {
           if (response) {
             storage.local.set("refreshToken", response.refreshToken);
             delete response.refreshToken;
-            console.log(response);
-            console.log(response?._doc);
             if (response._doc) {
               setUser(response._doc.Object);
             } else {
               setUser(response);
             }
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       };
       getUser();
     }

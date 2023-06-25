@@ -18,9 +18,10 @@ const FoodHeader = () => {
   }, []);
   if (storeHours) {
     storeIsOpen = isOpen(storeHours);
-    console.log(isOpen(storeHours));
+    if (import.meta.env.VITE_NODE_ENV === "development") {
+      storeIsOpen = true;
+    }
   }
-  console.log("STORE HOURS: ", storeHours);
   return (
     <header className="p-3 border-b">
       <h2 className="font-semibold">China Garden</h2>

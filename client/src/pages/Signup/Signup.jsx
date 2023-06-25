@@ -24,6 +24,7 @@ const Signup = ({ setUser }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [requestId, setRequestId] = useState(null);
+  const [isVerified, setIsVerified] = useState(false);
   const captchaRef = useRef(null);
 
   const changeFirstName = ({ target: { value } }) => {
@@ -38,8 +39,13 @@ const Signup = ({ setUser }) => {
     setConfirmPassword(value);
   };
 
-  const checkVerification = async () => {
+  const verifyPhoneNumber = async (event) => {
     try {
+      event.preventDefault();
+      if (isVerified) {
+        onSubmit();
+        return;
+      }
       setError(null);
       if (!Validator.validatePhoneNumber(phoneNumber)) {
         if (!phoneNumber) {
@@ -47,21 +53,22 @@ const Signup = ({ setUser }) => {
         }
         throw new Error(`Phone number: ${phoneNumber} is invalid`);
       }
-      const response = await VerifyApi.verifyPhoneNumberOnSignup(
+      const response = await VerifyApi.sendVerifyToPhoneNumber(
         phoneNumber,
         countryCode
       );
-      if (response.success) {
-        // If successful, then do something.
-        setRequestId(response.data.requestId);
+      console.log(response);
+      if (response.request_id) {
+        setRequestId(response.request_id);
       } else {
-        // If not successful, handle error.
-        throw new Error(response.message);
+        throw new Error("Error validating phone number");
       }
     } catch (error) {
-      setError(error.message);
+      setError(error);
     }
   };
+
+  console.log(error);
 
   const validatePassword = (password) => {
     const minLength = 8;
@@ -83,9 +90,8 @@ const Signup = ({ setUser }) => {
     return false;
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = async () => {
     setError(null);
-    event.preventDefault();
     setButtonText("Loading...");
 
     // if (!validatePassword(password)) {
@@ -137,7 +143,7 @@ const Signup = ({ setUser }) => {
           )}
           <p className="text-center">Welcome to</p>
           <h1 className="text-center text-2xl font-semibold">China Garden</h1>
-          <form onSubmit={onSubmit} className="flex flex-col gap-4">
+          <form onSubmit={verifyPhoneNumber} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <label htmlFor="phoneNumber" className="capitalize">
                 Phone Number
@@ -184,8 +190,9 @@ const Signup = ({ setUser }) => {
                   type="button"
                 >
                   <i
-                    className={`fa-solid text-neutral-600 ${showPassword ? "fa-eye" : "fa-eye-slash"
-                      }`}
+                    className={`fa-solid text-neutral-600 ${
+                      showPassword ? "fa-eye" : "fa-eye-slash"
+                    }`}
                   ></i>
                 </button>
               </div>
@@ -212,8 +219,9 @@ const Signup = ({ setUser }) => {
                   type="button"
                 >
                   <i
-                    className={`fa-solid text-neutral-600 ${showConfirmPassword ? "fa-eye" : "fa-eye-slash"
-                      }`}
+                    className={`fa-solid text-neutral-600 ${
+                      showConfirmPassword ? "fa-eye" : "fa-eye-slash"
+                    }`}
                   ></i>
                 </button>
               </div>
@@ -243,7 +251,8 @@ const Signup = ({ setUser }) => {
           phoneNumber={phoneNumber}
           countryCode={countryCode}
           setCountryCode={setCountryCode}
-          submit={signupUser}
+          submit={onSubmit}
+          setIsVerified={setIsVerified}
         />
       )}
     </>

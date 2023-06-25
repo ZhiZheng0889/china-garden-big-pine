@@ -1,7 +1,7 @@
 const pagination = parseInt(process.env.PAGINATION);
 
-const getTotal = async (model) => {
-  return model.countDocuments();
+const getTotal = async (model, conditonal) => {
+  return model.countDocuments(conditonal);
 };
 
 const getPageAmount = (total) => {
@@ -13,8 +13,7 @@ const pageable = async (model, conditonal, page) => {
     .find(conditonal)
     .skip((page - 1) * pagination)
     .limit(pagination);
-  console.log("RESULTSSSS: ", results);
-  const total = await getTotal(model);
+  const total = await getTotal(model, conditonal);
   return {
     results,
     pagination,

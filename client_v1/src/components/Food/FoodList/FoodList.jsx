@@ -5,7 +5,6 @@ import FoodFeed from "../FoodFeed/FoodFeed";
 import FoodCard from "../FoodCard/FoodCard";
 
 const FoodList = ({ foods }) => {
-  console.log("foods: ", foods);
   return (
     <ul>
       {foods.map((food) => {

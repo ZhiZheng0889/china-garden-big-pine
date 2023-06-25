@@ -5,10 +5,11 @@ import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import Container from "../Container/Container";
 import NavbarNotSignedIn from "./NavbarNotSignedIn/NavbarNotSignedIn";
 import NavbarSignedIn from "./NavbarSignedIn/NavbarSignedIn";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
-  const { user } = useSelector((state) => state.user);
-  console.log(user);
+  const { isAuthenticated, isLoading, user } = useAuth0();
+  console.log(isLoading, isAuthenticated, user);
   return (
     <nav className="py-4 bg-red-700 text-white">
       <Container className="flex justify-between items-center">
@@ -16,7 +17,11 @@ const Navbar = () => {
           <h1 className="font-semibold text-xl">China Garden</h1>
         </Link>
         <ul>
-          {isObjectEmpty(user) ? <NavbarNotSignedIn /> : <NavbarSignedIn />}
+          {!isLoading && isAuthenticated ? (
+            <NavbarSignedIn />
+          ) : (
+            <NavbarNotSignedIn />
+          )}
         </ul>
       </Container>
     </nav>

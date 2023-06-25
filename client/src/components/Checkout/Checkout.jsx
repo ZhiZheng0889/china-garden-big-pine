@@ -2,41 +2,33 @@ import React, { useState, useEffect } from "react";
 import Card from "../Card/Card";
 import CheckoutList from "./CheckoutList/CheckoutList";
 import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
-
+import dayjs from "dayjs";
+import { HoursApi } from "../../api/hoursApi";
+import { isOpen } from "../../utils/isOpen";
 // Replace this function with the actual implementation to fetch operation data
 const fetchOperationData = () => {
   // Implement fetching operation data here
 };
 
 const Checkout = ({ cart, setCart, hideButton, setIsCheckoutOpen }) => {
-  const [operationData, setOperationData] = useState(null);
-  const [isBusinessOpen, setIsBusinessOpen] = useState(true);
-
+  const [storeHours, setStoreHours] = useState(null);
+  let storeIsOpen = null;
   useEffect(() => {
-    // fetchOperationData()
-    //   .then(data => setOperationData(data))
-    //   .catch(error => console.error(error));
+    (async () => {
+      const currentTime = new Date().toLocaleString("en-US", {
+        timeZone: "America/New_York",
+      });
+      const formattedTime = dayjs(currentTime).format("YYYY-MM-DD");
+      const foundHours = await HoursApi.getDailyHours(formattedTime);
+      setStoreHours(foundHours);
+    })();
   }, []);
-
-  useEffect(() => {
-    if (operationData) {
-      let currentTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
-      let currentHour = new Date(currentTime).getHours();
-      let currentDay = new Date(currentTime).getDay();
-      let currentDate = new Date(currentTime).toISOString().split("T")[0];
-      let businessStartHour = operationData.startHour;
-      let businessEndHour = operationData.endHour;
-      let closedDays = operationData.closedDays;
-      let holidays = operationData.holidays;
-      let isDevMode = operationData.isDevMode;
-
-      if (isDevMode || (currentHour >= businessStartHour && currentHour < businessEndHour && !closedDays.includes(currentDay) && !holidays.includes(currentDate))) {
-        setIsBusinessOpen(true);
-      } else {
-        setIsBusinessOpen(false);
-      }
+  if (storeHours) {
+    storeIsOpen = isOpen(storeHours);
+    if (import.meta.env.VITE_NODE_ENV === "development") {
+      storeIsOpen = true;
     }
-  }, [operationData]);
+  }
 
   return (
     <>
@@ -52,12 +44,17 @@ const Checkout = ({ cart, setCart, hideButton, setIsCheckoutOpen }) => {
           <h3 className="text-lg font-semibold">Checkout</h3>
           <CheckoutFooter
             cart={cart}
-            hideButton={!isBusinessOpen || hideButton}
+            hideButton={!storeIsOpen || hideButton}
             setIsCheckoutOpen={setIsCheckoutOpen}
           />
         </div>
       )}
-      {!isBusinessOpen && <p>Sorry, our business is currently closed. We are open Monday to Saturday, from 11:00 AM to 9:30 PM (Florida time).</p>}
+      {!storeIsOpen && (
+        <p className="p-3 font-semibold border-t mt-3">
+          Sorry we are currently closed. Please view our home page for opening
+          hours.
+        </p>
+      )}
     </>
   );
 };

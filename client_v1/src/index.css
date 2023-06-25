@@ -22,6 +22,7 @@
 body {
   min-height: 100vh;
   font-family: "Source Sans Pro", sans-serif;
+  background-color: #f3f4f6;
 }
 
 #root {
@@ -49,6 +50,22 @@ h6,
 .custom-grid {
   display: grid;
   grid-template-columns: 1fr;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.377);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media screen and (min-width: 500px) {

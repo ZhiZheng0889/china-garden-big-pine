@@ -62,35 +62,31 @@ export class Cart {
   static getCartTotal(cart) {
     return Array.isArray(cart)
       ? cart.reduce((accumulator, item) => {
-          let currentOptionPrice = 0;
-          let currentSizePrice = 0;
-          if (item.selectedOption) {
-            currentOptionPrice =
-              item.options[item.selectedOption].upCharge || 0;
-          }
-          if (item.selectedSize) {
-            currentSizePrice = item.sizes[item.selectedSize].upCharge || 0;
-          }
-          const total =
-            (item.food.basePrice + currentOptionPrice + currentSizePrice) *
-            item.quantity;
-          return accumulator + total;
+          return accumulator + this.calculateItemTotal(item);
         }, 0)
       : 0;
   }
 
-  static getItemTotal(index, cart) {
-    const cartItem = cart[index];
+  static calculateItemTotal(cartItem) {
+    if (!cartItem) {
+      return 0;
+    }
     let optionTotal = 0;
     let sizeTotal = 0;
-    if (optionTotal) {
-      optionTotal = cartItem.food.options[cartItem.selectedFoodOption];
+    if (cartItem?.selectedFoodOption) {
+      optionTotal = cartItem.food.options[cartItem.selectedFoodOption].upcharge;
     }
-    if (sizeTotal) {
-      sizeTotal = cartItem.food.sizes[cartItem.selectedFoodSize];
+    if (cartItem?.selectedFoodSize) {
+      sizeTotal = cartItem.food.sizes[cartItem.selectedFoodSize].upcharge;
     }
     const total =
       (cartItem.food.basePrice + optionTotal + sizeTotal) * cartItem.quantity;
+    return total;
+  }
+
+  static getItemTotal(index, cart) {
+    const cartItem = cart[index];
+    const total = this.calculateItemTotal(cartItem);
     return total;
   }
 
