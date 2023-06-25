@@ -1,29 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
-import GoogleMapReact from 'google-map-react';
-const { VITE_MAP_API_KEY } = import.meta.env;
+import React from 'react';
+import { MapContainer, TileLayer } from 'react-leaflet';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-const MapContainer = () => {
-  const defaultProps = {
-    center: {
-      lat: 10.99835602,
-      lng: 77.01502627,
-    },
-    zoom: 11,
-  };
+const MapComponent = () => {
+  const defaultCenter = {
+    lat: 24.6723989215785,
+    lng: -81.35672075039446
+  }
 
   return (
-    <div style={{ height: '50rem', width: '100%' }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: VITE_MAP_API_KEY }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-      >
-        <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" />
-      </GoogleMapReact>
-    </div>
+    <MapContainer
+      center={defaultCenter}
+      zoom={13}
+      style={{ height: "100%", width: "100%" }}>
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      />
+    </MapContainer>
   );
-};
+}
 
-export default MapContainer;
+export default MapComponent;

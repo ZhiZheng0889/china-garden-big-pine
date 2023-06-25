@@ -11,6 +11,7 @@ import CheckoutComponent from "../../components/Checkout/Checkout";
 import PhoneInput from "../../components/Form/PhoneInput/PhoneInput";
 import { Validator } from "../../utils/Validator";
 import SkipVerificationModal from "../../components/Modal/SkipVerificationModal/SkipVerificationModal";
+
 const VITE_MAX_ORDER_TOTAL = import.meta.env.VITE_MAX_ORDER_TOTAL;
 const Checkout = ({ cart, setCart, className, user, setUser }) => {
   const [error, setError] = useState(null);
@@ -150,16 +151,26 @@ const Checkout = ({ cart, setCart, className, user, setUser }) => {
               <CheckoutComponent cart={cart} setCart={setCart} hideButton />
             </div>
           </Card>
+
           <Card classes="mb-4 flex flex-col items-center">
-            <div className="flex w-full">
+            <div className="flex w-full justify-center">
               <h3 className="text-lg font-semibold text-left">
                 2. Review order
               </h3>
             </div>
-            {/* <MapContainer /> */}
-            <p>Estimated completion time</p>
-            <p className="font-semibold text-xl">15-25 Minutes</p>
+            <div className="text-center">
+              <p>Estimated average completion time</p>
+              <p className="font-semibold text-xl">15-25 Minutes</p>
+              <p>For more accurate estimated completion time, please call (305)872-8861</p>
+            </div>
+            <div>
+              <a href="https://goo.gl/maps/8ZuV2HAXCwsEuW1t9" target="_blank" rel="noopener noreferrer" style={{ color: 'red' }}>
+                View on Google Maps: China Garden<br />
+                209 Key Deer Blvd, Big Pine Key, FL 33043
+              </a>
+            </div>
           </Card>
+
           <Card classes="mb-4 flex flex-col gap-3 items-center">
             <div className="flex flex-col w-full">
               <h3 className="text-lg font-semibold text-left">

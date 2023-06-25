@@ -2,21 +2,28 @@ import React from "react";
 import CheckoutListItem from "./CheckoutListItem/CheckoutListItem";
 import styles from "./CheckoutList.module.css";
 import { Cart } from "../../../utils/Cart";
+
 const CheckoutList = ({ cart, setCart }) => {
   if (!cart.length) {
     return <p className="p-3">Cart is empty...</p>;
   }
+
   const clearCart = () => {
     Cart.clearCart(setCart);
   };
+
   return (
     <>
       <ul className={styles.list}>
         {Array.isArray(cart) &&
           cart.map((item, index) => {
+            const key = item.name + index;
+            if (isNaN(key)) {
+              console.log('NaN key detected for item:', item);
+            }
             return (
               <CheckoutListItem
-                key={item.name + index}
+                key={key}
                 item={item}
                 cart={cart}
                 setCart={setCart}
