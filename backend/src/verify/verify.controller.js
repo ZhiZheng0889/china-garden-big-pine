@@ -23,7 +23,6 @@ async function verify(req, res, next) {
   try {
     const { request_id, code, user_id } = req.body.data;
     const response = await vonage.verify.check(request_id, code);
-    console.log("response: ", response);
     if (response.status === "6") {
       return next({
         status: 400,
@@ -66,8 +65,7 @@ async function verify(req, res, next) {
 
 function send(req, res, next) {
   const { phoneNumber, countryCode = "1" } = req.body.data;
-  console.log("tel: ", phoneNumber, "cc: ", countryCode);
-  console.log("formatted: ", formatPhoneNumber(phoneNumber, countryCode));
+  console.log(phoneNumber, countryCode);
   vonage.verify
     .start({
       number: formatPhoneNumber(phoneNumber, countryCode),

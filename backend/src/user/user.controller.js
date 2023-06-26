@@ -5,6 +5,7 @@ const { SALT } = process.env;
 const UserAuth = require("../auth/UserAuth");
 const hasOnlyValidProperties = require("../utils/hasOnlyValidProperties");
 const hasRequiredProperties = require("../utils/hasRequiredProperties");
+const { formatPhoneNumber } = require("../utils/formatPhoneNumber");
 
 const VALID_PROPERTIES = [
   "email",
@@ -53,7 +54,9 @@ async function isPhoneNumberAvailable(req, res, next) {
 async function encryptPassword(req, res, next) {
   try {
     const { password } = req.body.data;
+    console.log(password);
     const hashedPassword = await bcrypt.hash(password, parseInt(SALT));
+    console.log(hashedPassword);
     res.locals.password = hashedPassword;
     return next();
   } catch (error) {
@@ -287,11 +290,9 @@ async function editFields(req, res, next) {
       ...user,
       ...fields,
     };
-    console.log("updated User: ", updatedUser);
     const updatedUserResponse = await service.updateUser({ _id }, updatedUser);
     const userObject = updatedUserResponse.toObject();
     delete userObject.password;
-    console.log("UO: ", userObject);
     res.status(200).json({ data: userObject });
   } catch (error) {
     return next({
@@ -303,12 +304,20 @@ async function editFields(req, res, next) {
 
 async function changePasswords(req, res, next) {
   try {
-    const { user, password } = res.locals;
-    const updatedUser = { ...user, password };
-    const updatedUserResponse = await service.updateUser(
-      { _id: user._id },
-      updatedUser
-    );
+    const { password } = res.locals;
+    const { phoneNumber } = req.body.data;
+    console.log("PHONE NUMBER: ", phoneNumber, password);
+    const foundUser = await service.getUserByPhoneNumber(phoneNumber);
+    console.log(foundUser);
+    if (!foundUser) {
+      return next({
+        status: 404,
+        message: "Phone number cannot be found",
+      });
+    }
+    const updatedUser = { ...foundUser.toObject(), password };
+    const updatedUserResponse = await service.updateUser(updatedUser);
+    console.log(updatedUserResponse);
     res.status(200).json({ data: "User password successfully changed" });
   } catch (error) {
     return next({
@@ -346,7 +355,6 @@ async function limitFailedLoginAttempts(req, res, next) {
   next();
 }
 
-
 module.exports = {
   loginWithToken: [
     asyncErrorBoundary(isRefreshTokenValid),
@@ -379,9 +387,6 @@ module.exports = {
     asyncErrorBoundary(editFields),
   ],
   changePassword: [
-    hasOnlyValidProperties(["password", "user_id"]),
-    hasRequiredProperties(["password", "user_id"]),
-    asyncErrorBoundary(getUserFromId),
     asyncErrorBoundary(encryptPassword),
     asyncErrorBoundary(changePasswords),
   ],
