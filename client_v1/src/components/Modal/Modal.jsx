@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ModalHeader from "./ModalHeader/ModalHeader";
 
 const Modal = ({ isOpen, closeModal, header, children }) => {
+  useEffect(() => {
+    const escFunction = (event) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    };
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      return document.removeEventListener("keydown", escFunction, false);
+    };
+  }, []);
   return (
     isOpen && (
       <>
