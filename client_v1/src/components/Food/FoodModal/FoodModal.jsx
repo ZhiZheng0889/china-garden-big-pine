@@ -6,6 +6,21 @@ import FoodModalSizes from "./FoodModalSizes/FoodModalSizes";
 import FoodModalOptions from "./FoodModalOptions/FoodModalOptions";
 import FoodModalFooter from "./FoodModalFooter/FoodModalFooter";
 
+const calculateTotal = (quantity, food, selectedOption, selectedSize) => {
+  let total = 0;
+  let optionTotal = 0;
+  let sizeTotal = 0;
+  if (food) {
+    if (selectedOption === 0 || selectedOption) {
+      optionTotal = food.options[selectedOption]?.upcharge ?? 0;
+    }
+    if (selectedSize === 0 || selectedSize) {
+      sizeTotal = food.sizes[selectedSize]?.upcharge ?? 0;
+    }
+  }
+  return (food?.basePrice + sizeTotal + optionTotal) * quantity;
+};
+
 const FoodModal = ({ selectedFood }) => {
   const [error, setError] = useState(null);
   const [specialRequest, setSpecialRequest] = useState("");
@@ -16,11 +31,21 @@ const FoodModal = ({ selectedFood }) => {
   const [selectedSize, setSelectedSize] = useState(
     selectedFood?.sizes.length ? 0 : null
   );
+
+  const total = calculateTotal(
+    quantity,
+    selectedFood,
+    selectedOption,
+    selectedSize
+  );
+
   const dispatch = useDispatch();
 
   const closeModal = () => {
     dispatch(unselectFood());
   };
+
+  const handleAddToCart = () => {};
   console.log("OPENED", selectedFood);
   return (
     selectedFood && (
@@ -50,7 +75,12 @@ const FoodModal = ({ selectedFood }) => {
             setSelectedSize={setSelectedSize}
           />
         </div>
-        <FoodModalFooter />
+        <FoodModalFooter
+          total={total}
+          quantity={quantity}
+          setQuantity={setQuantity}
+          handleAddToCart={handleAddToCart}
+        />
       </Modal>
     )
   );
