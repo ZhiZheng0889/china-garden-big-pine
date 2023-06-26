@@ -8,6 +8,7 @@ const ButtonClear = ({
   className = "",
   role = "button",
   width = "min-w-[4rem]",
+  id,
 }) => {
   console.log(children);
   return (
@@ -18,6 +19,7 @@ const ButtonClear = ({
       className={`bg-inherit hover:bg-gray-100 active:bg-gray-200 ${width} duration-200 ease-out${
         className && " " + className
       }`}
+      id={id}
     >
       {children}
     </Button>
