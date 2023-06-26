@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Modal from "../../Modal/Modal";
 import { useDispatch } from "react-redux";
 import { unselectFood } from "../../../slices/selectedFoodSlice";
+import FoodModalSizes from "./FoodModalSizes/FoodModalSizes";
+import FoodModalOptions from "./FoodModalOptions/FoodModalOptions";
+import FoodModalFooter from "./FoodModalFooter/FoodModalFooter";
+
 const FoodModal = ({ selectedFood }) => {
   const [error, setError] = useState(null);
   const [specialRequest, setSpecialRequest] = useState("");
@@ -10,7 +14,7 @@ const FoodModal = ({ selectedFood }) => {
     selectedFood?.options ? 0 : null
   );
   const [selectedSize, setSelectedSize] = useState(
-    selectedFood?.sizes ? 0 : null
+    selectedFood?.sizes.length ? 0 : null
   );
   const dispatch = useDispatch();
 
@@ -18,7 +22,38 @@ const FoodModal = ({ selectedFood }) => {
     dispatch(unselectFood());
   };
   console.log("OPENED", selectedFood);
-  return <Modal closeModal={closeModal}></Modal>;
+  return (
+    selectedFood && (
+      <Modal closeModal={closeModal} isOpen={selectedFood}>
+        <div className="p-3 flex flex-col gap-3">
+          <div>
+            <h3 className="text-2xl font-semibold">{selectedFood.name}</h3>
+            {selectedFood.description && (
+              <p className="hidden md:block pr-2 text-gray-600 -translate-y-1">
+                {selectedFood.description}
+              </p>
+            )}
+          </div>
+          {selectedFood.imageUrl && (
+            <div className="mt-7">
+              <img src={selectedFood.imageUrl} className="max-h-96" />
+            </div>
+          )}
+          <FoodModalOptions
+            options={selectedFood.options}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+          />
+          <FoodModalSizes
+            sizes={selectedFood.sizes}
+            selectedSize={selectedSize}
+            setSelectedSize={setSelectedSize}
+          />
+        </div>
+        <FoodModalFooter />
+      </Modal>
+    )
+  );
 };
 
 export default FoodModal;

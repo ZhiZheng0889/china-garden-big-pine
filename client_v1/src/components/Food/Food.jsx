@@ -27,7 +27,7 @@ const Food = ({ search, category }) => {
           search={search}
         />
       </Card>
-      {selectedFood && <FoodModal selectedFood={selectedFood} />}
+      <FoodModal selectedFood={selectedFood} />
     </>
   );
 };
