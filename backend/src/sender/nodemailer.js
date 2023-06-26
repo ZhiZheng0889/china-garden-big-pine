@@ -39,7 +39,6 @@ async function sendEmailToRestaurant(order, cart) {
     const htmlContent = htmlTemplate
       .replace("{{order_id}}", order_id)
       .replace("{{phoneNumber}}", phoneNumber)
-      .replace("{{email}}", email)
       .replace("{{name}}", name)
       .replace("{{cartItems}}", cartItems.join(""))
       .replace("{{pickupTime}}", pickupTime);
