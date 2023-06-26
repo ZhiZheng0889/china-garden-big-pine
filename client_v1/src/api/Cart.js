@@ -1,7 +1,8 @@
 import Api from "./Api";
 
-const addToCart = async (cartItem, cart_id) => {
-  const updatedCart = await Api.put("/add", {
+const addToCart = async (cartItem, cart_id = null) => {
+  console.log(cartItem, "<=======");
+  const updatedCart = await Api.put("cart/add", {
     item: cartItem,
     cart_id,
   });

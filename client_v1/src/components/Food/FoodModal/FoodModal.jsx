@@ -7,6 +7,7 @@ import FoodModalOptions from "./FoodModalOptions/FoodModalOptions";
 import FoodModalFooter from "./FoodModalFooter/FoodModalFooter";
 import FoodModalSpecialRequest from "./FoodModalSpecialRequest/FoodModalSpecialRequest";
 import ErrorAlertFixed from "../../../errors/ErrorAlertFixed/ErrorAlertFixed";
+import Cart from "../../../api/Cart";
 
 const calculateTotal = (quantity, food, selectedOption, selectedSize) => {
   let optionTotal = 0;
@@ -46,7 +47,7 @@ const FoodModal = ({ selectedFood }) => {
     dispatch(unselectFood());
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const itemToAdd = {
       food_id: selectedFood._id,
       specialRequest,
@@ -54,6 +55,8 @@ const FoodModal = ({ selectedFood }) => {
       selectedSize,
       quantity,
     };
+    const response = await Cart.addToCart(itemToAdd);
+    console.log(response);
   };
   console.log("OPENED", selectedFood);
   return (

@@ -16,6 +16,9 @@ async function getCart(req, res, next) {
   const foundCart = await service.getCartById(cart_id);
   if (foundCart) {
     res.locals.cart = foundCart;
+  } else {
+    const createdCart = await service.createCart();
+    res.locals.cart = createdCart;
   }
   return next();
 }
@@ -23,7 +26,7 @@ async function getCart(req, res, next) {
 async function getFoodItem(req, res, next) {
   const {
     item: { food_id },
-  } = req.body.data;
+  } = req.body;
   const foundFoodItem = await service.getFoodItemById(food_id);
   if (foundFoodItem) {
     res.locals.foodItem = foundFoodItem;
@@ -44,10 +47,13 @@ async function getCartAndReturnError(req, res, next) {
 }
 
 async function getFoodItemAndReturnError(req, res, next) {
+  console.log(req.body);
   const {
     item: { food_id },
-  } = req.body.data;
+  } = req.body;
+  console.log(food_id);
   const foundFoodItem = await service.getFoodItemById(food_id);
+  console.log(foundFoodItem);
   if (foundFoodItem) {
     res.locals.foodItem = foundFoodItem;
   }
@@ -59,7 +65,7 @@ async function getFoodItemAndReturnError(req, res, next) {
 
 function isValidFoodSize(req, res, next) {
   const { food } = res.locals;
-  const { selectedSize } = req.body.data;
+  const { selectedSize } = req.body;
   if (Array.isArray(food.sizes) && food.sizes[selectedSize]) {
     return next();
   }
@@ -71,7 +77,7 @@ function isValidFoodSize(req, res, next) {
 
 function isValidFoodOption(req, res, next) {
   const { food } = res.locals;
-  const { selectedOption } = req.body.data;
+  const { selectedOption } = req.body;
   if (Array.isArray(food.options) && food.options[selectedOption]) {
     return next();
   }
@@ -82,7 +88,7 @@ function isValidFoodOption(req, res, next) {
 }
 
 function isValidQuantity(req, res, next) {
-  const { quantity } = req.body.data;
+  const { quantity } = req.body;
   if (quantity >= MIN_QUANTITY && quantity <= MAX_QUANTITY) {
     return next();
   }
@@ -98,13 +104,37 @@ function sendCartPayload(req, res, next) {
 }
 
 async function addCartItem(req, res, next) {
-  const { cart_id, item } = req.body.data;
-  const { food, cart } = res.locals;
+  try {
+    const {
+      item: { selectedOption, selectedSize, quantity, specialRequest },
+    } = req.body;
+    const { food, cart } = res.locals;
+    const cartToBeUpdated = [
+      ...cart.items,
+      {
+        food,
+        selectedOption,
+        selectedSize,
+        quantity,
+        specialRequest,
+      },
+    ];
+    const updatedCart = await service.addCartItem(cartToBeUpdated);
+    if (updatedCart) {
+      res.status(200).json({ data: updatedCart.toObject() });
+    }
+    throw new Error();
+  } catch (error) {
+    return next({
+      status: 400,
+      message: "Error adding to cart",
+    });
+  }
 }
 
 module.exports = {
   getCart: [asyncErrorBoundary(getCartAndReturnError), sendCartPayload],
-  removeCartItem: [asyncErrorBoundary(isValidCartId)],
+  removeCartItem: [asyncErrorBoundary(getCartAndReturnError)],
   addCartItem: [
     asyncErrorBoundary(getCart),
     asyncErrorBoundary(getFoodItemAndReturnError),
@@ -113,8 +143,8 @@ module.exports = {
     isValidQuantity,
     asyncErrorBoundary(addCartItem),
   ],
-  updateCartItemSize: [asyncErrorBoundary(isValidCartId)],
-  updateCartItemOption: [asyncErrorBoundary(isValidCartId)],
-  updateCartItemSpecialRequest: [asyncErrorBoundary(isValidCartId)],
-  updateCartItemQuantity: [asyncErrorBoundary(isValidCartId)],
+  updateCartItemSize: [asyncErrorBoundary(getCartAndReturnError)],
+  updateCartItemOption: [asyncErrorBoundary(getCartAndReturnError)],
+  updateCartItemSpecialRequest: [asyncErrorBoundary(getCartAndReturnError)],
+  updateCartItemQuantity: [asyncErrorBoundary(getCartAndReturnError)],
 };
