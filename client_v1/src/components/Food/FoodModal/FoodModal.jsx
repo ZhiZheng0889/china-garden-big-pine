@@ -5,9 +5,10 @@ import { unselectFood } from "../../../slices/selectedFoodSlice";
 import FoodModalSizes from "./FoodModalSizes/FoodModalSizes";
 import FoodModalOptions from "./FoodModalOptions/FoodModalOptions";
 import FoodModalFooter from "./FoodModalFooter/FoodModalFooter";
+import FoodModalSpecialRequest from "./FoodModalSpecialRequest/FoodModalSpecialRequest";
+import ErrorAlertFixed from "../../../errors/ErrorAlertFixed/ErrorAlertFixed";
 
 const calculateTotal = (quantity, food, selectedOption, selectedSize) => {
-  let total = 0;
   let optionTotal = 0;
   let sizeTotal = 0;
   if (food) {
@@ -45,11 +46,20 @@ const FoodModal = ({ selectedFood }) => {
     dispatch(unselectFood());
   };
 
-  const handleAddToCart = () => {};
+  const handleAddToCart = () => {
+    const itemToAdd = {
+      food_id: selectedFood._id,
+      specialRequest,
+      selectedOption,
+      selectedSize,
+      quantity,
+    };
+  };
   console.log("OPENED", selectedFood);
   return (
     selectedFood && (
       <Modal closeModal={closeModal} isOpen={selectedFood}>
+        <ErrorAlertFixed error={error} />
         <div className="p-3 flex flex-col gap-3">
           <div>
             <h3 className="text-2xl font-semibold">{selectedFood.name}</h3>
@@ -73,6 +83,10 @@ const FoodModal = ({ selectedFood }) => {
             sizes={selectedFood.sizes}
             selectedSize={selectedSize}
             setSelectedSize={setSelectedSize}
+          />
+          <FoodModalSpecialRequest
+            specialRequest={specialRequest}
+            setSpecialRequest={setSpecialRequest}
           />
         </div>
         <FoodModalFooter
