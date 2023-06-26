@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Modal from "../../Modal/Modal";
-
-const FoodModal = ({ selectedFood, unselectFood }) => {
+import { useDispatch } from "react-redux";
+import { unselectFood } from "../../../slices/selectedFoodSlice";
+const FoodModal = ({ selectedFood }) => {
   const [error, setError] = useState(null);
   const [specialRequest, setSpecialRequest] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -11,11 +12,12 @@ const FoodModal = ({ selectedFood, unselectFood }) => {
   const [selectedSize, setSelectedSize] = useState(
     selectedFood?.sizes ? 0 : null
   );
+  const dispatch = useDispatch();
 
   const closeModal = () => {
-    unselectFood(null);
+    dispatch(unselectFood());
   };
-
+  console.log("OPENED", selectedFood);
   return <Modal closeModal={closeModal}></Modal>;
 };
 

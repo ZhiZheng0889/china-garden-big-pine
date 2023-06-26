@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 import FoodHeader from "./FoodHeader/FoodHeader";
 import FoodFeed from "./FoodFeed/FoodFeed";
@@ -10,11 +10,9 @@ import { unselectFood } from "../../slices/selectedFoodSlice";
 
 const Food = ({ search, category }) => {
   const [error, setError] = useState(null);
-  const dispatch = useDispatch();
 
   const { selectedFood } = useSelector((state) => state.selectedFood);
-  dispatch(unselectFood());
-
+  console.log("SELECTED FOOD: ", selectedFood);
   useDisableBodyScroll(selectedFood ? JSON.stringify(selectedFood) : null);
   return (
     <>
@@ -29,6 +27,7 @@ const Food = ({ search, category }) => {
           search={search}
         />
       </Card>
+      {selectedFood && <FoodModal selectedFood={selectedFood} />}
     </>
   );
 };
