@@ -4,7 +4,7 @@ import styles from "./CheckoutList.module.css";
 import { Cart } from "../../../utils/Cart";
 
 const CheckoutList = ({ cart, setCart }) => {
-  if (!cart.length) {
+  if (!cart || !cart.length) {
     return <p className="p-3">Cart is empty...</p>;
   }
 
@@ -19,7 +19,7 @@ const CheckoutList = ({ cart, setCart }) => {
           cart.map((item, index) => {
             const key = item.name + index;
             if (isNaN(key)) {
-              console.log('NaN key detected for item:', item);
+              console.log("NaN key detected for item:", item);
             }
             return (
               <CheckoutListItem

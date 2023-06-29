@@ -11,12 +11,12 @@ const Checkout = () => {
   return (
     <Card padding="p-0">
       <header className="p-3 border-b">
-        <h3 className="font-semibold">Cart</h3>
+        <h3 className="text-lg font-semibold">Cart</h3>
       </header>
       {!error && cart.length === 0 ? (
         <p className="font-semibold p-3">Cart is empty...</p>
       ) : (
-        <CheckoutList />
+        <CheckoutList cartItems={cart.items} />
       )}
       <CheckoutFooter total={cart.total} />
     </Card>
