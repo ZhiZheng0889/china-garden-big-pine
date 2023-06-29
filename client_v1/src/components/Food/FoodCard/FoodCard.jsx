@@ -16,7 +16,6 @@ const FoodCard = ({ food }) => {
     amount = null,
     imageUrl = null,
   } = food;
-
   const dispatch = useDispatch();
 
   const chooseFood = () => {
@@ -31,7 +30,10 @@ const FoodCard = ({ food }) => {
         <div className="details pl-3 pt-3 pb-3">
           <div className="flex flex-col gap-0">
             <div className="flex gap-1 items-center">
-              <h5 className="text-lg font-semibold">
+              <h5
+                className="text-lg font-semibold"
+                data-testid="food-card-header"
+              >
                 {name}
                 {amount && (
                   <span className=" ms-2 text-muted text-thin">({amount})</span>

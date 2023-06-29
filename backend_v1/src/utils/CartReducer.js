@@ -13,7 +13,7 @@ const getItemTotal = (item) => {
 const getCartTotal = (cart) => {
   return Array.isArray(cart)
     ? cart.reduce((accumulator, item) => {
-        return accumulator + this.calculateItemTotal(item);
+        return accumulator + getItemTotal(item);
       }, 0)
     : 0;
 };

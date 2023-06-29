@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const DatabaseConfig = require("./DatabaseConfig");
 const connect = (dbUri) => {
-  console.log(dbUri);
   if (!dbUri) {
     throw new Error(`Database uri provided: "${dbUri}" is no a valid uri`);
   }
@@ -14,7 +13,6 @@ const disconnect = () => {
 
 const seed = async (model, data) => {
   try {
-    console.log(data);
     await model.create(data);
     console.log("Data successfully injected!");
   } catch (error) {

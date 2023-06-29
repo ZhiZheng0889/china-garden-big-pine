@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Card from "../Card/Card";
 import { useSelector } from "react-redux";
+import CheckoutList from "./CheckoutList/CheckoutList";
+import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
 
 const Checkout = () => {
   const { cart } = useSelector((state) => state.cart);
@@ -13,11 +15,10 @@ const Checkout = () => {
       </header>
       {!error && cart.length === 0 ? (
         <p className="font-semibold p-3">Cart is empty...</p>
-      ) : error ? (
-        <p className="font-semibold p-3">Error retrieving cart</p>
       ) : (
-        <p>Cart</p>
+        <CheckoutList />
       )}
+      <CheckoutFooter total={cart.total} />
     </Card>
   );
 };

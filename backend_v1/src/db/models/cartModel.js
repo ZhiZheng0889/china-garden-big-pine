@@ -12,12 +12,6 @@ const CartSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-CartSchema.pre("save", function (next) {
-  const total = CartReducer.getCartTotal(this.items);
-  this.total = total;
-  next();
-});
-
 const Cart = mongoose.model("Cart", CartSchema);
 
 module.exports = Cart;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../Modal/Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { unselectFood } from "../../../slices/selectedFoodSlice";
 import FoodModalSizes from "./FoodModalSizes/FoodModalSizes";
 import FoodModalOptions from "./FoodModalOptions/FoodModalOptions";
@@ -43,6 +43,7 @@ const FoodModal = ({ selectedFood }) => {
     selectedSize
   );
 
+  const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const closeModal = () => {
@@ -59,7 +60,7 @@ const FoodModal = ({ selectedFood }) => {
         selectedSize,
         quantity,
       };
-      const response = await Cart.addToCart(itemToAdd);
+      const response = await Cart.addToCart(itemToAdd, cart._id);
       if (response.data) {
         dispatch(updateCart(response.data));
         closeModal();

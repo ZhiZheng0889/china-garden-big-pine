@@ -14,9 +14,7 @@ async function getAllFoods(req, res, next) {
 async function getSearchedFoods(req, res, next) {
   const page = parseInt(req.query.page ?? 1);
   const { search = "" } = req.body;
-  console.log(page, search);
   const response = await service.getBySearch(search, page);
-  console.log("response: ", response);
   if (search && !response.results.length) {
     return next({
       status: 404,
