@@ -10,7 +10,6 @@ const ButtonClear = ({
   width = "min-w-[4rem]",
   id,
 }) => {
-  console.log(children);
   return (
     <Button
       link={link}

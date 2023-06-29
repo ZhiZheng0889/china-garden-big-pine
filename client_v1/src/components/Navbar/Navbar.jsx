@@ -9,7 +9,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
-  console.log(isLoading, isAuthenticated, user);
   return (
     <nav className="py-4 bg-red-700 text-white">
       <Container className="flex justify-between items-center">

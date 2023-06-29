@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Card from "../Card/Card";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
-  const [cart, setCart] = useState([]);
+  const { cart } = useSelector((state) => state.cart);
+  console.log("CART:", cart);
   const [error, setError] = useState(null);
   return (
     <Card padding="p-0">

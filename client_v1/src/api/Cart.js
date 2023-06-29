@@ -1,7 +1,6 @@
 import Api from "./Api";
 
 const addToCart = async (cartItem, cart_id = null) => {
-  console.log(cartItem, "<=======");
   const updatedCart = await Api.put("cart/add", {
     item: cartItem,
     cart_id,
@@ -9,7 +8,9 @@ const addToCart = async (cartItem, cart_id = null) => {
   return updatedCart;
 };
 
-const getCart = async (cart_id) => {};
+const getCart = async (cart_id) => {
+  return await Api.get(`cart/${cart_id}`);
+};
 
 const removeFromCart = async (cartItemIndex, cart_id) => {};
 
@@ -27,6 +28,7 @@ const updateCartItemSize = async (size, cartItemIndex, cart_id) => {};
 
 const Cart = {
   addToCart,
+  getCart,
 };
 
 Object.freeze(Cart);

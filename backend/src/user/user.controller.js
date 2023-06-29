@@ -316,7 +316,9 @@ async function changePasswords(req, res, next) {
       });
     }
     const updatedUser = { ...foundUser.toObject(), password };
-    const updatedUserResponse = await service.updateUser(updatedUser);
+    const updatedUserResponse = await service.updateUser({
+      _id: updatedUser._id,
+    });
     console.log(updatedUserResponse);
     res.status(200).json({ data: "User password successfully changed" });
   } catch (error) {

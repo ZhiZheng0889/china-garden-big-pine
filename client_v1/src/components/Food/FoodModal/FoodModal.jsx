@@ -8,6 +8,7 @@ import FoodModalFooter from "./FoodModalFooter/FoodModalFooter";
 import FoodModalSpecialRequest from "./FoodModalSpecialRequest/FoodModalSpecialRequest";
 import ErrorAlertFixed from "../../../errors/ErrorAlertFixed/ErrorAlertFixed";
 import Cart from "../../../api/Cart";
+import { updateCart } from "../../../slices/cartSlice";
 
 const calculateTotal = (quantity, food, selectedOption, selectedSize) => {
   let optionTotal = 0;
@@ -33,6 +34,7 @@ const FoodModal = ({ selectedFood }) => {
   const [selectedSize, setSelectedSize] = useState(
     selectedFood?.sizes.length ? 0 : null
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const total = calculateTotal(
     quantity,
@@ -48,17 +50,26 @@ const FoodModal = ({ selectedFood }) => {
   };
 
   const handleAddToCart = async () => {
-    const itemToAdd = {
-      food_id: selectedFood._id,
-      specialRequest,
-      selectedOption,
-      selectedSize,
-      quantity,
-    };
-    const response = await Cart.addToCart(itemToAdd);
-    console.log(response);
+    try {
+      setIsLoading(true);
+      const itemToAdd = {
+        food_id: selectedFood._id,
+        specialRequest,
+        selectedOption,
+        selectedSize,
+        quantity,
+      };
+      const response = await Cart.addToCart(itemToAdd);
+      if (response.data) {
+        dispatch(updateCart(response.data));
+        closeModal();
+      }
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
-  console.log("OPENED", selectedFood);
   return (
     selectedFood && (
       <Modal closeModal={closeModal} isOpen={selectedFood}>
@@ -97,6 +108,7 @@ const FoodModal = ({ selectedFood }) => {
           quantity={quantity}
           setQuantity={setQuantity}
           handleAddToCart={handleAddToCart}
+          isLoading={isLoading}
         />
       </Modal>
     )

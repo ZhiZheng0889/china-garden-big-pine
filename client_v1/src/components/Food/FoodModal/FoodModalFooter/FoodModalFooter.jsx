@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { formatCost } from "../../../../../../client/src/utils/formatCost";
 
-const FoodModalFooter = ({ total, quantity, setQuantity, handleAddToCart }) => {
+const FoodModalFooter = ({
+  total,
+  quantity,
+  setQuantity,
+  handleAddToCart,
+  isLoading,
+}) => {
   const [input, setInput] = useState("");
 
   const updateQuantity = (event) => {
@@ -58,10 +64,10 @@ const FoodModalFooter = ({ total, quantity, setQuantity, handleAddToCart }) => {
       </form>
       <button
         className="ml-auto p-3 rounded bg-red-600 hover:bg-red-700 active:bg-red-800 text-white disabled:bg-red-500 disabled:cursor-not-allowed  focus:outline outline-2 outline-offset-2 outline-red-600"
-        disabled={quantity === 999 || quantity === 0}
+        disabled={quantity === 999 || quantity === 0 || isLoading}
         onClick={handleAddToCart}
       >
-        Add to Cart - ${formatCost(total)}
+        {isLoading ? "Loading..." : `Add to Cart - ${formatCost(total)}`}
       </button>
     </div>
   );

@@ -1,6 +1,8 @@
+const DatabaseConfig = require("./DatabaseConfig");
 const { seed, reap } = require("./seeds/foods");
 
 async function seedData(env, provider) {
+  console.log("ENV: ", env, provider);
   if (provider === "foods") {
     await seed(env);
   }

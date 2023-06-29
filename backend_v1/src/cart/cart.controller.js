@@ -12,15 +12,22 @@ const cartItemDataTypes = {
 };
 
 async function getCart(req, res, next) {
-  const { cart_id } = req.query;
-  const foundCart = await service.getCartById(cart_id);
-  if (foundCart) {
-    res.locals.cart = foundCart;
-  } else {
-    const createdCart = await service.createCart();
-    res.locals.cart = createdCart;
+  try {
+    const { cart_id } = req.body;
+    const foundCart = await service.getCartById(cart_id);
+    console.log("FOUND CART: ", foundCart);
+    if (foundCart) {
+      res.locals.cart = foundCart;
+    } else {
+      const createdCart = await service.createCart();
+      console.log("created Cart: ", createdCart);
+      res.locals.cart = createdCart;
+    }
+    return next();
+  } catch (error) {
+    console.log("ERROR: ", error);
+    return next();
   }
-  return next();
 }
 
 async function getFoodItem(req, res, next) {
@@ -35,10 +42,17 @@ async function getFoodItem(req, res, next) {
 }
 
 async function getCartAndReturnError(req, res, next) {
-  const { cart_id } = req.query;
+  const { cart_id } = req.params;
+  if (!cart_id) {
+    return next({
+      satus: 400,
+      message: "A cart id is required",
+    });
+  }
   const foundCart = await service.getCartById(cart_id);
   if (foundCart) {
     res.locals.cart = foundCart;
+    return next();
   }
   return next({
     status: 404,
@@ -47,15 +61,14 @@ async function getCartAndReturnError(req, res, next) {
 }
 
 async function getFoodItemAndReturnError(req, res, next) {
-  console.log(req.body);
   const {
     item: { food_id },
   } = req.body;
-  console.log(food_id);
   const foundFoodItem = await service.getFoodItemById(food_id);
-  console.log(foundFoodItem);
   if (foundFoodItem) {
-    res.locals.foodItem = foundFoodItem;
+    console.log("in here");
+    res.locals.food = foundFoodItem.toObject();
+    return next();
   }
   return next({
     status: 404,
@@ -65,8 +78,11 @@ async function getFoodItemAndReturnError(req, res, next) {
 
 function isValidFoodSize(req, res, next) {
   const { food } = res.locals;
-  const { selectedSize } = req.body;
-  if (Array.isArray(food.sizes) && food.sizes[selectedSize]) {
+  const { selectedSize } = req.body.item;
+  if (
+    (Array.isArray(food.sizes) && food.sizes[selectedSize]) ||
+    !food.sizes.length
+  ) {
     return next();
   }
   return next({
@@ -77,8 +93,11 @@ function isValidFoodSize(req, res, next) {
 
 function isValidFoodOption(req, res, next) {
   const { food } = res.locals;
-  const { selectedOption } = req.body;
-  if (Array.isArray(food.options) && food.options[selectedOption]) {
+  const { selectedOption } = req.body.item;
+  if (
+    (Array.isArray(food.options) && food.options[selectedOption]) ||
+    !food.options.length
+  ) {
     return next();
   }
   return next({
@@ -88,8 +107,10 @@ function isValidFoodOption(req, res, next) {
 }
 
 function isValidQuantity(req, res, next) {
-  const { quantity } = req.body;
-  if (quantity >= MIN_QUANTITY && quantity <= MAX_QUANTITY) {
+  const { quantity } = req.body.item;
+  console.log(req.body);
+  console.log("QUANTITY: ", quantity);
+  if (quantity >= MIN_QUANTITY && quantity <= MAX_QUANTITY && quantity !== 0) {
     return next();
   }
   return next({
@@ -100,7 +121,8 @@ function isValidQuantity(req, res, next) {
 
 function sendCartPayload(req, res, next) {
   const { cart } = res.locals;
-  res.status(200).json({ data: cart });
+  console.log("FINAL CART: ", cart);
+  res.status(200).json(cart);
 }
 
 async function addCartItem(req, res, next) {
@@ -109,19 +131,20 @@ async function addCartItem(req, res, next) {
       item: { selectedOption, selectedSize, quantity, specialRequest },
     } = req.body;
     const { food, cart } = res.locals;
-    const cartToBeUpdated = [
-      ...cart.items,
-      {
-        food,
-        selectedOption,
-        selectedSize,
-        quantity,
-        specialRequest,
-      },
-    ];
-    const updatedCart = await service.addCartItem(cartToBeUpdated);
+    console.log("..............", food, cart);
+    delete food.__v;
+    cart.items.push({
+      food,
+      selectedOption,
+      selectedSize,
+      quantity,
+      specialRequest,
+    });
+    console.log("135: ", cart);
+    const updatedCart = await service.addCartItem(cart);
+    console.log("UPDATED CART: ", updatedCart);
     if (updatedCart) {
-      res.status(200).json({ data: updatedCart.toObject() });
+      res.status(200).json(updatedCart.toObject());
     }
     throw new Error();
   } catch (error) {

@@ -5,7 +5,6 @@ import ErrorAlertFixed from "../../../errors/ErrorAlertFixed/ErrorAlertFixed";
 
 const NavbarNotSignedIn = () => {
   const { loginWithRedirect, error = null } = useAuth0();
-  console.log(error);
   return (
     <>
       <ul className="flex gap-3 items-center">
@@ -15,6 +14,14 @@ const NavbarNotSignedIn = () => {
             className="p-2 hover:text-amber-200 duration-200 ease-out"
           >
             Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/orders"
+            className="p-2 hover:text-amber-200 duration-200 ease-out"
+          >
+            Orders
           </Link>
         </li>
         <li>

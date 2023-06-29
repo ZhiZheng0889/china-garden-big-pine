@@ -12,7 +12,6 @@ const Food = ({ search, category }) => {
   const [error, setError] = useState(null);
 
   const { selectedFood } = useSelector((state) => state.selectedFood);
-  console.log("SELECTED FOOD: ", selectedFood);
   useDisableBodyScroll(selectedFood ? JSON.stringify(selectedFood) : null);
   return (
     <>

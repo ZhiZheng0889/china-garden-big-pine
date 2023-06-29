@@ -7,7 +7,6 @@ export const selectedFoodSlice = createSlice({
   },
   reducers: {
     selectFood: (state, action) => {
-      console.log("STATE: ", state, action);
       state.selectedFood = action.payload;
     },
     unselectFood: (state) => {

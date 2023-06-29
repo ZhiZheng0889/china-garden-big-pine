@@ -2,7 +2,6 @@ import React from "react";
 import { formatCost } from "../../../../../../client/src/utils/formatCost";
 
 const FoodModalSizes = ({ sizes, selectedSize, setSelectedSize }) => {
-  console.log("selectedSize: ", selectedSize, sizes);
   return (
     Array.isArray(sizes) &&
     sizes.length > 0 && (

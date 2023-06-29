@@ -13,7 +13,7 @@ const decodeJson = (json) => {
  * @param {any} data
  */
 const encodeJson = (data) => {
-  JSON.stringify(data);
+  return JSON.stringify(data);
 };
 
 /**
