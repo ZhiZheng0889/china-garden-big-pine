@@ -1,11 +1,10 @@
 import Api from "./Api";
 
 const addToCart = async (cartItem, cart_id = null) => {
-  const updatedCart = await Api.put("cart/add", {
+  return await Api.put("cart/add", {
     item: cartItem,
     cart_id,
   });
-  return updatedCart;
 };
 
 const getCart = async (cart_id) => {
@@ -14,7 +13,12 @@ const getCart = async (cart_id) => {
 
 const removeFromCart = async (cartItemIndex, cart_id) => {};
 
-const updateQuantity = async (quantity, cartItemIndex, cart_id) => {};
+const updateQuantity = async (quantity, cartItemIndex, cart_id) => {
+  return await Api.put(`cart/update/${cartItemIndex}/quantity`, {
+    item: { quantity },
+    cart_id,
+  });
+};
 
 const updateSpecialRequest = async (
   specialRequest,
@@ -29,6 +33,7 @@ const updateCartItemSize = async (size, cartItemIndex, cart_id) => {};
 const Cart = {
   addToCart,
   getCart,
+  updateQuantity,
 };
 
 Object.freeze(Cart);

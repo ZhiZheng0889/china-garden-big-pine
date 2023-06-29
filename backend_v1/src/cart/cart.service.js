@@ -8,6 +8,10 @@ function addCartItem(cart) {
   return Cart.findOneAndUpdate(cart._id, cart, { new: true });
 }
 
+function updateCart(cart) {
+  return Cart.findOneAndUpdate(cart._id, cart, { new: true });
+}
+
 function createCart() {
   return Cart.create({ createdAt: new Date() });
 }
@@ -21,4 +25,5 @@ module.exports = {
   addCartItem,
   createCart,
   getFoodItemById,
+  updateCart,
 };

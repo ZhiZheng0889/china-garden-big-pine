@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateCart } from "../../../slices/cartSlice";
+import LoadingSpinner from "../../Loading/LoadingSpinner/LoadingSpinner";
+import Cart from "../../../api/Cart";
+import ApiErrorHandler from "../../../errors/ApiErrorHandler";
 
-const ButtonQuantity = ({ item, index, cartId }) => {
-  const changeQuantity = async (event) => {
-    const response = await Cart.updateQuantity(-1, index, cartId);
+const ButtonQuantity = ({ item, index, cartId, setError }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const changeQuantity = async ({ target }) => {
+    try {
+      setError(null);
+      setIsLoading(true);
+      const { type } = target.dataset;
+      const offset = type === "decrement" ? -1 : 1;
+      const response = await Cart.updateQuantity(offset, index, cartId);
+      if (response.data) {
+        dispatch(updateCart(response.data));
+      }
+    } catch (error) {
+      setError(ApiErrorHandler.handleRequestResponse(error));
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <div className="border flex rounded-full py-0 px-0 items-center justify-center">
@@ -16,7 +36,10 @@ const ButtonQuantity = ({ item, index, cartId }) => {
           data-type="decrement"
         ></i>
       </button>
-      <p className="w-8 text-center">{item.quantity}</p>
+      <div className="w-8 flex justify-center items-center">
+        {isLoading ? <LoadingSpinner /> : <p>{item.quantity}</p>}
+      </div>
+
       <button
         className="flex justify-center items-center w-8 h-8 rounded-full hover:bg-gray-100 active:bg-gray-200 duration-200 ease-out"
         data-type="increment"

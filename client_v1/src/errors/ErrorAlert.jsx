@@ -12,10 +12,10 @@ function ErrorAlert({ error, className, showClose, setError = () => {} }) {
         Error: {error.message}
         {showClose && (
           <button
-            className="absolute right-5 top-2/4 -translate-y-2/4 w-9 h-9 rounded hover:bg-red-300 actve:bg-red-400"
+            className="absolute right-1 top-2/4 -translate-y-2/4 w-9 h-9 rounded hover:bg-red-300 actve:bg-red-400"
             onClick={() => setError(null)}
           >
-            X
+            <i className="fa-solid fa-xmark"></i>
           </button>
         )}
       </div>

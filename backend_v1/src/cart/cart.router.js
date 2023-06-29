@@ -3,7 +3,7 @@ const controller = require("./cart.controller");
 const methodNotAllowed = require("../errors/methodNotAllowed");
 
 router
-  .route("/update/item_index/quantity")
+  .route("/update/:item_index/quantity")
   .put(controller.updateCartItemQuantity)
   .all(methodNotAllowed);
 

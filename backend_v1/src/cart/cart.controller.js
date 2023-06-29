@@ -36,7 +36,7 @@ async function getFoodItem(req, res, next) {
 }
 
 async function getCartAndReturnError(req, res, next) {
-  const { cart_id } = req.params;
+  const { cart_id } = req.body;
   if (!cart_id) {
     return next({
       satus: 400,
@@ -110,6 +110,25 @@ function isValidQuantity(req, res, next) {
   });
 }
 
+function isValidUpdateQuantity(req, res, next) {
+  const { cart } = res.locals;
+  const { quantity } = req.body.item;
+  const { item_index } = req.params;
+  console.log(cart, item_index);
+  const cartQuantity = cart.items[item_index].quantity + quantity;
+  if (
+    cartQuantity >= MIN_QUANTITY &&
+    cartQuantity <= MAX_QUANTITY &&
+    cartQuantity !== 0
+  ) {
+    return next();
+  }
+  return next({
+    status: 400,
+    message: "Invalid quantity",
+  });
+}
+
 function sendCartPayload(req, res, next) {
   const { cart } = res.locals;
   res.status(200).json(cart);
@@ -145,6 +164,22 @@ async function addCartItem(req, res, next) {
   }
 }
 
+async function updateQuantity(req, res, next) {
+  const { cart } = res.locals;
+  const { quantity } = req.body.item;
+  const { item_index } = req.params;
+  cart.items[item_index].quantity = cart.items[item_index].quantity + quantity;
+  const updatedCart = await service.updateCart(cart);
+  if (updatedCart) {
+    res.status(200).json(updatedCart.toObject());
+  } else {
+    return next({
+      status: 500,
+      message: "Error updating cart item quantity.",
+    });
+  }
+}
+
 module.exports = {
   getCart: [asyncErrorBoundary(getCartAndReturnError), sendCartPayload],
   removeCartItem: [asyncErrorBoundary(getCartAndReturnError)],
@@ -159,5 +194,9 @@ module.exports = {
   updateCartItemSize: [asyncErrorBoundary(getCartAndReturnError)],
   updateCartItemOption: [asyncErrorBoundary(getCartAndReturnError)],
   updateCartItemSpecialRequest: [asyncErrorBoundary(getCartAndReturnError)],
-  updateCartItemQuantity: [asyncErrorBoundary(getCartAndReturnError)],
+  updateCartItemQuantity: [
+    asyncErrorBoundary(getCartAndReturnError),
+    isValidUpdateQuantity,
+    asyncErrorBoundary(updateQuantity),
+  ],
 };

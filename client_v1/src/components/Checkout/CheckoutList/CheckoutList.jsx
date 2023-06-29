@@ -1,7 +1,7 @@
 import React from "react";
 import CheckoutListItem from "./CheckoutListItem/CheckoutListItem";
 
-const CheckoutList = ({ cartItems }) => {
+const CheckoutList = ({ cartItems, setError, cartId }) => {
   if (!cartItems || !cartItems.length) {
     return <p className="p-3">Cart is empty...</p>;
   }
@@ -13,7 +13,12 @@ const CheckoutList = ({ cartItems }) => {
             const key = item.food.name + index;
             return (
               <li key={key}>
-                <CheckoutListItem item={item} />
+                <CheckoutListItem
+                  item={item}
+                  setError={setError}
+                  index={index}
+                  cartId={cartId}
+                />
               </li>
             );
           })}
