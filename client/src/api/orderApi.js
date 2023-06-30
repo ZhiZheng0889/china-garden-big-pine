@@ -29,4 +29,9 @@ export class OrderApi {
     const url = `${API_BASE_URL}/orders/user/${user_id}`;
     return await fetchJson(url, { headers }, []);
   }
+
+  static async getOrdersByPhone(phoneNumber) {
+    const url = `${API_BASE_URL}/orders/find?phone=${phoneNumber}`;
+    return await fetchJson(url, { headers }, []);
+  }
 }

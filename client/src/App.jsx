@@ -72,7 +72,7 @@ function App() {
         />
         {(VITE_NODE_ENV === "development" || VITE_NODE_ENV === "preview") && (
           <>
-            <BannerDevelopment />
+            {/* <BannerDevelopment /> */}
             <BannerPhoneNumber />
           </>
         )}

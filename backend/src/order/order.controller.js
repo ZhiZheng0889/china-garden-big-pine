@@ -368,6 +368,17 @@ function mapCart(cart, foods) {
   return mappedCart;
 }
 
+async function getOrderByPhoneNumber(req, res, next) {
+  const { phone } = req.query;
+  console.log(phone);
+  const foundOrders = await service.getOrdersByPhoneNumber(phone);
+  console.log(foundOrders);
+  if (foundOrders && Array.isArray(foundOrders) && foundOrders.length > 0) {
+    res.status(200).json({ data: foundOrders });
+  }
+  return next({ status: 404, message: "No orders have been found for today." });
+}
+
 /*
  * Order controller
  * @returns array of middleware functions that the router can handle.
@@ -399,4 +410,5 @@ module.exports = {
     asyncErrorBoundary(readOrder),
   ],
   listOrders: asyncErrorBoundary(listOrders),
+  getOrderByPhoneNumber: [asyncErrorBoundary(getOrderByPhoneNumber)],
 };

@@ -13,6 +13,7 @@ import Orders from "./Orders/Orders";
 import FoodOptions from "./Admin/FoodOptions";
 import Settings from "./Settings/Settings";
 import ForgotPassword from "./ForgotPassword/ForgotPassword";
+import TrackOrders from "./TrackOrders/TrackOrders";
 
 const PageRoutes = ({
   cart,
@@ -48,6 +49,8 @@ const PageRoutes = ({
           />
         }
       />
+      <Route path="/orders/:order_id" element={<Receipt user={{}} />} />
+      <Route path="/orders" element={<TrackOrders />} />
       {/* <Route path="/receipt/:order_id" element={<Receipt />} /> */}
       {/* <Route path="/profile/orders" element={<Orders user={user} />} />
       <Route

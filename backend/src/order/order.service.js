@@ -89,6 +89,22 @@ function getUser(user_id) {
   return User.findById(user_id).exec();
 }
 
+let startOfToday = new Date();
+startOfToday.setHours(0, 0, 0, 0);
+
+let endOfToday = new Date();
+endOfToday.setHours(23, 59, 59, 999);
+
+function getOrdersByPhoneNumber(phoneNumber) {
+  return Order.find({
+    phoneNumber,
+    createdAt: {
+      $gte: startOfToday,
+      $lt: endOfToday,
+    },
+  }).exec();
+}
+
 /*
  * Retrieve a list of orders for a user, ordered by creation date (descending)
  * @returns Promise<Order[]>
@@ -138,4 +154,5 @@ module.exports = {
   deleteOrder,
   getClosedHours,
   getOperationHours,
+  getOrdersByPhoneNumber,
 };
