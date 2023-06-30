@@ -5,8 +5,16 @@ const NotSignedIn = () => {
   return (
     <ul className={styles.nav}>
       <li className="px-3 py-2">
-        <Link to="/" className={`${styles.navLink}`}>
+        <Link
+          to="https://bigpinekeychinagarden.netlify.app"
+          className={`${styles.navLink}`}
+        >
           Home
+        </Link>
+      </li>
+      <li className="px-3 py-2">
+        <Link to="/" className={`${styles.navLink}`}>
+          Menu
         </Link>
       </li>
       <li className="px-3 py-2">
