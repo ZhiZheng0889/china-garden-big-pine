@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { UserApi } from "./api/userApi";
 import { storage } from "./utils/Storage";
 import ErrorAlert from "./errors/ErrorAlert";
-import BannerDevelopment from "./components/Banner/BannerDevelopment";
+// import BannerDevelopment from "./components/Banner/BannerDevelopment";
 import BannerPhoneNumber from "./components/Banner/BannerPhoneNumber";
 const VITE_NODE_ENV = import.meta.env.VITE_NODE_ENV;
 function App() {
@@ -38,7 +38,7 @@ function App() {
               setUser(response);
             }
           }
-        } catch (error) {}
+        } catch (error) { }
       };
       getUser();
     }
