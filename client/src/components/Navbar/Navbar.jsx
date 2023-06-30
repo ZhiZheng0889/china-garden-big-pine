@@ -37,11 +37,7 @@ const Navbar = ({
         </Link>
         <div className="flex items-center ml-auto">
           <div className="hidden md:block" id="navbarContent">
-            {!isObjectEmpty(user) ? (
-              <SignedIn user={user} setUser={setUser} setError={setError} />
-            ) : (
-              <NotSignedIn />
-            )}
+            <NotSignedIn />
           </div>
           <div className="xl:hidden ml-3">
             <CartButton cart={cart} setIsCheckoutOpen={setIsCheckoutOpen} />

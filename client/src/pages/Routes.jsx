@@ -48,17 +48,17 @@ const PageRoutes = ({
           />
         }
       />
-      <Route path="/receipt/:order_id" element={<Receipt />} />
-      <Route path="/profile/orders" element={<Orders user={user} />} />
+      {/* <Route path="/receipt/:order_id" element={<Receipt />} /> */}
+      {/* <Route path="/profile/orders" element={<Orders user={user} />} />
       <Route
         path="/profile/orders/:order_id"
         element={<Receipt user={user} />}
-      />
+      /> */}
       {/* <Route path="/profile" element={<Profile user={user} />} /> */}
       {/* <Route path="/admin" element={<Admin user={{}} />}>
         <Route path="/admin/food-options" element={<FoodOptions />} />
       </Route> */}
-      <Route
+      {/* <Route
         path="/login/forgot-password"
         element={<ForgotPassword user={user} setUser={setUser} />}
       />
@@ -67,7 +67,7 @@ const PageRoutes = ({
       <Route
         path="/settings"
         element={<Settings user={user} setUser={setUser} />}
-      />
+      /> */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
