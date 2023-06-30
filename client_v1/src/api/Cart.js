@@ -14,9 +14,8 @@ const getCart = async (cart_id) => {
 const removeFromCart = async (cartItemIndex, cart_id) => {};
 
 const updateQuantity = async (quantity, cartItemIndex, cart_id) => {
-  return await Api.put(`cart/update/${cartItemIndex}/quantity`, {
+  return await Api.put(`cart/${cart_id}/update/${cartItemIndex}/quantity`, {
     item: { quantity },
-    cart_id,
   });
 };
 

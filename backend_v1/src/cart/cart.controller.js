@@ -36,7 +36,7 @@ async function getFoodItem(req, res, next) {
 }
 
 async function getCartAndReturnError(req, res, next) {
-  const { cart_id } = req.body;
+  const { cart_id } = req.params;
   if (!cart_id) {
     return next({
       satus: 400,

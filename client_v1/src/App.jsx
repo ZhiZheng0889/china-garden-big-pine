@@ -17,6 +17,7 @@ const App = () => {
         const foundCartId = Storage.get("cart_id");
         if (foundCartId) {
           const response = await Cart.getCart(foundCartId);
+          console.log("FOUND CART: ", response);
           if (response.data) {
             dispatch(updateCart(response.data));
           }
