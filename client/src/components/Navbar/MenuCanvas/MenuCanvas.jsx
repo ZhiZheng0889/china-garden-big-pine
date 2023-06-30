@@ -51,94 +51,35 @@ const MenuCanvas = ({
             </button>
           </div>
           <div>
-            {!isObjectEmpty(user) ? (
-              <ul>
-                <li>
-                  <Link
-                    to="/"
-                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
-                    onClick={() => setIsBurgerOpen(false)}
-                    autoFocus={true}
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/profile/orders"
-                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
-                    onClick={() => setIsBurgerOpen(false)}
-                    autoFocus={true}
-                  >
-                    Orders
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="/settings"
-                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
-                    onClick={() => setIsBurgerOpen(false)}
-                    autoFocus={true}
-                  >
-                    Settings
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/profile/orders"
-                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
-                    onClick={() => setIsBurgerOpen(false)}
-                    autoFocus={true}
-                  >
-                    Orders
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
-                    onClick={() => {
-                      logout();
-                      setIsBurgerOpen(false);
-                    }}
-                    autoFocus={true}
-                  >
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            ) : (
-              <ul>
-                <li>
-                  <Link
-                    to="/"
-                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
-                    onClick={() => setIsBurgerOpen(false)}
-                    autoFocus={true}
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/login"
-                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
-                    onClick={() => setIsBurgerOpen(false)}
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/signup"
-                    className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
-                    onClick={() => setIsBurgerOpen(false)}
-                  >
-                    Signup
-                  </Link>
-                </li>
-              </ul>
-            )}
+            <ul>
+              <li>
+                <Link
+                  to="https://bigpinekeychinagarden.netlify.app"
+                  className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
+                  onClick={() => setIsBurgerOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/"
+                  className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
+                  onClick={() => setIsBurgerOpen(false)}
+                >
+                  Menu
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/orders"
+                  className="py-3 px-5 hover:text-red-700 hover:underline hover:bg-slate-50 w-full text-start block  focus:outline outline-2 outline-offset-2 outline-red-600"
+                  onClick={() => setIsBurgerOpen(false)}
+                >
+                  Orders
+                </Link>
+              </li>
+            </ul>
             {isMenuListShowing && (
               <>
                 <h4 className="px-5 py-3 font-semibold border-b">Categories</h4>
