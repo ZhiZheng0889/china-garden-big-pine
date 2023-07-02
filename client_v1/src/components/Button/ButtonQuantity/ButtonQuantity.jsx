@@ -22,7 +22,6 @@ const ButtonQuantity = ({ item, index, cartId, setError }) => {
       setParentError(null);
       setIsParentLoading(true);
       const response = await Cart.removeFromCart(index, cartId);
-      console.log(response);
       if (response.data) {
         dispatch(updateCart(response.data));
       }

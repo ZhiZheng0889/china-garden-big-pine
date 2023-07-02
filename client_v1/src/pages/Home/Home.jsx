@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <main className="bg-gray-100 grow py-6">
       <Container className="custom-grid gap-6">
-        <Card padding="p-0" className="overflow-hidden h-fit">
+        <Card padding="p-0" className="overflow-hidden h-fit hidden md:block">
           <FoodNav category={category} setCategory={setCategory} />
         </Card>
 
@@ -38,7 +38,7 @@ const Home = () => {
             <Footer />
           </div>
         </section>
-        <section>
+        <section className="hidden lg:block">
           <Checkout />
         </section>
       </Container>
