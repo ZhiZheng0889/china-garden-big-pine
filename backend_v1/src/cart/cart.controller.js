@@ -134,6 +134,18 @@ function sendCartPayload(req, res, next) {
   res.status(200).json(cart);
 }
 
+function isValidCartItemIndex(req, res, next) {
+  const { cart } = res.locals;
+  const { item_index } = req.params;
+  if (cart.items[item_index]) {
+    return next();
+  }
+  return next({
+    status: 400,
+    message: "index for the cart item cannot be found.",
+  });
+}
+
 async function addCartItem(req, res, next) {
   try {
     const {
@@ -180,9 +192,28 @@ async function updateQuantity(req, res, next) {
   }
 }
 
+async function removeCartItem(req, res, next) {
+  const { cart } = res.locals;
+  const { item_index } = req.params;
+  cart.items.splice(item_index, 1);
+  const updatedCart = await service.updateCart(cart);
+  if (updatedCart) {
+    res.status(200).json(updatedCart.toObject());
+  } else {
+    return next({
+      status: 500,
+      message: "Error deleting item from cart.",
+    });
+  }
+}
+
 module.exports = {
   getCart: [asyncErrorBoundary(getCartAndReturnError), sendCartPayload],
-  removeCartItem: [asyncErrorBoundary(getCartAndReturnError)],
+  removeCartItem: [
+    asyncErrorBoundary(getCartAndReturnError),
+    isValidCartItemIndex,
+    removeCartItem,
+  ],
   addCartItem: [
     asyncErrorBoundary(getCart),
     asyncErrorBoundary(getFoodItemAndReturnError),
@@ -196,6 +227,7 @@ module.exports = {
   updateCartItemSpecialRequest: [asyncErrorBoundary(getCartAndReturnError)],
   updateCartItemQuantity: [
     asyncErrorBoundary(getCartAndReturnError),
+    isValidCartItemIndex,
     isValidUpdateQuantity,
     asyncErrorBoundary(updateQuantity),
   ],

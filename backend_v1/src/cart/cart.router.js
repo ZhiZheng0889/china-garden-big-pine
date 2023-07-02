@@ -25,8 +25,8 @@ router
 router.route("/add").put(controller.addCartItem).all(methodNotAllowed);
 
 router
-  .route("/remove/item_index")
-  .put(controller.removeCartItem)
+  .route("/:cart_id/remove/:item_index")
+  .delete(controller.removeCartItem)
   .all(methodNotAllowed);
 
 router.route("/:cart_id").get(controller.getCart).all(methodNotAllowed);

@@ -10,12 +10,29 @@ const ButtonQuantity = ({ item, index, cartId, setError }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
     useState(false);
+  const dispatch = useDispatch();
 
   const closeModal = () => {
     setIsDeleteConfirmationOpen(false);
   };
-  const deleteCartItem = () => {};
-  const dispatch = useDispatch();
+
+  // params to be used in the component that it is being called in to show loading request from api
+  const deleteCartItem = async (setIsParentLoading, setParentError) => {
+    try {
+      setParentError(null);
+      setIsParentLoading(true);
+      const response = await Cart.removeFromCart(index, cartId);
+      console.log(response);
+      if (response.data) {
+        dispatch(updateCart(response.data));
+      }
+    } catch (error) {
+      setParentError(ApiErrorHandler.handleRequestResponse(error));
+    } finally {
+      setIsParentLoading(false);
+    }
+  };
+
   const changeQuantity = async ({ target }) => {
     try {
       setError(null);

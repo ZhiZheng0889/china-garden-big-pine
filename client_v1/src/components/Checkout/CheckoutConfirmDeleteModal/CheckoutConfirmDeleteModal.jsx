@@ -5,10 +5,11 @@ import ButtonPrimary from "../../Button/ButtonPrimary/ButtonPrimary";
 
 const CheckoutConfirmDeleteModal = ({ isOpen, closeModal, deleteCartItem }) => {
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   return (
     isOpen && (
       <Modal closeModal={closeModal} isOpen={isOpen}>
-        <ErrorAlert error={error} />
+        <ErrorAlert error={error} className="m-3" />
         <div className="p-3 flex flex-col gap-3">
           <div>
             <h4 className="text-xl font-semibold">
@@ -18,7 +19,11 @@ const CheckoutConfirmDeleteModal = ({ isOpen, closeModal, deleteCartItem }) => {
           </div>
 
           <div>
-            <ButtonPrimary onClick={deleteCartItem}>Delete</ButtonPrimary>
+            <ButtonPrimary
+              onClick={() => deleteCartItem(setIsLoading, setError)}
+            >
+              {isLoading ? "Loading..." : "Delete"}
+            </ButtonPrimary>
           </div>
         </div>
       </Modal>
