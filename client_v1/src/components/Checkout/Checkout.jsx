@@ -10,7 +10,7 @@ const Checkout = () => {
   console.log("CART:", cart);
   const [error, setError] = useState(null);
   return (
-    <Card padding="p-0">
+    <Card padding="p-0" id="checkout-card">
       <header className="p-3 border-b">
         <h3 className="text-lg font-semibold">Cart</h3>
       </header>

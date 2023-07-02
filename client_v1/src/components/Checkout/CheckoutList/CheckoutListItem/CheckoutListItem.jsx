@@ -4,7 +4,6 @@ import { formatCost } from "../../../../utils/formatCost";
 import ButtonQuantity from "../../../Button/ButtonQuantity/ButtonQuantity";
 
 const CheckoutListItem = ({ item, setError, index, cartId }) => {
-  console.log("item: ", item);
   return (
     <div className="p-3 border-b flex justify-between">
       <div>
