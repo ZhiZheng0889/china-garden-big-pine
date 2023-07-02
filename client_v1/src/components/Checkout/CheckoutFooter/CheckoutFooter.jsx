@@ -23,7 +23,6 @@ const CheckoutFooter = ({ total }) => {
             <p className="ml-auto font-semibold">${formatCost(total + tax)}</p>
           </div>
         </div>
-
         <ButtonPrimary width="w-full">Checkout</ButtonPrimary>
       </section>
     )

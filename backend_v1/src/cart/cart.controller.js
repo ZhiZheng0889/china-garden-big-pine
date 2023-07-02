@@ -196,6 +196,7 @@ async function removeCartItem(req, res, next) {
   const { cart } = res.locals;
   const { item_index } = req.params;
   cart.items.splice(item_index, 1);
+  cart.total = CartReducer.getCartTotal(cart.items);
   const updatedCart = await service.updateCart(cart);
   if (updatedCart) {
     res.status(200).json(updatedCart.toObject());
