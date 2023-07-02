@@ -114,7 +114,6 @@ function isValidUpdateQuantity(req, res, next) {
   const { cart } = res.locals;
   const { quantity } = req.body.item;
   const { item_index } = req.params;
-  console.log(cart, item_index);
   const cartQuantity = cart.items[item_index].quantity + quantity;
   if (
     cartQuantity >= MIN_QUANTITY &&
@@ -168,7 +167,6 @@ async function addCartItem(req, res, next) {
       throw new Error();
     }
   } catch (error) {
-    console.log("ERROR: ", error);
     return next({
       status: 400,
       message: "Error adding to cart",
@@ -181,6 +179,7 @@ async function updateQuantity(req, res, next) {
   const { quantity } = req.body.item;
   const { item_index } = req.params;
   cart.items[item_index].quantity = cart.items[item_index].quantity + quantity;
+  cart.total = CartReducer.getCartTotal(cart.items);
   const updatedCart = await service.updateCart(cart);
   if (updatedCart) {
     res.status(200).json(updatedCart.toObject());

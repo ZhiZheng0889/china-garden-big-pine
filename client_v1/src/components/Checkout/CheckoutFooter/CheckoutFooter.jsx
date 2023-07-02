@@ -3,7 +3,6 @@ import { formatCost } from "../../../utils/formatCost";
 import ButtonPrimary from "../../Button/ButtonPrimary/ButtonPrimary";
 const FLORIDA_TAX = parseFloat(import.meta.env.VITE_FLORIDA_TAX);
 const CheckoutFooter = ({ total }) => {
-  console.log(FLORIDA_TAX);
   const tax = total * FLORIDA_TAX;
   return (
     total > 0 && (

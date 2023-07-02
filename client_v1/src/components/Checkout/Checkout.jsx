@@ -7,7 +7,6 @@ import ErrorAlert from "../../errors/ErrorAlert";
 
 const Checkout = () => {
   const { cart } = useSelector((state) => state.cart);
-  console.log("CART:", cart);
   const [error, setError] = useState(null);
   return (
     <Card padding="p-0" id="checkout-card">
