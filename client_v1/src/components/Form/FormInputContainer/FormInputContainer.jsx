@@ -11,11 +11,11 @@ const FormInputContainer = ({
   onChange,
   name,
   labelClassName = "",
-  spacing = "mb-3",
+  spacing = "gap-5",
   placeholder,
 }) => {
   return (
-    <div className={`${className} ${labelClassName} ${spacing}`}>
+    <div className={`flex flex-col ${className} ${labelClassName} ${spacing}`}>
       <label htmlFor={inputId}>{name}</label>
       <FormInput
         state={state}

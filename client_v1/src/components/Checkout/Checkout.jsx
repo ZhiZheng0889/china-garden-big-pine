@@ -5,7 +5,7 @@ import CheckoutList from "./CheckoutList/CheckoutList";
 import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
 import ErrorAlert from "../../errors/ErrorAlert";
 
-const Checkout = () => {
+const Checkout = ({ hideButton = false }) => {
   const { cart } = useSelector((state) => state.cart);
   const [error, setError] = useState(null);
   return (
@@ -28,7 +28,7 @@ const Checkout = () => {
           cartId={cart._id}
         />
       )}
-      <CheckoutFooter total={cart.total} />
+      <CheckoutFooter total={cart.total} isButtonHiding={hideButton} />
     </Card>
   );
 };

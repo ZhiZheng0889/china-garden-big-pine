@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "../../Modal/Modal";
 import ErrorAlert from "../../../errors/ErrorAlert";
 import ButtonPrimary from "../../Button/ButtonPrimary/ButtonPrimary";
+import ButtonLight from "../../Button/ButtonLight/ButtonLight";
 
 const CheckoutConfirmDeleteModal = ({ isOpen, closeModal, deleteCartItem }) => {
   const [error, setError] = useState(null);
@@ -18,12 +19,16 @@ const CheckoutConfirmDeleteModal = ({ isOpen, closeModal, deleteCartItem }) => {
             <p>It cannot be undone.</p>
           </div>
 
-          <div>
+          <div className="flex items-center gap-3">
             <ButtonPrimary
               onClick={() => deleteCartItem(setIsLoading, setError)}
+              className="w-20"
             >
               {isLoading ? "Loading..." : "Delete"}
             </ButtonPrimary>
+            <ButtonLight onClick={closeModal} className="w-20">
+              Cancel
+            </ButtonLight>
           </div>
         </div>
       </Modal>
