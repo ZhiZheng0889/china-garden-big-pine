@@ -12,6 +12,7 @@ const FormEditableField = ({
   id,
   placeholder,
   className,
+  usePhoneInput = false,
 }) => {
   const [isEditable, setIsEditable] = useState(initialIsEditable);
   const [inputValue, setInputValue] = useState(state);
@@ -42,12 +43,21 @@ const FormEditableField = ({
             <label htmlFor={name} className="capitalize">
               {name}
             </label>
-            <FormInput
-              state={inputValue}
-              onChange={changeInput}
-              placeholder={placeholder}
-              className="w-full"
-            />
+            {usePhoneInput ? (
+              <FormPhoneInput
+                state={inputValue}
+                setState={setState}
+                placeholder={placeholder}
+                className="w-full"
+              />
+            ) : (
+              <FormInput
+                state={inputValue}
+                onChange={changeInput}
+                placeholder={placeholder}
+                className="w-full"
+              />
+            )}
           </div>
 
           <div className="flex gap-2">

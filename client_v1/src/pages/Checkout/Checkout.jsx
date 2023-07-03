@@ -4,12 +4,19 @@ import Card from "../../components/Card/Card";
 import CheckoutComponent from "../../components/Checkout/Checkout";
 import FormInputContainer from "../../components/Form/FormInputContainer/FormInputContainer";
 import FormEditableField from "../../components/Form/FormEditableField/FormEditableField";
+import ButtonPrimary from "../../components/Button/ButtonPrimary/ButtonPrimary";
+import { useSelector } from "react-redux";
+import FormTextAreaContainer from "../../components/Form/FormTextAreaContainer/FormTextAreaContainer";
 const Checkout = () => {
   const [name, setName] = useState("");
   const [customPickupTime, setCustomPickupTime] = useState("");
-  const changePickupTime = ({ target: { value } }) => {
-    setCustomPickupTime(value);
-  };
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [orderComment, setOrderComment] = useState("");
+
+  const { cart } = useSelector((state) => state.cart);
+
+  const placeOrder = async () => {};
+
   return (
     <main className="bg-gray-100 grow py-6">
       <ContainerSmall>
@@ -37,7 +44,7 @@ const Checkout = () => {
                 </p>
               </div>
               <div className="w-full p-3">
-                <h5 className=" text-center text-lg font-semibold">
+                <h5 className="text-center text-lg font-semibold">
                   Custom Pickup Time
                 </h5>
                 <FormEditableField
@@ -50,6 +57,36 @@ const Checkout = () => {
               </div>
             </div>
           </Card>
+          <Card padding="p-0">
+            <div className="p-3 border-b">
+              <h5 className="text-lg font-semibold">3.Enter Information</h5>
+            </div>
+            <div className="flex flex-col gap-3 p-3">
+              <FormInputContainer
+                state={phoneNumber}
+                setState={setPhoneNumber}
+                placeholder="Enter a phone number..."
+                usePhoneInput={true}
+                name="phone number"
+                isRequired
+              />
+              <FormInputContainer
+                state={name}
+                setState={setName}
+                placeholder="Enter a name..."
+                name="name"
+                isRequired
+              />
+              <FormTextAreaContainer
+                state={orderComment}
+                setState={setOrderComment}
+                placeholder="Comment..."
+                name="comment"
+                isRequired
+              />
+            </div>
+          </Card>
+          <ButtonPrimary>Place Order</ButtonPrimary>
         </div>
       </ContainerSmall>
     </main>
