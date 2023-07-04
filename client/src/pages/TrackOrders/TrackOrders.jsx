@@ -18,6 +18,7 @@ const TrackOrders = () => {
       event.preventDefault();
       setIsLoading(true);
       setError(null);
+      setOrders([]);
       if (Validator.validatePhoneNumber(phoneNumber)) {
         const foundOrders = await OrderApi.getOrdersByPhone(phoneNumber);
         setOrders(foundOrders);
