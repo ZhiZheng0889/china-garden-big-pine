@@ -5,12 +5,11 @@ import CheckoutList from "./CheckoutList/CheckoutList";
 import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
 import ErrorAlert from "../../errors/ErrorAlert";
 
-const Checkout = () => {
+const Checkout = ({ hideButton = false }) => {
   const { cart } = useSelector((state) => state.cart);
-  console.log("CART:", cart);
   const [error, setError] = useState(null);
   return (
-    <Card padding="p-0">
+    <Card padding="p-0" id="checkout-card">
       <header className="p-3 border-b">
         <h3 className="text-lg font-semibold">Cart</h3>
       </header>
@@ -29,7 +28,7 @@ const Checkout = () => {
           cartId={cart._id}
         />
       )}
-      <CheckoutFooter total={cart.total} />
+      <CheckoutFooter total={cart.total} isButtonHiding={hideButton} />
     </Card>
   );
 };

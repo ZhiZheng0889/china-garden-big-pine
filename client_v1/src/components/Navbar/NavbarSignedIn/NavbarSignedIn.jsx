@@ -7,8 +7,16 @@ const NavbarSignedIn = () => {
   return (
     <ul className="flex gap-3 items-center">
       <li>
-        <Link to="/" className="p-2 hover:text-amber-200 duration-200 ease-out">
+        <Link
+          to="/home-route"
+          className="p-2 hover:text-amber-200 duration-200 ease-out"
+        >
           Home
+        </Link>
+      </li>
+      <li>
+        <Link to="/" className="p-2 hover:text-amber-200 duration-200 ease-out">
+          Menu
         </Link>
       </li>
       <li>

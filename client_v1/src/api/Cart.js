@@ -11,7 +11,9 @@ const getCart = async (cart_id) => {
   return await Api.get(`cart/${cart_id}`);
 };
 
-const removeFromCart = async (cartItemIndex, cart_id) => {};
+const removeFromCart = async (cartItemIndex, cart_id) => {
+  return await Api.delete(`cart/${cart_id}/remove/${cartItemIndex}`);
+};
 
 const updateQuantity = async (quantity, cartItemIndex, cart_id) => {
   return await Api.put(`cart/${cart_id}/update/${cartItemIndex}/quantity`, {
@@ -33,6 +35,7 @@ const Cart = {
   addToCart,
   getCart,
   updateQuantity,
+  removeFromCart,
 };
 
 Object.freeze(Cart);

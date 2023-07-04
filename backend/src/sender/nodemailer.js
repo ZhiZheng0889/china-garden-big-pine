@@ -42,7 +42,6 @@ async function sendEmailToRestaurant(order, cart) {
       .replace("{{name}}", name)
       .replace("{{cartItems}}", cartItems.join(""))
       .replace("{{pickupTime}}", pickupTime);
-    console.log("htmlContent: ", htmlContent);
     const mailOptionsSeller = {
       from: process.env.FROM_EMAIL,
       to: sellerEmail,

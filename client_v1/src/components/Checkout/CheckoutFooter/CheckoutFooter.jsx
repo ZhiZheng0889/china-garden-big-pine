@@ -2,8 +2,7 @@ import React from "react";
 import { formatCost } from "../../../utils/formatCost";
 import ButtonPrimary from "../../Button/ButtonPrimary/ButtonPrimary";
 const FLORIDA_TAX = parseFloat(import.meta.env.VITE_FLORIDA_TAX);
-const CheckoutFooter = ({ total }) => {
-  console.log(FLORIDA_TAX);
+const CheckoutFooter = ({ total, isButtonHiding }) => {
   const tax = total * FLORIDA_TAX;
   return (
     total > 0 && (
@@ -23,8 +22,11 @@ const CheckoutFooter = ({ total }) => {
             <p className="ml-auto font-semibold">${formatCost(total + tax)}</p>
           </div>
         </div>
-
-        <ButtonPrimary width="w-full">Checkout</ButtonPrimary>
+        {!isButtonHiding && (
+          <ButtonPrimary width="w-full text-center" link="/checkout">
+            Checkout
+          </ButtonPrimary>
+        )}
       </section>
     )
   );

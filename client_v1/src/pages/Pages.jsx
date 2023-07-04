@@ -7,16 +7,15 @@ import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 import Settings from "./Settings/Settings";
 import NotFound from "./NotFound/NotFound";
+import Receipt from "./Receipt/Receipt";
 
 const Pages = () => {
   return (
     <Routes>
       <Route index element={<Home />} />
       <Route path="checkout" element={<Checkout />} />
-      <Route path="receipt/:order_id" element={<Orders />} />
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<Signup />} />
-      <Route path="settings" element={<Settings />} />
+      <Route path="/orders" element={<Orders />} />
+      <Route path="receipt/:order_id" element={<Receipt />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

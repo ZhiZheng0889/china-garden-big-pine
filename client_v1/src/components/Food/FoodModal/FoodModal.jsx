@@ -64,6 +64,7 @@ const FoodModal = ({ selectedFood }) => {
       if (response.data) {
         dispatch(updateCart(response.data));
         closeModal();
+        setQuantity(1);
       }
     } catch (error) {
       setError(error);
