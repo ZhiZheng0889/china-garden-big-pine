@@ -23,7 +23,7 @@ const FoodSearch = ({ search, setSearch }) => {
     <form className="relative" onSubmit={submitSearch}>
       <FormInputContainer
         state={keyword}
-        onChange={changeKeyword}
+        setState={setKeyword}
         placeholder="Search"
         className="relative"
         inputClassName="py-3 pl-4 pr-[2.7rem]"
