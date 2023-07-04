@@ -9,11 +9,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import ButtonCheckout from "../Button/ButtonCheckout/ButtonCheckout";
 import ButtonBurger from "../Button/ButtonBurger/ButtonBurger";
 import NavbarCanvas from "./NavbarCanvas/NavbarCanvas";
+import CheckoutCanvas from "../Checkout/CheckoutCanvas/CheckoutCanvas";
 
 const Navbar = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  console.log(isMenuOpen, "<++++++++++");
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   return (
     <nav className="py-4 bg-red-700 text-white px-3 sm:px-0 relative">
       <Container className="flex justify-between items-center">
@@ -29,10 +30,18 @@ const Navbar = () => {
           ) : (
             <NavbarNotSignedIn className="hidden md:flex" />
           )}
-          <ButtonCheckout className="ml-3" padding="p-0" />
+          <ButtonCheckout
+            className="ml-3"
+            padding="p-0"
+            onClick={() => setIsCheckoutOpen((curr) => !curr)}
+          />
         </ul>
       </Container>
       <NavbarCanvas isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <CheckoutCanvas
+        isCheckoutOpen={isCheckoutOpen}
+        setIsCheckoutOpen={setIsCheckoutOpen}
+      />
     </nav>
   );
 };

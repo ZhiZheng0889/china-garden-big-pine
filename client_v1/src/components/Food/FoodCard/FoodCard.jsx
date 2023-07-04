@@ -31,15 +31,15 @@ const FoodCard = ({ food }) => {
           <div className="flex flex-col gap-0">
             <div className="flex gap-1 items-center">
               <h5
-                className="text-lg font-semibold"
+                className="text-lg font-semibold max-w-[75%] min-[360px]:max-w-[90%] min-[430px]:max-w-[100%]"
                 data-testid="food-card-header"
               >
                 {name}
                 {amount && (
-                  <span className=" ms-2 text-muted text-thin">({amount})</span>
+                  <span className=" ml-2 text-muted text-thin">({amount})</span>
                 )}
+                {spicy && <span className="text-red-800 text-xl">🌶</span>}
               </h5>
-              {spicy && <p className="text-red-800 text-xl">🌶</p>}
             </div>
 
             {description && (

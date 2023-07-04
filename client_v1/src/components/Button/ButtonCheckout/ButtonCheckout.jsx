@@ -1,8 +1,9 @@
 import React from "react";
 import ButtonWhite from "../ButtonWhite/ButtonWhite";
 import { useSelector } from "react-redux";
+import CartReducer from "../../../utils/CartReducer";
 
-const ButtonCheckout = ({ className = "" }) => {
+const ButtonCheckout = ({ className = "", onClick }) => {
   const { cart } = useSelector((state) => state.cart);
 
   return (
@@ -11,9 +12,10 @@ const ButtonCheckout = ({ className = "" }) => {
         className && " " + className
       }`}
       padding="py-1"
+      onClick={onClick}
     >
       <i class="fa-solid fa-cart-shopping"></i>{" "}
-      {cart ? cart?.items?.length ?? 0 : 10}
+      {CartReducer.getCartTotalQuantity(cart)}
     </ButtonWhite>
   );
 };

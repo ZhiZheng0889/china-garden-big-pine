@@ -14,6 +14,7 @@ app.use(cors());
 app.use("/foods", require("./foods/foods.router"));
 app.use("/cart", require("./cart/cart.router"));
 app.use("/order", require("./order/order.router"));
+app.use("/hours", require("./hours/hours.router"));
 
 app.use(notFound);
 app.use(errorHandler);

@@ -18,9 +18,18 @@ const getCartTotal = (cart) => {
     : 0;
 };
 
+const getCartTotalQuantity = (cart) => {
+  return Array.isArray(cart?.items)
+    ? cart.items.reduce((accumulator, item) => {
+        return accumulator + item.quantity;
+      }, 0)
+    : 0;
+};
+
 const CartReducer = {
   getCartTotal,
   getItemTotal,
+  getCartTotalQuantity,
 };
 
 Object.freeze(CartReducer);

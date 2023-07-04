@@ -5,7 +5,7 @@ import CheckoutList from "./CheckoutList/CheckoutList";
 import CheckoutFooter from "./CheckoutFooter/CheckoutFooter";
 import ErrorAlert from "../../errors/ErrorAlert";
 
-const Checkout = ({ hideButton = false }) => {
+const Checkout = ({ hideButton = false, closeModal }) => {
   const { cart } = useSelector((state) => state.cart);
   const [error, setError] = useState(null);
   return (
@@ -28,7 +28,11 @@ const Checkout = ({ hideButton = false }) => {
           cartId={cart._id}
         />
       )}
-      <CheckoutFooter total={cart?.total} isButtonHiding={hideButton} />
+      <CheckoutFooter
+        total={cart?.total}
+        isButtonHiding={hideButton}
+        closeModal={closeModal}
+      />
     </Card>
   );
 };

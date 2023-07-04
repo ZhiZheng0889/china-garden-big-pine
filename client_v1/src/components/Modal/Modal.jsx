@@ -20,7 +20,7 @@ const Modal = ({ isOpen, closeModal, header, children }) => {
       <>
         <div className="modal-backdrop" onClick={closeModal}></div>
         <FocusTrap focusTrapOptions={{ initialFocus: "#modal-close-button" }}>
-          <div className="modal w-11/12 md:max-w-2xl max-h-[95%] overflow-y-auto bg-white z-100 bg-white">
+          <div className="border modal w-full min-[362px]:w-11/12 md:max-w-2xl max-h-[95%] overflow-y-auto bg-white z-100 bg-white">
             <ModalHeader closeModal={closeModal} header={header} />
             {children}
           </div>

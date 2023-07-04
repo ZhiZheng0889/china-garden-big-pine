@@ -8,6 +8,7 @@ const ButtonClear = ({
   className = "",
   role = "button",
   width = "min-w-[4rem]",
+  padding,
   id,
 }) => {
   return (
@@ -15,6 +16,7 @@ const ButtonClear = ({
       link={link}
       onClick={onClick}
       role={role}
+      padding={padding}
       className={`bg-inherit hover:bg-gray-100 active:bg-gray-200 ${width} rounded duration-200 ease-out${
         className && " " + className
       }`}

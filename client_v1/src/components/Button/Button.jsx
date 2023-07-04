@@ -11,7 +11,20 @@ const Button = ({
   id,
 }) => {
   const parentClass = className;
+  console.log(onClick);
   if (link) {
+    if (onClick !== undefined) {
+      return (
+        <Link
+          className={`${parentClass} ${padding}`}
+          to={link}
+          id={id}
+          onClick={onClick}
+        >
+          {children}
+        </Link>
+      );
+    }
     return (
       <Link className={`${parentClass} ${padding}`} to={link} id={id}>
         {children}

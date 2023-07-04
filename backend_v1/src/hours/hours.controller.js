@@ -10,17 +10,20 @@ async function getOperationHours(req, res, next) {
       message: "Error getting operation hours. Please try again",
     });
   }
-  res.status(200).json({ data: hours });
+  res.status(200).json(hours);
 }
 
 async function getDailyOperationHours(req, res, next) {
   try {
     const { date } = req.params;
+    console.log("DATE: ", date);
     const foundClosedHours = await service.getClosedHours(date);
+    console.log(foundClosedHours);
     if (foundClosedHours) {
       res.status(204).json({ data: { open: "", close: "" } });
     } else {
       const dayOfWeek = dayjs(date).format("dddd").toLowerCase();
+      console.log(dayOfWeek);
       if (!dayOfWeek) {
         return next({
           status: 400,
@@ -28,34 +31,22 @@ async function getDailyOperationHours(req, res, next) {
         });
       }
       const operationHours = await service.getOperationHours();
+      console.log("OPERATION HOURS: ", operationHours);
       if (!operationHours) {
         return next({
           status: 500,
           message: "Operation hours not found",
         });
       }
-      res.status(200).json({ data: operationHours[dayOfWeek] });
+      res.status(200).json(operationHours[dayOfWeek]);
     }
   } catch (error) {
     return next({
       status: 500,
-      message: error.message,
+      message: "Operation hours not found.",
     });
   }
 }
-
-// Update operation hours
-// async function updateOperationHours(req, res) {
-//     const newData = req.body;
-
-//     fs.writeFile(path.resolve(__dirname, './src/db/data/hours.json'), JSON.stringify(newData, null, 2), 'utf-8', err => {
-//         if (err) {
-//             res.status(500).send(err);
-//         } else {
-//             res.json(newData);
-//         }
-//     });
-// };
 
 module.exports = {
   getHours: asyncErrorBoundary(getOperationHours),
