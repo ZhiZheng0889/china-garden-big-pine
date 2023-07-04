@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { unselectFood } from "../../../slices/selectedFoodSlice";
@@ -67,6 +67,8 @@ const FoodModal = ({ selectedFood }) => {
         dispatch(updateCart(response.data));
         closeModal();
         setQuantity(1);
+        setError(null);
+        dispatch(unselectFood());
       }
     } catch (error) {
       setError(error);
@@ -74,6 +76,11 @@ const FoodModal = ({ selectedFood }) => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    setSelectedSize(selectedFood?.sizes ? 0 : null);
+    setSelectedOption(selectedFood?.options ? 0 : null);
+  }, [JSON.stringify(selectedFood)]);
   return (
     selectedFood && (
       <Modal closeModal={closeModal} isOpen={selectedFood}>
