@@ -6,7 +6,7 @@ router.route("/").post(controller.createOrder).all(methodNotAllowed);
 
 router
   .route("/find")
-  .get(controller.getOrderByPhoneNumber)
+  .post(controller.getOrdersByPhoneNumber)
   .all(methodNotAllowed);
 
 router.route("/:order_id").get(controller.getOrder).all(methodNotAllowed);

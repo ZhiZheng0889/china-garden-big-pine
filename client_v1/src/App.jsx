@@ -33,7 +33,7 @@ const App = () => {
         redirect_uri: window.location.origin,
       }}
     >
-      <Layout />;
+      <Layout />
     </Auth0Provider>
   );
 };

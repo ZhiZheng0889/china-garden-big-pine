@@ -6,9 +6,12 @@ const OrderFooter = ({ order }) => {
   const tax = order?.cart.total * FLORIDA_TAX;
   return (
     order?.cart.total > 0 && (
-      <section className="p-3 flex flex-col gap-3">
-        <h3 className="text-lg font-semibold">Info</h3>
-        <div className="flex flex-col gap-3">
+      <section className="flex flex-col gap-0">
+        <div className="p-3">
+          <h3 className="text-lg font-semibold">Info</h3>
+        </div>
+
+        <div className="flex flex-col gap-3 border-b pl-3 pr-3 pb-3">
           <div className="flex flex-col gap-0">
             <p className="font-semibold">Name</p>
             {order?.name}
@@ -17,8 +20,14 @@ const OrderFooter = ({ order }) => {
             <p className="font-semibold">Phone Number</p>
             {order?.phoneNumber}
           </div>
+          {order?.comment && (
+            <div className="flex flex-col gap-0">
+              <p className="font-semibold">Comment</p>
+              {order?.comment}
+            </div>
+          )}
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 p-3">
           <h3 className="text-lg font-semibold">Total</h3>
           <div>
             <div className="flex items-center">

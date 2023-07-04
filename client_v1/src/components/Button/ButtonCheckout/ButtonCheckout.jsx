@@ -7,7 +7,9 @@ const ButtonCheckout = ({ className = "" }) => {
 
   return (
     <ButtonWhite
-      className={`rounded-full text-black${className && " " + className}`}
+      className={`xl:hidden rounded-full text-black${
+        className && " " + className
+      }`}
     >
       <i class="fa-solid fa-cart-shopping"></i> 0
     </ButtonWhite>

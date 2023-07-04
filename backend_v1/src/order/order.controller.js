@@ -140,12 +140,28 @@ function hasValidOrderTotal(req, res, next) {
   });
 }
 
+async function getOrdersByPhoneNumber(req, res, next) {
+  const { phoneNumber } = req.body;
+  const foundOrders = await service.getOrdersByPhoneNumber(phoneNumber);
+  console.log("FOUND ORDERS: ", foundOrders);
+  if (!foundOrders) {
+    return next({
+      status: 404,
+      message: "No orders can be found from today by this phone number.",
+    });
+  }
+  res.status(200).json(foundOrders);
+}
+
 async function deleteCart(cart_id) {
   await service.destroyCartById(cart_id);
 }
 
 module.exports = {
-  getOrderByPhoneNumber: [],
+  getOrdersByPhoneNumber: [
+    hasValidPhoneNumber,
+    asyncErrorBoundary(getOrdersByPhoneNumber),
+  ],
   getOrder: [asyncErrorBoundary(getOrderAndReturnError), getOrder],
   createOrder: [
     asyncErrorBoundary(getCartAndReturnError),
