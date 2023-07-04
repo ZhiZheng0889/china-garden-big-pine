@@ -51,9 +51,9 @@ const PageRoutes = ({
       />
       <Route path="/orders/:order_id" element={<Receipt user={{}} />} />
       <Route path="/orders" element={<TrackOrders />} />
-      {/* <Route path="/receipt/:order_id" element={<Receipt />} /> */}
-      {/* <Route path="/profile/orders" element={<Orders user={user} />} />
-      <Route
+      <Route path="/receipt/:order_id" element={<Receipt />} />
+      <Route path="/profile/orders" element={<Orders user={user} />} />
+      {/* <Route
         path="/profile/orders/:order_id"
         element={<Receipt user={user} />}
       /> */}

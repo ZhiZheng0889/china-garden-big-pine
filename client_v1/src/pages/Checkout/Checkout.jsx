@@ -7,20 +7,58 @@ import FormEditableField from "../../components/Form/FormEditableField/FormEdita
 import ButtonPrimary from "../../components/Button/ButtonPrimary/ButtonPrimary";
 import { useSelector } from "react-redux";
 import FormTextAreaContainer from "../../components/Form/FormTextAreaContainer/FormTextAreaContainer";
+import ApiErrorHandler from "../../errors/ApiErrorHandler";
+import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
+import Order from "../../api/Order";
+
 const Checkout = () => {
   const [name, setName] = useState("");
   const [customPickupTime, setCustomPickupTime] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [orderComment, setOrderComment] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [invalidFields, setInvalidFields] = useState([]);
 
   const { cart } = useSelector((state) => state.cart);
+  console.log("CART: ", cart);
 
-  const placeOrder = async () => {};
+  const placeOrder = async () => {
+    try {
+      setError(null);
+      setIsLoading(true);
+      setInvalidFields([]);
+      if (!name) {
+        setInvalidFields((curr) => [...curr, "name"]);
+      }
+      if (!phoneNumber) {
+        setInvalidFields((curr) => [...curr, "phone number"]);
+      }
+      if (!name || !phoneNumber) {
+        throw new Error(`Missing fields: ${invalidFields.join(", ")}`);
+      }
+      const formattedOrder = {
+        name,
+        customPickupTime,
+        phoneNumber,
+        comment: orderComment,
+        cart_id: cart._id,
+      };
+      console.log("=========>", formattedOrder);
+      const response = await Order.create(formattedOrder);
+      console.log(response);
+    } catch (error) {
+      setError(ApiErrorHandler.handleRequestResponse(error));
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <main className="bg-gray-100 grow py-6">
       <ContainerSmall>
         <div className="flex flex-col gap-5">
+          <ErrorAlertFixed error={error} />
           <Card padding="p-0">
             <div className="p-3 flex flex-col gap-3">
               <h2 className="text-2xl font-semibold">Checkout</h2>
@@ -69,6 +107,7 @@ const Checkout = () => {
                 usePhoneInput={true}
                 name="phone number"
                 isRequired
+                isInvalid={invalidFields.includes("phone number")}
               />
               <FormInputContainer
                 state={name}
@@ -76,17 +115,17 @@ const Checkout = () => {
                 placeholder="Enter a name..."
                 name="name"
                 isRequired
+                isInvalid={invalidFields.includes("phone number")}
               />
               <FormTextAreaContainer
                 state={orderComment}
                 setState={setOrderComment}
                 placeholder="Comment..."
                 name="comment"
-                isRequired
               />
             </div>
           </Card>
-          <ButtonPrimary>Place Order</ButtonPrimary>
+          <ButtonPrimary onClick={placeOrder}>Place Order</ButtonPrimary>
         </div>
       </ContainerSmall>
     </main>

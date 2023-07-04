@@ -1,5 +1,6 @@
 const Cart = require("../db/models/cartModel");
 const Food = require("../db/models/foodModel");
+
 function getCartById(_id) {
   return Cart.findById(_id);
 }

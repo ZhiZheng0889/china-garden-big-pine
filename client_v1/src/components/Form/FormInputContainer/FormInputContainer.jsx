@@ -9,7 +9,6 @@ const FormInputContainer = ({
   children,
   className,
   inputId,
-  onChange,
   setState,
   name,
   labelClassName = "",
@@ -17,7 +16,11 @@ const FormInputContainer = ({
   isRequired,
   placeholder,
   usePhoneInput = false,
+  isInvalid,
 }) => {
+  const onChange = ({ target: { value } }) => {
+    setState(value);
+  };
   return (
     <div className={`flex flex-col ${className} ${labelClassName} ${spacing}`}>
       <label
@@ -35,6 +38,7 @@ const FormInputContainer = ({
           setState={setState}
           id={inputId}
           placeholder={placeholder}
+          isInvalid={isInvalid}
         />
       ) : (
         <FormInput
@@ -45,6 +49,7 @@ const FormInputContainer = ({
           id={inputId}
           name={name}
           placeholder={placeholder}
+          isInvalid={isInvalid}
         />
       )}
       {children}

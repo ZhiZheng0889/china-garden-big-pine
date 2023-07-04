@@ -9,6 +9,6 @@ router
   .get(controller.getOrderByPhoneNumber)
   .all(methodNotAllowed);
 
-router.route("/:order_id").get(controller.getOrderById).all(methodNotAllowed);
+router.route("/:order_id").get(controller.getOrder).all(methodNotAllowed);
 
 module.exports = router;

@@ -22,6 +22,7 @@ const PhoneInput = ({
   setState,
   id,
   placeholder = "Phone Number",
+  isInvalid,
 }) => {
   const changePhoneNumber = ({ target: { value } }) => {
     setState(formatPhoneNumber(value));
@@ -34,7 +35,9 @@ const PhoneInput = ({
       onChange={changePhoneNumber}
       placeholder={placeholder}
       name={name}
-      className="w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600"
+      className={`w-full p-2 border rounded focus:outline outline-2 outline-offset-2 outline-red-600 ${
+        isInvalid && "border-red-700 bg-red-100 text-red-700"
+      }`}
     />
   );
 };
