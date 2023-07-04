@@ -9,6 +9,7 @@ const Button = ({
   role = "button",
   padding = "px-3 py-2",
   id,
+  type = "button",
 }) => {
   const parentClass = className;
   console.log(onClick);
@@ -38,6 +39,7 @@ const Button = ({
           className={`${parentClass} ${padding}`}
           role={role}
           id={id}
+          type={type}
         >
           {children}
         </button>
@@ -48,6 +50,7 @@ const Button = ({
           className={`${parentClass} ${padding} outline-2 outline-offset-2 outline-red-600`}
           role={role}
           id={id}
+          type={type}
         >
           {children}
         </button>

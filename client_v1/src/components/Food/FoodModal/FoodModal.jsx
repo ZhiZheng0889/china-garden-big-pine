@@ -78,8 +78,8 @@ const FoodModal = ({ selectedFood }) => {
   };
 
   useEffect(() => {
-    setSelectedSize(selectedFood?.sizes ? 0 : null);
-    setSelectedOption(selectedFood?.options ? 0 : null);
+    setSelectedSize(selectedFood?.sizes.length > 0 ? 0 : null);
+    setSelectedOption(selectedFood?.options.length > 0 ? 0 : null);
   }, [JSON.stringify(selectedFood)]);
   return (
     selectedFood && (

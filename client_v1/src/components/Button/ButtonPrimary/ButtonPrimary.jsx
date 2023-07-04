@@ -9,6 +9,7 @@ const ButtonPrimary = ({
   role = "button",
   width = "min-w-[4rem]",
   id,
+  type,
 }) => {
   return (
     <Button
@@ -19,6 +20,7 @@ const ButtonPrimary = ({
         className && " " + className
       }`}
       id={id}
+      type={type}
     >
       {children}
     </Button>

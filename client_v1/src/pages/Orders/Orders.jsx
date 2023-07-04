@@ -9,14 +9,17 @@ import Footer from "../../components/Footer/Footer";
 import Order from "../../api/Order";
 import dayjs from "dayjs";
 import ButtonClear from "../../components/Button/ButtonClear/ButtonClear";
+import { formatCost } from "../../utils/formatCost";
+
 const Orders = () => {
   const [error, setError] = useState(null);
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const searchOrders = async () => {
+  const searchOrders = async (event) => {
     try {
+      event.preventDefault();
       setIsLoading(true);
       setError(null);
       setOrders([]);
@@ -43,7 +46,7 @@ const Orders = () => {
             <div className="p-3 border-b">
               <h3 className="text-lg font-semibold">Search You Orders</h3>
             </div>
-            <div className="p-3 flex flex-col gap-3">
+            <form className="p-3 flex flex-col gap-3">
               <FormInputContainer
                 state={phoneNumber}
                 setState={setPhoneNumber}
@@ -52,11 +55,15 @@ const Orders = () => {
                 name="Phone Number"
               />
               <div>
-                <ButtonPrimary width="w-24" onClick={searchOrders}>
+                <ButtonPrimary
+                  width="w-24"
+                  type="submit"
+                  onClick={searchOrders}
+                >
                   {isLoading ? "Loading..." : "Search"}
                 </ButtonPrimary>
               </div>
-            </div>
+            </form>
             <div>
               <ul>
                 {orders.length > 0 ? (
@@ -65,9 +72,12 @@ const Orders = () => {
                     return (
                       <li key={order._id}>
                         <div className="p-3 border-t flex flex-col gap-3 relative">
-                          <h4 className="font-semibold">
-                            {day.format("dddd, MMM DD")}
-                          </h4>
+                          <div>
+                            <h4 className="font-semibold">
+                              {day.format("dddd, MMM DD")}
+                            </h4>
+                            <p>${formatCost(order.cart.total)}</p>
+                          </div>
                           {order.isComplete ? (
                             <p className="text-green-700">Completed</p>
                           ) : (

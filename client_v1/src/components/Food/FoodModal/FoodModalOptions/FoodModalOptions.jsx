@@ -1,5 +1,5 @@
 import React from "react";
-
+import { formatCost } from "../../../../utils/formatCost";
 const FoodModalOptions = ({ options, selectedOption, setSelectedOption }) => {
   return (
     Array.isArray(options) &&

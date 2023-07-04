@@ -43,7 +43,7 @@ const Checkout = () => {
       // }
       const formattedOrder = {
         name,
-        customPickupTime,
+        pickupTime: customPickupTime,
         phoneNumber,
         comment: orderComment,
         cart_id: cart._id,

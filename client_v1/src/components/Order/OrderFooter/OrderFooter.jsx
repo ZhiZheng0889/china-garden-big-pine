@@ -1,9 +1,11 @@
 import React from "react";
 const FLORIDA_TAX = parseFloat(import.meta.env.VITE_FLORIDA_TAX);
-
 import { formatCost } from "../../../utils/formatCost";
+import dayjs from "dayjs";
 const OrderFooter = ({ order }) => {
+  console.log("ORDER: ", order);
   const tax = order?.cart.total * FLORIDA_TAX;
+  const day = dayjs(order?.createdAt);
   return (
     order?.cart.total > 0 && (
       <section className="flex flex-col gap-0">
@@ -25,6 +27,23 @@ const OrderFooter = ({ order }) => {
               <p className="font-semibold">Comment</p>
               {order?.comment}
             </div>
+          )}
+          {order?.pickupTime ? (
+            <div className="flex flex-col gap-0">
+              <p className="font-semibold">Custom Pickup Time</p>
+              {order?.pickupTime}
+            </div>
+          ) : (
+            <>
+              <div>
+                <p className="font-semibold">Pickup Time</p>
+                Approximately 15-25 minutes
+              </div>
+              <div>
+                <p className="font-semibold">Order Created</p>
+                {day.format("h:mm A")}
+              </div>
+            </>
           )}
         </div>
         <div className="flex flex-col gap-3 p-3">
