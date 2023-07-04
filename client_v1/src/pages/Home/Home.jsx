@@ -7,14 +7,16 @@ import FoodList from "../../components/Food/FoodList/FoodList";
 import Footer from "../../components/Footer/Footer";
 import Food from "../../components/Food/Food";
 import Checkout from "../../components/Checkout/Checkout";
+import { useSelector } from "react-redux";
+import { removeCategory } from "../../slices/categorySlice";
 
 const Home = () => {
-  const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
+  const { category } = useSelector((state) => state.category);
 
   useEffect(() => {
     if (search) {
-      setCategory(null);
+      removeCategory();
     }
   }, [search]);
 
@@ -28,7 +30,7 @@ const Home = () => {
     <main className="bg-gray-100 grow py-6">
       <Container className="custom-grid gap-6">
         <Card padding="p-0" className="overflow-hidden h-fit hidden md:block">
-          <FoodNav category={category} setCategory={setCategory} />
+          <FoodNav />
         </Card>
 
         <section className="flex flex-col gap-3">

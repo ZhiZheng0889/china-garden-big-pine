@@ -1,8 +1,8 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../../../slices/categorySlice";
 
 const FoodNav = ({
-  category,
-  setCategory,
   categories = [
     "Appetizers",
     "Soup",
@@ -23,10 +23,15 @@ const FoodNav = ({
     "Combo",
     "Lunch",
   ],
+  setIsOpen = () => {},
 }) => {
+  const dispatch = useDispatch();
+  const { category } = useSelector((state) => state.category);
+
   const changeCategory = ({ target }) => {
     const category = target.getAttribute("data-category");
-    setCategory(category);
+    dispatch(setCategory(category));
+    setIsOpen(false);
   };
 
   return (

@@ -8,7 +8,7 @@ import FoodModal from "./FoodModal/FoodModal";
 import { useDisableBodyScroll } from "../../hooks/useDisableBodyScroll";
 import { unselectFood } from "../../slices/selectedFoodSlice";
 
-const Food = ({ search, category }) => {
+const Food = ({ search }) => {
   const [error, setError] = useState(null);
 
   const { selectedFood } = useSelector((state) => state.selectedFood);
@@ -19,12 +19,7 @@ const Food = ({ search, category }) => {
       <Card padding="p-0">
         {error && <ErrorAlert error={error} className="m-3" />}
         <FoodHeader />
-        <FoodFeed
-          error={error}
-          setError={setError}
-          category={category}
-          search={search}
-        />
+        <FoodFeed error={error} setError={setError} search={search} />
       </Card>
       <FoodModal selectedFood={selectedFood} />
     </>

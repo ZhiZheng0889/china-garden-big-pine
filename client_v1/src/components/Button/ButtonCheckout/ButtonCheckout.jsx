@@ -10,8 +10,10 @@ const ButtonCheckout = ({ className = "" }) => {
       className={`xl:hidden rounded-full text-black${
         className && " " + className
       }`}
+      padding="py-1"
     >
-      <i class="fa-solid fa-cart-shopping"></i> 0
+      <i class="fa-solid fa-cart-shopping"></i>{" "}
+      {cart ? cart?.items?.length ?? 0 : 10}
     </ButtonWhite>
   );
 };

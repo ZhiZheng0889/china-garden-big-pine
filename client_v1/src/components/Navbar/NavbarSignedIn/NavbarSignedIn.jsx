@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const NavbarSignedIn = () => {
   const { logout } = useAuth0();
   return (
-    <ul className="flex gap-3 items-center">
+    <ul className="flex gap-3 items-center hidden md:block">
       <li>
         <Link
           to="/home-route"
