@@ -14,6 +14,7 @@ const cartItemDataTypes = {
 
 async function getCart(req, res, next) {
   const { cart_id } = req.body;
+  console.log("CART ID: ", cart_id);
   const foundCart = await service.getCartById(cart_id);
   if (foundCart) {
     res.locals.cart = foundCart;

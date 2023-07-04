@@ -19,7 +19,7 @@ const Checkout = ({ hideButton = false }) => {
         showClose
         className="m-2 p-3"
       />
-      {!error && cart.length === 0 ? (
+      {(!error && cart?.items?.length === 0) || !cart?.items ? (
         <p className="font-semibold p-3">Cart is empty...</p>
       ) : (
         <CheckoutList
@@ -28,7 +28,7 @@ const Checkout = ({ hideButton = false }) => {
           cartId={cart._id}
         />
       )}
-      <CheckoutFooter total={cart.total} isButtonHiding={hideButton} />
+      <CheckoutFooter total={cart?.total} isButtonHiding={hideButton} />
     </Card>
   );
 };

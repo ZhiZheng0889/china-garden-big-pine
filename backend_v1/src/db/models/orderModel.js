@@ -1,11 +1,41 @@
 const mongoose = require("mongoose");
 
-const cartItemSchema = {
-  food_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Food",
-    required: true,
+const foodSchema = {
+  name: { type: String, required: [true, "A food requires a name"] },
+  basePrice: {
+    type: Number,
+    required: [true, "A food requires a base price"],
   },
+  category: { type: String, required: [true, "A food requires a category"] },
+  description: { type: String, required: false },
+  spicy: { type: Boolean, default: false },
+  available: { type: Boolean, default: true },
+  imageUrl: {
+    type: String,
+    default: "",
+  },
+  options: {
+    type: [
+      {
+        option: { type: String, required: true },
+        upcharge: { type: Number, required: true },
+      },
+    ],
+    default: [],
+  },
+  sizes: {
+    type: [
+      {
+        size: { type: String, required: true },
+        upcharge: { type: Number, required: true },
+      },
+    ],
+    default: [],
+  },
+};
+
+const cartItemSchema = {
+  food: foodSchema,
   specialRequest: {
     type: String,
     default: "",
@@ -14,21 +44,13 @@ const cartItemSchema = {
     type: Number,
     required: true,
   },
-  selectedFoodOption: {
+  selectedOption: {
     type: Number,
     default: null,
   },
-  selectedFoodSize: {
+  selectedSize: {
     type: Number,
     default: null,
-  },
-  isLiked: {
-    type: Boolean,
-    default: false,
-  },
-  isDisliked: {
-    type: Boolean,
-    default: false,
   },
 };
 

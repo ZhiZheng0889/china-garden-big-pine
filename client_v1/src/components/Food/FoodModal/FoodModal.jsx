@@ -60,7 +60,9 @@ const FoodModal = ({ selectedFood }) => {
         selectedSize,
         quantity,
       };
+      console.log("HERE");
       const response = await Cart.addToCart(itemToAdd, cart._id);
+      console.log("RES: ", response);
       if (response.data) {
         dispatch(updateCart(response.data));
         closeModal();

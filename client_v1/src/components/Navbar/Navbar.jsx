@@ -6,6 +6,7 @@ import Container from "../Container/Container";
 import NavbarNotSignedIn from "./NavbarNotSignedIn/NavbarNotSignedIn";
 import NavbarSignedIn from "./NavbarSignedIn/NavbarSignedIn";
 import { useAuth0 } from "@auth0/auth0-react";
+import ButtonCheckout from "../Button/ButtonCheckout/ButtonCheckout";
 
 const Navbar = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -15,12 +16,13 @@ const Navbar = () => {
         <Link to="/" className="hover:text-amber-200 duration-200 ease-out">
           <h1 className="font-semibold text-xl">China Garden</h1>
         </Link>
-        <ul>
+        <ul className="flex items-center">
           {!isLoading && isAuthenticated ? (
             <NavbarSignedIn />
           ) : (
             <NavbarNotSignedIn />
           )}
+          <ButtonCheckout className="ml-3" />
         </ul>
       </Container>
     </nav>

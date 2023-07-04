@@ -14,7 +14,7 @@ function destroyCartById(_id) {
 }
 
 function createOrder(order) {
-  return Cart.create(order);
+  return Order.create(order);
 }
 
 module.exports = {

@@ -4,5 +4,7 @@
  * @param {object} obj
  */
 export const isObjectEmpty = (obj) => {
-  return Object.values(obj).every((x) => x === null || x === "");
+  return object
+    ? Object.values(obj).every((x) => x === null || x === "")
+    : false;
 };

@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      if (isObjectEmpty(cart)) {
+      if (!cart || isObjectEmpty(cart)) {
         const foundCartId = Storage.get("cart_id");
         if (foundCartId) {
           const response = await Cart.getCart(foundCartId);

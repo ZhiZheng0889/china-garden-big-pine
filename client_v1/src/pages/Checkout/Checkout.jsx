@@ -5,11 +5,14 @@ import CheckoutComponent from "../../components/Checkout/Checkout";
 import FormInputContainer from "../../components/Form/FormInputContainer/FormInputContainer";
 import FormEditableField from "../../components/Form/FormEditableField/FormEditableField";
 import ButtonPrimary from "../../components/Button/ButtonPrimary/ButtonPrimary";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FormTextAreaContainer from "../../components/Form/FormTextAreaContainer/FormTextAreaContainer";
 import ApiErrorHandler from "../../errors/ApiErrorHandler";
 import ErrorAlertFixed from "../../errors/ErrorAlertFixed/ErrorAlertFixed";
+import Footer from "../../components/Footer/Footer";
 import Order from "../../api/Order";
+import { useNavigate } from "react-router-dom";
+import { removeCart } from "../../slices/cartSlice";
 
 const Checkout = () => {
   const [name, setName] = useState("");
@@ -21,22 +24,23 @@ const Checkout = () => {
   const [invalidFields, setInvalidFields] = useState([]);
 
   const { cart } = useSelector((state) => state.cart);
-  console.log("CART: ", cart);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const placeOrder = async () => {
     try {
       setError(null);
       setIsLoading(true);
       setInvalidFields([]);
-      if (!name) {
-        setInvalidFields((curr) => [...curr, "name"]);
-      }
-      if (!phoneNumber) {
-        setInvalidFields((curr) => [...curr, "phone number"]);
-      }
-      if (!name || !phoneNumber) {
-        throw new Error(`Missing fields: ${invalidFields.join(", ")}`);
-      }
+      // if (!name) {
+      //   setInvalidFields((curr) => [...curr, "name"]);
+      // }
+      // if (!phoneNumber) {
+      //   setInvalidFields((curr) => [...curr, "phone number"]);
+      // }
+      // if (!name || !phoneNumber) {
+      //   throw new Error(`Missing fields: ${invalidFields.join(", ")}`);
+      // }
       const formattedOrder = {
         name,
         customPickupTime,
@@ -44,9 +48,12 @@ const Checkout = () => {
         comment: orderComment,
         cart_id: cart._id,
       };
-      console.log("=========>", formattedOrder);
       const response = await Order.create(formattedOrder);
       console.log(response);
+      if (response.data) {
+        navigate(`/receipt/${response.data._id}`);
+        dispatch(removeCart());
+      }
     } catch (error) {
       setError(ApiErrorHandler.handleRequestResponse(error));
     } finally {
@@ -125,8 +132,11 @@ const Checkout = () => {
               />
             </div>
           </Card>
-          <ButtonPrimary onClick={placeOrder}>Place Order</ButtonPrimary>
+          <ButtonPrimary onClick={placeOrder}>
+            {isLoading ? "Loading..." : "Place Order"}
+          </ButtonPrimary>
         </div>
+        <Footer />
       </ContainerSmall>
     </main>
   );

@@ -15,13 +15,13 @@ export const cartSlice = createSlice({
       }
       state.cart = action.payload;
     },
-    removeItem: (state) => {
+    removeCart: (state) => {
       Storage.remove("cart");
-      state.cart = null;
+      state.cart = {};
     },
   },
 });
 
-export const { updateCart, removeItem } = cartSlice.actions;
+export const { updateCart, removeCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

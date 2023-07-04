@@ -3,6 +3,8 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasRequiredProperties = require("../utils/hasRequiredProperties");
 const isValidPhoneNumber = require("../utils/isValidPhoneNumber");
 const MAX_COMMENT_LENGTH = parseInt(process.env.MAX_COMMENT_LENGTH);
+const MAX_ORDER_LIMIT = parseInt(process.env.MAX_ORDER_LIMIT);
+
 const REQUIRED_PROPERTIES = ["name", "phoneNumber", "comment"];
 
 async function getCartAndReturnError(req, res, next) {
@@ -27,6 +29,7 @@ async function getCartAndReturnError(req, res, next) {
 
 async function getOrderAndReturnError(req, res, next) {
   const { order_id } = req.params;
+  console.log("=>", order_id);
   if (!order_id) {
     return next({
       satus: 400,
@@ -34,6 +37,7 @@ async function getOrderAndReturnError(req, res, next) {
     });
   }
   const foundOrder = await service.getOrderById(order_id);
+  console.log("FOUND ORDER: ", foundOrder);
   if (foundOrder) {
     res.locals.order = foundOrder.toObject();
     return next();
@@ -44,15 +48,15 @@ async function getOrderAndReturnError(req, res, next) {
   });
 }
 
-async function getOrder(req, res, next) {
-  const { order } = res.locals.order;
-  if (order) {
-    res.status(200).json(order);
+function getOrder(req, res, next) {
+  const { order } = res.locals;
+  if (!order) {
+    return next({
+      status: 500,
+      message: "Cannot load order.",
+    });
   }
-  return next({
-    status: 400,
-    message: "Error getting order.",
-  });
+  res.status(200).json(order);
 }
 
 async function createOrder(req, res, next) {
@@ -63,7 +67,10 @@ async function createOrder(req, res, next) {
       phoneNumber,
       name,
       comment,
-      cart,
+      cart: {
+        items: cart.items,
+        total: cart.total,
+      },
       pickupTime,
     };
     const createdOrder = await service.createOrder(formattedOrder);
@@ -85,6 +92,12 @@ async function createOrder(req, res, next) {
 
 function hasValidPhoneNumber(req, res, next) {
   const { phoneNumber } = req.body;
+  if (!phoneNumber) {
+    return next({
+      status: 400,
+      message: "A phone number is required.",
+    });
+  }
   if (isValidPhoneNumber(phoneNumber)) {
     return next();
   }
@@ -105,6 +118,28 @@ function hasValidComment(req, res, next) {
   return next();
 }
 
+function hasValidName(req, res, next) {
+  const { name } = req.body;
+  if (!name) {
+    return next({
+      status: 400,
+      message: "A name is required.",
+    });
+  }
+  return next();
+}
+
+function hasValidOrderTotal(req, res, next) {
+  const { cart } = res.locals;
+  if (cart.total > 0 && cart.total <= MAX_ORDER_LIMIT) {
+    return next();
+  }
+  return next({
+    status: 400,
+    message: `Order cannot be more than $${MAX_ORDER_LIMIT}`,
+  });
+}
+
 async function deleteCart(cart_id) {
   await service.destroyCartById(cart_id);
 }
@@ -115,7 +150,9 @@ module.exports = {
   createOrder: [
     asyncErrorBoundary(getCartAndReturnError),
     hasValidPhoneNumber,
+    hasValidName,
     hasValidComment,
+    hasValidOrderTotal,
     asyncErrorBoundary(createOrder),
   ],
 };
