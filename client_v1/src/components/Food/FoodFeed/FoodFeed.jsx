@@ -3,12 +3,14 @@ import Food from "../../../api/Food";
 import FoodList from "../FoodList/FoodList";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ApiErrorHandler from "../../../errors/ApiErrorHandler";
+import { useSelector } from "react-redux";
 
-const FoodFeed = ({ error, setError, category, search }) => {
+const FoodFeed = ({ error, setError, search }) => {
   const [foods, setFoods] = useState([]);
   const [page, setPage] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { category } = useSelector((state) => state.category);
 
   const getFood = async (isStart) => {
     try {
@@ -64,6 +66,7 @@ const FoodFeed = ({ error, setError, category, search }) => {
       }
     })();
   }, [category, search]);
+
   return (
     <div>
       <InfiniteScroll
