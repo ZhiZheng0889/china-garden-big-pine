@@ -1244,7 +1244,7 @@
     "available": true
   },
   {
-    "name": "Combo Chicken Chow Mein",
+    "name": "1. Combo Chicken Chow Mein",
     "basePrice": 11.75,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1252,7 +1252,7 @@
     "available": true
   },
   {
-    "name": "Combo Shrimp Chow Mein",
+    "name": "2. Combo Shrimp Chow Mein",
     "basePrice": 12.45,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1261,7 +1261,7 @@
     "imageUrl": "https://i.imgur.com/cZRopSw.jpg"
   },
   {
-    "name": "Combo Pork Egg Foo Young",
+    "name": "3. Combo Pork Egg Foo Young",
     "basePrice": 11.75,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1270,7 +1270,7 @@
     "imageUrl": "https://imgur.com/2Jl5BHk.jpg"
   },
   {
-    "name": "Combo Moo Goo Gai Pan",
+    "name": "4. Combo Moo Goo Gai Pan",
     "basePrice": 12.25,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1279,7 +1279,7 @@
     "imageUrl": "https://i.imgur.com/82smjTn.jpg"
   },
   {
-    "name": "Combo Green Pepper Steak",
+    "name": "5. Combo Green Pepper Steak",
     "basePrice": 12.45,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1287,7 +1287,7 @@
     "available": true
   },
   {
-    "name": "Combo Barbecued Spare Ribs",
+    "name": "6. Combo Barbecued Spare Ribs",
     "basePrice": 13.95,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1295,7 +1295,7 @@
     "available": true
   },
   {
-    "name": "Combo Shrimp with Lobster Sauce",
+    "name": "7. Combo Shrimp with Lobster Sauce",
     "basePrice": 13.95,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1303,7 +1303,7 @@
     "available": true
   },
   {
-    "name": "Combo Roast Pork with Chinese Vegetable",
+    "name": "8. Combo Roast Pork with Chinese Vegetable",
     "basePrice": 11.95,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1311,7 +1311,7 @@
     "available": true
   },
   {
-    "name": "Combo Sweet & Sour Pork",
+    "name": "9. Combo Sweet & Sour Pork",
     "basePrice": 12.25,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1320,7 +1320,7 @@
     "imageUrl": "https://i.imgur.com/dQLQo5j.jpg"
   },
   {
-    "name": "Combo Sweet & Sour Chicken",
+    "name": "10. Combo Sweet & Sour Chicken",
     "basePrice": 12.25,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1329,7 +1329,7 @@
     "imageUrl": "https://i.imgur.com/t9QQe04.jpg"
   },
   {
-    "name": "Combo Chicken with Broccoli",
+    "name": "11. Combo Chicken with Broccoli",
     "basePrice": 12.75,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1337,7 +1337,7 @@
     "available": true
   },
   {
-    "name": "Combo Beef with Broccoli",
+    "name": "12. Combo Beef with Broccoli",
     "basePrice": 12.95,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1346,7 +1346,7 @@
     "imageUrl": "https://imgur.com/vYZaonH.jpg"
   },
   {
-    "name": "Combo General Tso's Chicken",
+    "name": "13. Combo General Tso's Chicken",
     "basePrice": 13.25,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
@@ -1355,7 +1355,7 @@
     "imageUrl": "https://imgur.com/ypNiudN.jpg"
   },
   {
-    "name": "Combo Kung Pao Chicken",
+    "name": "14. Combo Kung Pao Chicken",
     "basePrice": 13.25,
     "category": "combo",
     "description": "With Pork Fried Rice and Egg Roll",
