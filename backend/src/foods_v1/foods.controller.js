@@ -20,7 +20,6 @@ async function listFoods(req, res, next) {
   const { page, category, search } = res.locals;
   const pageAsNumber = parseInt(page);
   let food;
-  console.log("category: ", category);
   if (category && category !== "all") {
     food = await service.listByCategory(category, pageAsNumber, pagination);
   } else if (search) {
