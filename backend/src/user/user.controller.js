@@ -54,9 +54,7 @@ async function isPhoneNumberAvailable(req, res, next) {
 async function encryptPassword(req, res, next) {
   try {
     const { password } = req.body.data;
-    console.log(password);
     const hashedPassword = await bcrypt.hash(password, parseInt(SALT));
-    console.log(hashedPassword);
     res.locals.password = hashedPassword;
     return next();
   } catch (error) {
@@ -106,9 +104,7 @@ function sendUserPayload(req, res, next) {
 
 async function getUserEmail(req, res, next) {
   const { email = "" } = req.body.data;
-  console.log("data: ", req.body.data);
   const foundUser = await service.getUserByEmail(email);
-  console.log("found user: ", foundUser);
   if (foundUser) {
     res.locals.user = foundUser;
     res.locals.createdUser = foundUser;
@@ -202,7 +198,6 @@ async function isAccessTokenValid(req, res, next) {
 async function isRefreshTokenValid(req, res, next) {
   try {
     const { refreshToken } = req.body.data;
-    console.log("RT: ", refreshToken);
     if (refreshToken) {
       const user_id = await UserAuth.authorize(refreshToken).user_id;
       res.locals.user_id = user_id;
@@ -225,7 +220,6 @@ async function isRefreshTokenValid(req, res, next) {
 
 async function isValidUserId(req, res, next) {
   const { user_id } = res.locals;
-  console.log("user_Id: ", user_id);
   const foundUser = await service.getUserById(user_id);
   if (foundUser) {
     res.locals.createdUser = foundUser.toObject();
@@ -306,9 +300,7 @@ async function changePasswords(req, res, next) {
   try {
     const { password } = res.locals;
     const { phoneNumber } = req.body.data;
-    console.log("PHONE NUMBER: ", phoneNumber, password);
     const foundUser = await service.getUserByPhoneNumber(phoneNumber);
-    console.log(foundUser);
     if (!foundUser) {
       return next({
         status: 404,
@@ -319,7 +311,6 @@ async function changePasswords(req, res, next) {
     const updatedUserResponse = await service.updateUser({
       _id: updatedUser._id,
     });
-    console.log(updatedUserResponse);
     res.status(200).json({ data: "User password successfully changed" });
   } catch (error) {
     return next({

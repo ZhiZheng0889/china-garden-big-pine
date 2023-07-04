@@ -2,7 +2,7 @@ import React from "react";
 
 const ErrorAlertFixed = ({
   error,
-  classes,
+  className = "",
   showClose,
   setError = () => {},
 }) => {
@@ -26,10 +26,6 @@ const ErrorAlertFixed = ({
       </div>
     )
   );
-};
-
-ErrorAlertFixed.defaultProps = {
-  classes: "",
 };
 
 export default ErrorAlertFixed;

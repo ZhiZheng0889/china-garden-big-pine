@@ -65,7 +65,7 @@ const FoodCard = ({ food }) => {
               className="object-cover w-[14rem] object-center hidden sm:block"
             />
             <ButtonWhitePill
-              className="absolute top-3 right-3"
+              className="absolute top-3 right-3 w-20"
               onClick={chooseFood}
             >
               <i className="fa-solid fa-plus me-1"></i> Add

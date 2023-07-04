@@ -114,7 +114,6 @@ function isValidUpdateQuantity(req, res, next) {
   const { cart } = res.locals;
   const { quantity } = req.body.item;
   const { item_index } = req.params;
-  console.log(cart, item_index);
   const cartQuantity = cart.items[item_index].quantity + quantity;
   if (
     cartQuantity >= MIN_QUANTITY &&
@@ -132,6 +131,18 @@ function isValidUpdateQuantity(req, res, next) {
 function sendCartPayload(req, res, next) {
   const { cart } = res.locals;
   res.status(200).json(cart);
+}
+
+function isValidCartItemIndex(req, res, next) {
+  const { cart } = res.locals;
+  const { item_index } = req.params;
+  if (cart.items[item_index]) {
+    return next();
+  }
+  return next({
+    status: 400,
+    message: "index for the cart item cannot be found.",
+  });
 }
 
 async function addCartItem(req, res, next) {
@@ -156,7 +167,6 @@ async function addCartItem(req, res, next) {
       throw new Error();
     }
   } catch (error) {
-    console.log("ERROR: ", error);
     return next({
       status: 400,
       message: "Error adding to cart",
@@ -169,6 +179,7 @@ async function updateQuantity(req, res, next) {
   const { quantity } = req.body.item;
   const { item_index } = req.params;
   cart.items[item_index].quantity = cart.items[item_index].quantity + quantity;
+  cart.total = CartReducer.getCartTotal(cart.items);
   const updatedCart = await service.updateCart(cart);
   if (updatedCart) {
     res.status(200).json(updatedCart.toObject());
@@ -180,9 +191,29 @@ async function updateQuantity(req, res, next) {
   }
 }
 
+async function removeCartItem(req, res, next) {
+  const { cart } = res.locals;
+  const { item_index } = req.params;
+  cart.items.splice(item_index, 1);
+  cart.total = CartReducer.getCartTotal(cart.items);
+  const updatedCart = await service.updateCart(cart);
+  if (updatedCart) {
+    res.status(200).json(updatedCart.toObject());
+  } else {
+    return next({
+      status: 500,
+      message: "Error deleting item from cart.",
+    });
+  }
+}
+
 module.exports = {
   getCart: [asyncErrorBoundary(getCartAndReturnError), sendCartPayload],
-  removeCartItem: [asyncErrorBoundary(getCartAndReturnError)],
+  removeCartItem: [
+    asyncErrorBoundary(getCartAndReturnError),
+    isValidCartItemIndex,
+    removeCartItem,
+  ],
   addCartItem: [
     asyncErrorBoundary(getCart),
     asyncErrorBoundary(getFoodItemAndReturnError),
@@ -196,6 +227,7 @@ module.exports = {
   updateCartItemSpecialRequest: [asyncErrorBoundary(getCartAndReturnError)],
   updateCartItemQuantity: [
     asyncErrorBoundary(getCartAndReturnError),
+    isValidCartItemIndex,
     isValidUpdateQuantity,
     asyncErrorBoundary(updateQuantity),
   ],

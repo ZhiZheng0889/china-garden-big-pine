@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FormInputContainer from "../../Form/FomrInputContainer/FormInputContainer";
+import FormInputContainer from "../../Form/FormInputContainer/FormInputContainer";
 
 const FoodSearch = ({ search, setSearch }) => {
   const [keyword, setKeyword] = useState("");

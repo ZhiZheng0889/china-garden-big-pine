@@ -10,10 +10,18 @@ const NavbarNotSignedIn = () => {
       <ul className="flex gap-3 items-center">
         <li>
           <Link
-            to="/"
+            to="/home-route"
             className="p-2 hover:text-amber-200 duration-200 ease-out"
           >
             Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+            className="p-2 hover:text-amber-200 duration-200 ease-out"
+          >
+            Menu
           </Link>
         </li>
         <li>
@@ -24,7 +32,7 @@ const NavbarNotSignedIn = () => {
             Orders
           </Link>
         </li>
-        <li>
+        {/* <li>
           <button
             onClick={() => loginWithRedirect()}
             className="p-2 hover:text-amber-200 duration-200 ease-out"
@@ -39,7 +47,7 @@ const NavbarNotSignedIn = () => {
           >
             Signup
           </Link>
-        </li>
+        </li> */}
       </ul>
     </>
   );

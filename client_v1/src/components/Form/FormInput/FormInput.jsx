@@ -8,6 +8,7 @@ const FormInput = ({
   id = "",
   name = "",
   placeholder,
+  isInvalid,
 }) => {
   return (
     <input
@@ -16,7 +17,9 @@ const FormInput = ({
       id={id}
       name={name}
       placeholder={placeholder}
-      className={`${className} ${padding} border focus:outline outline-2 outline-offset-2 outline-red-600`}
+      className={`${className} ${padding} border rounded focus:outline outline-2 outline-offset-2 outline-red-600 ${
+        isInvalid && "bg-red-100 border-red-700 text-red-700"
+      }`}
     />
   );
 };

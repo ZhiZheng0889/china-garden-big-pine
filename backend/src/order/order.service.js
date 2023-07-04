@@ -134,7 +134,6 @@ async function getOperationHours() {
     path.resolve(__dirname, "../db/data/hours.json"),
     "utf-8"
   );
-  console.log("hours: ", hours);
   return JSON.parse(hours);
 }
 
