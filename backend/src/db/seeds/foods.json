@@ -1,157 +1,5 @@
 [
   {
-    "name": "Steamed Mixed Vegetables",
-    "basePrice": 12.25,
-    "category": "diet_dishes",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Steamed Chicken With Broccoli",
-    "basePrice": 12.25,
-    "category": "diet_dishes",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Steamed Shrimp with Mixed Vegs",
-    "basePrice": 16.25,
-    "category": "diet_dishes",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Steamed Chicken with Mixed Vegs",
-    "basePrice": 13.25,
-    "category": "diet_dishes",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Steamed Shrimp with Broccoli",
-    "basePrice": 16.25,
-    "category": "diet_dishes",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Steamed Mixed Vegetable & To Fu",
-    "basePrice": 13.25,
-    "category": "diet_dishes",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Bottle Water",
-    "basePrice": 1.95,
-    "category": "drinks",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Coke",
-    "basePrice": 1.75,
-    "category": "drinks",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Sprite",
-    "basePrice": 1.75,
-    "category": "drinks",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Diet Coke",
-    "basePrice": 1.75,
-    "category": "drinks",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Pepsi",
-    "basePrice": 1.75,
-    "category": "drinks",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Mountain Dew",
-    "basePrice": 1.75,
-    "category": "drinks",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Fried Noodles",
-    "basePrice": 1.25,
-    "category": "side_orders",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Hal Pint of Mustard",
-    "basePrice": 1.75,
-    "category": "side_orders",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Half Pint of Duck Sauce",
-    "basePrice": 1.75,
-    "category": "side_orders",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Half Pint of Garlic Sauce",
-    "basePrice": 1.95,
-    "category": "side_orders",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Half Pint of Hot Chili Sauce",
-    "basePrice": 2.95,
-    "category": "side_orders",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Fortune Cookies",
-    "basePrice": 1.25,
-    "category": "side_orders",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
-    "name": "Spring Rolls(2)",
-    "basePrice": 4.75,
-    "category": "appetizers",
-    "description": null,
-    "spicy": false,
-    "available": true
-  },
-  {
     "name": "Vegetable Spring Rolls(2)",
     "basePrice": 4.75,
     "category": "appetizers",
@@ -1935,6 +1783,150 @@
     "basePrice": 9.99,
     "category": "lunch",
     "description": "With Pork Fried Rice and Egg Roll",
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Steamed Mixed Vegetables",
+    "basePrice": 12.25,
+    "category": "diet_dishes",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Steamed Chicken With Broccoli",
+    "basePrice": 12.25,
+    "category": "diet_dishes",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Steamed Shrimp with Mixed Vegs",
+    "basePrice": 16.25,
+    "category": "diet_dishes",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Steamed Chicken with Mixed Vegs",
+    "basePrice": 13.25,
+    "category": "diet_dishes",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Steamed Shrimp with Broccoli",
+    "basePrice": 16.25,
+    "category": "diet_dishes",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Steamed Mixed Vegetable & To Fu",
+    "basePrice": 13.25,
+    "category": "diet_dishes",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Bottle Water",
+    "basePrice": 1.95,
+    "category": "drinks",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Coke",
+    "basePrice": 1.75,
+    "category": "drinks",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Sprite",
+    "basePrice": 1.75,
+    "category": "drinks",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Diet Coke",
+    "basePrice": 1.75,
+    "category": "drinks",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Pepsi",
+    "basePrice": 1.75,
+    "category": "drinks",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Mountain Dew",
+    "basePrice": 1.75,
+    "category": "drinks",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Fried Noodles",
+    "basePrice": 1.25,
+    "category": "side_orders",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Hal Pint of Mustard",
+    "basePrice": 1.75,
+    "category": "side_orders",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Half Pint of Duck Sauce",
+    "basePrice": 1.75,
+    "category": "side_orders",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Half Pint of Garlic Sauce",
+    "basePrice": 1.95,
+    "category": "side_orders",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Half Pint of Hot Chili Sauce",
+    "basePrice": 2.95,
+    "category": "side_orders",
+    "description": null,
+    "spicy": false,
+    "available": true
+  },
+  {
+    "name": "Fortune Cookies",
+    "basePrice": 1.25,
+    "category": "side_orders",
+    "description": null,
     "spicy": false,
     "available": true
   }
