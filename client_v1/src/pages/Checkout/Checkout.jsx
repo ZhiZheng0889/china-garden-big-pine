@@ -62,7 +62,7 @@ const Checkout = () => {
   };
 
   return (
-    <main className="bg-gray-100 grow py-6">
+    <main className="bg-gray-100 grow py-3 md:py-6">
       <ContainerSmall>
         <div className="flex flex-col gap-5">
           <ErrorAlertFixed error={error} />

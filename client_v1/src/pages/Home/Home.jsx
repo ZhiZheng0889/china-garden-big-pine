@@ -27,7 +27,7 @@ const Home = () => {
   }, [category]);
 
   return (
-    <main className="bg-gray-100 grow py-6">
+    <main className="bg-gray-100 grow py-3 md:py-6">
       <Container className="custom-grid gap-6">
         <Card padding="p-0" className="overflow-hidden h-fit hidden md:block">
           <FoodNav />
