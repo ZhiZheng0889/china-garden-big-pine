@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ModalHeader from "./ModalHeader/ModalHeader";
 import FocusTrap from "focus-trap-react";
-
+import { useDisableBodyScroll } from "../../hooks/useDisableBodyScroll";
 const Modal = ({ isOpen, closeModal, header, children }) => {
   useEffect(() => {
     const escFunction = (event) => {
@@ -15,6 +15,7 @@ const Modal = ({ isOpen, closeModal, header, children }) => {
       return document.removeEventListener("keydown", escFunction, false);
     };
   }, []);
+  useDisableBodyScroll(isOpen ? JSON.stringify(isOpen) : null);
   return (
     isOpen && (
       <>

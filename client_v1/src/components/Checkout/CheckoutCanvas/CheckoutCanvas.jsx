@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import ButtonClear from "../../Button/ButtonClear/ButtonClear";
 import FocusTrap from "focus-trap-react";
 import Checkout from "../Checkout";
+import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 const CheckoutCanvas = ({ isCheckoutOpen, setIsCheckoutOpen }) => {
   const closeModal = () => {
     console.log("CLOSING");
     setIsCheckoutOpen(false);
   };
+  useDisableBodyScroll(isCheckoutOpen);
   return (
     isCheckoutOpen && (
       <>

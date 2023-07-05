@@ -12,7 +12,7 @@ const ErrorAlertFixed = ({
       <div
         className={`${
           showClose ? "pl-3 pr-1 py-2" : "p-3"
-        } bg-red-200 border rounded border-red-700 text-red-700 fixed left-1/2 -translate-x-1/2 gap-2 top-5 min-w-fit flex justify-between items-center`}
+        } bg-red-200 z-50 border rounded border-red-700 text-red-700 fixed left-1/2 -translate-x-1/2 gap-2 top-5 min-w-fit flex justify-between items-center`}
       >
         <p>Error: {error.message}</p>
         {showClose && (

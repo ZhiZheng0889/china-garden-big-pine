@@ -5,12 +5,14 @@ import FoodList from "../../Food/FoodList/FoodList";
 import { Link } from "react-router-dom";
 import FoodNav from "../../Food/FoodNav/FoodNav";
 import NavbarNotSignedIn from "../NavbarNotSignedIn/NavbarNotSignedIn";
+import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 
 const NavbarCanvas = ({ isMenuOpen, setIsMenuOpen, showMenu = true }) => {
   const closeModal = () => {
     console.log("CLOSING");
     setIsMenuOpen(false);
   };
+  useDisableBodyScroll(isMenuOpen);
 
   return (
     isMenuOpen && (
