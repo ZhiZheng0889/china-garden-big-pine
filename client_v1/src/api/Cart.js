@@ -21,6 +21,10 @@ const updateQuantity = async (quantity, cartItemIndex, cart_id) => {
   });
 };
 
+const clearCart = async (cart_id) => {
+  return await Api.put(`cart/${cart_id}/clear-cart`);
+};
+
 const updateSpecialRequest = async (
   specialRequest,
   cartItemIndex,
@@ -36,6 +40,7 @@ const Cart = {
   getCart,
   updateQuantity,
   removeFromCart,
+  clearCart,
 };
 
 Object.freeze(Cart);

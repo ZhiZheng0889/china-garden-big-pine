@@ -1,5 +1,8 @@
 const Cart = require("../db/models/cartModel");
 const Order = require("../db/models/orderModel");
+const fs = require("fs").promises;
+const Holiday = require("../db/models/holidayModel");
+const path = require("path");
 
 function getCartById(_id) {
   return Cart.findById(_id);
@@ -32,10 +35,25 @@ function createOrder(order) {
   return Order.create(order);
 }
 
+async function getOperationHours() {
+  const hours = await fs.readFile(
+    path.resolve(__dirname, "../db/data/hours.json"),
+    "utf-8"
+  );
+  console.log(hours);
+  return JSON.parse(hours);
+}
+
+function getClosedHours(date) {
+  return Holiday.findOne({ date }).exec();
+}
+
 module.exports = {
   getCartById,
   getOrderById,
   destroyCartById,
   createOrder,
   getOrdersByPhoneNumber,
+  getOperationHours,
+  getClosedHours,
 };

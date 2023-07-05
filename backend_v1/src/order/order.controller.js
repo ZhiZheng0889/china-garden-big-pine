@@ -2,9 +2,11 @@ const service = require("./order.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasRequiredProperties = require("../utils/hasRequiredProperties");
 const isValidPhoneNumber = require("../utils/isValidPhoneNumber");
+const isOpen = require("../utils/isOpen");
+const dayjs = require("dayjs");
 const MAX_COMMENT_LENGTH = parseInt(process.env.MAX_COMMENT_LENGTH);
 const MAX_ORDER_LIMIT = parseInt(process.env.MAX_ORDER_LIMIT);
-
+const ignoreStoreHours = process.env.IGNORE_STORE_HOURS === "true";
 const REQUIRED_PROPERTIES = ["name", "phoneNumber", "comment"];
 
 async function getCartAndReturnError(req, res, next) {
@@ -153,6 +155,41 @@ async function getOrdersByPhoneNumber(req, res, next) {
   res.status(200).json(foundOrders);
 }
 
+async function storeIsOpen(req, res, next) {
+  const currentDate = new Date();
+  if (ignoreStoreHours) {
+    return next();
+  }
+  const foundHolidayHours = await service.getClosedHours(currentDate);
+  if (foundHolidayHours) {
+    return next({
+      status: 400,
+      message: "Store is currently closed.",
+    });
+  }
+  const dayOfWeek = dayjs(currentDate).format("dddd").toLowerCase();
+  if (!dayOfWeek) {
+    return next({
+      status: 400,
+      message: "Cannot get day of week to place order.",
+    });
+  }
+  const operationHours = await service.getOperationHours();
+  if (!operationHours) {
+    return next({
+      status: 500,
+      message: "Operation hours not found",
+    });
+  }
+  if (isOpen(operationHours)) {
+    return next();
+  }
+  return next({
+    status: 400,
+    message: "Store is currently closed.",
+  });
+}
+
 async function deleteCart(cart_id) {
   await service.destroyCartById(cart_id);
 }
@@ -169,6 +206,7 @@ module.exports = {
     hasValidName,
     hasValidComment,
     hasValidOrderTotal,
+    asyncErrorBoundary(storeIsOpen),
     asyncErrorBoundary(createOrder),
   ],
 };

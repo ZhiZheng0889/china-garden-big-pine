@@ -13,6 +13,7 @@ const Food = ({ search }) => {
 
   const { selectedFood } = useSelector((state) => state.selectedFood);
   useDisableBodyScroll(selectedFood ? JSON.stringify(selectedFood) : null);
+  console.log(selectedFood, "<+===========");
   return (
     <>
       <FoodModal selectedFood={selectedFood} unselectFood={unselectFood} />

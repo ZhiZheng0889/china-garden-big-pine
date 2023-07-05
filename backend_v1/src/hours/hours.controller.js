@@ -1,5 +1,6 @@
 const service = require("./hours.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+const ignoreStoreHours = process.env.IGNORE_STORE_HOURS === "true";
 const dayjs = require("dayjs");
 
 async function getOperationHours(req, res, next) {
@@ -16,11 +17,13 @@ async function getOperationHours(req, res, next) {
 async function getDailyOperationHours(req, res, next) {
   try {
     const { date } = req.params;
-    console.log("DATE: ", date);
+    if (ignoreStoreHours) {
+      res.status(200).json({ open: "12:00", close: "23:59" });
+    }
     const foundClosedHours = await service.getClosedHours(date);
     console.log(foundClosedHours);
     if (foundClosedHours) {
-      res.status(204).json({ data: { open: "", close: "" } });
+      res.status(200).json({ open: "", close: "" });
     } else {
       const dayOfWeek = dayjs(date).format("dddd").toLowerCase();
       console.log(dayOfWeek);

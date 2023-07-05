@@ -12,7 +12,6 @@ const Button = ({
   type = "button",
 }) => {
   const parentClass = className;
-  console.log(onClick);
   if (link) {
     if (onClick !== undefined) {
       return (

@@ -29,6 +29,11 @@ router
   .delete(controller.removeCartItem)
   .all(methodNotAllowed);
 
+router
+  .route("/:cart_id/clear-cart")
+  .put(controller.clearCart)
+  .all(methodNotAllowed);
+
 router.route("/:cart_id").get(controller.getCart).all(methodNotAllowed);
 
 module.exports = router;

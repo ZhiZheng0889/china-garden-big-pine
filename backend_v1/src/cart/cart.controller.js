@@ -208,6 +208,21 @@ async function removeCartItem(req, res, next) {
   }
 }
 
+async function clearCart(req, res, next) {
+  const { cart } = res.locals;
+  cart.items = [];
+  cart.total = 0;
+  const updatedCart = await service.updateCart(cart);
+  if (updatedCart) {
+    res.status(200).json(updatedCart.toObject());
+  } else {
+    return next({
+      status: 500,
+      message: "Error clearing cart.",
+    });
+  }
+}
+
 module.exports = {
   getCart: [asyncErrorBoundary(getCartAndReturnError), sendCartPayload],
   removeCartItem: [
@@ -231,5 +246,9 @@ module.exports = {
     isValidCartItemIndex,
     isValidUpdateQuantity,
     asyncErrorBoundary(updateQuantity),
+  ],
+  clearCart: [
+    asyncErrorBoundary(getCartAndReturnError),
+    asyncErrorBoundary(clearCart),
   ],
 };
