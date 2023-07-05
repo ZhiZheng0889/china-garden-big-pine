@@ -49,6 +49,9 @@ const FoodModal = ({ selectedFood }) => {
   const closeModal = () => {
     setQuantity(1);
     setError(null);
+    setSpecialRequest("");
+    setSelectedOption(null);
+    setSelectedSize(null);
     dispatch(unselectFood());
   };
 

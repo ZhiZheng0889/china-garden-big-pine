@@ -6,13 +6,15 @@ import { Link } from "react-router-dom";
 import FoodNav from "../../Food/FoodNav/FoodNav";
 import NavbarNotSignedIn from "../NavbarNotSignedIn/NavbarNotSignedIn";
 import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
+import { useRoutePath } from "../../../hooks/useRoutePath";
 
-const NavbarCanvas = ({ isMenuOpen, setIsMenuOpen, showMenu = true }) => {
+const NavbarCanvas = ({ isMenuOpen, setIsMenuOpen }) => {
   const closeModal = () => {
     console.log("CLOSING");
     setIsMenuOpen(false);
   };
   useDisableBodyScroll(isMenuOpen);
+  const [pathname] = useRoutePath();
 
   return (
     isMenuOpen && (
@@ -73,7 +75,7 @@ const NavbarCanvas = ({ isMenuOpen, setIsMenuOpen, showMenu = true }) => {
                   </Link>
                 </li>
               </ul>
-              {showMenu && (
+              {pathname === "/" && (
                 <>
                   <div className="border-b py-3 px-5">
                     <h4 className="font-semibold font-lg">Categories</h4>

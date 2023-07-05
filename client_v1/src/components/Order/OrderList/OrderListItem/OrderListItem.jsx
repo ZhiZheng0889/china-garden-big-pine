@@ -11,9 +11,15 @@ const OrderListItem = ({ item }) => {
           {item.food.name} <span className="font-normal">x{item.quantity}</span>
         </p>
         {item.specialRequest && <p>"{item.specialRequest}"</p>}
-        {item.selectedSize && <p>-{item.food.sizes[item.selectedSize].size}</p>}
-        {item.selectedOption && (
-          <p>-{item.food.options[item.selectedOption].option}</p>
+        {(item.selectedSize || item.selectedSize === 0) && (
+          <p className="leading-4">
+            -{item.food.sizes[item.selectedSize].size}
+          </p>
+        )}
+        {(item.selectedOption || item.selectedOption === 0) && (
+          <p className="leading-4">
+            - {item.food.options[item.selectedOption].option}
+          </p>
         )}
         <p>${formatCost(CartReducer.getItemTotal(item))}</p>
       </div>
