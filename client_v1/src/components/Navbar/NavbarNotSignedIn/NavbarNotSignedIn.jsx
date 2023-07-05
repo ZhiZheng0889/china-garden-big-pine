@@ -12,7 +12,7 @@ const NavbarNotSignedIn = ({ className = "", childClassName = "" }) => {
             to="/home-route"
             className={`${
               childClassName && childClassName + " "
-            }p-2 hover:text-amber-200 duration-200 ease-out`}
+            }p-2 hover:text-amber-200 duration-200 ease-out  focus:outline outline-2 outline-offset-2 outline-white`}
           >
             Home
           </Link>
@@ -22,7 +22,7 @@ const NavbarNotSignedIn = ({ className = "", childClassName = "" }) => {
             to="/"
             className={`${
               childClassName && childClassName + " "
-            }p-2 hover:text-amber-200 duration-200 ease-out`}
+            }p-2 hover:text-amber-200 duration-200 ease-out  focus:outline outline-2 outline-offset-2 outline-white`}
           >
             Menu
           </Link>
@@ -32,7 +32,7 @@ const NavbarNotSignedIn = ({ className = "", childClassName = "" }) => {
             to="/orders"
             className={`${
               childClassName && childClassName + " "
-            }p-2 hover:text-amber-200 duration-200 ease-out`}
+            }p-2 hover:text-amber-200 duration-200 ease-out  focus:outline outline-2 outline-offset-2 outline-white`}
           >
             Orders
           </Link>

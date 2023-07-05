@@ -20,7 +20,10 @@ const Navbar = () => {
       <Container className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <ButtonBurger setIsMenuOpen={setIsMenuOpen} />
-          <Link to="/" className="hover:text-amber-200 duration-200 ease-out">
+          <Link
+            to="/"
+            className="hover:text-amber-200 duration-200 ease-out focus:outline outline-2 outline-offset-2 outline-white"
+          >
             <h1 className="font-semibold text-xl">China Garden</h1>
           </Link>
         </div>

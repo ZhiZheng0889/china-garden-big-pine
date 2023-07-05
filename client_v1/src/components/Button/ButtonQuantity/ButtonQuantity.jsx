@@ -56,7 +56,7 @@ const ButtonQuantity = ({ item, index, cartId, setError }) => {
     <>
       <div className="border flex rounded-full py-0 px-0 items-center justify-center">
         <button
-          className="flex justify-center items-center w-8 h-8 rounded-full hover:bg-gray-100 active:bg-gray-200 duration-200 ease-out"
+          className="flex justify-center items-center w-8 h-8 rounded-full hover:bg-gray-100 active:bg-gray-200 duration-200 ease-out focus:outline outline-2 outline-offset-2 outline-red-600"
           data-type="decrement"
           onClick={changeQuantity}
         >
@@ -70,7 +70,7 @@ const ButtonQuantity = ({ item, index, cartId, setError }) => {
         </div>
 
         <button
-          className="flex justify-center items-center w-8 h-8 rounded-full hover:bg-gray-100 active:bg-gray-200 duration-200 ease-out"
+          className="flex justify-center items-center w-8 h-8 rounded-full hover:bg-gray-100 active:bg-gray-200 duration-200 ease-out focus:outline outline-2 outline-offset-2 outline-red-600"
           data-type="increment"
           onClick={changeQuantity}
         >

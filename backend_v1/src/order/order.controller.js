@@ -39,7 +39,6 @@ async function getOrderAndReturnError(req, res, next) {
     });
   }
   const foundOrder = await service.getOrderById(order_id);
-  console.log("FOUND ORDER: ", foundOrder);
   if (foundOrder) {
     res.locals.order = foundOrder.toObject();
     return next();
@@ -181,7 +180,7 @@ async function storeIsOpen(req, res, next) {
       message: "Operation hours not found",
     });
   }
-  if (isOpen(operationHours)) {
+  if (isOpen(operationHours[dayOfWeek])) {
     return next();
   }
   return next({

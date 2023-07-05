@@ -17,7 +17,7 @@ const ButtonClear = ({
       onClick={onClick}
       role={role}
       padding={padding}
-      className={`bg-inherit hover:bg-gray-100 active:bg-gray-200 ${width} rounded duration-200 ease-out${
+      className={`bg-inherit hover:bg-gray-100 active:bg-gray-200 ${width} rounded duration-200 ease-out focus:outline outline-2 outline-offset-2 outline-red-600 ${
         className && " " + className
       }`}
       id={id}

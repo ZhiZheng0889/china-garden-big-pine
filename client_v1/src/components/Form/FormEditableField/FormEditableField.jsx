@@ -75,7 +75,7 @@ const FormEditableField = ({
             {state}
           </p>
           <button
-            className="border rounded w-10 h-10 flex items-center justify-center duration-200 ease-out hover:bg-neutral-100 active:bg-neutral-200"
+            className="border rounded w-10 h-10 flex items-center justify-center duration-200 ease-out hover:bg-neutral-100 active:bg-neutral-200 focus:outline outline-2 outline-offset-2 outline-red-600"
             onClick={toggleEditable}
           >
             <i className="fa-solid fa-pen-to-square"></i>

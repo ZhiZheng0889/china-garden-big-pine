@@ -16,7 +16,7 @@ const ButtonPrimary = ({
       link={link}
       onClick={onClick}
       role={role}
-      className={`bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded ${width} duration-200 ease-out${
+      className={`bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded ${width} duration-200 ease-out focus:outline outline-2 outline-offset-2 outline-red-600${
         className && " " + className
       }`}
       id={id}

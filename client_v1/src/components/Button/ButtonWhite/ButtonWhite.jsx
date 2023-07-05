@@ -16,7 +16,7 @@ const ButtonWhite = ({
       onClick={onClick}
       role={role}
       padding={padding}
-      className={`bg-white hover:bg-gray-100 active:bg-gray-200 ${width} duration-200 ease-out${
+      className={`bg-white hover:bg-gray-100 active:bg-gray-200 ${width} duration-200 ease-out focus:outline outline-2 outline-offset-2 outline-red-600${
         className && " " + className
       }`}
     >
