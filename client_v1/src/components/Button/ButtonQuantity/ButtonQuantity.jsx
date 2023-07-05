@@ -24,6 +24,7 @@ const ButtonQuantity = ({ item, index, cartId, setError }) => {
       const response = await Cart.removeFromCart(index, cartId);
       if (response.data) {
         dispatch(updateCart(response.data));
+        setIsDeleteConfirmationOpen(false);
       }
     } catch (error) {
       setParentError(ApiErrorHandler.handleRequestResponse(error));
@@ -41,9 +42,13 @@ const ButtonQuantity = ({ item, index, cartId, setError }) => {
       if (item.quantity + offset <= 0) {
         setIsDeleteConfirmationOpen(true);
       } else {
-        const response = await Cart.updateQuantity(offset, index, cartId);
-        if (response.data) {
-          dispatch(updateCart(response.data));
+        if (item.quantity + offset < 999) {
+          const response = await Cart.updateQuantity(offset, index, cartId);
+          if (response.data) {
+            dispatch(updateCart(response.data));
+          }
+        } else {
+          setError({ message: "Quantity cannot be greater than 999" });
         }
       }
     } catch (error) {

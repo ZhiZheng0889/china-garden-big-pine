@@ -9,6 +9,7 @@ import FoodModalSpecialRequest from "./FoodModalSpecialRequest/FoodModalSpecialR
 import ErrorAlertFixed from "../../../errors/ErrorAlertFixed/ErrorAlertFixed";
 import Cart from "../../../api/Cart";
 import { updateCart } from "../../../slices/cartSlice";
+import ApiErrorHandler from "../../../errors/ApiErrorHandler";
 
 const calculateTotal = (quantity, food, selectedOption, selectedSize) => {
   let optionTotal = 0;
@@ -72,8 +73,8 @@ const FoodModal = ({ selectedFood }) => {
         dispatch(updateCart(response.data));
         closeModal();
       }
-    } catch (error) {
-      setError(error);
+    } catch (err) {
+      setError(ApiErrorHandler.handleRequestResponse(err));
     } finally {
       setIsLoading(false);
     }

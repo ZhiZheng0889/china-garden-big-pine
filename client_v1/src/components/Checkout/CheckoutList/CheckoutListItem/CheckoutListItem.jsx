@@ -4,14 +4,6 @@ import { formatCost } from "../../../../utils/formatCost";
 import ButtonQuantity from "../../../Button/ButtonQuantity/ButtonQuantity";
 
 const CheckoutListItem = ({ item, setError, index, cartId }) => {
-  console.log("FINAL ITEM: ", item);
-  console.log(item?.food?.options[item?.selectedOption]);
-  if (item.selectedOption) {
-    console.log(
-      "==========>",
-      item?.food?.options[item?.selectedOption].option
-    );
-  }
   return (
     <div className="p-0 border-b flex justify-between">
       <div className="p-3">

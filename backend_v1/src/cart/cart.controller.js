@@ -3,7 +3,7 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const CartReducer = require("../utils/CartReducer");
 
 const MAX_QUANTITY = 99;
-const MIN_QUANTITY = 0;
+const MIN_QUANTITY = 1;
 const cartItemDataTypes = {
   food_id: "String",
   specialRequest: "String",
@@ -102,13 +102,25 @@ function isValidFoodOption(req, res, next) {
 
 function isValidQuantity(req, res, next) {
   const { quantity } = req.body.item;
-  if (quantity >= MIN_QUANTITY && quantity <= MAX_QUANTITY && quantity !== 0) {
-    return next();
+  if (quantity > MAX_QUANTITY) {
+    return next({
+      status: 400,
+      message: `The quantity needs to be less than or equal to: ${MAX_QUANTITY}`,
+    });
   }
-  return next({
-    status: 400,
-    message: "Invalid quantity",
-  });
+  if (quantity < MIN_QUANTITY) {
+    return next({
+      status: 400,
+      message: `The quantity needs to be greater than or equal to: ${MIN_QUANTITY}`,
+    });
+  }
+  if (quantity === 0) {
+    return next({
+      status: 400,
+      message: `The quantity cannot be 0`,
+    });
+  }
+  return next();
 }
 
 function isValidUpdateQuantity(req, res, next) {
@@ -116,17 +128,25 @@ function isValidUpdateQuantity(req, res, next) {
   const { quantity } = req.body.item;
   const { item_index } = req.params;
   const cartQuantity = cart.items[item_index].quantity + quantity;
-  if (
-    cartQuantity >= MIN_QUANTITY &&
-    cartQuantity <= MAX_QUANTITY &&
-    cartQuantity !== 0
-  ) {
-    return next();
+  if (cartQuantity > MAX_QUANTITY) {
+    return next({
+      status: 400,
+      message: `The quantity needs to be less than or equal to: ${MAX_QUANTITY}`,
+    });
   }
-  return next({
-    status: 400,
-    message: "Invalid quantity",
-  });
+  if (cartQuantity < MIN_QUANTITY) {
+    return next({
+      status: 400,
+      message: `The quantity needs to be greater than or equal to: ${MIN_QUANTITY}`,
+    });
+  }
+  if (cartQuantity === 0) {
+    return next({
+      status: 400,
+      message: `The quantity cannot be 0`,
+    });
+  }
+  return next();
 }
 
 function sendCartPayload(req, res, next) {
