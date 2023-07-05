@@ -96,7 +96,9 @@ const Orders = () => {
                   })
                 ) : (
                   <p className="p-3 border-t">
-                    {error ? "Error finding food" : "No orders have been found"}
+                    {error
+                      ? "Error finding food"
+                      : "No orders have been found for today."}
                   </p>
                 )}
               </ul>
