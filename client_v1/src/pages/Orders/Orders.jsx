@@ -10,6 +10,7 @@ import Order from "../../api/Order";
 import dayjs from "dayjs";
 import ButtonClear from "../../components/Button/ButtonClear/ButtonClear";
 import { formatCost } from "../../utils/formatCost";
+const FLORIDA_TAX = parseFloat(import.meta.env.VITE_FLORIDA_TAX);
 
 const Orders = () => {
   const [error, setError] = useState(null);
@@ -38,7 +39,7 @@ const Orders = () => {
   console.log(orders);
 
   return (
-    <main className="bg-gray-100 grow py-6">
+    <main className="bg-gray-100 grow py-3 md:py-6">
       <ContainerSmall>
         <ErrorAlert error={error} className="mb-3" />
         <div className="flex flex-col gap-5">
@@ -69,6 +70,7 @@ const Orders = () => {
                 {orders.length > 0 ? (
                   orders.map((order) => {
                     const day = dayjs(order.createdAt);
+                    const tax = order.cart.total * FLORIDA_TAX;
                     return (
                       <li key={order._id}>
                         <div className="p-3 border-t flex flex-col gap-3 relative">
@@ -76,7 +78,7 @@ const Orders = () => {
                             <h4 className="font-semibold">
                               {day.format("dddd, MMM DD")}
                             </h4>
-                            <p>${formatCost(order.cart.total)}</p>
+                            <p>${formatCost(order.cart.total + tax)}</p>
                           </div>
                           {order.isComplete ? (
                             <p className="text-green-700">Completed</p>
