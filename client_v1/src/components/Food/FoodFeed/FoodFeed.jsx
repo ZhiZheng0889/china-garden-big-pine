@@ -68,7 +68,7 @@ const FoodFeed = ({ error, setError, search }) => {
   }, [category, search]);
 
   return (
-    <div>
+    <div role="feed">
       <InfiniteScroll
         dataLength={foods.length ?? 0}
         next={loadMoreFood}
