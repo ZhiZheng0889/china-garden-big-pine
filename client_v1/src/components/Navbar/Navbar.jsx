@@ -22,7 +22,7 @@ const Navbar = () => {
           <ButtonBurger setIsMenuOpen={setIsMenuOpen} />
           <Link
             to="/"
-            className="hover:text-amber-200 duration-200 ease-out focus:outline outline-2 outline-offset-2 outline-white"
+            className="hover:text-amber-200 duration-200 ease-out focus:outline outline-2 outline-offset-2 rounded outline-white"
           >
             <h1 className="font-semibold text-xl">China Garden</h1>
           </Link>

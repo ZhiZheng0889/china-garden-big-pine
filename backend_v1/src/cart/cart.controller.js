@@ -41,7 +41,7 @@ async function getCartAndReturnError(req, res, next) {
   if (!cart_id) {
     return next({
       satus: 400,
-      message: "A cart id is required",
+      message: "A cart is required",
     });
   }
   const foundCart = await service.getCartById(cart_id);

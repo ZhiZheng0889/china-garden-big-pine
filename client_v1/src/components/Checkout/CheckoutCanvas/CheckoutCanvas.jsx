@@ -21,7 +21,7 @@ const CheckoutCanvas = ({ isCheckoutOpen, setIsCheckoutOpen }) => {
           focusTrapOptions={{ initialFocus: "#navbar-checkout-header" }}
         >
           <div
-            className={`xl:hidden fixed navbar-canvas border-r bg-white w-11/12 sm:w-3/5 md:w-7/12 lg:w-5/12 text-black right-0 top-0 bottom-0 overflow-y-auto duration-200 ease-out`}
+            className={`xl:hidden fixed navbar-canvas border-l bg-white w-11/12 sm:w-3/5 md:w-7/12 lg:w-5/12 text-black right-0 top-0 bottom-0 overflow-y-auto duration-200 ease-out`}
           >
             <header className="flex justify-between items-center border-b p-3">
               <Link to="/" onClick={closeModal} id="navbar-checkout-header">

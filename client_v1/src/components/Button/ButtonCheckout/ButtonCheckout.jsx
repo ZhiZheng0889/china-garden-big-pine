@@ -8,13 +8,13 @@ const ButtonCheckout = ({ className = "", onClick }) => {
 
   return (
     <ButtonWhite
-      className={`xl:hidden rounded-full text-black${
+      className={`outline-white xl:hidden rounded-full text-black${
         className && " " + className
       }`}
       padding="py-1"
       onClick={onClick}
     >
-      <i class="fa-solid fa-cart-shopping"></i>{" "}
+      <i className="fa-solid fa-cart-shopping"></i>{" "}
       {CartReducer.getCartTotalQuantity(cart)}
     </ButtonWhite>
   );

@@ -29,7 +29,7 @@ const FoodSearch = ({ search, setSearch }) => {
         inputClassName="py-3 pl-4 pr-[2.7rem]"
       >
         <button
-          className="w-10 h-10 absolute right-[2%] top-1/2 -translate-y-1/2 hover:bg-gray-50 duration-200 ease-out  focus:outline outline-2 outline-offset-2 outline-red-600"
+          className="w-10 h-10 absolute right-[2%] top-1/2 -translate-y-1/2 rounded hover:bg-gray-50 duration-200 ease-out  focus:outline outline-2 outline-offset-2 outline-red-600"
           type="submit"
         >
           <i className="fa-solid fa-magnifying-glass fa-lg"></i>
