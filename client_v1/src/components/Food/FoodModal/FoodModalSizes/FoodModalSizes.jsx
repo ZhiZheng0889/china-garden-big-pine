@@ -1,5 +1,5 @@
 import React from "react";
-import { formatCost } from "../../../../../../client/src/utils/formatCost";
+import { formatCost } from "../../../../utils/formatCost";
 
 const FoodModalSizes = ({ sizes, selectedSize, setSelectedSize }) => {
   return (
