@@ -9,7 +9,7 @@ const NavbarNotSignedIn = ({ className = "", childClassName = "" }) => {
       <ul className={`${className && className + " "}flex gap-3 items-center`}>
         <li>
           <Link
-            to="/home-route"
+            to="https://bigpinekeychinagarden.netlify.app"
             className={`${
               childClassName && childClassName + " "
             }p-2 hover:text-amber-200 duration-200 ease-out  focus:outline outline-2 outline-offset-2 outline-white`}

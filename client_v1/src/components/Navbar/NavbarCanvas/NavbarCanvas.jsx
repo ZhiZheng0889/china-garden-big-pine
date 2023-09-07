@@ -49,7 +49,7 @@ const NavbarCanvas = ({ isMenuOpen, setIsMenuOpen }) => {
               <ul className="flex flex-col gap-0 items-start w-full border-b">
                 <li className="w-full">
                   <Link
-                    to="/home-route"
+                    to="https://bigpinekeychinagarden.netlify.app"
                     className="py-3 px-5 block hover:text-red-700 hover:underline hover:bg-gray-50 duration-200 ease-out"
                     onClick={() => setIsMenuOpen(false)}
                   >
