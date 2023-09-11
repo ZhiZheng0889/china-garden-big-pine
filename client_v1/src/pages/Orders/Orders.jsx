@@ -25,7 +25,6 @@ const Orders = () => {
       setError(null);
       setOrders([]);
       const response = await Order.getByPhone(phoneNumber);
-      console.log("RES: ", response);
       if (response.data) {
         setOrders(response.data);
       }
@@ -35,8 +34,6 @@ const Orders = () => {
       setIsLoading(false);
     }
   };
-
-  console.log(orders);
 
   return (
     <main className="bg-gray-100 grow py-3 md:py-6">

@@ -5,7 +5,6 @@ const OrderList = ({ order }) => {
   if (!order || !order?.cart.items.length) {
     return <p className="p-3">No cart items...</p>;
   }
-  console.log(order);
   return (
     <>
       <ul>

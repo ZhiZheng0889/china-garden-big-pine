@@ -18,7 +18,6 @@ const Order = ({ order_id }) => {
         setOrder(null);
         if (order_id) {
           const response = await OrderApi.get(order_id);
-          console.log(response);
           if (response.data) {
             setOrder(response.data);
           }
