@@ -7,7 +7,6 @@ import ButtonPrimary from "../../Button/ButtonPrimary/ButtonPrimary";
 
 const FLORIDA_TAX = parseFloat(import.meta.env.VITE_FLORIDA_TAX);
 const CheckoutFooter = ({ total, isButtonHiding, closeModal = () => {} }) => {
-  console.log("TOTAL: ", total);
   const tax = total * FLORIDA_TAX;
   const [storeHours, setStoreHours] = useState(null);
   let storeIsOpen = null;
