@@ -14,7 +14,6 @@ function isTimeBetween(startTime, endTime, currentTime) {
 }
 
 export const isOpen = (hours) => {
-  console.log("========================>", hours);
   const currentTime = dayjs(
     new Date().toLocaleString("en-US", {
       timeZone: "America/New_York",
