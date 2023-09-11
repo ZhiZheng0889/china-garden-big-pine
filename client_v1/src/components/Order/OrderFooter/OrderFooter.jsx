@@ -3,7 +3,6 @@ const FLORIDA_TAX = parseFloat(import.meta.env.VITE_FLORIDA_TAX);
 import { formatCost } from "../../../utils/formatCost";
 import dayjs from "dayjs";
 const OrderFooter = ({ order }) => {
-  console.log("ORDER: ", order);
   const tax = order?.cart.total * FLORIDA_TAX;
   const day = dayjs(order?.createdAt);
   return (

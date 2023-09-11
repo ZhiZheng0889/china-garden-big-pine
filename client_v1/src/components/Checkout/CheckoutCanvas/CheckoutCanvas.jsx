@@ -6,7 +6,6 @@ import Checkout from "../Checkout";
 import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 const CheckoutCanvas = ({ isCheckoutOpen, setIsCheckoutOpen }) => {
   const closeModal = () => {
-    console.log("CLOSING");
     setIsCheckoutOpen(false);
   };
   useDisableBodyScroll(isCheckoutOpen);

@@ -10,7 +10,6 @@ import { useRoutePath } from "../../../hooks/useRoutePath";
 
 const NavbarCanvas = ({ isMenuOpen, setIsMenuOpen }) => {
   const closeModal = () => {
-    console.log("CLOSING");
     setIsMenuOpen(false);
   };
   useDisableBodyScroll(isMenuOpen);

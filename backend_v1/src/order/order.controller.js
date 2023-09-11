@@ -91,6 +91,17 @@ async function createOrder(req, res, next) {
   }
 }
 
+function isCartEmpty(req, res, next) {
+  const { cart } = res.locals;
+  if (!cart || cart.items.length === 0) {
+    return next({
+      status: 400,
+      message: "Cart cannot be empty.",
+    });
+  }
+  return next();
+}
+
 function hasValidPhoneNumber(req, res, next) {
   const { phoneNumber } = req.body;
   if (!phoneNumber) {
@@ -201,6 +212,7 @@ module.exports = {
   getOrder: [asyncErrorBoundary(getOrderAndReturnError), getOrder],
   createOrder: [
     asyncErrorBoundary(getCartAndReturnError),
+    isCartEmpty,
     hasValidPhoneNumber,
     hasValidName,
     hasValidComment,

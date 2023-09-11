@@ -49,7 +49,6 @@ const Checkout = () => {
         cart_id: cart._id,
       };
       const response = await Order.create(formattedOrder);
-      console.log(response);
       if (response.data) {
         navigate(`/receipt/${response.data._id}`);
         dispatch(removeCart());

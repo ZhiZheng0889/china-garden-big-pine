@@ -3,7 +3,6 @@ import { formatCost } from "../../../../utils/formatCost";
 import CartReducer from "../../../../utils/CartReducer";
 
 const OrderListItem = ({ item }) => {
-  console.log("ITEM: ", item);
   return (
     <div className="p-0 border-b flex justify-between">
       <div className="p-3">
