@@ -8,7 +8,7 @@ const NavbarSignedIn = () => {
     <ul className="flex gap-3 items-center hidden md:block">
       <li>
         <Link
-          to="/home-route"
+          to="https://bigpinekeychinagarden.netlify.app"
           className="p-2 hover:text-amber-200 duration-200 ease-out"
         >
           Home
